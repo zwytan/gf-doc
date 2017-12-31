@@ -1,1 +1,1 @@
-gf框架提供了非常强大的HTTPServer支持，封装在ghttp包中。
+gf框架提供了非常强大的HTTPServer支持，由ghttp包支持。
