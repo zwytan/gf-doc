@@ -1,4 +1,4 @@
-创建并运行一个Web Server：
+创建并运行一个文件管理的Web Server：
 
     package main
 
@@ -12,7 +12,7 @@
         s.Run()
     }
 
-使用ghttp的GetServer()方法可以创建一个Web Server，该方法采用单例模式设计，也就是说，多次调用该方法，返回的是同一个Web Server对象。
+使用ghttp的GetServer()方法可以创建一个Web Server，
 
 创建了Web Server对象之后，我们可以使用对应的各种Set方法来设置Web Server的属性。
 1. SetPort 用来设置Web Server的监听端口（默认为80）；
