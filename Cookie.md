@@ -11,8 +11,6 @@
     
 任何时候都可以通过 *ghttp.ClientRequest 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ClientRequest的成员变量，并对外公开。
 
-
-
 示例(gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go)：
 ```go
 package demo
