@@ -19,7 +19,6 @@ func main() {
 2. SetIndexFolder 用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
 3. SetServerRoot 用来设置Web Server的主目录（默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
-### 多服务支持
 
 
 ### 多域名支持
