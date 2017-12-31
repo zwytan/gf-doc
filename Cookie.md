@@ -43,3 +43,4 @@ type Controller struct {
     View     *View                 // 视图对象
 }
 ```
+这个基类控制器我复制-粘贴两次了，后面我就不再粘贴了哈 ^_^。
