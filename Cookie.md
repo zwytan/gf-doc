@@ -9,6 +9,8 @@
     func (c *Cookie) SetCookie(key, value, domain, path string, maxage int)
     func (c *Cookie) SetSessionId(sessionid string)
     
+任何时候都可以通过 *ghttp.ClientRequest 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ClientRequest的成员变量，并对外公开。
+
 示例(gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go)：
 ```go
 package demo
@@ -29,8 +31,6 @@ func Cookie(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
 }
 ```
 
-任何时候都可以通过 *ghttp.ClientRequest 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ClientRequest的成员变量，并对外公开。
-
 对于控制器对象而言，从基类控制器中集成了很多会话相关的对象队长，也可以直接使用，他们都是指向的同一个对象：
 ```go
 // 控制器基类
@@ -43,4 +43,5 @@ type Controller struct {
     View     *View                 // 视图对象
 }
 ```
+
 这个基类控制器我复制-粘贴两次了，后面我就不再粘贴了哈 ^_^。
