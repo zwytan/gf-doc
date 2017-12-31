@@ -21,6 +21,7 @@ func main() {
 3. SetServerRoot 用来设置Web Server的主目录；
 
 以下是Web Server的公开方法：
+
     func (s *Server) BindController(pattern string, c Controller) error
     func (s *Server) BindControllerMethod(pattern string, c Controller, method string) error
     func (s *Server) BindControllerRest(pattern string, c Controller) error
@@ -45,6 +46,7 @@ func main() {
     func (s *Server) SetServerRoot(root string) error
     func (s *Server) SetTLSConfig(tls *tls.Config) error
     func (s *Server) SetWriteTimeout(t time.Duration) error
+    
 ### 多服务支持
 
 
