@@ -2,7 +2,7 @@ REST控制器即是采用RESTful设计方式的控制器，通常用于API服务
 
 这种方式注册的控制器，运行模式和“控制器注册”模式相同。我们可以通过**ghttp.BindControllerRest**方法完成RESTful控制器的注册。
 
-示例(gitee.com/johng/gf/geg/frame/mvc/controller/demo/rest.go)：
+示例(gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/rest.go)：
 ```go
 package demo
 

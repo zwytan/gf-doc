@@ -2,7 +2,7 @@
 
 我们可以通过**ghttp.BindObjectRest**方法完成REST对象的注册。
 
-示例(gitee.com/johng/gf/geg/frame/mvc/controller/demo/object_rest.go)：
+示例(gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object_rest.go)：
 
 ```go
 package demo
