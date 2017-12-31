@@ -19,3 +19,5 @@ func (o *ObjectRest) Get(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.Serve
     w.WriteString("It's show time bibi!")
 }
 ```
+
+通过 http://127.0.0.1:8199/object-rest 查看效果。
