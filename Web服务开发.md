@@ -1,4 +1,4 @@
-在所有的开始之前，我们来一个Hello World：
+老规矩，我们先来一个Hello World：
 
     package main
 
