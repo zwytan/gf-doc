@@ -14,11 +14,12 @@
     func (s *Session) Set(k string, v interface{})
     func (s *Session) UpdateExpire()
 
-任何时候都可以通过 *ghttp.ClientRequest 获取Session对象，因为Cookie和Session都是和请求会话相关，因此都属于ClientRequest的成员变量，并对外公开。
+任何时候都可以通过 *ghttp.Request 获取Session对象，因为Cookie和Session都是和请求会话相关，因此都属于Request的成员对象，并对外公开。
 
 gf框架的Session是存放在内存中的，因此效率非常高，默认过期时间是600秒。
 
-示例(gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go)：
+来一个例子：
+gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
 ```go
 package demo
 
@@ -31,10 +32,9 @@ func init() {
     ghttp.GetServer().BindHandler("/session", Session)
 }
 
-// 用于函数映射
-func Session(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
+func Session(r *ghttp.Request) {
     id := r.Session.GetInt("id")
     r.Session.Set("id", id + 1)
-    w.WriteString("id:" + strconv.Itoa(id))
+    r.Response.WriteString("id:" + strconv.Itoa(id))
 }
 ```
