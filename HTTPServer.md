@@ -2,7 +2,7 @@ gf框架提供了非常强大的HTTPServer支持，由ghttp包支持。
 
 [TOC]
 
-### Hello World
+# Hello World
 老规矩，我们先来一个Hello World：
 gitee.com/johng/gf/geg/net/ghttp/hello.go
 ```go
@@ -25,7 +25,7 @@ func init() {
 关于其中的服务注册，我们将会在后续章节中介绍，先不着急，我们继续来看看怎么创建一个支持静态文件的Web Server。
 
 
-### Static Web Server
+# Static Web Server
 创建并运行一个支持静态文件的Web Server：
 gitee.com/johng/gf/geg/net/ghttp/server1.go
 ```go
@@ -46,7 +46,7 @@ func main() {
 
 Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。
 
-### 多服务器支持
+# 多服务器支持
 ghttp支持多Web Server运行，下面我们来看一个例子：
 ```go
 package main
@@ -77,7 +77,7 @@ func main() {
 
 如果需要获取同一个Web Server，那么传入同一个名称即可。例如在多个goroutine中，或者不同的模块中，都可以通过ghttp.GetServer获取到同一个Web Server对象。
 
-### 多域名支持
+# 多域名支持
 
 **同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
