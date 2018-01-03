@@ -69,7 +69,7 @@ func main() {
     select{}
 }
 ```
-如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用go关键字进行异步执行监听，并且通过 select{} 语句保持主进程存活。
+如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用goroutine进行异步执行监听，并且通过 select{} 语句保持主进程存活。
 
 此外，可以看到我们在支持多个Web Server的语句中，给ghttp.GetServer传递了不同的参数，该参数为Web Server的名称，之前我们提到ghttp的GetServer方法采用了单例设计模式，该参数用于标识不同的Web Server，因此需要保证唯一性。
 
@@ -80,26 +80,26 @@ func main() {
 **同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
 我们来看一个简单的例子：
+```go
+package main
 
-    package main
+import "gitee.com/johng/gf/g/net/ghttp"
 
-    import "gitee.com/johng/gf/g/net/ghttp"
+func Hello1(r *ghttp.Request) {
+    r.Response.WriteString("Hello World1!")
+}
 
-    func Hello1(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
-        w.WriteString("Hello World1!")
-    }
+func Hello2(r *ghttp.Request) {
+    r.Response.WriteString("Hello World2!")
+}
 
-    func Hello2(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
-        w.WriteString("Hello World2!")
-    }
-
-    func main() {
-        s := ghttp.GetServer()
-        s.Domain("127.0.0.1").BindHandler("/", Hello1)
-        s.Domain("localhost").BindHandler("/", Hello2)
-        s.Run()
-    }
-
+func main() {
+    s := ghttp.GetServer()
+    s.Domain("127.0.0.1").BindHandler("/", Hello1)
+    s.Domain("localhost").BindHandler("/", Hello2)
+    s.Run()
+}
+```
 我们访问 http://127.0.0.1/ 和 http://localhost/ 可以看输出不同的内容。
 
 此外，Domain方法支持多个域名参数，使用英文“,”号分隔，例如：
