@@ -11,7 +11,8 @@
     
 任何时候都可以通过 *ghttp.Request 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ClientRequest的成员对象，并对外公开。
 
-示例(gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go)：
+来一个例子：
+gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go
 ```go
 package demo
 
@@ -24,12 +25,14 @@ func init() {
     ghttp.GetServer().BindHandler("/cookie", Cookie)
 }
 
-func Cookie(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
+func Cookie(r *ghttp.Request) {
     datetime := r.Cookie.Get("datetime")
     r.Cookie.Set("datetime", gtime.Datetime())
-    w.WriteString("datetime:" + datetime)
+    r.Response.WriteString("datetime:" + datetime)
 }
 ```
+执行外层的main.go，可以尝试刷新页面 http://127.0.0.1:8199/cookie ，显示的时间在一直变化。
+
 
 对于控制器对象而言，从基类控制器中集成了很多会话相关的对象队长，也可以直接使用，他们都是指向的同一个对象：
 ```go
