@@ -34,17 +34,16 @@ func Cookie(r *ghttp.Request) {
 执行外层的main.go，可以尝试刷新页面 http://127.0.0.1:8199/cookie ，显示的时间在一直变化。
 
 
-对于控制器对象而言，从基类控制器中集成了很多会话相关的对象队长，也可以直接使用，他们都是指向的同一个对象：
+对于控制器对象而言，从基类控制器中继承了很多会话相关的对象指针，也可以直接使用，他们都是指向的同一个对象：
 ```go
-// 控制器基类
 type Controller struct {
-    Server   *ghttp.Server         // Web Server对象
-    Request  *ghttp.ClientRequest  // 请求数据对象
-    Response *ghttp.ServerResponse // 返回数据对象
-    Cookie   *ghttp.Cookie         // COOKIE操作对象
-    Session  *ghttp.Session        // SESSION操作对象
-    View     *View                 // 视图对象
+    Request  *ghttp.Request  // 请求数据对象
+    Response *ghttp.Response // 返回数据对象(r.Response)
+    Server   *ghttp.Server   // Web Server对象(r.Server)
+    Cookie   *ghttp.Cookie   // COOKIE操作对象
+    Session  *ghttp.Session  // SESSION操作对象
+    View     *View           // 视图对象
 }
 ```
 
-这个基类控制器我复制-粘贴两次了，后面我就不再粘贴了哈 ^_^。
+这个基类控制器我复制-粘贴两次了，后面我就不再粘贴了哦 ^_^。
