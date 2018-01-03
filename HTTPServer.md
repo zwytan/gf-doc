@@ -1,1 +1,111 @@
 gf框架提供了非常强大的HTTPServer支持，由ghttp包支持。
+
+### Hello World
+老规矩，我们先来一个Hello World：
+gitee.com/johng/gf/geg/net/ghttp/hello.go
+```go
+package main
+
+import "gitee.com/johng/gf/g/net/ghttp"
+
+func init() {
+    ghttp.GetServer().BindHandler("/", func(r *ghttp.Request) {
+        r.Response.WriteString("Hello World!")
+    })
+}
+```
+这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问 http://127.0.0.1/ 的时候，它会返回“Hello World!”。
+
+任何时候，您都可以通过 ghttp.GetServer()方法获得一个默认的Web Server对象，该方法采用单例模式设计，也就是说，多次调用该方法，返回的是同一个Web Server对象。
+
+通过Run()方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听80端口。
+
+关于其中的服务注册，我们将会在后续章节中介绍，先不着急，我们继续来看看怎么创建一个支持静态文件的Web Server。
+
+
+### Static Web Server
+创建并运行一个支持静态文件的Web Server：
+gitee.com/johng/gf/geg/net/ghttp/server1.go
+```go
+package main
+
+import "gitee.com/johng/gf/g/net/ghttp"
+
+func main() {
+    s := ghttp.GetServer()
+    s.SetIndexFolder(true)
+    s.SetServerRoot("/home/www/")
+    s.Run()
+}
+```
+创建了Web Server对象之后，我们可以使用Set*方法来设置Web Server的属性。
+1. SetIndexFolder 用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
+1. SetServerRoot 用来设置Web Server的主目录（默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
+
+Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。
+
+### 多服务器支持
+ghttp支持多Web Server运行，下面我们来看一个例子：
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+func main() {
+    s1 := ghttp.GetServer("s1")
+    s1.SetAddr(":8080")
+    s1.SetIndexFolder(true)
+    s1.SetServerRoot("/home/www/static1")
+    go s1.Run()
+
+    s2 := ghttp.GetServer("s2")
+    s2.SetAddr(":8081")
+    s2.SetIndexFolder(true)
+    s2.SetServerRoot("/home/www/static2")
+    go s2.Run()
+
+    select{}
+}
+```
+如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用go关键字进行异步执行监听，并且通过 select{} 语句保持主进程存活。
+
+此外，可以看到我们在支持多个Web Server的语句中，给ghttp.GetServer传递了不同的参数，该参数为Web Server的名称，之前我们提到ghttp的GetServer方法采用了单例设计模式，该参数用于标识不同的Web Server，因此需要保证唯一性。
+
+如果需要获取同一个Web Server，那么传入同一个名称即可。例如在多个goroutine中，或者不同的模块中，都可以通过ghttp.GetServer获取到同一个Web Server对象。
+
+### 多域名支持
+
+**同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
+
+我们来看一个简单的例子：
+
+    package main
+
+    import "gitee.com/johng/gf/g/net/ghttp"
+
+    func Hello1(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
+        w.WriteString("Hello World1!")
+    }
+
+    func Hello2(s *ghttp.Server, r *ghttp.ClientRequest, w *ghttp.ServerResponse) {
+        w.WriteString("Hello World2!")
+    }
+
+    func main() {
+        s := ghttp.GetServer()
+        s.Domain("127.0.0.1").BindHandler("/", Hello1)
+        s.Domain("localhost").BindHandler("/", Hello2)
+        s.Run()
+    }
+
+我们访问 http://127.0.0.1/ 和 http://localhost/ 可以看输出不同的内容。
+
+此外，Domain方法支持多个域名参数，使用英文“,”号分隔，例如：
+
+	s.Domain("localhost1,localhost2,localhost3").BindHandler("/", Hello2)
+    
+这个语句的作用表示将Hello2方法注册到指定的3个域名中，对其他域名不可见。
+
+需要注意的是，Domain方法的参数必须是准确的域名，不支持泛域名，例如：*.johng.cn或者.johng.cn是不支持的，api.johng.cn或者johng.cn才被认为是正确的域名参数。
