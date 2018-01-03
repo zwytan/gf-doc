@@ -16,7 +16,7 @@
 
 任何时候都可以通过 *ghttp.Request 获取Session对象，因为Cookie和Session都是和请求会话相关，因此都属于Request的成员对象，并对外公开。
 
-gf框架的Session是存放在内存中的，因此效率非常高，默认过期时间是600秒。
+gf框架的Session是存放在内存中的，因此处理效率非常高，默认过期时间是600秒。
 
 来一个例子：
 gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
