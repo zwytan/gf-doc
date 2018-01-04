@@ -1,5 +1,3 @@
-***gf框架的Cookie、Session及模板引擎变量是并发安全的，不支持以map的形式直接读取/操作数据***
-
 我们先来看看Cookie对象有哪些方法：
 
     func (c *Cookie) Close()

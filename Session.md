@@ -1,5 +1,3 @@
-***gf框架的Cookie、Session及模板引擎变量是并发安全的，不支持以map的形式直接读取/操作数据***
-
 与Session相关的方法：
 
     func (s *Session) BatchSet(m map[string]interface{})
@@ -17,6 +15,8 @@
     func (s *Session) UpdateExpire()
 
 任何时候都可以通过 *ghttp.Request 获取Session对象，因为Cookie和Session都是和请求会话相关，因此都属于Request的成员对象，并对外公开。gf框架的Session是存放在内存中的，因此处理效率非常高，默认过期时间是600秒。
+
+此外，需要说明的是，Session的操作是支持并发安全的，这也是框架在对Session的设计上不采用直接以map的形式操作数据的原因。
 
 来一个例子：
 gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
