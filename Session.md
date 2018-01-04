@@ -1,3 +1,5 @@
+***gf框架的Cookie、Session及模板引擎变量是并发安全的，不支持以map的形式直接读取/操作数据***
+
 与Session相关的方法：
 
     func (s *Session) BatchSet(m map[string]interface{})
