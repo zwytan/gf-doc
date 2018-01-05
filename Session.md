@@ -2,7 +2,8 @@
 [TOC]
 
 
-# 方法列表
+>[danger] # 方法列表
+
 与Session相关的方法：
 
     func (s *Session) BatchSet(m map[string]interface{})
@@ -24,7 +25,8 @@
 此外，需要说明的是，Session的操作是支持并发安全的，这也是框架在对Session的设计上不采用直接以map的形式操作数据的原因。
 
 
-# 使用示例
+>[danger] # 使用示例
+
 gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
 ```go
 package demo

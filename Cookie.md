@@ -2,7 +2,8 @@
 [TOC]
 
 
-# 方法列表
+>[danger] # 方法列表
+
 我们先来看看Cookie对象有哪些方法：
 
     func (c *Cookie) Close()
@@ -16,7 +17,8 @@
     
 任何时候都可以通过 *ghttp.Request 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ghttp.Request的成员对象，并对外公开。
 
-# 使用示例
+>[danger] # 使用示例
+
 gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go
 ```go
 package demo
