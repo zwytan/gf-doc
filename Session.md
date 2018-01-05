@@ -25,8 +25,6 @@
 
 
 # 使用示例
-
-来一个例子：
 gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
 ```go
 package demo
