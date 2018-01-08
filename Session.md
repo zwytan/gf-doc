@@ -5,22 +5,22 @@
 >[danger] # 方法列表
 
 与Session相关的方法：
-
-    func (s *Session) BatchSet(m map[string]interface{})
-    func (s *Session) Data() map[string]interface{}
-    func (s *Session) Get(k string) interface{}
-    func (s *Session) GetBool(k string) bool
-    func (s *Session) GetFloat32(k string) float32
-    func (s *Session) GetFloat64(k string) float64
-    func (s *Session) GetInt(k string) int
-    func (s *Session) GetString(k string) string
-    func (s *Session) GetUint(k string) uint
-    func (s *Session) Id() string
-    func (s *Session) Remove(k string)
-    func (s *Session) Set(k string, v interface{})
-    func (s *Session) UpdateExpire()
-
-任何时候都可以通过 *ghttp.Request 获取Session对象，因为Cookie和Session都是和请求会话相关，因此都属于Request的成员对象，并对外公开。gf框架的Session是存放在内存中的，因此处理效率非常高，默认过期时间是600秒。
+```go
+func (s *Session) BatchSet(m map[string]interface{})
+func (s *Session) Data() map[string]interface{}
+func (s *Session) Get(k string) interface{}
+func (s *Session) GetBool(k string) bool
+func (s *Session) GetFloat32(k string) float32
+func (s *Session) GetFloat64(k string) float64
+func (s *Session) GetInt(k string) int
+func (s *Session) GetString(k string) string
+func (s *Session) GetUint(k string) uint
+func (s *Session) Id() string
+func (s *Session) Remove(k string)
+func (s *Session) Set(k string, v interface{})
+func (s *Session) UpdateExpire()
+```
+任何时候都可以通过 \*ghttp.Request 获取Session对象，因为Cookie和Session都是和请求会话相关，因此都属于Request的成员对象，并对外公开。gf框架的Session是存放在内存中的，因此处理效率非常高，默认过期时间是600秒。
 
 此外，需要说明的是，Session的操作是支持并发安全的，这也是框架在对Session的设计上不采用直接以map的形式操作数据的原因。
 
