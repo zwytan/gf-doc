@@ -15,7 +15,7 @@
     func (c *Cookie) SetCookie(key, value, domain, path string, maxage int)
     func (c *Cookie) SetSessionId(sessionid string)
     
-任何时候都可以通过 *ghttp.Request 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ghttp.Request的成员对象，并对外公开。
+任何时候都可以通过 \*ghttp.Request 获取Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ghttp.Request的成员对象，并对外公开。
 
 >[danger] # 使用示例
 
@@ -41,7 +41,7 @@ func Cookie(r *ghttp.Request) {
 执行外层的main.go，可以尝试刷新页面 http://127.0.0.1:8199/cookie ，显示的时间在一直变化。
 
 
-对于控制器对象而言，从基类控制器中继承了很多会话相关的对象指针，也可以直接使用，他们都是指向的同一个对象：
+对于控制器对象而言，从基类控制器中继承了很多会话相关的对象指针，可以看做alias，可以直接使用，他们都是指向的同一个对象：
 ```go
 type Controller struct {
     Request  *ghttp.Request  // 请求数据对象
