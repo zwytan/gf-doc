@@ -1,5 +1,5 @@
 
-UDPServer通过gtcp包提供支持，以下是方法列表：
+UDPServer通过gudp包提供支持，以下是方法列表：
 ```go
 func GetServer(names ...string) *Server
 func NewServer(address string, handler func(*net.UDPConn), names ...string) *Server
