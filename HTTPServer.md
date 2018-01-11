@@ -1,4 +1,4 @@
-gf框架提供了非常强大的Web Server支持，由ghttp包支持。
+gf框架提供了非常强大的Web Server模块，由ghttp包支持。
 
 [TOC]
 
@@ -23,7 +23,7 @@ func init() {
 
 通过Run()方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听80端口。
 
-关于其中的服务注册，我们将会在后续章节中介绍，先不着急，我们继续来看看怎么创建一个支持静态文件的Web Server。
+关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看怎么创建一个支持静态文件的Web Server。
 
 
 >[danger] # Static Web Server
