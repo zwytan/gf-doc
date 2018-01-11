@@ -89,7 +89,7 @@ No code you say JB！
     
 1. **发送DELETE请求，并打印出返回值**
     ```go
-    if r, e := ghttp.Delete("http://127.0.0.1:8199/user", "uid=10000"); e != nil {
+    if r, e := ghttp.Delete("http://127.0.0.1:8199/user", "10000"); e != nil {
         fmt.Println(e)
     } else {
         fmt.Println(string(r.ReadAll()))
