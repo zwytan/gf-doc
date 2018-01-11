@@ -75,7 +75,7 @@ func main() {
     select{}
 }
 ```
-如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用goroutine进行异步执行监听，并且通过 select{} 语句保持主进程存活。
+如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用goroutine进行异步执行监听，并且通过 select{} 语句(当然您也可以采用其他方式)保持主进程存活。
 
 此外，可以看到我们在支持多个Web Server的语句中，给ghttp.GetServer传递了不同的参数，该参数为Web Server的名称，之前我们提到ghttp的GetServer方法采用了单例设计模式，该参数用于标识不同的Web Server，因此需要保证唯一性。
 
@@ -113,6 +113,6 @@ func main() {
 
 	s.Domain("localhost1,localhost2,localhost3").BindHandler("/", Hello2)
     
-这个语句的作用表示将Hello2方法注册到指定的3个域名中，对其他域名不可见。
+这条语句的表示将Hello2方法注册到指定的3个域名中(localhost1~3)，对其他域名不可见。
 
-需要注意的是，Domain方法的参数必须是准确的域名，不支持泛域名，例如：*.johng.cn或者.johng.cn是不支持的，api.johng.cn或者johng.cn才被认为是正确的域名参数。
+需要注意的是：Domain方法的参数必须是准确的域名，**不支持泛域名形式**，例如：*.johng.cn或者.johng.cn是不支持的，api.johng.cn或者johng.cn才被认为是正确的域名参数。
