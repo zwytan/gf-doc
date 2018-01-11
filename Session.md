@@ -47,3 +47,6 @@ func Session(r *ghttp.Request) {
 }
 ```
 启动main.go，访问 http://127.0.0.1:8199/session ，刷新几次页面，可以看到页面输出的id值在不断递增。
+
+
+由于对于Web开发者来讲，Session都已经是非常熟悉的组件了，相关API也非常简单，这里便不再赘述。

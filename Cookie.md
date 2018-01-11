@@ -55,3 +55,5 @@ type Controller struct {
     View     *View           // 视图对象
 }
 ```
+
+由于对于Web开发者来讲，Cookie都已经是非常熟悉的组件了，相关API也非常简单，这里便不再赘述。
