@@ -47,9 +47,7 @@ func job() {
 func main() {
     grpool.SetSize(10)
     for i := 0; i < 1000; i++ {
-        grpool.Add(func() {
-            job()
-        })
+        grpool.Add(job)
     }
     gtime.SetInterval(2*time.Second, func() bool {
         fmt.Println("size:", grpool.Size())
