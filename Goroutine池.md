@@ -59,12 +59,119 @@ func main() {
 ```
 这段代码中的任务函数的功能是sleep 1秒钟，这样便能充分展示出goroutine数量限制功能。其中，我们使用了gtime.SetInterval定时器每隔2秒钟打印出当前默认池中的工作goroutine数量以及待处理的任务数量。
 
+2、我们再来看一个新手经常容易出错的例子
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
+```go
+package main
 
+import (
+    "fmt"
+    "sync"
+    "gitee.com/johng/gf/g/os/grpool"
+)
 
+func main() {
+    wg := sync.WaitGroup{}
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        grpool.Add(func() {
+            fmt.Println(i)
+            wg.Done()
+        })
+    }
+    wg.Wait()
+}
+```
+我们这段代码的目的是要顺序地打印出0-9，然而运行后却输出：
+```
+10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+```
+为什么呢？这里的任务执行无论是采用go关键字来执行还是grpool来执行都是如此。原因是，对于异步线程/协程来讲，函数在注册为异步执行时并未真正开始执行，而一旦开始执行时才会去读取变量i的值，而这个时候变量i的值已经自增到了10。清楚原因之后，改进方案也很简单了，就是在注册异步函数的时候，把当时变量i的值也一并传递获取；或者把当前变量i的值赋值给一个不会改变的临时变量，在函数中使用该新变量而不是变量i。如下：
+1)、使用go关键字
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go
+```go
+package main
 
+import (
+    "fmt"
+    "sync"
+)
 
+func main() {
+    wg := sync.WaitGroup{}
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        go func(v int){
+            fmt.Println(v)
+            wg.Done()
+        }(i)
+    }
+    wg.Wait()
+}
+```
+执行后，输出结果为：
+```
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+```
+注意，异步执行时并不会保证按照函数注册时的顺序执行，以下同理。
+2)、使用临时变量
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go
+```go
+package main
 
+import (
+    "fmt"
+    "sync"
+    "gitee.com/johng/gf/g/os/grpool"
+)
 
+func main() {
+    wg := sync.WaitGroup{}
+    for i := 0; i < 10; i++ {
+        wg.Add(1)
+        v := i
+        grpool.Add(func() {
+            fmt.Println(v)
+            wg.Done()
+        })
+    }
+    wg.Wait()
+}
+
+```
+执行后，输出结果为：
+```
+9
+0
+1
+2
+3
+4
+5
+6
+7
+8
+```
+
+这里可以看到，使用grpool进行任务注册时，只能使用func()类型的参数，因此无法在任务注册时把变量i的值注册进去，因此只能采用临时变量的形式来传递当前变量i的值。
     
     
     
