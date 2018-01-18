@@ -6,7 +6,7 @@ Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是
 性能测试报告：http://johng.cn/grpool-performance/
 
 >[success] ## 方法列表
->
+
 ```go
 func Add(f func())
 func Jobs() int
