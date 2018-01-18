@@ -8,7 +8,9 @@ func (s *Server) SetHandler(handler func(net.Conn))
 ```
 
 我们通过实现一个简单的echo服务器来演示TCPServer的使用：
-gitee.com/johng/gf/blob/master/geg/net/tcp_server.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/tcp_server.go
+
 ```go
 package main
 

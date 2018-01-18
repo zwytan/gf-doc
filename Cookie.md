@@ -22,7 +22,8 @@ func (c *Cookie) SetSessionId(sessionid string)
 
 >[danger] # 使用示例
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go
+https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go
+
 ```go
 package demo
 

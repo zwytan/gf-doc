@@ -9,7 +9,9 @@ func (s *Server) SetHandler(handler func(*net.UDPConn))
 ```
 
 来一个简单的示例：
-gitee.com/johng/gf/blob/master/geg/net/udp_server.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/udp_server.go
+
 ```go
 package main
 

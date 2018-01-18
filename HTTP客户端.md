@@ -23,6 +23,7 @@ func (c *Client) Trace(url, data string) (*ClientResponse, error)
 我们可以使用ghttp.NewClient创建一个HTTP客户端对象，随后可以使用该对象执行请求。ghttp.Client对象中封装了一系列基于HTTP Method来命名的方法，调用这些方法将会发起对应的HTTP Method请求。常用的方法当然是Get和Post方法，此外DoRequest是核心的请求方法，用户可以调用该方法实现自定义的HTTP Method发送请求。
 
 可以看到Client对象并没有Close方法，**因为它根本不需要Close**！！因此ghttp包也提供了独立的包函数来实现HTTP请求，函数列表如下：
+
 ```go
 func Connect(url, data string) (*ClientResponse, error)
 func Delete(url, data string) (*ClientResponse, error)
@@ -102,7 +103,9 @@ No code you say JB！
 >[danger] # 文件上传
     
 gf的HTTP客户端封装并简化了文件上传功能，废话不多说，直接上例子：
-gitee.com/johng/gf/blob/master/geg/net/ghttp/upload_client.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/ghttp/upload_client.go
+
 ```go
 package main
 

@@ -5,7 +5,9 @@ gf框架提供了非常强大的Web Server模块，由ghttp包支持。
 >[danger] # Hello World
 
 老规矩，我们先来一个Hello World：
-gitee.com/johng/gf/blob/master/geg/net/ghttp/hello.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/ghttp/hello.go
+
 ```go
 package main
 
@@ -29,7 +31,9 @@ func init() {
 >[danger] # Static Web Server
 
 创建并运行一个支持静态文件的Web Server：
-gitee.com/johng/gf/blob/master/geg/net/ghttp/server1.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server1.go
+
 ```go
 package main
 
@@ -51,7 +55,9 @@ Web Server默认情况下是没有任何主目录的设置，只有设置了主�
 >[danger] # 多服务器支持
 
 ghttp支持多Web Server运行，下面我们来看一个例子：
-gitee.com/johng/gf/blob/master/geg/net/ghttp/server2.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server2.go
+
 ```go
 package main
 
@@ -86,7 +92,9 @@ func main() {
 **同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
 我们来看一个简单的例子：
-gitee.com/johng/gf/blob/master/geg/net/ghttp/domain.go
+
+https://gitee.com/johng/gf/blob/master/geg/net/ghttp/domain.go
+
 ```go
 package main
 

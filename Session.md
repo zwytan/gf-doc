@@ -27,7 +27,8 @@ func (s *Session) UpdateExpire()
 
 >[danger] # 使用示例
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
+https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
+
 ```go
 package demo
 

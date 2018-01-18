@@ -6,6 +6,7 @@ Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是
 性能测试报告：http://johng.cn/grpool-performance/
 
 >[success] ## 方法列表
+>
 ```go
 func Add(f func())
 func Jobs() int
@@ -29,7 +30,9 @@ type Pool
 >[success] ## 使用示例
 
 1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务。
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go
+
+https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go
+
 ```go
 package main
 
@@ -60,7 +63,9 @@ func main() {
 这段程序中的任务函数的功能是sleep 1秒钟，这样便能充分展示出goroutine数量限制功能。其中，我们使用了gtime.SetInterval定时器每隔2秒钟打印出当前默认池中的工作goroutine数量以及待处理的任务数量。
 
 2、我们再来看一个新手经常容易出错的例子
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
+
+https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
+
 ```go
 package main
 
@@ -97,9 +102,13 @@ func main() {
 ```
 为什么呢？这里的执行结果无论是采用go关键字来执行还是grpool来执行都是如此。原因是，对于异步线程/协程来讲，函数进行进行异步执行注册时，该函数并未真正开始执行(注册时只在goroutine的栈中保存了变量i的内存地址)，而一旦开始执行时函数才会去读取变量i的值，而这个时候变量i的值已经自增到了10。
 清楚原因之后，改进方案也很简单了，就是在注册异步执行函数的时候，把当时变量i的值也一并传递获取；或者把当前变量i的值赋值给一个不会改变的临时变量，在函数中使用该临时变量而不是直接使用变量i。
+
 改进后的示例代码如下：
+
 1)、使用go关键字
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go
+
+https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go
+
 ```go
 package main
 
@@ -136,7 +145,9 @@ func main() {
 注意，异步执行时并不会保证按照函数注册时的顺序执行，以下同理。
 
 2)、使用临时变量
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go
+
+https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go
+
 ```go
 package main
 
