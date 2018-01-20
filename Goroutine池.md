@@ -23,7 +23,9 @@ type Pool
     func (p *Pool) Size() int
 ```
 
-通过grpool.New方法创建一个goroutine池，并给定池中goroutine的有效时间，单位为**秒**，第二个参数为非必需参数，用于限定池中的工作goroutine数量，默认为不限制。需要注意的是，任务可以不停地往池中添加，没有限制，但是工作的goroutine是可以做限制的。我们可以通过Size()方法查询当前的工作goroutine数量，使用Jobs()方法查询当前池中待处理的任务数量。同时，池的大小和goroutine有效期可以通过SetSize和SetExpire方法在运行时进行动态改变。
+通过grpool.New方法创建一个goroutine池，并给定池中goroutine的有效时间，单位为**秒**，第二个参数为非必需参数，用于限定池中的工作goroutine数量，默认为不限制。需要注意的是，任务可以不停地往池中添加，没有限制，但是工作的goroutine是可以做限制的。我们可以通过Size()方法查询当前的工作goroutine数量，使用Jobs()方法查询当前池中待处理的任务数量。
+
+同时，池的大小和goroutine有效期可以通过SetSize和SetExpire方法在运行时进行动态改变。这一点特性使得协程池的管理更加灵活，但是也增加了一定的维护风险，因为你无法得知池的属性在哪个地方被执行了修改。
 
 同时，为便于使用，grpool包提供了默认的goroutine池，直接通过grpool.Add即可往默认的池中添加任务，任务参数必须是一个 **func()** 类型的函数/方法。
 
