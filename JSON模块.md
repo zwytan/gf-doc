@@ -67,7 +67,7 @@ import "gitee.com/johng/gf/g/encoding/gjson"
 
     可以看到，gjson.Json对象可以通过非常灵活的层级筛选功能(```j.GetFloat32("users.list.1.score")```)检索到对应的变量信息。这是gjson包的一大特色。
     
-2. **处理键名本身带有"."号的情况**
+2. **处理键名本身带有层级符号"."的情况**
 
     ```go
     data :=
@@ -84,9 +84,9 @@ import "gitee.com/johng/gf/g/encoding/gjson"
         fmt.Println("Users Count:", j.GetInt("users.count"))
     }
     ```
-    运行之后打印出的结果为```101```。当键名存在"."号时，检索优先级：键名->层级，因此不会引起歧义。
+    运行之后打印出的结果为```101```。当键名存在"."号时，检索优先级：键名->层级，因此并不会引起歧义。
     
-1. **支持数据运行时修改**
+1. **支持运行时的数据修改**
 
     ```go
     data :=
