@@ -13,6 +13,7 @@
     * [数据校验](数据校验.md)
     * [模板引擎](模板引擎.md)
     * [数据库ORM](数据库操作.md)
+    * [数据库ORM高级用法](数据库ORM高级用法.md)
 * [网络服务开发](网络服务开发.md)
     * [TCPServer](TCPServer.md)
     * [UDPServer](UDPServer.md)
