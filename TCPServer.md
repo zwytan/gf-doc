@@ -7,6 +7,8 @@ func (s *Server) SetAddress(address string)
 func (s *Server) SetHandler(handler func(net.Conn))
 ```
 
+其中```GetServer```使用单例模式通过给定一个唯一的名称获取/创建一个Server，后续可通过```SetAddress```和```SetHandler```方法动态修改Server属性；```NewServer```则直接根据给定参数创建一个Server对象。
+
 我们通过实现一个简单的echo服务器来演示TCPServer的使用：
 
 https://gitee.com/johng/gf/blob/master/geg/net/tcp_server.go
