@@ -1,4 +1,4 @@
-gf框架提供了非常强大的Web Server模块，由ghttp包支持。
+gf框架提供了非常强大的Web Server模块，由ghttp包支持，API文档地址：[godoc](https://gitee.com/johng/gf)。
 
 [TOC]
 
