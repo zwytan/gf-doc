@@ -33,7 +33,7 @@ type Pool
 
 1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务。
 
-https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go
 
 ```go
 package main
@@ -66,7 +66,7 @@ func main() {
 
 2、我们再来看一个新手经常容易出错的例子
 
-https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
 
 ```go
 package main
@@ -109,7 +109,7 @@ func main() {
 
 1)、使用go关键字
 
-https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go
 
 ```go
 package main
@@ -148,7 +148,7 @@ func main() {
 
 2)、使用临时变量
 
-https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go
+gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go
 
 ```go
 package main

@@ -104,7 +104,7 @@ No code you say JB！
     
 gf的HTTP客户端封装并简化了文件上传功能，废话不多说，直接上例子：
 
-https://gitee.com/johng/gf/blob/master/geg/net/ghttp/upload_client.go
+gitee.com/johng/gf/blob/master/geg/net/ghttp/upload_client.go
 
 ```go
 package main
