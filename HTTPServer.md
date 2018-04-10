@@ -2,13 +2,13 @@
 
 [TOC]
 
-gf框架提供了非常强大的Web Server模块，由ghttp包支持，API文档地址：[godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
+gf框架提供了非常强大的Web Server模块，由ghttp包支持，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
 >[danger] # Hello World
 
 老规矩，我们先来一个Hello World：
 
-https://gitee.com/johng/gf/blob/master/geg/net/ghttp/hello.go
+gitee.com/johng/gf/blob/master/geg/net/ghttp/hello.go
 
 ```go
 package main
@@ -27,14 +27,14 @@ func init() {
 
 通过Run()方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听80端口。
 
-关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看怎么创建一个支持静态文件的Web Server。
+关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
 
 
 >[danger] # Static Web Server
 
 创建并运行一个支持静态文件的Web Server：
 
-https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server1.go
+gitee.com/johng/gf/blob/master/geg/net/ghttp/server1.go
 
 ```go
 package main
@@ -52,13 +52,13 @@ func main() {
 1. SetIndexFolder 用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
 1. SetServerRoot 用来设置Web Server的主目录（默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
-Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。
+Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考API文档： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
 >[danger] # 多服务器支持
 
 ghttp支持多Web Server运行，下面我们来看一个例子：
 
-https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server2.go
+gitee.com/johng/gf/blob/master/geg/net/ghttp/server2.go
 
 ```go
 package main
@@ -95,7 +95,7 @@ func main() {
 
 我们来看一个简单的例子：
 
-https://gitee.com/johng/gf/blob/master/geg/net/ghttp/domain.go
+gitee.com/johng/gf/blob/master/geg/net/ghttp/domain.go
 
 ```go
 package main
