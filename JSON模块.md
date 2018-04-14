@@ -9,7 +9,7 @@ type Json
     func DecodeToJson(b []byte) (*Json, error)
     func Load(path string) (*Json, error)
     func LoadContent(data []byte, t string) (*Json, error)
-    func NewJson(v *interface{}) *Json
+    func New(v *interface{}) *Json
     func (j *Json) Get(pattern string) interface{}
     func (j *Json) GetArray(pattern string) []interface{}
     func (j *Json) GetBool(pattern string) bool
