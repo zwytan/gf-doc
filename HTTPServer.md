@@ -4,7 +4,7 @@
 
 gf框架提供了非常强大的Web Server模块，由ghttp包支持，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
->[danger] # Hello World
+>[danger] # 哈喽世界！
 
 老规矩，我们先来一个Hello World：
 
@@ -15,13 +15,15 @@ package main
 
 import "gitee.com/johng/gf/g/net/ghttp"
 
-func init() {
-    ghttp.GetServer().BindHandler("/", func(r *ghttp.Request) {
-        r.Response.Write("Hello World!")
+func main() {
+    s := ghttp.GetServer()
+    s.BindHandler("/", func(r *ghttp.Request){
+        r.Response.Write("哈喽世界！")
     })
+    s.Run()
 }
 ```
-这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问 http://127.0.0.1/ 的时候，它会返回“Hello World!”。
+这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问 http://127.0.0.1/ 的时候，它会返回“哈喽世界！”。
 
 任何时候，您都可以通过 ghttp.GetServer()方法获得一个默认的Web Server对象，该方法采用单例模式设计，也就是说，多次调用该方法，返回的是同一个Web Server对象。
 
@@ -30,7 +32,7 @@ func init() {
 关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
 
 
->[danger] # Static Web Server
+>[danger] # Web Server
 
 创建并运行一个支持静态文件的Web Server：
 
@@ -89,7 +91,7 @@ func main() {
 
 如果需要获取同一个Web Server，那么传入同一个名称即可。例如在多个goroutine中，或者不同的模块中，都可以通过ghttp.GetServer获取到同一个Web Server对象。
 
->[danger] # 多域名支持
+>[danger] # 域名&多域名支持
 
 **同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
