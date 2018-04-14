@@ -17,7 +17,7 @@ import "gitee.com/johng/gf/g/net/ghttp"
 
 func init() {
     ghttp.GetServer().BindHandler("/", func(r *ghttp.Request) {
-        r.Response.WriteString("Hello World!")
+        r.Response.Write("Hello World!")
     })
 }
 ```
@@ -103,11 +103,11 @@ package main
 import "gitee.com/johng/gf/g/net/ghttp"
 
 func Hello1(r *ghttp.Request) {
-    r.Response.WriteString("Hello World1!")
+    r.Response.Write("Hello World1!")
 }
 
 func Hello2(r *ghttp.Request) {
-    r.Response.WriteString("Hello World2!")
+    r.Response.Write("Hello World2!")
 }
 
 func main() {

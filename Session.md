@@ -50,7 +50,7 @@ func init() {
 func Session(r *ghttp.Request) {
     id := r.Session.GetInt("id")
     r.Session.Set("id", id + 1)
-    r.Response.WriteString("id:" + strconv.Itoa(id))
+    r.Response.Write("id:" + strconv.Itoa(id))
 }
 ```
 启动main.go，访问 http://127.0.0.1:8199/session ，刷新几次页面，可以看到页面输出的id值在不断递增。

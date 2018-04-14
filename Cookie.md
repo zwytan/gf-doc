@@ -44,7 +44,7 @@ func init() {
 func Cookie(r *ghttp.Request) {
     datetime := r.Cookie.Get("datetime")
     r.Cookie.Set("datetime", gtime.Datetime())
-    r.Response.WriteString("datetime:" + datetime)
+    r.Response.Write("datetime:" + datetime)
 }
 ```
 执行外层的main.go，可以尝试刷新页面 http://127.0.0.1:8199/cookie ，显示的时间在一直变化。
