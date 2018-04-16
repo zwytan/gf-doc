@@ -51,7 +51,6 @@ func (r *ClientResponse) ReadAll() []byte
 
 >[danger] # 使用示例
 
-No code you say JB！
 我们来看几个HTTP客户端请求的例子：
 
 1. **发送GET请求，并打印出返回值**
