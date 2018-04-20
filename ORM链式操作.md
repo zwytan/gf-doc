@@ -3,11 +3,11 @@
 
 >[danger] # 数据库操作
 
-gdb数据库链式操作的方法比较多，具体详见[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)，以下仅对一些常用的方法进行介绍。
+ORM链式操作使用方式更灵活简单，是官方推荐的数据库操作方式。
 
 >[success] ## 链式操作
 
-数据表操作推荐尽量使用链式操作实现。gdb提供简便灵活的链式操作接口，通过数据库对象的db.Table/db.From方法或者事务对象的tx.Table/tx.From方法基于指定的数据表返回一个链式操作对象```*Model```，该对象可以执行以下方法（具体方法说明请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)）。
+数据表操作推荐尽量使用链式操作实现。gdb提供简便灵活的链式操作接口，通过数据库对象的```db.Table```/```db.From```方法或者事务对象的```tx.Table```/```tx.From```方法基于指定的数据表返回一个链式操作对象```*Model```，该对象可以执行以下方法（具体方法说明请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)）。
 
 ```go
 LeftJoin(joinTable string, on string) (*Model)

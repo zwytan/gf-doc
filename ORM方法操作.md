@@ -3,7 +3,7 @@
 
 >[danger] # 数据库操作
 
-gdb数据库方法操作的方法比较多，具体详见[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)，以下仅对一些常用的方法进行介绍。
+ORM方法操作的方法比较多，具体详见[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)。
 
 >[success] ## 方法操作
 
@@ -45,10 +45,10 @@ From(tables string) (*Model)
 Close() error
 ```
 
-需要说明一下Insert/Replace/Save三者的区别（BatchInsert/BatchReplace/BatchSave同理）：
-1. **Insert**：使用insert into语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
-2. **Replace**：使用replace into语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，删除原有记录，按照给定数据新写入一条新记录，否则写入一条新数据；
-2. **Save**：使用insert into语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
+需要说明一下```Insert/Replace/Save```三者的区别（```BatchInsert/BatchReplace/BatchSave```同理）：
+1. **Insert**：使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
+2. **Replace**：使用```replace into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，删除原有记录，按照给定数据新写入一条新记录，否则写入一条新数据；
+2. **Save**：使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
 
 >[success] ## 操作示例
 1. **获取ORM单例对象**
