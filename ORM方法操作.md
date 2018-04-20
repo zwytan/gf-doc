@@ -3,7 +3,7 @@
 
 >[danger] # 数据库操作
 
-ORM方法操作的方法比较多，具体详见[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)。
+ORM方法操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太复杂的SQL操作，可以交给方法操作来处理。
 
 >[success] ## 方法操作
 
