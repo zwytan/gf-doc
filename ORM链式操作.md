@@ -7,37 +7,39 @@ gdb数据库链式操作的方法比较多，具体详见[API文档](https://god
 
 >[success] ## 链式操作
 
-数据表操作推荐尽量使用链式操作实现。gdb提供简便灵活的链式操作接口，通过数据库对象的db.Table/db.From方法或者事务对象的tx.Table/tx.From方法基于指定的数据表返回一个链式操作对象DbOp，该对象可以执行以下方法（具体方法说明请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)）。
+数据表操作推荐尽量使用链式操作实现。gdb提供简便灵活的链式操作接口，通过数据库对象的db.Table/db.From方法或者事务对象的tx.Table/tx.From方法基于指定的数据表返回一个链式操作对象```*Model```，该对象可以执行以下方法（具体方法说明请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)）。
 
 ```go
-func LeftJoin(joinTable string, on string) (*DbOp)
-func RightJoin(joinTable string, on string) (*DbOp)
-func InnerJoin(joinTable string, on string) (*DbOp)
+LeftJoin(joinTable string, on string) (*Model)
+RightJoin(joinTable string, on string) (*Model)
+InnerJoin(joinTable string, on string) (*Model)
 
-func Fields(fields string) (*DbOp)
-func Limit(start int, limit int) (*DbOp)
-func Data(data interface{}) (*DbOp)
-func Batch(batch int) *DbOp
+Fields(fields string) (*Model)
+Limit(start int, limit int) (*Model)
+Data(data...interface{}) (*Model)
+Batch(batch int) *Model
 
-func Where(where string, args...interface{}) (*DbOp)
-func GroupBy(groupby string) (*DbOp)
-func OrderBy(orderby string) (*DbOp)
+Where(where string, args...interface{}) (*Model)
+And(where interface{}, args ...interface{}) *Model
+Or(where interface{}, args ...interface{}) *Model
 
-func Insert() (sql.Result, error)
-func Replace() (sql.Result, error)
-func Save() (sql.Result, error)
-func Update() (sql.Result, error)
-func Delete() (sql.Result, error)
+GroupBy(groupby string) (*Model)
+OrderBy(orderby string) (*Model)
 
+Insert() (sql.Result, error)
+Replace() (sql.Result, error)
+Save() (sql.Result, error)
+Update() (sql.Result, error)
+Delete() (sql.Result, error)
 
-func Select() (List, error)
-func All() (List, error)
-func One() (Map, error)
-func Value() (interface{}, error)
+Select() (List, error)
+All() (List, error)
+One() (Map, error)
+Value() (interface{}, error)
 ```
 
 
->[success] ## 链式操作示例
+>[success] ## 操作示例
 
 1. **链式查询**
     ```go

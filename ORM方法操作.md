@@ -18,6 +18,7 @@ Prepare(query string) (*sql.Stmt, error)
 GetAll(query string, args ...interface{}) (List, error)
 GetOne(query string, args ...interface{}) (Map, error)
 GetValue(query string, args ...interface{}) (interface{}, error)
+Select(tables, fields string, condition interface{}, groupBy, orderBy string, first, limit int, args ...interface{}) (List, error)
 
 // 开启事务操作
 Begin() (*Tx, error)
@@ -37,8 +38,8 @@ Update(table string, data interface{}, condition interface{}, args ...interface{
 Delete(table string, condition interface{}, args ...interface{}) (sql.Result, error)
 
 // 创建链式操作对象(Table为From的别名)
-Table(tables string) (*DbOp)
-From(tables string) (*DbOp)
+Table(tables string) (*Model)
+From(tables string) (*Model)
     
 // 关闭数据库
 Close() error
@@ -49,7 +50,7 @@ Close() error
 2. **Replace**：使用replace into语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，删除原有记录，按照给定数据新写入一条新记录，否则写入一条新数据；
 2. **Save**：使用insert into语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
 
->[success] ## 方法操作示例
+>[success] ## 操作示例
 1. **获取ORM单例对象**
     ```go
     // 获取默认配置的数据库对象(配置名称为"default")
@@ -68,6 +69,7 @@ Close() error
 3. **数据查询(列表)**
     ```go
     list, err := db.GetAll("select * from user limit 2")
+    list, err := db.Select("user", "*", nil, "", "", 0, 2)
     ```
 
 4. **数据查询(单条)**
