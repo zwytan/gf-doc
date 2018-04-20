@@ -31,6 +31,7 @@
         * [ORM方法操作](ORM方法操作.md)
         * [ORM链式操作](ORM链式操作.md)
         * [ORM事务操作](ORM事务操作.md)
+    * [Redis客户端](Redis客户端.md)
 * [网络服务开发](网络服务开发.md)
     * [TCPServer](TCPServer.md)
     * [UDPServer](UDPServer.md)
