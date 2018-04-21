@@ -3,7 +3,7 @@
 
 >[danger] # 数据库操作
 
-ORM方法操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太复杂的SQL操作，可以交给方法操作来处理。
+ORM方法操作相对链式操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太复杂的SQL操作，可以交给方法操作来处理。
 
 >[success] ## 方法操作
 
@@ -45,13 +45,8 @@ From(tables string) (*Model)
 Close() error
 ```
 
-需要说明一下```Insert/Replace/Save```三者的区别（```BatchInsert/BatchReplace/BatchSave```同理）：
-1. **Insert**：使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
-2. **Replace**：使用```replace into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，删除原有记录，按照给定数据新写入一条新记录，否则写入一条新数据；
-2. **Save**：使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
-
 >[success] ## 操作示例
-1. **获取ORM单例对象**
+5. **获取ORM单例对象**
     ```go
     // 获取默认配置的数据库对象(配置名称为"default")
     db, err := gdb.Instance()
