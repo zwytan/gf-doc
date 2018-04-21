@@ -47,7 +47,7 @@ v1
 v2
 ```
 
->[danger] # gins.Redis
+>[danger] # 单例对象
 
 当然，像Redis这么常用的服务，gins包也是做了当做框架核心对象做了单例封装的，因此，redis的也可以通过配置文件进行管理，在```config.yml```中的配置示例如下：
 ```yml
