@@ -19,9 +19,9 @@ func (c *Cookie) SetSessionId(sessionid string)
 func (s *Server) GetCookieMaxAge() int
 func (s *Server) SetCookieMaxAge(maxage int)
 ```
-任何时候都可以通过 \*ghttp.Request 对象获取到当前请求对应的Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ghttp.Request的成员对象，并对外公开。
+任何时候都可以通过```*ghttp.Request```对象获取到当前请求对应的Cookie对象，因为Cookie和Session都是和请求会话相关，因此都属于ghttp.Request的成员对象，并对外公开。
 
-此外，Cookie中封装了两个SessionId相关的方法，Cookie.SessionId()用于获取当前请求的SessionId，每个请求的SessionId都是唯一的，并且伴随整个请求流程。Cookie.SetSessionId(session string)用于自定义设置当前的SessionId，可以实现自定义的Session控制，以及Session跨域支持(特别是多服务器集群环境下)。
+此外，Cookie中封装了两个SessionId相关的方法，```Cookie.SessionId()```用于获取当前请求的SessionId，每个请求的SessionId都是唯一的，并且伴随整个请求流程。```Cookie.SetSessionId(session string)```用于自定义设置当前的SessionId，可以实现自定义的Session控制，以及Session跨域支持(特别是多服务器集群环境下)。
 
 在任何时候，我们都可以通过ghttp.Server对象来修改和获取Cookie的过期时间。
 
