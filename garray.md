@@ -1,8 +1,15 @@
 >[danger] # garray
 
-并发安全数组（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/garray)）.
+并发安全数组。
 
-普通并发安全数组：
+使用方式：
+```go
+import "gitee.com/johng/gf/g/container/garray"
+```
+
+方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/garray)）：
+
+普通并发安全数组。
 ```go
 type Array
     func NewArray(size int, cap ...int) *Array

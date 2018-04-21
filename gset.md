@@ -1,6 +1,13 @@
 >[danger] # gset
 
-并发安全Set，方法列表如下（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gset)）：
+并发安全Set。
+
+使用方式：
+```go
+import "gitee.com/johng/gf/g/container/gset"
+```
+
+方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gset)）：
 ```go
 type IntSet
     func NewIntSet() *IntSet

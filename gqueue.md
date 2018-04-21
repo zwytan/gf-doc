@@ -1,6 +1,12 @@
 >[danger] # gqueue
 
-动态大小的并发安全队列（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gqueue)）.
+动态大小的并发安全队列。
+使用方式：
+```go
+import "gitee.com/johng/gf/g/container/gqueue"
+```
+
+方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gqueue)）：
 ```go
 type IntQueue
     func NewIntQueue() *IntQueue
@@ -23,6 +29,8 @@ type UintQueue
     func (q *UintQueue) Push(v uint)
     func (q *UintQueue) Size() int
 ```
+
+
 gqueue与原生channel的性能测试：
 ```
 john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gqueue$ go test *.go -bench=".*"

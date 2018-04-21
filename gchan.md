@@ -1,6 +1,13 @@
 >[danger] # gchan
 
-优雅的Channel操作（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gchan)）.
+优雅的Channel操作。
+
+使用方式：
+```go
+import "gitee.com/johng/gf/g/container/gchan"
+```
+
+方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gchan)）：
 
 ```go
 type Chan
@@ -10,6 +17,8 @@ type Chan
     func (q *Chan) Push(v interface{}) error
     func (q *Chan) Size() int
 ```
+
+
 原生的channel操作在channel关闭后再向channel发送数据或者多次关闭channel会引发panic，gchan包使得channel的操作变得更加优雅，当然，这一部分优雅是需要牺牲一部分的操作性能来实现的。
 
 gchan与原生channel的性能测试：

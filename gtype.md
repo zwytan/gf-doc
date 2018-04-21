@@ -1,6 +1,13 @@
 >[danger] # gtype
 
-使用较频繁的并发安全的基本类型（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gtype)）。
+并发安全的基本类型。
+
+使用方式：
+```go
+import "gitee.com/johng/gf/g/container/gtype"
+```
+
+方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gtype)）：
 
 ```go
 type Bool

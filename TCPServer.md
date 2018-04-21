@@ -1,7 +1,14 @@
-TCPServer通过gtcp包提供支持，以下是方法列表：
+TCPServer通过gtcp包提供支持。
+
+使用方式：
 ```go
-func GetServer(names ...string) *Server
-func NewServer(address string, handler func(net.Conn), names ...string) *Server
+import "gitee.com/johng/gf/g/net/gtcp"
+```
+
+方法列表：
+```go
+func GetServer(name ...string) *Server
+func NewServer(address string, handler func(net.Conn), name ...string) *Server
 func (s *Server) Run() error
 func (s *Server) SetAddress(address string)
 func (s *Server) SetHandler(handler func(net.Conn))

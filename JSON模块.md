@@ -1,6 +1,13 @@
 >[danger] # gjson
 
-常用方法列表如下：
+强大的JSON编码/解析模块。
+
+使用方式：
+```go
+import "gitee.com/johng/gf/g/encoding/gjson"
+```
+
+方法列表：
 ```go
 func Decode(b []byte) (interface{}, error)
 func DecodeTo(b []byte, v interface{}) error
@@ -68,7 +75,6 @@ import "gitee.com/johng/gf/g/encoding/gjson"
     可以看到，gjson.Json对象可以通过非常灵活的层级筛选功能(```j.GetFloat32("users.list.1.score")```)检索到对应的变量信息。这是gjson包的一大特色。
     
 2. **处理键名本身带有层级符号"."的情况**
-
     ```go
     data :=
         `{
@@ -87,7 +93,6 @@ import "gitee.com/johng/gf/g/encoding/gjson"
     运行之后打印出的结果为```101```。当键名存在"."号时，检索优先级：键名->层级，因此并不会引起歧义。
     
 1. **支持运行时的数据修改**
-
     ```go
     data :=
         `{
@@ -111,7 +116,6 @@ import "gitee.com/johng/gf/g/encoding/gjson"
 
     
 3. **JSON转换为其他数据格式**
-
     ```go
     data :=
         `{

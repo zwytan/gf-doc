@@ -5,6 +5,11 @@ Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是
 
 性能测试报告：http://johng.cn/grpool-performance/
 
+使用方式：
+```go
+import "gitee.com/johng/gf/g/os/grpool"
+```
+
 >[success] ## 方法列表
 
 ```go

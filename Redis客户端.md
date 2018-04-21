@@ -1,6 +1,13 @@
 >[danger] # gredis
 
-Redis客户端由```gredis包```支持，相关方法如下：
+Redis客户端由```gredis包```支持。
+
+使用方式：
+```go
+import "gitee.com/johng/gf/g/database/gredis"
+```
+
+方法列表：
 ```go
 func New(address string, db ...interface{}) *Redis
 func (r *Redis) Close() error

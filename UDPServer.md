@@ -1,8 +1,14 @@
+UDPServer通过gudp包提供支持。
 
-UDPServer通过gudp包提供支持，以下是方法列表：
+使用方式：
 ```go
-func GetServer(names ...string) *Server
-func NewServer(address string, handler func(*net.UDPConn), names ...string) *Server
+import "gitee.com/johng/gf/g/net/gudp"
+```
+
+方法列表：
+```go
+func GetServer(name ...string) *Server
+func NewServer(address string, handler func(*net.UDPConn), name ...string) *Server
 func (s *Server) Run() error
 func (s *Server) SetAddress(address string)
 func (s *Server) SetHandler(handler func(*net.UDPConn))
