@@ -17,6 +17,9 @@ func (r *Redis) Stats() *PoolStats
 ```
 gredis使用了连接池来进行Redis对象管理，通过```Set*```方法可以对连接池的属性进行管理，通过```Stats```方法可以获取连接池的统计信息。我们最长用的方法是```Do```和```Send```方法，分别是同步和异步指令，通过向Redis Server发送对应的Redis API命令，来使用Redis Server的服务。
 
+Redis中文手册请参考：http://redisdoc.com/ 
+Redis官方命令请参考：https://redis.io/commands
+
 以下是一个简单的使用gredis的示例：
 ```go
 package main
