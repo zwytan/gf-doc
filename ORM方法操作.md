@@ -46,7 +46,9 @@ Close() error
 ```
 
 >[success] ## 操作示例
-5. **获取ORM单例对象**
+
+
+1. **单例对象**
     ```go
     // 获取默认配置的数据库对象(配置名称为"default")
     db, err := gdb.Instance()

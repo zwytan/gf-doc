@@ -45,7 +45,13 @@ Value() (interface{}, error)
 
 >[success] ## 操作示例
 
-
+1. **ORM单例对象**
+    ```go
+    // 获取默认配置的数据库对象(配置名称为"default")
+    db, err := gdb.Instance()
+    // 获取配置分组名称为"user-center"的数据库对象
+    db, err := gdb.Instance("user-center")
+    ```
 1. **单表/联表查询**
     ```go
     // 查询多条记录并使用Limit分页
