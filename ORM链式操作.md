@@ -38,10 +38,13 @@ One() (Map, error)
 Value() (interface{}, error)
 ```
 
-```Insert/Replace/Save```三者的区别：
-1. **Insert**：使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
-2. **Replace**：使用```replace into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，删除原有记录，按照给定数据新写入一条新记录，否则写入一条新数据；
-2. **Save**：使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
+```Insert/Replace/Save```三个方法的区别：
+1. **Insert**
+	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
+3. **Replace**
+	使用```replace into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，会删除原有的记录，必定会写入一条新记录；
+5. **Save**
+	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
 
 >[success] ## 操作示例
 
