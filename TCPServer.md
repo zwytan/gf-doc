@@ -1,4 +1,4 @@
-TCPServer通过gtcp包提供支持。
+TCPServer通过gtcp包实现。
 
 使用方式：
 ```go

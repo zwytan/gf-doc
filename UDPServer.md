@@ -1,4 +1,4 @@
-UDPServer通过gudp包提供支持。
+UDPServer通过gudp包实现。
 
 使用方式：
 ```go

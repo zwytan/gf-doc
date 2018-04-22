@@ -1,6 +1,6 @@
 >[danger] # gredis
 
-Redis客户端由```gredis包```支持。
+Redis客户端由```gredis包```实现。
 
 使用方式：
 ```go
