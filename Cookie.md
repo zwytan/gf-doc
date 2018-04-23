@@ -63,3 +63,18 @@ type Controller struct {
 ```
 
 由于对于Web开发者来讲，Cookie都已经是非常熟悉的组件了，相关API也非常简单，这里便不再赘述。
+
+>[danger] # cookie、session与localhost
+
+大多数开发语言，或者开发框架，使用```session id```作为HTTP客户端的唯一访问标识，该id一般都是存放在cookie中，伴随这用户浏览器的访问流程同时传递给服务端。
+
+在本地开发过程中，开发者往往使用```localhost```作为网站域名，但是该域名会对开发者造成一些混淆，主要是对于session和cookie的影响。
+
+在容易发现的问题之中，```localhost```域名有时会影响到session无法保存，其实该问题归根到底是sessionid无法在浏览器客户端保存的问题，也就是cookie无法保存。因为localhost不是一个有效的域名，有效域名至少要包含两个"."符号。不同的浏览器针对于localhost的处理方式不太一样，有的浏览器支持（如Chromium/Firefox），有的不支持（如Chrome/IE），不支持的现象就是虽然服务端返回了cookie，但是浏览器不认可，不做保存。下一次浏览器请求的时候就不会提交该cookie信息，这样cookie便设置失败了。
+
+解决方案是建议开发者不使用localhost这种特殊的地址，改用IP地址或者自定义的本地域名（需要手动修改```hosts```文件），如 ```127.0.0.1```、```www.local.com```、```www.local.test```等等。
+
+
+
+
+
