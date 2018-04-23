@@ -10,32 +10,32 @@ ORM链式操作使用方式简单灵活，是官方推荐的数据库操作方�
 链式操作可以通过数据库对象的```db.Table```/```db.From```方法或者事务对象的```tx.Table```/```tx.From```方法，基于指定的数据表返回一个链式操作对象```*Model```，该对象可以执行以下方法（具体方法说明请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)）。
 
 ```go
-LeftJoin(joinTable string, on string) *Model
-RightJoin(joinTable string, on string) *Model
-InnerJoin(joinTable string, on string) *Model
+func (md *Model) LeftJoin(joinTable string, on string) *Model
+func (md *Model) RightJoin(joinTable string, on string) *Model
+func (md *Model) InnerJoin(joinTable string, on string) *Model
 
-Fields(fields string) *Model
-Limit(start int, limit int) *Model
-Data(data...interface{}) *Model
-Batch(batch int) *Model
+func (md *Model) Fields(fields string) *Model
+func (md *Model) Limit(start int, limit int) *Model
+func (md *Model) Data(data...interface{}) *Model
+func (md *Model) Batch(batch int) *Model
 
-Where(where string, args...interface{}) *Model
-And(where interface{}, args ...interface{}) *Model
-Or(where interface{}, args ...interface{}) *Model
+func (md *Model) Where(where string, args...interface{}) *Model
+func (md *Model) And(where interface{}, args ...interface{}) *Model
+func (md *Model) Or(where interface{}, args ...interface{}) *Model
 
-GroupBy(groupby string) *Model
-OrderBy(orderby string) *Model
+func (md *Model) GroupBy(groupby string) *Model
+func (md *Model) OrderBy(orderby string) *Model
 
-Insert() (sql.Result, error)
-Replace() (sql.Result, error)
-Save() (sql.Result, error)
-Update() (sql.Result, error)
-Delete() (sql.Result, error)
+func (md *Model) Insert() (sql.Result, error)
+func (md *Model) Replace() (sql.Result, error)
+func (md *Model) Save() (sql.Result, error)
+func (md *Model) Update() (sql.Result, error)
+func (md *Model) Delete() (sql.Result, error)
 
-Select() (List, error)
-All() (List, error)
-One() (Map, error)
-Value() (interface{}, error)
+func (md *Model) Select() (List, error)
+func (md *Model) All() (List, error)
+func (md *Model) One() (Map, error)
+func (md *Model) Value() (interface{}, error)
 ```
 
 ```Insert/Replace/Save```三个方法的区别：
