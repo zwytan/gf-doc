@@ -2,7 +2,7 @@
 
 [TOC]
 
-gf框架提供了非常强大的Web Server模块，由ghttp包支持，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
+gf框架提供了非常强大的Web Server模块，由ghttp包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
 >[danger] # 哈喽世界！
 
