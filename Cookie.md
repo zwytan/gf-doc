@@ -66,7 +66,7 @@ type Controller struct {
 
 >[danger] # cookie、session与localhost
 
-大多数开发语言，或者开发框架，使用```session id```作为HTTP客户端的唯一访问标识，该id一般都是存放在cookie中，伴随这用户浏览器的访问流程同时传递给服务端。
+大多数开发语言，或者开发框架，使用```session id```作为HTTP客户端的唯一访问标识，该id一般都是存放在cookie中，伴随着用户浏览器的访问流程同时在请求中传递给服务端。
 
 在本地开发过程中，开发者往往使用```localhost```作为网站域名，但是该域名会对开发者造成一些混淆，主要是对于session和cookie的影响。
 
