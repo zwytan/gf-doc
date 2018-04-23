@@ -35,6 +35,7 @@ Generating RSA private key, 2048 bit long modulus
 .....................................................................+++
 unable to write 'random state'
 e is 65537 (0x10001)
+
 john@johnhome:~/https$ openssl req -new -x509 -key server.key -out server.crt -days 365
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -50,8 +51,10 @@ Organization Name (eg, company) [Internet Widgits Pty Ltd]:John.cn
 Organizational Unit Name (eg, section) []:Dev
 Common Name (e.g. server FQDN or YOUR name) []:John
 Email Address []:john@johng.cn
+
 john@johnhome:~/https$ openssl rsa -in server.key -out server.key.public
 writing RSA key
+
 john@johnhome:~/https$ ll
 total 20
 drwxrwxr-x  2 john john 4096 Apr 23 21:26 ./
@@ -84,9 +87,10 @@ func main() {
 }
 ```
 
-可以看到，我们直接将之前生成的证书和秘钥文件传递给```EnableHTTPS```即可，随后我们访问页面```https://127.0.0.1:8199/```来看一下效果：
+可以看到，我们直接将之前生成的证书和秘钥文件地址传递给```EnableHTTPS```即可，随后我们访问页面```https://127.0.0.1:8199/```来看一下效果：
 ![](images/Selection_006_1524490791104.png)
 可以看到浏览器有提示信息，主要是因为我们生成的证书为私有的，非第三方授信企业提供的。浏览器大多会自带一些第三方授信的HTTPS证书机构，这些机构提供的HTTPS证书被浏览器认为是权威的、可信的，才不会出现该提示信息。一般这种第三方权威机构授信证书价格在几千到几十万人民币不等 - **每年**，感兴趣的朋友可在搜索引擎上了解下。
+
 ![](images/Selection_007_1524491189160.png)
 我们这里直接点击“Advanced”,然后点击“Proceed to 127.0.0.1 (unsafe)”，最终可以看到页面输出预期的结果：
 ![](images/Selection_008.png)
