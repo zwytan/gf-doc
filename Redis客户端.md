@@ -63,7 +63,7 @@ redis:
     disk:  127.0.0.1:6379,0
     cache: 127.0.0.1:6379,1
 ```
-其中示例中的```disk```和```cache```分别表示配置分组名称，我们在程序中可以通过该名称获取对应配置的redis单例对象。redis配置项格式为：```ip:port,db```。随后我们可以通过```gins.Redis("分组名称")```来获取对应配置的redis客户端单例对象。
+其中示例中的```disk```和```cache```分别表示配置分组名称，我们在程序中可以通过该名称获取对应配置的redis单例对象。redis配置项格式为：```ip:port,db```。随后我们可以通过```g.Redis("分组名称")```来获取对应配置的redis客户端单例对象。
 
 使用单例管理器的示例：
 ```go
@@ -77,13 +77,13 @@ import (
 
 func main() {
     gins.Config().SetPath("/home/john/Workspace/gitee.com/johng/gf/geg/frame")
-    redis := gins.Redis("cache")
+    redis := g.Redis("cache")
     redis.Do("SET", "k", "v")
     v, _ := redis.Do("GET", "k")
     fmt.Println(gconv.String(v))
 }
 ```
-为了演示的需要，我们的配置文件放在了```/home/john/Workspace/gitee.com/johng/gf/geg/frame```目录，因此我们在示例中先设置了默认配置管理器的目录。随后我们通过```gins.Redis("cache")```获取分组名称为```cache```的redis配置的单例对象，该分组名称对应的配置为```127.0.0.1:6379,1```。
+为了演示的需要，我们的配置文件放在了```/home/john/Workspace/gitee.com/johng/gf/geg/frame```目录，因此我们在示例中先设置了默认配置管理器的目录。随后我们通过```g.Redis("cache")```获取分组名称为```cache```的redis配置的单例对象，该分组名称对应的配置为```127.0.0.1:6379,1```。
 
 执行后，输出结果为：
 ```html
