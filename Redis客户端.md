@@ -39,6 +39,8 @@ import (
 
 func main() {
     redis := gredis.New("127.0.0.1:6379", 1)
+    defer redis.Close()
+    
     redis.Do("SET", "k1", "v1")
     redis.Do("SET", "k2", "v2")
     v1, _ := redis.Do("GET", "k1")
@@ -53,7 +55,7 @@ func main() {
 v1
 v2
 ```
-
+<!--
 >[danger] # 单例对象
 
 当然，像Redis这么常用的服务，gins包也是做了当做框架核心对象做了单例封装的，因此，redis的也可以通过配置文件进行管理，在```config.yml```中的配置示例如下：
