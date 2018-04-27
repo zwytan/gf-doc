@@ -78,6 +78,11 @@ func (md *Model) Value() (interface{}, error)
     db.Table("user").Where("uid=？", 1}).And("name=?", "john").One()
     db.Table("user").Where("uid=？", 1}).Or("name=?", "john").One()
     ```
+1. **like查询**
+    ```go
+    db.Table("user").Where("name like ?", "%john%").Select()
+    ```
+
 3. **链式更新/删除**
     ```go
     // 更新
