@@ -96,7 +96,7 @@ func main() {
 ![](images/Selection_008.png)
 
 
->[danger] # 同时支持HTTPS与HTTP服务
+>[danger] # HTTPS与HTTP支持
 
 
 
