@@ -125,7 +125,7 @@ func main() {
 
 >[danger] # 多端口监听
 
-ghttp.Server同时支持多端口监听，我们来看一个例子：
+ghttp.Server同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可。我们来看一个例子：
 
 ```go
 package main
@@ -152,4 +152,7 @@ http://127.0.0.1:8300/
 ```
 
 
+>[danger] # HTTPS服务
 
+
+ghttp.Server支持HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。
