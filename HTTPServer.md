@@ -85,7 +85,7 @@ func main() {
 
 如果需要获取同一个Web Server，那么传入同一个名称即可。例如在多个goroutine中，或者不同的模块中，都可以通过ghttp.GetServer获取到同一个Web Server对象。
 
->[danger] # 域名&多域名支持
+>[danger] # 域名&多域名
 
 **同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
@@ -120,3 +120,36 @@ func main() {
 这条语句的表示将Hello2方法注册到指定的3个域名中(localhost1~3)，对其他域名不可见。
 
 需要注意的是：Domain方法的参数必须是准确的域名，**不支持泛域名形式**，例如：*.johng.cn或者.johng.cn是不支持的，api.johng.cn或者johng.cn才被认为是正确的域名参数。
+
+
+
+>[danger] # 多端口监听
+
+ghttp.Server同时支持多端口监听，我们来看一个例子：
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+func main() {
+    s := ghttp.GetServer()
+    s.BindHandler("/", func(r *ghttp.Request){
+        r.Response.Writeln("go frame!")
+    })
+    s.SetPort(8100, 8200, 8300)
+    s.Run()
+}
+```
+
+执行以上示例后，我们访问以下URL将会得到期望的相同结果：
+```shell
+http://127.0.0.1:8100/
+http://127.0.0.1:8200/
+http://127.0.0.1:8300/
+```
+
+
+
