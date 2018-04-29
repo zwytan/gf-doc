@@ -3,7 +3,7 @@
 
 >[danger] # 数据库操作
 
-ORM方法操作相对链式操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太复杂的SQL操作，可以交给方法操作来处理。
+ORM方法操作相对链式操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太过于复杂的SQL操作，可以交给方法操作来处理。
 
 >[success] ## 方法操作
 
@@ -48,12 +48,12 @@ Close() error
 >[success] ## 操作示例
 
 
-1. **单例对象**
+1. **ORM对象**
     ```go
     // 获取默认配置的数据库对象(配置名称为"default")
-    db, err := gdb.Instance()
+    db, err := gdb.New()
     // 获取配置分组名称为"user-center"的数据库对象
-    db, err := gdb.Instance("user-center")
+    db, err := gdb.New("user-center")
     ```
 
 2. **数据写入**
