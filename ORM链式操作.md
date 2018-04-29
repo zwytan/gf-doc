@@ -68,6 +68,9 @@ func (md *Model) Value() (interface{}, error)
     
     // 分组及排序
     r, err := db.Table("user u").InnerJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.city").GroupBy("city").OrderBy("register_time asc").Select()
+    
+    // 不使用john的联表查询
+    r, err := db.Table("user u,user_detail ud").Where("u.uid=ud.uid").Fields("u.*,ud.city").All()
     ```
     其中未使用```Fields```方法指定查询字段时，默认查询为```*```。
 	支持多种形式的条件参数：
@@ -101,10 +104,10 @@ func (md *Model) Value() (interface{}, error)
 3. **链式写入/保存**
     ```go
     r, err := db.Table("user").Data(gdb.Map{"name": "john"}).Insert()
-    r, err := db.Table("user").Data(gdb.Map{"uid": 10000, "name": "john"}).Replace()
-    r, err := db.Table("user").Data(gdb.Map{"uid": 10001, "name": "john"}).Save()
+    r, err := db.Table("user").Data(g.Map{"uid": 10000, "name": "john"}).Replace()
+    r, err := db.Table("user").Data(g.Map{"uid": 10001, "name": "john"}).Save()
     ```
-
+	其中，数值方法参数既可以使用gdb.Map，也可以使用g.Map。
 4. **链式批量写入**
     ```go
     r, err := db.Table("user").Data(gdb.List{
@@ -116,14 +119,14 @@ func (md *Model) Value() (interface{}, error)
     ```
 	可以通过```Batch```方法指定批量操作中分批写入条数数量：
     ```go
-    r, err := db.Table("user").Data(gdb.List{
+    r, err := db.Table("user").Data(g.List{
         {"name": "john_1"},
         {"name": "john_2"},
         {"name": "john_3"},
         {"name": "john_4"},
     }).Batch(2).Insert()
     ```
-
+	当然，gdb.List类型也可以使用g.List类型。
 5. **链式批量保存**
     ```go
     r, err := db.Table("user").Data(gdb.List{
