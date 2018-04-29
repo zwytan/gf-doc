@@ -37,6 +37,7 @@ type Json
     func (j *Json) ToXml(rootTag ...string) ([]byte, error)
     func (j *Json) ToXmlIndent(rootTag ...string) ([]byte, error)
     func (j *Json) ToYaml() ([]byte, error)
+    func (j *Json) ToStruct(o interface{}) error
 ```
 
 gjson的特点：
