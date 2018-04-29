@@ -98,7 +98,7 @@ func main() {
 
 >[danger] # HTTPS与HTTP支持
 
-我们经常会遇到需要通过HTTP和HTTPS来提供同一个服务的情况，即除了端口和访问协议不一样，其他都是相同的。如果按照传统的使用多Web Server的方式来运行的话会比较繁琐，为轻松地解决开发者的烦恼，因此ghttp提供了非常方便的特性：支持 “同一个” Web Server同时支持HTTPS及HTTP访问协议，我们先来看一个例子：
+我们经常会遇到需要通过HTTP和HTTPS来提供同一个服务的情况，即除了端口和访问协议不一样，其他都是相同的。如果按照传统的使用多Web Server的方式来运行的话会比较繁琐，为轻松地解决开发者的烦恼，ghttp提供了非常方便的特性：支持 “同一个”Web Server同时支持HTTPS及HTTP访问协议。我们先来看一个例子：
 ```go
 package main
 
@@ -117,11 +117,11 @@ func main() {
     s.Run()
 }
 ```
-执行后，通过本地浏览器访问这两个地址```http://127.0.0.1/```和```https://127.0.0.1/```都会看到同样的内容（需要注意的是，由于部分系统对于权限的限制，绑定80和443端口需要```root/管理员```权限，如果启动报错，可以更改端口后重新执行即可）。
+执行后，通过本地浏览器访问这两个地址```http://127.0.0.1/```和```https://127.0.0.1/```都会看到同样的内容（需要注意的是，由于部分系统对于权限的限制，Web Server绑定80和443端口需要```root/管理员```权限，如果启动报错，可以更改端口号后重新执行即可）。
 
 在本示例中，我们使用了两个方法来开启HTTPS特性：
 ```go
 func (s *Server) EnableHTTPS(certFile, keyFile string) error
 func (s *Server) SetHTTPSPort(port ...int) error
 ```
-一个是添加证书及密钥文件，一个是设置HTTPS协议的监听端口，一旦这两个属性被设置了，那么就会启用Web Server的HTTPS特性。并且，在示例中也通过```SetPort```方法来设置了HTTP服务的监听端口，因此该Web Server将会同时监听指定的HTTPS和HTTP服务端口。
+一个是添加证书及密钥文件，一个是设置HTTPS协议的监听端口，一旦这两个属性被设置了，那么Web Server就会启用HTTPS特性。并且，在示例中也通过```SetPort```方法来设置了HTTP服务的监听端口，因此该Web Server将会同时监听指定的HTTPS和HTTP服务端口。
