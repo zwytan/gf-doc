@@ -55,19 +55,19 @@ func main() {
 v1
 v2
 ```
-<!--
->[danger] # 单例对象
 
-当然，像Redis这么常用的服务，gins包也是做了当做框架核心对象做了单例封装的，因此，redis的也可以通过配置文件进行管理，在```config.yml```中的配置示例如下：
+>[danger] # 全局配置
+
+当然，像Redis这么常用的服务，也已经被对象管理器(```g.*```)进行了封装，其配置也可以通过配置文件进行管理，在```config.yml```中的配置示例如下：
 ```yml
 # Redis数据库配置
 redis:
     disk:  127.0.0.1:6379,0
     cache: 127.0.0.1:6379,1
 ```
-其中示例中的```disk```和```cache```分别表示配置分组名称，我们在程序中可以通过该名称获取对应配置的redis单例对象。redis配置项格式为：```ip:port,db```。随后我们可以通过```g.Redis("分组名称")```来获取对应配置的redis客户端单例对象。
+其中示例中的```disk```和```cache```分别表示配置分组名称，我们在程序中可以通过该名称获取对应配置的redis对象。redis配置项格式为：```ip:port,db```。随后我们可以通过```g.Redis("分组名称")```来获取对应配置的redis客户端单例对象。
 
-使用单例管理器的示例：
+示例如下：
 ```go
 package main
 
@@ -80,6 +80,8 @@ import (
 func main() {
     gins.Config().SetPath("/home/john/Workspace/gitee.com/johng/gf/geg/frame")
     redis := g.Redis("cache")
+    defer redis.Close()
+    
     redis.Do("SET", "k", "v")
     v, _ := redis.Do("GET", "k")
     fmt.Println(gconv.String(v))
