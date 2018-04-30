@@ -58,7 +58,7 @@ name: john
 ```
 这里，我们自定义了一个struct，里面只包含了```Uid```和```Name```属性，可以看到它的属性并不和数据表的字段一致，这也是ORM灵活的特性之一：支持指定属性获取。
 
-通过```gdb.Model.One```方法获取的返回数据表记录是一个```gdb.Map```数据类型，我们可以直接通过它的```func (m Map) ToStruct(obj interface{}) error```方法转换为指定的struct对象。
+通过```gdb.Model.One```方法获取的返回数据表记录是一个```gdb.Map```数据类型，我们可以直接通过它的```ToStruct(obj interface{}) error```方法转换为指定的struct对象。
 
 需要注意的是，map中的键名为uid,name,site，而struct中的属性为Uid,Name，那么他们之间是如何执行映射的呢？主要是以下几点重要的规则：
 1. struct中的属性必须为公开属性；
@@ -79,7 +79,6 @@ nick_name  Nick_name      match
 
 在ORM中还有一种数据类型为```List```，它的定义为;
 ```go
-// 关联数组列表(索引从0开始的数组)，绑定多条记录
 type List []Map
 ```
 
