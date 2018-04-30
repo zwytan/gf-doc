@@ -27,14 +27,14 @@ type Bytes
     func (t *Bytes) Val() []byte
 type Float32
     func NewFloat32(value ...float32) *Float32
-    func (t *Float32) Add(delta float32) int
+    func (t *Float32) Add(delta float32) float32
     func (t *Float32) Set(value float32)
-    func (t *Float32) Val() int
+    func (t *Float32) Val() float32
 type Float64
-    func NewFloat64(value ...float32) *Float64
-    func (t *Float64) Add(delta float32) int
-    func (t *Float64) Set(value float32)
-    func (t *Float64) Val() int
+    func NewFloat64(value ...float64) *Float64
+    func (t *Float64) Add(delta float64) float64
+    func (t *Float64) Set(value float64)
+    func (t *Float64) Val() float64
 type Int
     func NewInt(value ...int) *Int
     func (t *Int) Add(delta int) int
