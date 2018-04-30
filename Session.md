@@ -33,27 +33,26 @@ func (s *Server) SetSessionMaxAge(maxage int)
 
 >[danger] # 使用示例
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/session.go
-
 ```go
-package demo
+package main
 
 import (
-    "strconv"
+    "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/net/ghttp"
 )
 
-func init() {
-    ghttp.GetServer().BindHandler("/session", Session)
-}
-
-func Session(r *ghttp.Request) {
-    id := r.Session.GetInt("id")
-    r.Session.Set("id", id + 1)
-    r.Response.Write("id:" + strconv.Itoa(id))
+func main() {
+    s := g.Server()
+    s.BindHandler("/session", func(r *ghttp.Request) {
+        id := r.Session.GetInt("id")
+        r.Session.Set("id", id + 1)
+        r.Response.Write("id:", id)
+    })
+    s.SetPort(8199)
+    s.Run()
 }
 ```
-启动main.go，访问 http://127.0.0.1:8199/session ，刷新几次页面，可以看到页面输出的id值在不断递增。
+启动main.go，访问```http://127.0.0.1:8199/session```，刷新几次页面，可以看到页面输出的id值在不断递增。
 
 
 由于对于Web开发者来讲，Session都已经是非常熟悉的组件了，相关API也非常简单，这里便不再赘述。

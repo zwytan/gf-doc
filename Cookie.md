@@ -27,24 +27,24 @@ func (s *Server) SetCookieMaxAge(maxage int)
 
 >[danger] # 使用示例
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/cookie.go
-
 ```go
-package demo
+package main
 
 import (
+    "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/os/gtime"
     "gitee.com/johng/gf/g/net/ghttp"
 )
 
-func init() {
-    ghttp.GetServer().BindHandler("/cookie", Cookie)
-}
-
-func Cookie(r *ghttp.Request) {
-    datetime := r.Cookie.Get("datetime")
-    r.Cookie.Set("datetime", gtime.Datetime())
-    r.Response.Write("datetime:" + datetime)
+func main() {
+    s := g.Server()
+    s.BindHandler("/cookie", func(r *ghttp.Request) {
+        datetime := r.Cookie.Get("datetime")
+        r.Cookie.Set("datetime", gtime.Datetime())
+        r.Response.Write("datetime:", datetime)
+    })
+    s.SetPort(8199)
+    s.Run()
 }
 ```
 执行外层的main.go，可以尝试刷新页面 http://127.0.0.1:8199/cookie ，显示的时间在一直变化。
