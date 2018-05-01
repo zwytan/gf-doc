@@ -7,7 +7,7 @@ gf框架的ORM最大的特色在于底层使用了```gdb.Map```(即```map[string
 
 
 
->[danger] # 表记录与Struct
+>[danger] # Record与Struct
 
 首先，我们的用户表结构是这样的（简单设计的示例表）：
 ```sql
@@ -75,21 +75,14 @@ nick_name  Nickname       not match
 nick_name  Nick_name      match
 ```
 
->[danger] # 表记录列表转换
+>[danger] # Result数据类型转换
 
-在ORM中还有一种数据类型为```List```，它的定义为;
+```Result```数据类型根据数据结果集操作的需要，往往需要根据记录中**特定的字段**作为键名进行数据检索，因此它也包含多个用于转换的方法，如下：
 ```go
-type List []Map
+func (r Result) ToStringMap(key string) map[string]Record 
+func (r Result) ToIntMap(key string) map[int]Record 
+func (r Result) ToUintMap(key string) map[uint]Record 
 ```
-
-即多个表记录列表项。它也包含多个转换的方法，如下：
-```go
-func (l List) ToStringMap(key string) map[string]Map 
-func (l List) ToIntMap(key string) map[int]Map 
-func (l List) ToUintMap(key string) map[uint]Map 
-```
-
-可以看到，ORM支持将列表数据按照键名转换为各种map类型，便于数据检索操作。
 
 由于方法比较简单，这里便不再举例说明。
 
