@@ -15,10 +15,10 @@ Prepare(query string) (*sql.Stmt, error)
 
 // 数据表记录查询：
 // 查询单条记录、查询多条记录、查询单个字段值(链式操作同理)
-GetAll(query string, args ...interface{}) (List, error)
-GetOne(query string, args ...interface{}) (Map, error)
-GetValue(query string, args ...interface{}) (interface{}, error)
-Select(tables, fields string, condition interface{}, groupBy, orderBy string, first, limit int, args ...interface{}) (List, error)
+GetAll(query string, args ...interface{}) (Result, error)
+GetOne(query string, args ...interface{}) (Record, error)
+GetValue(query string, args ...interface{}) (Value, error)
+Select(tables, fields string, condition interface{}, groupBy, orderBy string, first, limit int, args ...interface{}) (Result, error)
 
 // 开启事务操作
 Begin() (*Tx, error)

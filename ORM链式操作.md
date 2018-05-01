@@ -35,7 +35,7 @@ func (md *Model) Delete() (sql.Result, error)
 func (md *Model) Select() (Result, error)
 func (md *Model) All() (Result, error)
 func (md *Model) One() (Record, error)
-func (md *Model) Value() (interface{}, error)
+func (md *Model) Value() (Value, error)
 ```
 
 ```Insert/Replace/Save```三个方法的区别：

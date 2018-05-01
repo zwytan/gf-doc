@@ -10,7 +10,7 @@ gf框架的ORM最大的特色在于底层使用了```gdb.Map```(即```map[string
 type Map         map[string]interface{} // 数据记录
 type List        []Map                  // 数据记录列表 
 
-type Value       string                 // 返回数据表记录值
+type Value       []byte                 // 返回数据表记录值
 type Record      map[string]Value       // 返回数据表记录键值对
 type Result      []Record               // 返回数据表记录列表
 ```
