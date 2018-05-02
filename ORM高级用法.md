@@ -84,11 +84,11 @@ type Record
 ```go
 // 数据表记录集
 type Result
+    func (r Result) ToList() List
     func (r Result) ToStringMap(key string) map[string]Map
     func (r Result) ToIntMap(key string) map[int]Map
 	func (r Result) ToUintMap(key string) map[uint]Map
 
-    func (r Result) ToList() List
     func (r Result) ToStringRecord(key string) map[string]Record
     func (r Result) ToIntRecord(key string) map[int]Record
     func (r Result) ToUintRecord(key string) map[uint]Record
