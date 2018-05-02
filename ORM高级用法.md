@@ -75,9 +75,17 @@ nick_name  Nick_name      match
 
 ```Result```数据类型根据数据结果集操作的需要，往往需要根据记录中**特定的字段**作为键名进行数据检索，因此它也包含多个用于转换的方法，如下：
 ```go
-func (r Result) ToStringMap(key string) map[string]Record 
-func (r Result) ToIntMap(key string) map[int]Record 
-func (r Result) ToUintMap(key string) map[uint]Record 
+type Record
+    func (r Record) ToMap() Map
+    func (r Record) ToStruct(obj interface{}) error
+type Result
+    func (r Result) ToIntMap(key string) map[int]Map
+    func (r Result) ToIntRecord(key string) map[int]Record
+    func (r Result) ToList() List
+    func (r Result) ToStringMap(key string) map[string]Map
+    func (r Result) ToStringRecord(key string) map[string]Record
+    func (r Result) ToUintMap(key string) map[uint]Map
+    func (r Result) ToUintRecord(key string) map[uint]Record
 ```
 
 由于方法比较简单，这里便不再举例说明。
