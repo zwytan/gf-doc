@@ -14,9 +14,10 @@ Exec(query string, args ...interface{}) (sql.Result, error)
 Prepare(query string) (*sql.Stmt, error)
 
 // 数据表记录查询：
-// 查询单条记录、查询多条记录、查询单个字段值(链式操作同理)
+// 查询单条记录、查询多条记录、获取记录对象、查询单个字段值(链式操作同理)
 GetAll(query string, args ...interface{}) (Result, error)
 GetOne(query string, args ...interface{}) (Record, error)
+GetStruct(obj interface{}, query string, args ...interface{}) error
 GetValue(query string, args ...interface{}) (Value, error)
 Select(tables, fields string, condition interface{}, groupBy, orderBy string, first, limit int, args ...interface{}) (Result, error)
 

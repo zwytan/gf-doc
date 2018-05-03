@@ -35,6 +35,7 @@ func (md *Model) Delete() (sql.Result, error)
 func (md *Model) Select() (Result, error)
 func (md *Model) All() (Result, error)
 func (md *Model) One() (Record, error)
+func (md *Model) Struct(obj interface{}) error
 func (md *Model) Value() (Value, error)
 ```
 
