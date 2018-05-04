@@ -2,7 +2,7 @@
 
 [TOC]
 
-gf框架提供了非常强大的Web Server模块，由ghttp包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
+gf框架提供了非常强大的Web Server模块，由```ghttp```包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
 >[danger] # 哈喽世界！
 
@@ -15,7 +15,7 @@ import "gitee.com/johng/gf/g/net/ghttp"
 
 func main() {
     s := ghttp.GetServer()
-    s.BindHandler("/", func(r *ghttp.Request){
+    s.BindHandler("/", func(r *ghttp.Request) {
         r.Response.Write("哈喽世界！")
     })
     s.Run()
@@ -23,7 +23,7 @@ func main() {
 ```
 这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问```http://127.0.0.1/```的时候，它会返回“哈喽世界！”。
 
-任何时候，您都可以通过```ghttp.GetServer()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象。
+任何时候，您都可以通过```ghttp.GetServer()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象（我们也可以通过对象管理器```g.Server()```来获取单例的Web Server对象，后续章节将会有介绍）。
 
 通过Run()方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听80端口。
 
@@ -79,7 +79,7 @@ func main() {
     select{}
 }
 ```
-如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用goroutine进行异步执行监听，并且通过 select{} 语句(当然您也可以采用其他方式)保持主进程存活。
+如果需要再同一个进程中支持多个Web Server，那么需要将每个Web Server使用goroutine进行异步执行监听，并且通过```select{}```语句(当然您也可以采用其他方式)保持主进程存活。
 
 此外，可以看到我们在支持多个Web Server的语句中，给ghttp.GetServer传递了不同的参数，该参数为Web Server的名称，之前我们提到ghttp的GetServer方法采用了单例设计模式，该参数用于标识不同的Web Server，因此需要保证唯一性。
 
