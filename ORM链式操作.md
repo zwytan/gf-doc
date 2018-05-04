@@ -76,15 +76,15 @@ func (md *Model) Value() (Value, error)
     其中未使用```Fields```方法指定查询字段时，默认查询为```*```。
 	支持多种形式的条件参数：
     ```go
-    db.Table("user").Where("u.uid=1",).One()
-    db.Table("user").Where("u.uid=?", 1).One()
-    db.Table("user").Where(g.Map{"uid" : 1}).One()
-    db.Table("user").Where("uid=？", 1}).And("name=?", "john").One()
-    db.Table("user").Where("uid=？", 1}).Or("name=?", "john").One()
+    r, err := db.Table("user").Where("u.uid=1",).One()
+    r, err := db.Table("user").Where("u.uid=?", 1).One()
+    r, err := db.Table("user").Where(g.Map{"uid" : 1}).One()
+    r, err := db.Table("user").Where("uid=？", 1}).And("name=?", "john").One()
+    r, err := db.Table("user").Where("uid=？", 1}).Or("name=?", "john").One()
     ```
 1. **like查询**
     ```go
-    db.Table("user").Where("name like ?", "%john%").Select()
+    r, err := db.Table("user").Where("name like ?", "%john%").Select()
     ```
 
 3. **链式更新/删除**
@@ -98,9 +98,9 @@ func (md *Model) Value() (Value, error)
     其中```Data```是数值方法，用于指定写入/更新/批量写入/批量更新的数值。
 	支持多种形式的数值参数：
     ```go
-    db.Table("user").Data(`name="john"`).Update()
-    db.Table("user").Data("name", "john").Update()
-    db.Table("user").Data(g.Map{"name" : "john"}).Update()
+    r, err := db.Table("user").Data(`name="john"`).Update()
+    r, err := db.Table("user").Data("name", "john").Update()
+    r, err := db.Table("user").Data(g.Map{"name" : "john"}).Update()
     ```
 3. **链式写入/保存**
     ```go
