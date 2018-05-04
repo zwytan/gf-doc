@@ -1,7 +1,3 @@
-<div align=center>
-<img src="http://cover.kancloud.cn/johng/gf" width="250"/>
-</div>
-
 GF(Go Frame)是一款模块化、松耦合、轻量级、高性能的Go语言Web开发框架。支持多域名、多端口、多服务、HTTPS管理、动态路由、热更新机制等特性，并提供了Web服务开发的系列核心组件，如：MVC、Cookie、Session、服务注册、配置管理、模板引擎、数据校验、分页管理、数据库ORM等等，并且提供了数十个实用开发模块集，如：缓存模块、日志模块、JSON模块、命令行模块、二进制模块、数据编码模块、并发安全容器、Goroutine池等等等等等等。
 
 **特点**
