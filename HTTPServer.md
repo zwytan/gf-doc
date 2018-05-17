@@ -11,10 +11,13 @@ gf框架提供了非常强大的Web Server模块，由```ghttp```包实现，API
 ```go
 package main
 
-import "gitee.com/johng/gf/g/net/ghttp"
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/net/ghttp"
+)
 
 func main() {
-    s := ghttp.GetServer()
+    s := g.Server()
     s.BindHandler("/", func(r *ghttp.Request) {
         r.Response.Write("哈喽世界！")
     })
@@ -37,10 +40,12 @@ func main() {
 ```go
 package main
 
-import "gitee.com/johng/gf/g/net/ghttp"
+import (
+    "gitee.com/johng/gf/g"
+)
 
 func main() {
-    s := ghttp.GetServer()
+    s := g.Server()
     s.SetIndexFolder(true)
     s.SetServerRoot("/home/www/")
     s.Run()
