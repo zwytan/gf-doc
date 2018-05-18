@@ -33,7 +33,7 @@ func main() {
 关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
 
 
->[danger] # Web Server
+>[danger] # 静态服务
 
 创建并运行一个支持静态文件的Web Server：
 
@@ -57,7 +57,7 @@ func main() {
 
 Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [ghttp API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
->[danger] # 多服务器支持
+>[danger] # 多服务支持
 
 ghttp支持多Web Server运行，下面我们来看一个例子：
 
@@ -69,13 +69,13 @@ import (
 )
 
 func main() {
-    s1 := g.Server(1)
+    s1 := g.Server("s1")
     s1.SetPort(8080)
     s1.SetIndexFolder(true)
     s1.SetServerRoot("/home/www/static1")
     s1.Start()
 
-    s2 := g.Server(2)
+    s2 := g.Server("s2")
     s2.SetPort(8088)
     s2.SetIndexFolder(true)
     s2.SetServerRoot("/home/www/static2")
@@ -139,11 +139,12 @@ ghttp.Server同时支持多端口监听，只需要往```SetPort```参数设置�
 package main
 
 import (
+    "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/net/ghttp"
 )
 
 func main() {
-    s := ghttp.GetServer()
+    s := g.Server()
     s.BindHandler("/", func(r *ghttp.Request){
         r.Response.Writeln("go frame!")
     })
