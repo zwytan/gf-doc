@@ -6,7 +6,7 @@
 import "gitee.com/johng/gf/g/container/gqueue"
 ```
 
-方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gqueue)）：
+方法列表：godoc.org/github.com/johng-cn/gf/g/container/garray
 ```go
 type IntQueue
     func NewIntQueue() *IntQueue

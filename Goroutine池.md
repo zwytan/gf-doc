@@ -12,6 +12,8 @@ import "gitee.com/johng/gf/g/os/grpool"
 
 >[success] ## 方法列表
 
+godoc.org/github.com/johng-cn/gf/g/os/grpool
+
 ```go
 func Add(f func())
 func Jobs() int

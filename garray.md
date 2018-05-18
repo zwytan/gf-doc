@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/container/garray"
 ```
 
-方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/garray)）：
+方法列表：godoc.org/github.com/johng-cn/gf/g/container/garray
 
 普通并发安全数组。
 ```go

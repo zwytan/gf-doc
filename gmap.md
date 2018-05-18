@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/container/gmap"
 ```
 
-方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gmap)）：
+方法列表：godoc.org/github.com/johng-cn/gf/g/container/gmap
 ```go
 type IntBoolMap
     func NewIntBoolMap() *IntBoolMap

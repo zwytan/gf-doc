@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/container/gset"
 ```
 
-方法列表（[API文档](https://godoc.org/github.com/johng-cn/gf/g/container/gset)）：
+方法列表：godoc.org/github.com/johng-cn/gf/g/container/gset
 ```go
 type IntSet
     func NewIntSet() *IntSet
