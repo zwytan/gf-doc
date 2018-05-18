@@ -4,7 +4,7 @@
 
 gf框架提供了非常强大的Web Server模块，由```ghttp```包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
->[danger] # 哈喽世界！
+>[danger] # 哈喽世界
 
 老规矩，我们先来一个Hello World：
 
@@ -56,6 +56,37 @@ func main() {
 1. ```SetServerRoot```用来设置Web Server的主目录（默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
 Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [ghttp API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
+
+>[danger] # 多端口监听
+
+ghttp.Server同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
+
+我们来看一个例子：
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+func main() {
+    s := g.Server()
+    s.BindHandler("/", func(r *ghttp.Request){
+        r.Response.Writeln("go frame!")
+    })
+    s.SetPort(8100, 8200, 8300)
+    s.Run()
+}
+```
+
+执行以上示例后，我们访问以下URL将会得到期望的相同结果：
+```shell
+http://127.0.0.1:8100/
+http://127.0.0.1:8200/
+http://127.0.0.1:8300/
+```
 
 >[danger] # 多服务支持
 
@@ -129,39 +160,10 @@ func main() {
 
 
 
->[danger] # 多端口监听
-
-ghttp.Server同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
-
-我们来看一个例子：
-
-```go
-package main
-
-import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-)
-
-func main() {
-    s := g.Server()
-    s.BindHandler("/", func(r *ghttp.Request){
-        r.Response.Writeln("go frame!")
-    })
-    s.SetPort(8100, 8200, 8300)
-    s.Run()
-}
-```
-
-执行以上示例后，我们访问以下URL将会得到期望的相同结果：
-```shell
-http://127.0.0.1:8100/
-http://127.0.0.1:8200/
-http://127.0.0.1:8300/
-```
 
 
->[danger] # HTTPS服务
+
+>[danger] # HTTPS服务支持
 
 
 ghttp.Server支持HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。
