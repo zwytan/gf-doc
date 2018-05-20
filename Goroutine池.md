@@ -30,11 +30,11 @@ type Pool
     func (p *Pool) Size() int
 ```
 
-通过grpool.New方法创建一个goroutine池，并给定池中goroutine的有效时间，单位为**秒**，第二个参数为非必需参数，用于限定池中的工作goroutine数量，默认为不限制。需要注意的是，任务可以不停地往池中添加，没有限制，但是工作的goroutine是可以做限制的。我们可以通过Size()方法查询当前的工作goroutine数量，使用Jobs()方法查询当前池中待处理的任务数量。
+通过```grpool.New```方法创建一个```goroutine池```，并给定池中goroutine的有效时间，单位为**秒**，第二个参数为非必需参数，用于限定池中的工作goroutine数量，默认为不限制。需要注意的是，任务可以不停地往池中添加，没有限制，但是工作的goroutine是可以做限制的。我们可以通过```Size()```方法查询当前的工作goroutine数量，使用```Jobs()```方法查询当前池中待处理的任务数量。
 
-同时，池的大小和goroutine有效期可以通过SetSize和SetExpire方法在运行时进行动态改变。这一点特性使得协程池的管理更加灵活，但是也增加了一定的维护风险，因为你无法得知池的属性在哪个地方被执行了修改。
+同时，池的大小和goroutine有效期可以通过```SetSize```和```SetExpire```方法在运行时进行动态改变。这一点特性使得协程池的管理更加灵活，但是也增加了一定的维护风险，因为你无法得知池的属性在哪个地方被执行了修改。
 
-同时，为便于使用，grpool包提供了默认的goroutine池，直接通过grpool.Add即可往默认的池中添加任务，任务参数必须是一个 **func()** 类型的函数/方法。
+同时，为便于使用，grpool包提供了默认的goroutine池，直接通过```grpool.Add```即可往默认的池中添加任务，任务参数必须是一个 **func()** 类型的函数/方法。
 
 >[success] ## 使用示例
 
@@ -195,8 +195,78 @@ func main() {
 ```
 
 这里可以看到，使用grpool进行任务注册时，只能使用func()类型的参数，因此无法在任务注册时把变量i的值注册进去，因此只能采用临时变量的形式来传递当前变量i的值。
-    
-    
+
+
+3、最后我们使用程序测试一下grpool和原声的goroutine之间的性能
+
+1)、grpool
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+    "gitee.com/johng/gf/g/os/gtime"
+    "gitee.com/johng/gf/g/os/grpool"
+)
+
+func main() {
+    start := gtime.Millisecond()
+    wg    := sync.WaitGroup{}
+    for i := 0; i < 10000000; i++ {
+        wg.Add(1)
+        grpool.Add(func() {
+            time.Sleep(time.Millisecond)
+            wg.Done()
+        })
+    }
+    wg.Wait()
+    fmt.Println(grpool.Size())
+    fmt.Println("time spent:", gtime.Millisecond() - start)
+}
+```
+
+2)、goroutine
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+    "time"
+    "gitee.com/johng/gf/g/os/gtime"
+)
+
+
+func main() {
+    start := gtime.Millisecond()
+    wg    := sync.WaitGroup{}
+    for i := 0; i < 10000000; i++ {
+        wg.Add(1)
+        go func() {
+            time.Sleep(time.Millisecond)
+            wg.Done()
+        }()
+    }
+    wg.Wait()
+    fmt.Println("time spent:", gtime.Millisecond() - start)
+}
+```
+
+
+3)、运行结果比较
+```shell
+grpool:
+    goroutine count: 30973
+     memory   spent: ~800MB
+     time     spent: 29081 ms
+
+goroutine:
+    goroutine count: 1000W
+    memory    spent: ~5GB
+    time      spent: 23688 ms
+```
     
     
     
