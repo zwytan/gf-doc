@@ -16,7 +16,7 @@ type Json
     func DecodeToJson(b []byte) (*Json, error)
     func Load(path string) (*Json, error)
     func LoadContent(data []byte, t string) (*Json, error)
-    func New(v *interface{}) *Json
+    func New(value interface{}) *Json
     func (j *Json) Get(pattern string) interface{}
     func (j *Json) GetArray(pattern string) []interface{}
     func (j *Json) GetBool(pattern string) bool
@@ -28,16 +28,19 @@ type Json
     func (j *Json) GetString(pattern string) string
     func (j *Json) GetToVar(pattern string, v interface{}) error
     func (j *Json) GetUint(pattern string) uint
+    func (j *Json) Remove(pattern string) error
     func (j *Json) Set(pattern string, value interface{}) error
+    func (j *Json) SetSplitChar(char byte)
+    func (j *Json) SetViolenceCheck(check bool)
     func (j *Json) ToArray() []interface{}
     func (j *Json) ToJson() ([]byte, error)
     func (j *Json) ToJsonIndent() ([]byte, error)
     func (j *Json) ToMap() map[string]interface{}
+    func (j *Json) ToStruct(o interface{}) error
     func (j *Json) ToToml() ([]byte, error)
     func (j *Json) ToXml(rootTag ...string) ([]byte, error)
     func (j *Json) ToXmlIndent(rootTag ...string) ([]byte, error)
     func (j *Json) ToYaml() ([]byte, error)
-    func (j *Json) ToStruct(o interface{}) error
 ```
 
 gjson的特点：
