@@ -38,7 +38,7 @@ type Pool
 
 >[success] ## 使用示例
 
-1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务。
+**1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务**
 
 gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go
 
@@ -71,7 +71,7 @@ func main() {
 ```
 这段程序中的任务函数的功能是sleep 1秒钟，这样便能充分展示出goroutine数量限制功能。其中，我们使用了gtime.SetInterval定时器每隔2秒钟打印出当前默认池中的工作goroutine数量以及待处理的任务数量。
 
-2、我们再来看一个新手经常容易出错的例子
+**2、我们再来看一个新手经常容易出错的例子**
 
 gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
 
@@ -197,7 +197,7 @@ func main() {
 这里可以看到，使用grpool进行任务注册时，只能使用func()类型的参数，因此无法在任务注册时把变量i的值注册进去，因此只能采用临时变量的形式来传递当前变量i的值。
 
 
-3、最后我们使用程序测试一下grpool和原声的goroutine之间的性能
+**3、最后我们使用程序测试一下grpool和原声的goroutine之间的性能**
 
 1)、grpool
 ```go
