@@ -197,7 +197,7 @@ func main() {
 这里可以看到，使用grpool进行任务注册时，只能使用func()类型的参数，因此无法在任务注册时把变量i的值注册进去，因此只能采用临时变量的形式来传递当前变量i的值。
 
 
-**3、最后我们使用程序测试一下grpool和原声的goroutine之间的性能**
+**3、最后我们使用程序测试一下grpool和原生的goroutine之间的性能**
 
 1)、grpool
 ```go
@@ -256,16 +256,18 @@ func main() {
 
 
 3)、运行结果比较
+
+各运行3次取平均值。
 ```shell
 grpool:
-    goroutine count: 30973
-     memory   spent: ~800MB
-     time     spent: 29081 ms
+    goroutine count: 647881
+     memory   spent: ~2.0 G
+     time     spent: 40020 ms
 
 goroutine:
     goroutine count: 1000W
-    memory    spent: ~5GB
-    time      spent: 23688 ms
+    memory    spent: ~4.8 GB
+    time      spent: 27085 ms
 ```
     
     
