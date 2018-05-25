@@ -264,9 +264,9 @@ func main() {
 各运行3次取平均值。
 ```shell
 grpool:
-    goroutine count: 647881
-     memory   spent: ~2.0 G
-     time     spent: 40020 ms
+    goroutine count: 847313
+     memory   spent: ~2.1 G
+     time     spent: 37792 ms
 
 goroutine:
     goroutine count: 1000W
