@@ -1,9 +1,13 @@
 
 >[danger] # grpool
 
-Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是在高并发量下的goroutine频繁创建和销毁对于性能损耗以及GC来说压力也不小。充分将goroutine复用，减少goroutine的创建/销毁的性能损耗，这便是grpool对goroutine进行池化封装的目的。例如，针对于100W个执行任务，使用goroutine的话需要不停创建并销毁100W个goroutine，而使用grpool也许底层只需要几千个goroutine便能充分复用地执行完成所有任务。经测试，在高并发下grpool的性能比原生的goroutine高出几倍到数百倍！并且随之也极大地降低了内存使用率。
+Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是在高并发量下的goroutine频繁创建和销毁对于性能损耗以及GC来说压力也不小。充分将goroutine复用，减少goroutine的创建/销毁的性能损耗，这便是grpool对goroutine进行池化封装的目的。例如，针对于100W个执行任务，使用goroutine的话需要不停创建并销毁100W个goroutine，而使用grpool也许底层只需要几千个goroutine便能充分复用地执行完成所有任务。
+
+<!--
+经测试，在高并发下grpool的性能比原生的goroutine高出几倍到数百倍！并且随之也极大地降低了内存使用率。
 
 性能测试报告：http://johng.cn/grpool-performance/
+-->
 
 使用方式：
 ```go
