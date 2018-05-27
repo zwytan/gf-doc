@@ -257,7 +257,7 @@ func main() {
 
 3)、运行结果比较
 
-各运行3次取平均值。
+测试结果为两个程序各运行3次取平均值。
 ```shell
 grpool:
     goroutine count: 847313
