@@ -5,12 +5,6 @@ Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是
 
 经测试，goroutine池对于业务逻辑的执行效率提升不大，甚至没有原生的goroutine执行快速(池化goroutine执行调度并没有底层go调度器高效，因为池化goroutine的执行调度也是基于底层go调度器)，但是由于采用了复用的设计，池化后对内存的使用率得到极大的降低。
 
-<!--
-经测试，在高并发下grpool的性能比原生的goroutine高出几倍到数百倍！并且随之也极大地降低了内存使用率。
-
-性能测试报告：http://johng.cn/grpool-performance/
--->
-
 使用方式：
 ```go
 import "gitee.com/johng/gf/g/os/grpool"
