@@ -53,7 +53,7 @@ func main() {
 ```
 创建了Web Server对象之后，我们可以使用```Set*```方法来设置Web Server的属性，我们这里的示例中涉及到了两个属性设置方法：
 1. ```SetIndexFolder```用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
-1. ```SetServerRoot```用来设置Web Server的主目录（默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
+1. ```SetServerRoot```用来设置Web Server的主目录（类似其他Web Server中的```DocumentRoot```地址，默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
 Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [ghttp API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
