@@ -1,7 +1,7 @@
 
 [TOC]
 
->[danger] # Record与Struct
+>[danger] # Record转Struct对象
 
 gf-ORM为数据表记录操作提供了极高的灵活性和简便性，除了支持以map的形式访问/操作数据表记录以外，也支持将数据表记录转换为struct进行处理。我们以下使用一个简单的示例来演示该特性。
 
@@ -60,6 +60,7 @@ name: john
 1. struct中的属性必须为公开属性；
 2. map中的键名会自动将首字母进行大写转换以进行属性匹配；
 3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略；
+
 以下是几个匹配的示例：
 ```html
 map键名    struct属性     是否匹配
@@ -71,7 +72,7 @@ nick_name  Nickname       not match
 nick_name  Nick_name      match
 ```
 
->[danger] # Result数据类型转换
+>[danger] # Result结果集类型转换
 
 ```Result```数据类型根据数据结果集操作的需要，往往需要根据记录中**特定的字段**作为键名进行数据检索，因此它也包含多个用于转换的方法，如下：
 ```go
@@ -93,7 +94,7 @@ type Result
     func (r Result) ToIntRecord(key string) map[int]Record
     func (r Result) ToUintRecord(key string) map[uint]Record
 ```
-由于方法比较简单，这里便不再举例说明。
+由于方法比较简单，这里便不再举例说明。需要注意的是两个方法```Record.ToMap```及```Result.ToList```，这两个方法也是使用比较频繁的方法，用以将ORM查询结果信息转换为可做展示的数据类型。例如，由于结果集字段值底层为```[]byte```类型，虽然使用了新的```Value```类型做了封装，并且也提供了17种类型转换方法，但是大多数时候需要直接将结果```Result```或者```Record```直接作为```json```或者```xml```数据结构返回，就需要做转换才行。
 
 
 
