@@ -1,4 +1,4 @@
-gf框架非常easy地支持WebSocket Server开发，我们来看一个简单的例子，使用WebSocket Server来开发一个echo服务端（回显服务端），客户端使用HTML5实现。示例代码在项目中的路径：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
+使用gf框架进行WebSocket Server开发相当easy！我们来看一个简单的例子，使用WebSocket Server来开发一个echo服务端（回显服务端），客户端使用HTML5实现。示例代码：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
 
 ## HTML5客户端
 先上H5客户端的代码
@@ -136,6 +136,8 @@ func main() {
 	读取消息以及写入消息对应的是WebSocket的数据读取以及写入操作，需要注意的是这两个方法都有一个```msgType```的变量，表示请求读取以及写入数据的类型，常见的两种数据类型为：字符串数据或者二进制数据。在使用过程中，由于接口双方都会约定统一的数据格式，因此读取和写入的```msgType```几乎都是一致的，因此在示例中的返回消息时，数据类型参数直接使用的是读取到的```msgType```。
 
 ## 示例结果展示
+
+我们首先执行示例代码```main.go```，随后访问页面，随意输入请求内容并提交，随后在服务端关闭程序。可以看到，页面会回显提交的内容信息，并且即时展示WebSocket的连接状态的改变，当服务端关闭时，客户端也会打印出关闭信息。
 
 ![](images/QQ截图20180603000556.png)
 
