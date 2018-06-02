@@ -53,8 +53,13 @@ Close() error
     ```go
     // 获取默认配置的数据库对象(配置名称为"default")
     db, err := gdb.New()
+    // 或者
+    db := g.Database()
+    
     // 获取配置分组名称为"user-center"的数据库对象
     db, err := gdb.New("user-center")
+    // 或者 
+    db := g.Database("user-center")
     ```
 
 2. **数据写入**
