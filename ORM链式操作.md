@@ -37,6 +37,7 @@ func (md *Model) All() (Result, error)
 func (md *Model) One() (Record, error)
 func (md *Model) Struct(obj interface{}) error
 func (md *Model) Value() (Value, error)
+func (md *Model) Count() (int, error)
 ```
 
 ```Insert/Replace/Save```三个方法的区别：
