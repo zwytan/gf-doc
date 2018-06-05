@@ -1,4 +1,4 @@
-使用gf框架进行WebSocket Server开发相当简单！我们以下通过实现一个简单的echo服务器来演示gf框架的WebSocket的使用（客户端使用HTML5实现）。示例代码：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
+使用gf框架进行websocket开发相当简单！我们以下通过实现一个简单的echo服务器来演示gf框架的websocket的使用（客户端使用HTML5实现）。示例代码：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
 
 ## HTML5客户端
 先上H5客户端的代码
@@ -98,7 +98,10 @@
 </script>
 ```
 
-客户端的功能很简单，会将连接状态信息、发送及回显信息显示在界面上。
+客户端的功能很简单，主要实现了这几个功能：
+* 与服务端websocket连接状态保持及信息展示；
+* 界面输入内容并发送信息到websocket服务端；
+* 接收到websocket的返回信息后回显在界面上；
 
 
 ## WebSocket服务端
@@ -129,15 +132,15 @@ func main() {
     s.Run()
 }
 ```
-服务端的代码相当简单，这里需要着重说明的是3个地方：
+可以看到，服务端的代码相当简单，这里需要着重说明的是3个地方：
 1. **WebSocket方法**
-	Web Socket服务端的监听和普通的回调函数注册方法一样，但是在接口处理中我们需要通过```ghttp.Request.WebSocket```方法（这里直接使用指针对象```r.WebSocket()```）将请求转换为WebSocket操作，并返回一个```WebSocket对象```，该对象用户后续的通信操作。当然，如果客户端请求并非为WebSocket操作时，转换将会失败，该方法会返回错误信息，使用时请注意判断方法的error返回值。
-1. **ReadMessage&WriteMessage**
-	读取消息以及写入消息对应的是WebSocket的数据读取以及写入操作，需要注意的是这两个方法都有一个```msgType```的变量，表示请求读取以及写入数据的类型，常见的两种数据类型为：字符串数据或者二进制数据。在使用过程中，由于接口双方都会约定统一的数据格式，因此读取和写入的```msgType```几乎都是一致的，因此在示例中的返回消息时，数据类型参数直接使用的是读取到的```msgType```。
+	websocket服务端的路由注册方式和普通的http回调函数注册方式一样，但是在接口处理中我们需要通过```ghttp.Request.WebSocket```方法（这里直接使用指针对象```r.WebSocket()```）将请求转换为websocket操作，并返回一个```WebSocket对象```，该对象用于后续的websocket通信操作。当然，如果客户端请求并非为websocket操作时，转换将会失败，该方法会返回错误信息，使用时请注意判断方法的error返回值。
+1. **ReadMessage & WriteMessage**
+	读取消息以及写入消息对应的是websocket的数据读取以及写入操作(```ReadMessage & WriteMessage```)，需要注意的是这两个方法都有一个```msgType```的变量，表示请求读取及写入数据的类型，常见的两种数据类型为：字符串数据或者二进制数据。在使用过程中，由于接口双方都会约定统一的数据格式，因此读取和写入的```msgType```几乎都是一致的，所以在本示例中的返回消息时，数据类型参数直接使用的是读取到的```msgType```。
 
 ## 示例结果展示
 
-我们首先执行示例代码```main.go```，随后访问页面，随意输入请求内容并提交，随后在服务端关闭程序。可以看到，页面会回显提交的内容信息，并且即时展示WebSocket的连接状态的改变，当服务端关闭时，客户端也会打印出关闭信息。
+我们首先执行示例代码```main.go```，随后访问页面，随意输入请求内容并提交，随后在服务端关闭程序。可以看到，页面会回显提交的内容信息，并且即时展示websocket的连接状态的改变，当服务端关闭时，客户端也会即时地打印出关闭信息。
 
 ![](images/QQ截图20180603000556.png)
 
