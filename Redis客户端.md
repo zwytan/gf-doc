@@ -38,22 +38,20 @@ import (
 )
 
 func main() {
-    redis := gredis.New("127.0.0.1:6379", 1)
+    redis := gredis.New(gredis.Config{
+        Host : "127.0.0.1",
+        Port : 6379,
+    })
     defer redis.Close()
-    
-    redis.Do("SET", "k1", "v1")
-    redis.Do("SET", "k2", "v2")
-    v1, _ := redis.Do("GET", "k1")
-    v2, _ := redis.Do("GET", "k1")
-    fmt.Println(gconv.String(v1))
-    fmt.Println(gconv.String(v2))
+    redis.Do("SET", "k", "v")
+    v, _ := redis.Do("GET", "k")
+    fmt.Println(gconv.String(v))
 }
 ```
 该示例中，我们通过```New```方法创建一个Redis操作对象，并通过```Do```方法使用Redis Server的KV功能，随后我们再获取设置的信息。由于Do接口返回的都是```interface{}```类型的返回值，我们这里通过```gconv```包将任何类型转换为string来进行显示。
 执行后输出结果为：
 ```html
-v1
-v2
+v
 ```
 
 >[danger] # 全局配置
@@ -65,7 +63,7 @@ redis:
     disk:  127.0.0.1:6379,0
     cache: 127.0.0.1:6379,1
 ```
-其中示例中的```disk```和```cache```分别表示配置分组名称，我们在程序中可以通过该名称获取对应配置的redis对象。redis配置项格式为：```ip:port,db```。随后我们可以通过```g.Redis("分组名称")```来获取对应配置的redis客户端单例对象。
+其中示例中的```disk```和```cache```分别表示配置分组名称，我们在程序中可以通过该名称获取对应配置的redis对象。redis配置项格式为：```host:port[,db[,pass]]```，其中```db```及```pass```配置字段为非必须。随后我们可以通过```g.Redis("分组名称")```来获取对应配置的redis客户端单例对象。
 
 示例如下：
 ```go
@@ -73,21 +71,18 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/frame/gins"
+    "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/util/gconv"
 )
 
 func main() {
-    gins.Config().SetPath("/home/john/Workspace/gitee.com/johng/gf/geg/frame")
-    redis := g.Redis("cache")
+    redis := g.Redis()
     defer redis.Close()
-    
     redis.Do("SET", "k", "v")
     v, _ := redis.Do("GET", "k")
     fmt.Println(gconv.String(v))
 }
 ```
-为了演示的需要，我们的配置文件放在了```/home/john/Workspace/gitee.com/johng/gf/geg/frame```目录，因此我们在示例中先设置了默认配置管理器的目录。随后我们通过```g.Redis("cache")```获取分组名称为```cache```的redis配置的单例对象，该分组名称对应的配置为```127.0.0.1:6379,1```。
 
 执行后，输出结果为：
 ```html
