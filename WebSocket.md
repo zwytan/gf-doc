@@ -1,4 +1,4 @@
-使用gf框架进行WebSocket Server开发相当easy！我们来看一个简单的例子，使用WebSocket Server来开发一个echo服务端（回显服务端），客户端使用HTML5实现。示例代码：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
+使用gf框架进行WebSocket Server开发相当简单！我们以下通过实现一个简单的echo服务器来演示gf框架的WebSocket的使用（客户端使用HTML5实现）。示例代码：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
 
 ## HTML5客户端
 先上H5客户端的代码
