@@ -151,7 +151,7 @@ import "gitee.com/johng/gf/g/encoding/gjson"
         fmt.Println(string(c))
     }
     ```
-    gjson支持将JSON转换为其他的数据格式，目前支持：JSON、XML、YAML/YML、TOML数据格式之间的相互转换。
+    gjson支持将JSON转换为其他的数据格式，目前支持：JSON、XML、YAML/YML、TOML、Struct数据格式之间的相互转换。
     
     
     
