@@ -46,7 +46,7 @@ type Json
 gjson的特点：
 1、支持数据层级检索；
 2、支持运行时数据修改；
-3、支持JSON、XML、YAML/YML、TOML数据格式相互转换；
+3、支持JSON、XML、YAML/YML、TOML、Struct数据格式相互转换；
 
 使用方式：
 
