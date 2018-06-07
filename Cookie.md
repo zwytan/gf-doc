@@ -8,6 +8,7 @@
 
 ```go
 func (c *Cookie) Close()
+func (c *Cookie) Map() map[string]string
 func (c *Cookie) Get(key string) string
 func (c *Cookie) Output()
 func (c *Cookie) Remove(key, domain, path string)
