@@ -11,7 +11,7 @@ import "gitee.com/johng/gf/g/container/gmap"
 
 
 go语言从1.9版本开始引入了并发安全的sync.Map，我们来看看基准测试结果：
-```
+```shell
 john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gmap$ go test *.go -bench=".*"
 goos: linux
 goarch: amd64
