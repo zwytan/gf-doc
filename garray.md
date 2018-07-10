@@ -11,3 +11,5 @@ import "gitee.com/johng/gf/g/container/garray"
 
 支持普通并发安全数组(非排序)。
 以及排序的并发安全数组，支持唯一数据项矫正。
+
+文档未完待续。

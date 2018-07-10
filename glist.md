@@ -32,3 +32,5 @@ type SafeList
     func (this *SafeList) Remove(e *list.Element) interface{}
     func (this *SafeList) RemoveAll()
 ```
+
+文档未完待续。

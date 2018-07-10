@@ -24,3 +24,5 @@ BenchmarkSyncmapRmove-8   	20000000	        93.6 ns/op
 PASS
 ok  	command-line-arguments	27.950s
 ```
+
+文档未完待续。

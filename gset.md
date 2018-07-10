@@ -43,3 +43,5 @@ type StringSet
     func (this *StringSet) Slice() []string
     func (this *StringSet) String() string
 ```
+
+文档未完待续。
