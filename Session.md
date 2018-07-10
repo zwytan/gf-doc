@@ -5,6 +5,7 @@
 >[danger] # 方法列表
 
 与Session操作相关的方法：
+godoc.org/github.com/johng-cn/gf/g/net/ghttp#Session
 ```go
 func (s *Session) BatchSet(m map[string]interface{})
 func (s *Session) Data() map[string]interface{}
