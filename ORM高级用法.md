@@ -53,6 +53,7 @@ func main() {
         fmt.Println("Sql  :", v.Sql)
         fmt.Println("Args :", v.Args)
         fmt.Println("Error:", v.Error)
+        fmt.Println("Cost :", v.Cost)
         fmt.Println("Func :", v.Func)
     }
 }
@@ -63,27 +64,28 @@ func main() {
 Sql  : SELECT * FROM user WHERE no_such_field=?
 Args : [just_test]
 Error: Error 1054: Unknown column 'no_such_field' in 'where clause'
+Cost : 0
 Func : DB:Query
 1 :
 Sql  : SELECT * FROM user WHERE uid=?
 Args : [3]
 Error: <nil>
+Cost : 0
 Func : DB:Query
 2 :
 Sql  : SELECT * FROM user WHERE uid=?
 Args : [2]
 Error: <nil>
+Cost : 0
 Func : DB:Query
 3 :
 Sql  : SELECT * FROM user WHERE uid=?
 Args : [1]
 Error: <nil>
+Cost : 3
 Func : DB:Query
-
-Process finished with exit code 0
-
 ```
-
+需要注意的是，获取的已执行SQL列表是按照从最新到旧进行排序(最近执行的SQL排在最前面)；输出结果的SQL中如果出现```?```占位符号，表示这条SQL语句是使用的预处理执行(gf-orm底层采用的也是预处理模式，预防注入风险)，SQL的执行参数是存放到```Args```属性中；```Cost```表示这条SQL花费的执行时间，单位为**毫秒**；```Error```表示这条SQL执行是否产生错误；```Func```表示这条SQL使用的是何种方法执行的，总共有四种：DB:Query/DB:Exec/TX:Query/TX:Exec。
 
 
 >[danger] # Record转Struct对象
