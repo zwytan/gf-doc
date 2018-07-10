@@ -162,6 +162,11 @@ func main() {
 
 
 
+>[danger] # 平滑重启特性
+
+
+ghttp.Server支持平滑重启特性，详细介绍请参考【[平滑重启特性](平滑重启特性.md)】章节。
+
 
 >[danger] # HTTPS服务支持
 
@@ -171,3 +176,4 @@ ghttp.Server支持HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HT
 
 
 
+更多功能及特性请继续阅读后续章节。
