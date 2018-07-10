@@ -1,6 +1,91 @@
 
 [TOC]
 
+>[danger] # Debug调试模式
+
+为便于开发阶段调试，ORM支持调试模式，可以使用以下方式开启调试模式：
+```go
+func (db *Db) SetDebug(debug bool)
+```
+随后我们可以通过以下方法获得调试过程中执行的所有SQL语句：
+```go
+func (db *Db) GetQueriedSqls() []*Sql
+```
+
+使用示例：
+```go
+package main
+
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/database/gdb"
+)
+
+var db *gdb.Db
+
+// 初始化配置及创建数据库
+func init () {
+    gdb.AddDefaultConfigNode(gdb.ConfigNode {
+       Host    : "127.0.0.1",
+       Port    : "3306",
+       User    : "root",
+       Pass    : "123456",
+       Name    : "test",
+       Type    : "mysql",
+       Role    : "master",
+       Charset : "utf8",
+    })
+    db, _ = gdb.New()
+}
+
+
+func main() {
+    db.SetDebug(true)
+    // 执行3条SQL查询
+    for i := 1; i <= 3; i++ {
+        db.Table("user").Where("uid=?", i).One()
+    }
+    // 构造一条错误查询
+    db.Table("user").Where("no_such_field=?", "just_test").One()
+
+    for k, v := range db.GetQueriedSqls() {
+        fmt.Println(k, ":")
+        fmt.Println("Sql  :", v.Sql)
+        fmt.Println("Args :", v.Args)
+        fmt.Println("Error:", v.Error)
+        fmt.Println("Func :", v.Func)
+    }
+}
+```
+执行后，输出结果如下：
+```shell
+0 :
+Sql  : SELECT * FROM user WHERE no_such_field=?
+Args : [just_test]
+Error: Error 1054: Unknown column 'no_such_field' in 'where clause'
+Func : DB:Query
+1 :
+Sql  : SELECT * FROM user WHERE uid=?
+Args : [3]
+Error: <nil>
+Func : DB:Query
+2 :
+Sql  : SELECT * FROM user WHERE uid=?
+Args : [2]
+Error: <nil>
+Func : DB:Query
+3 :
+Sql  : SELECT * FROM user WHERE uid=?
+Args : [1]
+Error: <nil>
+Func : DB:Query
+
+Process finished with exit code 0
+
+```
+
+
+
 >[danger] # Record转Struct对象
 
 gf-ORM为数据表记录操作提供了极高的灵活性和简便性，除了支持以map的形式访问/操作数据表记录以外，也支持将数据表记录转换为struct进行处理。我们以下使用一个简单的示例来演示该特性。
