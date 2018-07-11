@@ -8,6 +8,14 @@ import "gitee.com/johng/gf/g/net/gtcp"
 方法列表：
 [godoc.org/github.com/johng-cn/gf/g/net/gtcp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/gtcp)
 ```go
+func NewNetConn(ip string, port int, timeout ...int) (net.Conn, error)
+func Receive(conn net.Conn, retry ...Retry) ([]byte, error)
+func ReceiveWithTimeout(conn net.Conn, timeout time.Duration, retry ...Retry) ([]byte, error)
+func Send(conn net.Conn, data []byte, retry ...Retry) error
+func SendReceive(conn net.Conn, data []byte, retry ...Retry) ([]byte, error)
+func SendReceiveWithTimeout(conn net.Conn, data []byte, timeout time.Duration, retry ...Retry) ([]byte, error)
+func SendWithTimeout(conn net.Conn, data []byte, timeout time.Duration, retry ...Retry) error
+
 type Server
     func GetServer(name ...interface{}) *Server
     func NewServer(address string, handler func(net.Conn), names ...string) *Server
@@ -41,6 +49,7 @@ func main() {
     }).Run()
 }
 ```
+在这个示例中我们使用了gtcp提供的两个工具方法```Send```和```Receive```来发送和接收数据。其中```Receive```方法会通过阻塞方式接收数据，直到客户端"发送完毕一条数据"(执行一次```Send```)，或者关闭链接。
 
 执行之后我们使用```telnet```工具来进行测试：
 
