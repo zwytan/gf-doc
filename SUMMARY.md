@@ -1,6 +1,6 @@
 * [框架介绍](框架介绍.md)
 * [源码目录](源码目录.md)
-* [性能测试](性能测试.md)
+<!-- * [性能测试](性能测试.md) -->
 * [加入团队](加入团队.md)
 * [Web服务开发](Web服务开发.md)
     * [开始使用](HTTPServer.md)
@@ -51,6 +51,7 @@
     * [TCP](TCP服务.md)
         * [TCPClient](TCPClient.md)
         * [TCPServer](TCPServer.md)
+        * [ConnPool](ConnPool.md)
     * [UDP](UDP服务.md)
         * [UDPClient](UDPClient.md)
         * [UDPServer](UDPServer.md)
