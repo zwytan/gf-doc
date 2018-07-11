@@ -1,4 +1,4 @@
-TCPServer通过gtcp包实现。
+TCPServer通过```gtcp.Server```实现。
 
 使用方式：
 ```go
