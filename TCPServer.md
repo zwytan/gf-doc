@@ -6,12 +6,14 @@ import "gitee.com/johng/gf/g/net/gtcp"
 ```
 
 方法列表：
+[godoc.org/github.com/johng-cn/gf/g/net/gtcp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/gtcp)
 ```go
-func GetServer(name ...string) *Server
-func NewServer(address string, handler func(net.Conn), name ...string) *Server
-func (s *Server) Run() error
-func (s *Server) SetAddress(address string)
-func (s *Server) SetHandler(handler func(net.Conn))
+type Server
+    func GetServer(name ...interface{}) *Server
+    func NewServer(address string, handler func(net.Conn), names ...string) *Server
+    func (s *Server) Run() error
+    func (s *Server) SetAddress(address string)
+    func (s *Server) SetHandler(handler func(net.Conn))
 ```
 
 其中```GetServer```使用单例模式通过给定一个唯一的名称获取/创建一个Server，后续可通过```SetAddress```和```SetHandler```方法动态修改Server属性；```NewServer```则直接根据给定参数创建一个Server对象。
@@ -40,7 +42,7 @@ func main() {
 }
 ```
 
-执行之后使用telnet进行测试：
+执行之后我们使用```telnet```工具来进行测试：
 
 ```shell
 john@home:~$ telnet 127.0.0.1 8999
