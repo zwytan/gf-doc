@@ -1,6 +1,7 @@
 >[danger] # gqueue
 
 动态大小的并发安全队列。
+
 使用方式：
 ```go
 import "gitee.com/johng/gf/g/container/gqueue"
