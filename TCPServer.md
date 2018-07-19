@@ -8,20 +8,12 @@ import "gitee.com/johng/gf/g/net/gtcp"
 方法列表：
 [godoc.org/github.com/johng-cn/gf/g/net/gtcp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/gtcp)
 ```go
-func NewNetConn(ip string, port int, timeout ...int) (net.Conn, error)
-func Receive(conn net.Conn, retry ...Retry) ([]byte, error)
-func ReceiveWithTimeout(conn net.Conn, timeout time.Duration, retry ...Retry) ([]byte, error)
-func Send(conn net.Conn, data []byte, retry ...Retry) error
-func SendReceive(conn net.Conn, data []byte, retry ...Retry) ([]byte, error)
-func SendReceiveWithTimeout(conn net.Conn, data []byte, timeout time.Duration, retry ...Retry) ([]byte, error)
-func SendWithTimeout(conn net.Conn, data []byte, timeout time.Duration, retry ...Retry) error
-
 type Server
     func GetServer(name ...interface{}) *Server
-    func NewServer(address string, handler func(net.Conn), names ...string) *Server
+    func NewServer(address string, handler func(*Conn), names ...string) *Server
     func (s *Server) Run() error
     func (s *Server) SetAddress(address string)
-    func (s *Server) SetHandler(handler func(net.Conn))
+    func (s *Server) SetHandler(handler func(*Conn))
 ```
 
 其中```GetServer```使用单例模式通过给定一个唯一的名称获取/创建一个Server，后续可通过```SetAddress```和```SetHandler```方法动态修改Server属性；```NewServer```则直接根据给定参数创建一个Server对象。
@@ -34,22 +26,28 @@ gitee.com/johng/gf/blob/master/geg/net/tcp_server.go
 package main
 
 import (
-    "net"
+    "fmt"
     "gitee.com/johng/gf/g/net/gtcp"
 )
 
 func main() {
-    gtcp.NewServer(":8999", func(conn net.Conn) {
+    gtcp.NewServer("127.0.0.1:8999", func(conn *gtcp.Conn) {
         defer conn.Close()
         for {
-            if data, err := gtcp.Receive(conn); err == nil {
-                gtcp.Send(conn, append([]byte("> "), data...))
+            data, err := conn.Receive(-1)
+            if len(data) > 0 {
+                if err := conn.Send(append([]byte("> "), data...)); err != nil {
+                  fmt.Println(err)
+                }
+            }
+            if err != nil {
+                break
             }
         }
     }).Run()
 }
 ```
-在这个示例中我们使用了gtcp提供的两个工具方法```Send```和```Receive```来发送和接收数据。其中```Receive```方法会通过阻塞方式接收数据，直到客户端"发送完毕一条数据"(执行一次```Send```，底层Socket通信不带缓冲实现)，或者关闭链接。
+在这个示例中我们使用了gtcp提供的两个工具方法```Send```和```Receive```来发送和接收数据。其中```Receive```方法会通过阻塞方式接收数据，直到客户端"发送完毕一条数据"(执行一次```Send```，底层Socket通信不带缓冲实现)，或者关闭链接。关于其中的链接对象```gtcp.Conn```的介绍，请继续阅读后续章节。
 
 执行之后我们使用```telnet```工具来进行测试：
 
@@ -65,3 +63,4 @@ hi there
 ```
 
 每一个客户端发起的TCP链接，TCPServer都会创建一个goroutine进行处理，直至TCP链接断开。由于goroutine比较轻量级，因此可以支撑比较大的并发量。
+
