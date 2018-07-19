@@ -1,14 +1,16 @@
 
 [TOC]
 
->[danger] # Debug调试模式
+>[danger] # 调试模式
 
 为便于开发阶段调试，ORM支持调试模式，可以使用以下方式开启调试模式：
 ```go
+// 是否开启调试服务
 func (db *Db) SetDebug(debug bool)
 ```
 随后我们可以通过以下方法获得调试过程中执行的所有SQL语句：
 ```go
+// 获取已经执行的SQL列表
 func (db *Db) GetQueriedSqls() []*Sql
 ```
 
@@ -86,6 +88,93 @@ Cost : 3
 Func : DB:Query
 ```
 需要注意的是，获取的已执行SQL列表是按照从最新到旧进行排序(最近执行的SQL排在最前面)；输出结果的SQL中如果出现```?```占位符号，表示这条SQL语句是使用的预处理执行(gf-orm底层采用的也是预处理模式，预防注入风险)，SQL的执行参数是存放到```Args```属性中；```Cost```表示这条SQL花费的执行时间，单位为**毫秒**；```Error```表示这条SQL执行是否产生错误；```Func```表示这条SQL使用的是何种方法执行的，总共有四种：DB:Query/DB:Exec/TX:Query/TX:Exec。
+
+
+>[danger] # 查询缓存
+
+gf-orm支持对查询结果的缓存处理，并支持手动的缓存清理，一切都由业务层调用端自主决定。需要注意的是，查询缓存仅支持链式操作，且在事务操作下不可用。
+相关方法：
+```go
+// 查询缓存/清除缓存操作，需要注意的是，事务查询不支持缓存。
+// 当time < 0时表示清除缓存， time=0时表示不过期, time > 0时表示过期时间，time过期时间单位：秒；
+// name表示自定义的缓存名称，便于业务层精准定位缓存项(如果业务层需要手动清理时，必须指定缓存名称)，
+// 例如：查询缓存时设置名称，清理缓存时可以给定清理的缓存名称进行精准清理。
+func (md *Model) Cache(time int, name ... string) *Model
+```
+使用示例：
+```go
+package main
+
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/database/gdb"
+)
+
+func main() {
+    gdb.AddDefaultConfigNode(gdb.ConfigNode {
+        Host    : "127.0.0.1",
+        Port    : "3306",
+        User    : "root",
+        Pass    : "123456",
+        Name    : "test",
+        Type    : "mysql",
+        Role    : "master",
+        Charset : "utf8",
+    })
+    db, err := gdb.New()
+    if err != nil {
+        panic(err)
+    }
+    // 开启调试模式，以便于记录所有执行的SQL
+    db.SetDebug(true)
+
+    // 执行2次查询并将查询结果缓存3秒，并可执行缓存名称(可选)
+    for i := 0; i < 2; i++ {
+        r, _ := db.Table("user").Cache(3, "vip-user").Where("uid=?", 1).One()
+        fmt.Println(r.ToMap())
+    }
+
+    // 执行更新操作，并清理指定名称的查询缓存
+    db.Table("user").Cache(-1, "vip-user").Data(gdb.Map{"name" : "smith"}).Where("uid=?", 1).Update()
+
+    // 再次执行查询，启用查询缓存特性
+    r, _ := db.Table("user").Cache(3, "vip-user").Where("uid=?", 1).One()
+    fmt.Println(r.ToMap())
+
+    for k, v := range db.GetQueriedSqls() {
+        fmt.Println(k, ":")
+        fmt.Println("Sql  :", v.Sql)
+        fmt.Println("Args :", v.Args)
+        fmt.Println("Error:", v.Error)
+        fmt.Println("Cost :", v.Cost)
+        fmt.Println("Func :", v.Func)
+    }
+}
+```
+执行后输出结果为（测试表数据结构仅供示例参考）：
+```shell
+map[uid:1 name:john]
+map[uid:1 name:john]
+map[uid:1 name:smith]
+0 :
+Sql  : SELECT * FROM user WHERE uid=?
+Args : [1]
+Error: <nil>
+Cost : 0
+Func : DB:Query
+1 :
+Sql  : UPDATE `user` SET `name`=? WHERE uid=?
+Args : [smith 1]
+Error: <nil>
+Cost : 85
+Func : DB:Exec
+2 :
+Sql  : SELECT * FROM user WHERE uid=?
+Args : [1]
+Error: <nil>
+Cost : 95
+Func : DB:Query
+```
 
 
 >[danger] # Record转Struct对象
