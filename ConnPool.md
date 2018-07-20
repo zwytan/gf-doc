@@ -1,5 +1,24 @@
 ```gtcp```包提供了连接池的特性，由```gtcp.PoolConn```对象实现，连接池缓存固定时间为600秒，且内部实现了数据发送时的断开重连机制。连接池非常适合于频繁的短链接操作且连接并发量大的场景。我们接下来使用两个示例来演示一下连接池的作用。
 
+使用方式：
+```go
+import "gitee.com/johng/gf/g/net/gtcp"
+```
+
+方法列表：
+[godoc.org/github.com/johng-cn/gf/g/net/gtcp#PoolConn](https://godoc.org/github.com/johng-cn/gf/g/net/gtcp)
+```go
+type PoolConn
+    func NewPoolConn(addr string, timeout ...int) (*PoolConn, error)
+    func (c *PoolConn) Close() error
+    func (c *PoolConn) Receive(length int, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) ReceiveWithTimeout(length int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) Send(data []byte, retry ...Retry) error
+    func (c *PoolConn) SendReceive(data []byte, receive int, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) SendReceiveWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
+```
+
 # 示例1，基本使用
 ```go
 package main
