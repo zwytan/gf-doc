@@ -14,12 +14,20 @@ import "gitee.com/johng/gf/g/net/gtcp"
 type Conn
     func NewConn(addr string, timeout ...int) (*Conn, error)
     func NewConnByNetConn(conn net.Conn) *Conn
-    func (c *Conn) Receive(length int, retry ...Retry) ([]byte, error)
-    func (c *Conn) ReceiveWithTimeout(length int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *Conn) Close()
+    func (c *Conn) LocalAddr() net.Addr
+    func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error)
+    func (c *Conn) RecvLine(retry ...Retry) ([]byte, error)
+    func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *Conn) RemoteAddr() net.Addr
     func (c *Conn) Send(data []byte, retry ...Retry) error
-    func (c *Conn) SendReceive(data []byte, receive int, retry ...Retry) ([]byte, error)
-    func (c *Conn) SendReceiveWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *Conn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error)
+    func (c *Conn) SendRecvWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
     func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
+    func (c *Conn) SetDeadline(t time.Time) error
+    func (c *Conn) SetRecvBufferWait(d time.Duration)
+    func (c *Conn) SetRecvDeadline(t time.Time) error
+    func (c *Conn) SetSendDeadline(t time.Time) error
 ```
 
 
@@ -28,15 +36,15 @@ type Conn
 ## 写入操作
 TCP通信写入操作由```Send```方法实现，并提供了错误重试的机制，由第二个非必需参数提供。需要注意的是```Send```方法不带任何的缓冲机制，也就是说每调用一次```Send```方法将会立即调用底层的TCP Write方法写入数据(缓冲机制依靠系统底层实现)。因此，如果想要进行输出缓冲区控制，请在业务层进行处理。
 
-在进行TCP写入时，可靠的通信场景下往往是一写一读，即```Send```成功之后接着便开始```Receive```获取对方的反馈结果。因此```gtcp.Conn```特提供了方便的```SendReceive```方法。
+在进行TCP写入时，可靠的通信场景下往往是一写一读，即```Send```成功之后接着便开始```Recv```获取对方的反馈结果。因此```gtcp.Conn```特提供了方便的```SendRecv```方法。
 
 
 ## 读取操作
-TCP通信读取操作由```Receive```方法实现，同时也提供了错误重试的机制，由第二个非必需参数提供。```Receive```方法提供了内置的读取缓冲控制，读取数据时可以指定读取的长度（由```length```参数指定），当读取到指定长度的数据后将会立即返回。如果```length <= 0```那么将会读取所有可读取的缓冲区数据并返回。
+TCP通信读取操作由```Recv```方法实现，同时也提供了错误重试的机制，由第二个非必需参数提供。```Recv```方法提供了内置的读取缓冲控制，读取数据时可以指定读取的长度（由```length```参数指定），当读取到指定长度的数据后将会立即返回。如果```length <= 0```那么将会读取所有可读取的缓冲区数据并返回。
 
-在大部分的场景中，TCP通信时往往需要约定固定的数据结构，因此读取数据的时候通常是指定长度读取。一般来说，第一次读取包的长度（例如：```Receive(4)```读取```4```字节的数据，解析作为下一次读取的包长度的值），解析后再根据读取的长度值（例如解析出来的长度值为```length=56```，那么下一次读取使用```Receive(length)```）读取下一次包的数据，这边便能更好地进行数据包读取和解析。
+在大部分的场景中，TCP通信时往往需要约定固定的数据结构，因此读取数据的时候通常是指定长度读取。一般来说，第一次读取包的长度（例如：```Recv(4)```读取```4```字节的数据，解析作为下一次读取的包长度的值），解析后再根据读取的长度值（例如解析出来的长度值为```length=56```，那么下一次读取使用```Recv(length)```）读取下一次包的数据，这边便能更好地进行数据包读取和解析。
 
-需要注意的是，使用```Receive(-1)```读取所有缓冲区可读数据时需要注意包的解析问题，容易产生非完整包的情况。这个时候，业务层需要根据既定的数据包结构自己负责包的完整性处理。
+需要注意的是，使用```Recv(-1)```读取所有缓冲区可读数据时需要注意包的解析问题，容易产生非完整包的情况。这个时候，业务层需要根据既定的数据包结构自己负责包的完整性处理。
 
 
 ## 超时处理
@@ -65,7 +73,7 @@ func main() {
     go gtcp.NewServer("127.0.0.1:8999", func(conn *gtcp.Conn) {
         defer conn.Close()
         for {
-            data, err := conn.Receive(-1)
+            data, err := conn.Recv(-1)
             if len(data) > 0 {
                   fmt.Println(string(data))
             }
@@ -109,7 +117,7 @@ func main() {
     2018-07-11 22:11:19.653 11
     ...
     ```
-    
+
 # 示例2，回显服务
 
 我们将之前的回显服务改进一下：
@@ -129,7 +137,7 @@ func main() {
     go gtcp.NewServer("127.0.0.1:8999", func(conn *gtcp.Conn) {
         defer conn.Close()
         for {
-            data, err := conn.Receive(-1)
+            data, err := conn.Recv(-1)
             if len(data) > 0 {
                 if err := conn.Send(append([]byte("> "), data...)); err != nil {
                   fmt.Println(err)
@@ -146,7 +154,7 @@ func main() {
     // Client
     for {
        if conn, err := gtcp.NewConn("127.0.0.1:8999"); err == nil {
-           if b, err := conn.SendReceive([]byte(gtime.Datetime()), -1); err == nil {
+           if b, err := conn.SendRecv([]byte(gtime.Datetime()), -1); err == nil {
                fmt.Println(string(b), conn.LocalAddr(), conn.RemoteAddr())
            } else {
                fmt.Println(err)
@@ -169,4 +177,3 @@ func main() {
 > 2018-07-19 23:25:45 127.0.0.1:34312 127.0.0.1:8999
 > 2018-07-19 23:25:46 127.0.0.1:34314 127.0.0.1:8999
 ```
-
