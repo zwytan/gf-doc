@@ -177,3 +177,79 @@ func main() {
 > 2018-07-19 23:25:45 127.0.0.1:34312 127.0.0.1:8999
 > 2018-07-19 23:25:46 127.0.0.1:34314 127.0.0.1:8999
 ```
+
+# 示例3，HTTP客户端
+我们在这个示例中使用gtcp包来实现一个简单的HTTP客户端，读取并打印出百度首页的header和content内容。
+
+```go
+package main
+
+import (
+    "fmt"
+    "bytes"
+    "gitee.com/johng/gf/g/net/gtcp"
+    "gitee.com/johng/gf/g/util/gconv"
+)
+
+func main() {
+    conn, err := gtcp.NewConn("www.baidu.com:80")
+    if err != nil {
+        panic(err)
+    }
+    defer conn.Close()
+
+    if err := conn.Send([]byte("GET / HTTP/1.1\n\n")); err != nil {
+        panic(err)
+    }
+
+    header        := make([]byte, 0)
+    content       := make([]byte, 0)
+    contentLength := 0
+    for {
+        data, err := conn.RecvLine()
+        // header读取，解析文本长度
+        if len(data) > 0 {
+            array := bytes.Split(data, []byte(": "))
+            // 获得页面内容长度
+            if contentLength == 0 && len(array) == 2 && bytes.EqualFold([]byte("Content-Length"), array[0]) {
+                contentLength = gconv.Int(array[1])
+            }
+            header = append(header, data...)
+            header = append(header, '\n')
+        }
+        // header读取完毕，读取文本内容
+        if contentLength > 0 && len(data) == 0 {
+            content, _ = conn.Recv(contentLength)
+            break
+        }
+        if err != nil {
+            fmt.Errorf("ERROR: %s\n", err.Error())
+            break
+        }
+    }
+
+    if len(header) > 0 {
+        fmt.Println(string(header))
+    }
+    if len(content) > 0 {
+        fmt.Println(string(content))
+    }
+}
+```
+执行后，输出结果为：
+```html
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: no-cache
+Connection: Keep-Alive
+Content-Length: 14615
+Content-Type: text/html
+Date: Sat, 21 Jul 2018 04:21:03 GMT
+Etag: "5b3c3650-3917"
+Last-Modified: Wed, 04 Jul 2018 02:52:00 GMT
+P3p: CP=" OTI DSP COR IVA OUR IND COM "
+Pragma: no-cache
+Server: BWS/1.1
+...
+(略)
+```
