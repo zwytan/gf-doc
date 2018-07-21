@@ -1,4 +1,4 @@
-UDPServer通过gudp包实现。
+UDPServer通过```gudp.Server```实现。
 
 使用方式：
 ```go
@@ -6,34 +6,34 @@ import "gitee.com/johng/gf/g/net/gudp"
 ```
 
 方法列表：
+[godoc.org/github.com/johng-cn/gf/g/net/gudp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/gudp)
 ```go
-func GetServer(name ...string) *Server
-func NewServer(address string, handler func(*net.UDPConn), name ...string) *Server
-func (s *Server) Run() error
-func (s *Server) SetAddress(address string)
-func (s *Server) SetHandler(handler func(*net.UDPConn))
+type Server
+    func GetServer(name ...interface{}) *Server
+    func NewServer(address string, handler func(*Conn), names ...string) *Server
+    func (s *Server) Run() error
+    func (s *Server) SetAddress(address string)
+    func (s *Server) SetHandler(handler func(*Conn))
 ```
 
 其中```GetServer```使用单例模式通过给定一个唯一的名称获取/创建一个Server，后续可通过```SetAddress```和```SetHandler```方法动态修改Server属性；```NewServer```则直接根据给定参数创建一个Server对象。
 
 来一个简单的示例：
-
-gitee.com/johng/gf/blob/master/geg/net/udp_server.go
-
 ```go
 package main
 
 import (
     "fmt"
-    "net"
     "gitee.com/johng/gf/g/net/gudp"
 )
 
 func main() {
-    gudp.NewServer(":8999", func(conn *net.UDPConn) {
-        buffer := make([]byte, 1024)
-        if length, addr, err := conn.ReadFromUDP(buffer); err == nil {
-            fmt.Println(string(buffer[0 : length]), "from", addr.String())
+    gudp.NewServer("127.0.0.1:8999", func(conn *gudp.Conn) {
+        defer conn.Close()
+        for {
+            if data, _ := conn.Recv(-1); len(data) > 0 {
+                fmt.Println(string(data))
+            }
         }
     }).Run()
 }
