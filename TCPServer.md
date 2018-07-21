@@ -19,9 +19,6 @@ type Server
 其中```GetServer```使用单例模式通过给定一个唯一的名称获取/创建一个Server，后续可通过```SetAddress```和```SetHandler```方法动态修改Server属性；```NewServer```则直接根据给定参数创建一个Server对象。
 
 我们通过实现一个简单的echo服务器来演示TCPServer的使用：
-
-gitee.com/johng/gf/blob/master/geg/net/tcp_server.go
-
 ```go
 package main
 
@@ -34,7 +31,7 @@ func main() {
     gtcp.NewServer("127.0.0.1:8999", func(conn *gtcp.Conn) {
         defer conn.Close()
         for {
-            data, err := conn.Receive(-1)
+            data, err := conn.Recv(-1)
             if len(data) > 0 {
                 if err := conn.Send(append([]byte("> "), data...)); err != nil {
                   fmt.Println(err)
@@ -47,7 +44,7 @@ func main() {
     }).Run()
 }
 ```
-在这个示例中我们使用了gtcp提供的两个工具方法```Send```和```Receive```来发送和接收数据。其中```Receive```方法会通过阻塞方式接收数据，直到客户端"发送完毕一条数据"(执行一次```Send```，底层Socket通信不带缓冲实现)，或者关闭链接。关于其中的链接对象```gtcp.Conn```的介绍，请继续阅读后续章节。
+在这个示例中我们使用了gtcp提供的两个工具方法```Send```和```Recv```来发送和接收数据。其中```Recv```方法会通过阻塞方式接收数据，直到客户端"发送完毕一条数据"(执行一次```Send```，底层Socket通信不带缓冲实现)，或者关闭链接。关于其中的链接对象```gtcp.Conn```的介绍，请继续阅读后续章节。
 
 执行之后我们使用```telnet```工具来进行测试：
 
