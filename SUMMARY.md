@@ -79,7 +79,7 @@
         * [gfile (文件管理模块)](文件管理模块.md)
         * [gfsnotify (文件监控模块)](文件监控模块.md)
         * [gproc (进程管理通信)](进程管理通信.md)
-        * [grpool (Goroutine池)](Goroutine池.smd)
+        * [grpool (Goroutine池)](Goroutine池.md)
     * [数据管理模块](数据管理模块.md)
         * [gredis (Redis客户端)](Redis客户端.md)
     * [编码解析模块](编码解析模块.md)
