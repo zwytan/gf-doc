@@ -2,7 +2,7 @@
 
 [TOC]
 
-gf框架提供了非常强大的Web Server模块，由```ghttp```包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
+GoFrame框架提供了非常强大的Web Server模块，由```ghttp```包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
 >[danger] # 哈喽世界
 
@@ -55,11 +55,11 @@ func main() {
 1. ```SetIndexFolder```用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
 1. ```SetServerRoot```用来设置Web Server的主目录（类似其他Web Server中的```DocumentRoot```地址，默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
-Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [ghttp API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
+Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
 >[danger] # 多端口监听
 
-ghttp.Server同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
+```ghttp.Server```同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
 
 我们来看一个例子：
 
@@ -90,7 +90,7 @@ http://127.0.0.1:8300/
 
 >[danger] # 多服务支持
 
-ghttp支持多Web Server运行，下面我们来看一个例子：
+```ghttp.Server```支持多Web Server运行，下面我们来看一个例子：
 
 ```go
 package main
@@ -159,19 +159,43 @@ func main() {
 需要注意的是：Domain方法的参数必须是准确的域名，**不支持泛域名形式**，例如：```*.johng.cn```或者```.johng.cn```是不支持的，```api.johng.cn```或者```johng.cn```才被认为是正确的域名参数。
 
 
+>[danger] # 强大路由特性
 
+```ghttp.Server```提供了比任何同类框架更加强大灵活的路由特性，我们先来看一个简单的示例：
+```go
+package main
 
+import (
+    "gitee.com/johng/gf/g/net/ghttp"
+    "gitee.com/johng/gf/g"
+)
+
+func main() {
+    s := g.Server()
+    s.BindHandler("/{class}-{course}/:name/*act", func(r *ghttp.Request) {
+        r.Response.Writeln(r.Get("class"))
+        r.Response.Writeln(r.Get("course"))
+        r.Response.Writeln(r.Get("name"))
+        r.Response.Writeln(r.Get("act"))
+    })
+    s.SetPort(8199)
+    s.Run()
+}
+```
+这是一个混合的路由规则示例，用于展示某个班级、某个学科、某个学生、对应的操作，运行后，我们可以通过例如该地址：```http://127.0.0.1:8199/class3-math/john/score```看到测试结果。在页面上你可以看得到对应的路由规则都被一一解析，业务层可以根据解析的参数进行对应的业务逻辑处理。
+
+由于路由控制的知识点比较多，并且gf框架的路由又比较强大，因此具体的路由控制管理介绍请查看后续【[路由控制](路由控制.md)】章节。
 
 >[danger] # 平滑重启特性
 
 
-ghttp.Server支持平滑重启特性，详细介绍请参考【[平滑重启特性](平滑重启特性.md)】章节。
+```ghttp.Server```**内置**支持Web Server平滑重启特性，详细介绍请参考【[平滑重启特性](平滑重启特性.md)】章节。
 
 
 >[danger] # HTTPS服务支持
 
 
-ghttp.Server支持HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。
+```ghttp.Server```支持HTTPS服务，并且也同时支持单进程提供HTTP&HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。
 
 
 
