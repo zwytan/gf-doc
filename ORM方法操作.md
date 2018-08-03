@@ -60,6 +60,12 @@ Close() error
     db, err := gdb.New("user-center")
     // 或者 
     db := g.Database("user-center")
+    
+    // 注意不用的时候需要使用Close方法关闭数据库连接。
+    // 由于底层采用了连接池处理，因此这里只是丢到池中复用，不是真正关闭与数据库的连接
+	if db != nil {
+    	defer db.Close()
+    }
     ```
 
 2. **数据写入**
