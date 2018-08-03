@@ -255,6 +255,7 @@ nick_name  Nick_name      match
 // 数据表记录
 type Record
     func (r Record) ToMap() Map
+    func (r Record) ToJson() string
     func (r Record) ToStruct(obj interface{}) error
 ```
 
@@ -262,6 +263,7 @@ type Record
 // 数据表记录集
 type Result
     func (r Result) ToList() List
+	func (r Result) ToJson() string
     func (r Result) ToStringMap(key string) map[string]Map
     func (r Result) ToIntMap(key string) map[int]Map
 	func (r Result) ToUintMap(key string) map[uint]Map
@@ -270,7 +272,7 @@ type Result
     func (r Result) ToIntRecord(key string) map[int]Record
     func (r Result) ToUintRecord(key string) map[uint]Record
 ```
-由于方法比较简单，这里便不再举例说明。需要注意的是两个方法```Record.ToMap```及```Result.ToList```，这两个方法也是使用比较频繁的方法，用以将ORM查询结果信息转换为可做展示的数据类型。例如，由于结果集字段值底层为```[]byte```类型，虽然使用了新的```Value```类型做了封装，并且也提供了17种类型转换方法，但是大多数时候需要直接将结果```Result```或者```Record```直接作为```json```或者```xml```数据结构返回，就需要做转换才行。
+由于方法比较简单，这里便不再举例说明。需要注意的是两个方法```Record.ToMap```及```Result.ToList```，这两个方法也是使用比较频繁的方法，用以将ORM查询结果信息转换为可做展示的数据类型。例如，由于结果集字段值底层为```[]byte```类型，虽然使用了新的```Value```类型做了封装，并且也提供了```17种```类型转换方法，但是大多数时候需要直接将结果```Result```或者```Record```直接作为```json```或者```xml```数据结构返回，就需要做转换才行。
 
 
 
