@@ -158,3 +158,20 @@ func (md *Model) Count() (int, error)
         {"uid":10003, "name": "john_4"},
     }).Save()
     ```
+5. **查询结果转换为Json/Xml**
+    ```go
+    one, err := db.Table("user").Where("uid=?", 1).One()
+    if err != nil {
+        panic(err)
+    }
+    
+    // 使用内置方法转换为json/xml
+    fmt.Println(one.ToJson())
+    fmt.Println(one.ToXml())
+
+    // 自定义方法方法转换为json/xml
+    jsonContent, _ := gparser.VarToJson(one.ToMap())
+    fmt.Println(jsonContent)
+    xmlContent, _ := gparser.VarToXml(one.ToMap())
+    fmt.Println(xmlContent)
+    ```
