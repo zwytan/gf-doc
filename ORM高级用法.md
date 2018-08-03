@@ -256,6 +256,7 @@ nick_name  Nick_name      match
 type Record
     func (r Record) ToMap() Map
     func (r Record) ToJson() string
+    func (r Record) ToXml() string
     func (r Record) ToStruct(obj interface{}) error
 ```
 
@@ -264,6 +265,7 @@ type Record
 type Result
     func (r Result) ToList() List
 	func (r Result) ToJson() string
+    func (r Result) ToXml() string
     func (r Result) ToStringMap(key string) map[string]Map
     func (r Result) ToIntMap(key string) map[int]Map
 	func (r Result) ToUintMap(key string) map[uint]Map
