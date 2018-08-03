@@ -152,5 +152,3 @@ func (md *Model) Count() (int, error)
         {"uid":10003, "name": "john_4"},
     }).Save()
     ```
-    
-
