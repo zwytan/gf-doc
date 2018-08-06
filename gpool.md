@@ -14,7 +14,8 @@ type Pool
     func New(expire int, newFunc ...func() (interface{}, error)) *Pool
     func (p *Pool) Close()
     func (p *Pool) Get() (interface{}, error)
-    func (p *Pool) Put(item interface{})
+    func (p *Pool) Put(value interface{})
+    func (p *Pool) SetExpireFunc(expireFunc func(interface{}))
     func (p *Pool) Size() int
 ```
 
