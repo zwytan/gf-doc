@@ -15,18 +15,15 @@ import "gitee.com/johng/gf/g/os/grpool"
 godoc.org/github.com/johng-cn/gf/g/os/grpool
 
 ```go
-func Add(f func())
+func Add(f func()) error
 func Jobs() int
-func SetExpire(expire int)
-func SetSize(size int)
 func Size() int
 type Pool
-    func New(expire int, sizes ...int) *Pool
-    func (p *Pool) Add(f func())
+    func New(size ...int) *Pool
+    func (p *Pool) Add(f func()) error
     func (p *Pool) Close()
+    func (p *Pool) ForkWorker()
     func (p *Pool) Jobs() int
-    func (p *Pool) SetExpire(expire int)
-    func (p *Pool) SetSize(size int)
     func (p *Pool) Size() int
 ```
 
