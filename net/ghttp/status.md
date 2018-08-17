@@ -12,7 +12,7 @@ func (d *Domain) BindStatusHandlerByMap(handlerMap map[int]HandlerFunc)
 ```
 可以看到，我们可以使用```BindStatusHandler```或者```BindStatusHandlerMap```来实现针对指定的状态码进行自定义的回调函数处理，并且该特性也支持针对特定的域名绑定。我们来看几个简单的示例。
 
->[danger] # 基本使用
+# 基本使用
 
 ```go
 package main
@@ -61,7 +61,7 @@ func main() {
 执行后，我们手动通过浏览器访问一个不存在的页面，例如```http://127.0.0.1:8199/test```，可以看到，页面被引导跳转到了```http://127.0.0.1:8199/status/404```页面，并且可以看到页面返回内容：```woops, status 404 found```
 
 
->[danger] # 批量设置
+# 批量设置
 
 ```go
 package main

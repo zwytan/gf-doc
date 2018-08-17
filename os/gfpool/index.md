@@ -1,5 +1,5 @@
 
->[danger] # grpool
+# grpool
 
 Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是在高并发量下的goroutine频繁创建和销毁对于性能损耗以及GC来说压力也不小。充分将goroutine复用，减少goroutine的创建/销毁的性能损耗，这便是grpool对goroutine进行池化封装的目的。例如，针对于100W个执行任务，使用goroutine的话需要不停创建并销毁100W个goroutine，而使用grpool也许底层只需要几千个goroutine便能充分复用地执行完成所有任务。
 
@@ -10,7 +10,7 @@ Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是
 import "gitee.com/johng/gf/g/os/grpool"
 ```
 
->[success] ## 方法列表
+## 方法列表
 
 godoc.org/github.com/johng-cn/gf/g/os/grpool
 
@@ -31,7 +31,7 @@ type Pool
 
 同时，为便于使用，grpool包提供了默认的goroutine池，直接通过```grpool.Add```即可往默认的池中添加任务，任务参数必须是一个 ```func()```类型的函数/方法。
 
->[success] ## 使用示例
+## 使用示例
 
 **1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务**
 

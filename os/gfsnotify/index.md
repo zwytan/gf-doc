@@ -1,5 +1,5 @@
 
->[danger] # gfsnotify
+# gfsnotify
 
 ```gfsnotify```能监控指定文件的修改情况，如文件的增加、删除、修改、重命名等操作。
 

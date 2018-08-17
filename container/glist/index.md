@@ -1,4 +1,4 @@
->[danger] # glist
+# glist
 
 并发安全双向列表。
 

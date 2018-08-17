@@ -1,4 +1,4 @@
->[danger] # glog
+# glog
 
 通用日志管理模块。
 

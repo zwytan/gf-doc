@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/util/gvalid"
 ```
 
->[danger] # 校验规则
+# 校验规则
 
 40种常用的校验规则：
 ```shell
@@ -54,7 +54,7 @@ not-in               格式：not-in:value1,value2,...              说明：参
 regex                格式：regex:pattern                         说明：参数值应当满足正则匹配规则pattern
 ```
 
->[danger] # 校验方法
+# 校验方法
 
 校验方法列表：
 ```go
@@ -65,11 +65,11 @@ func SetDefaultErrorMsgs(msgs map[string]string)
 ```
 ```Check*```方法只有在返回nil的情况下，表示数据校验成功，否则返回校验出错的数据项(```CheckMap```)以及对应的规则和错误信息的map，具体请查看后续示例代码更容易理解。
 
->[danger] # 使用示例
+# 使用示例
 
 下面我们来举几个例子，看看如何使用```gvalid```来实现数据校验。
 
->[success] ## 单数据校验 - Check
+## 单数据校验 - Check
 
 1、校验数据长度，使用默认的错误提示
 ```go
@@ -119,7 +119,7 @@ if m := gvalid.Check("abcde6", rule);  m != nil {
 // 输出： map[regex:字段值不合法]
 ```
 
->[success] ## 多数据校验 - CheckMap
+## 多数据校验 - CheckMap
 
 gvalid支持对多数据进行校验，支持map和struct类型，分别使用```CheckMap```和```CheckStruct```方法实现。
 
@@ -167,7 +167,7 @@ fmt.Println(gvalid.CheckMap(params, rules, msgs))
 该示例同时也展示了自定义错误传递的两种数据类型，```string```或者```map[string]string```。其中```map[string]string```类型参数需要指定对应字段、对应规则的错误提示信息，是一个二维的“关联数组”。
 
 
->[success] ## 多数据校验 - CheckStruct
+## 多数据校验 - CheckStruct
 
 ```CheckStruct```的使用方式同CheckMap，除了第一个参数为```struct类型```的对象（也可以是对象指针）。**但是需要注意的一个细节是，struct的属性会有默认值，因此某些情况下会引起required规则的失效，因此根据实际情况配合多种规则一起校验会是一个比较严谨的做法。**
 
@@ -271,7 +271,7 @@ func main() {
 ```
 
 
->[danger] # 错误提示
+# 错误提示
 
 任何时候，我们都可以通过```gvalid.SetDefaultErrorMsgs```方法来批量设置默认的错误提示信息（特别是针对多语言环境中），但是需要注意的是，修改是全局变化的，请注意可能会对其他模块校验信息的影响。通常建议为针对特定的校验单独配置不同的校验错误提示信息。默认的错误提示如下：
 

@@ -1,4 +1,4 @@
->[danger] # gdes
+# gdes
 des算法方法说明
 
 使用方式：

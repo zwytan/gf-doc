@@ -1,4 +1,4 @@
->[danger] # gmap
+# gmap
 
 并发安全Map。
 

@@ -3,7 +3,7 @@
 
 API文档地址：godoc.org/github.com/johng-cn/gf/g/encoding
 
->[danger] # gbase64
+# gbase64
 
 BASE64编码解析。
 
@@ -17,7 +17,7 @@ func Decode(str string) (string, error)
 func Encode(str string) string
 ```
 
->[danger] # gcompress
+# gcompress
 
 二进制数据压缩/解压，支持Zlib/GZip算法。
 
@@ -36,7 +36,7 @@ func Zlib(data []byte) []byte
 
 
 
->[danger] # ghash
+# ghash
 
 常用经典哈希函数，提供uint32及uint64类型的哈希函数。
 
@@ -64,7 +64,7 @@ func SDBMHash(str []byte) uint32
 func SDBMHash64(str []byte) uint64
 ```
 
->[danger] # ghtml
+# ghtml
 
 HTML编码解析。
 
@@ -82,7 +82,7 @@ func SpecialCharsDecode(s string) string
 
 
 
->[danger] # gurl
+# gurl
 
 URL编码解析。
 
@@ -96,7 +96,7 @@ func Decode(str string) (string, error)
 func Encode(str string) string
 ```
 
->[danger] # gxml
+# gxml
 
 XML数据格式编码解析。
 
@@ -112,7 +112,7 @@ func EncodeWithIndent(v map[string]interface{}, rootTag ...string) ([]byte, erro
 func ToJson(xmlbyte []byte) ([]byte, error)
 ```
 
->[danger] # gyaml
+# gyaml
 
 YAML数据格式编码解析。
 
@@ -128,7 +128,7 @@ func Encode(v interface{}) ([]byte, error)
 func ToJson(v []byte) ([]byte, error)
 ```
 
->[danger] # gtoml
+# gtoml
 
 TOML数据格式编码解析。
 

@@ -1,4 +1,4 @@
->[danger] # gset
+# gset
 
 并发安全集合。
 

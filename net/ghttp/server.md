@@ -4,7 +4,7 @@
 
 GoFrame框架提供了非常强大的Web Server模块，由```ghttp```包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
->[danger] # 哈喽世界
+# 哈喽世界
 
 老规矩，我们先来一个Hello World：
 
@@ -33,7 +33,7 @@ func main() {
 关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
 
 
->[danger] # 静态服务
+# 静态服务
 
 创建并运行一个支持静态文件的Web Server：
 
@@ -57,7 +57,7 @@ func main() {
 
 Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
->[danger] # 多端口监听
+# 多端口监听
 
 ```ghttp.Server```同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
 
@@ -88,7 +88,7 @@ http://127.0.0.1:8200/
 http://127.0.0.1:8300/
 ```
 
->[danger] # 多服务支持
+# 多服务支持
 
 ```ghttp.Server```支持多Web Server运行，下面我们来看一个例子：
 
@@ -119,7 +119,7 @@ func main() {
 
 如果需要获取同一个Web Server，那么传入同一个名称即可。例如在多个goroutine中，或者不同的模块中，都可以通过```g.Server```获取到同一个Web Server对象。
 
->[danger] # 域名&多域名
+# 域名&多域名
 
 **同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
@@ -159,7 +159,7 @@ func main() {
 需要注意的是：Domain方法的参数必须是准确的域名，**不支持泛域名形式**，例如：```*.johng.cn```或者```.johng.cn```是不支持的，```api.johng.cn```或者```johng.cn```才被认为是正确的域名参数。
 
 
->[danger] # 强大路由特性
+# 强大路由特性
 
 ```ghttp.Server```提供了比任何同类框架更加出色的路由特性，我们先来看一个简单的示例：
 ```go
@@ -186,13 +186,13 @@ func main() {
 
 由于路由控制的知识点比较多，并且gf框架的路由又比较强大，因此具体的路由控制管理介绍请查看后续【[路由控制](路由控制.md)】章节。
 
->[danger] # 平滑重启特性
+# 平滑重启特性
 
 
 ```ghttp.Server```**内置**支持Web Server平滑重启特性，详细介绍请参考【[平滑重启特性](平滑重启特性.md)】章节。
 
 
->[danger] # HTTPS服务支持
+# HTTPS服务支持
 
 
 ```ghttp.Server```支持HTTPS服务，并且也同时支持单进程提供HTTP&HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。

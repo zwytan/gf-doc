@@ -2,7 +2,7 @@
 [TOC]
 
 
->[danger] # 方法列表
+# 方法列表
 
 与Session操作相关的方法：
 godoc.org/github.com/johng-cn/gf/g/net/ghttp#Session
@@ -32,7 +32,7 @@ func (s *Server) SetSessionMaxAge(maxage int)
 
 在任何时候，我们都可以通过ghttp.Server对象来修改和获取Session的全局相关属性。
 
->[danger] # 使用示例
+# 使用示例
 
 ```go
 package main

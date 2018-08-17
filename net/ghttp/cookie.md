@@ -2,7 +2,7 @@
 [TOC]
 
 
->[danger] # 方法列表
+# 方法列表
 
 我们先来看看Cookie操作有哪些相关方法：
 godoc.org/github.com/johng-cn/gf/g/net/ghttp#Cookie
@@ -26,7 +26,7 @@ func (s *Server) SetCookieMaxAge(maxage int)
 
 在任何时候，我们都可以通过ghttp.Server对象来修改和获取Cookie的过期时间。
 
->[danger] # 使用示例
+# 使用示例
 
 ```go
 package main
@@ -65,7 +65,7 @@ type Controller struct {
 
 由于对于Web开发者来讲，Cookie都已经是非常熟悉的组件了，相关API也非常简单，这里便不再赘述。
 
->[danger] # cookie、session与localhost
+# cookie、session与localhost
 
 大多数开发语言，或者开发框架，使用```session id```作为HTTP客户端的唯一访问标识，该id一般都是存放在cookie中，伴随着用户浏览器的访问流程同时在请求中传递给服务端。
 

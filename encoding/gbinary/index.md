@@ -1,5 +1,5 @@
 
->[danger] # gbianry
+# gbianry
 
 gf框架提供了独立的二进制数据操作包gbinary，主要用于各种数据类型与[ ]byte二进制类型之间的相互转换；以及针对于整型数据进行精准按位处理的功能。常用于网络通信时数据编码/解码，以及数据文件操作时的编码/解码。API文档：godoc.org/github.com/johng-cn/gf/g/encoding/gbinary
 
@@ -58,7 +58,7 @@ func DecodeBytesToBits(bs []byte) []Bit
 type Bit int8
 ```
 
->[success] ## 二进制操作示例
+## 二进制操作示例
 
 我们来看一个比较完整的二进制操作示例，基本演示了绝大部分的二进制转换操作。
 
@@ -161,7 +161,7 @@ I'm string!
     在二进制类型的解析操作中，二进制的长度([ ]byte的长度)是非常重要的，只有给定正确的长度才能执行正确的解析，因此gbinary.Decode方法给定的变量长度必须为确定长度类型的变量，例如：int8/16/32/64、uint8/16/32/64、float32/64，而如果给定的第二个变量地址对应的变量类型为int/uint，无法确定长度，因此解析会失败。
     此外，gbinary包也提供了一系列gbinary.DecodeTo\*的方法，用于将二进制转换为特定的数据类型。其中，gbinary.DecodeToInt/gbinary.DecodeToUint方法会对二进制长度进行自动识别解析，支持的二进制参数长度范围1-8。
 
->[success] ## 按位操作处理示例
+## 按位操作处理示例
 
 gbinary的Bits相关操作简化了底层二进制位操作的复杂度，为精准的数据按位处理提供了可能。
 

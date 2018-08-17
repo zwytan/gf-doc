@@ -1,4 +1,4 @@
->[danger] # gpool
+# gpool
 
 对象复用池。
 

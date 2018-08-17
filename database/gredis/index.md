@@ -1,4 +1,4 @@
->[danger] # gredis
+# gredis
 
 Redis客户端由```gredis```包实现。
 
@@ -54,7 +54,7 @@ func main() {
 v
 ```
 
->[danger] # 全局配置
+# 全局配置
 
 当然，像Redis这么常用的服务，也已经被对象管理器(```g.*```)进行了封装，其配置也可以通过配置文件进行管理，在```config.yml```中的配置示例如下：
 ```yml

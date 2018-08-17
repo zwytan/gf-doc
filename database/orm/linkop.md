@@ -1,11 +1,11 @@
 
 [TOC]
 
->[danger] # 数据库操作
+# 数据库操作
 
 ORM链式操作使用方式简单灵活，是官方推荐的数据库操作方式。
 
->[success] ## 链式操作
+## 链式操作
 
 链式操作可以通过数据库对象的```db.Table```/```db.From```方法或者事务对象的```tx.Table```/```tx.From```方法，基于指定的数据表返回一个链式操作对象```*Model```，该对象可以执行以下方法（具体方法说明请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)）。
 
@@ -48,7 +48,7 @@ func (md *Model) Count() (int, error)
 5. **Save**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
 
->[success] ## 操作示例
+## 操作示例
 
 1. **获取ORM对象**
     ```go

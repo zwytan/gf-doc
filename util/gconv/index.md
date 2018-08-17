@@ -1,4 +1,4 @@
->[danger] # gconv
+# gconv
 
 框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，同时也对常用基本数据类型的无缝转换。复杂的数据类型，如自定义的struct类型转换，请参考[gparser包](数据编码解析.md)。
 
@@ -31,7 +31,7 @@ func Uint8(i interface{}) uint8
 
 func MapToStruct(params map[string]interface{}, object interface{}, mapping ...map[string]string) error
 ```
->[success] ## 基本使用
+## 基本使用
 
 使用示例：
 
@@ -83,7 +83,7 @@ func main() {
   Strings: [123]
 ```
 
->[success] ## MapToStruct
+## MapToStruct
 
 ```go
 package main

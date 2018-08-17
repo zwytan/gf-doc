@@ -1,4 +1,4 @@
->[danger] # gjson
+# gjson
 
 强大的JSON编码/解析模块。
 

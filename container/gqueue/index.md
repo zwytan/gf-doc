@@ -1,4 +1,4 @@
->[danger] # gqueue
+# gqueue
 
 动态大小的并发安全队列。
 

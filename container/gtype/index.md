@@ -1,4 +1,4 @@
->[danger] # gtype
+# gtype
 
 并发安全的基本类型。
 

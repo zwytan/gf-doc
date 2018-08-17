@@ -1,4 +1,4 @@
->[danger] # gparser
+# gparser
 
 gf框架针对常用的数据格式编码解析，提供了**异常强大灵活**的功能，由```gparser```包提供，**支持Go变量(interface{})、Struct、JSON、XML、YAML/YML、TOML数据格式之间的相互转换**，支持按照层级进行数据检索访问、支持运行时动态新增/修改/删除层级变量(并发安全)等特性。gparser包使得对于未知数据结构、多维数组结构的访问、操作变得异常的简便。
 
@@ -9,7 +9,7 @@ import "gitee.com/johng/gf/g/encoding/gparser"
 ```
 
 
->[success] ## 方法列表
+## 方法列表
 
 godoc.org/github.com/johng-cn/gf/g/encoding/gparser
 
@@ -72,7 +72,7 @@ type Parser
 6. ```VarTo*```相关方法支持将**任意的Go变量**直接转换为支持的数据格式字符串；
 
 
->[success] ## 使用示例
+## 使用示例
 
 1. **数据层级检索**
 

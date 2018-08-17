@@ -1,4 +1,4 @@
->[danger] # garray
+# garray
 
 并发安全数组。
 

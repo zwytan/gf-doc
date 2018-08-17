@@ -1,4 +1,4 @@
->[danger] # gchan
+# gchan
 
 优雅的Channel操作。
 

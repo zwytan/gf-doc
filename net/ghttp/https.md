@@ -1,12 +1,12 @@
 
 [TOC]
 
->[danger] # HTTPS服务
+# HTTPS服务
 
 建立HTTPS服务非常简单，使用框架Web Server提供的```EnableHTTPS(certFile, keyFile string) error```方法即可。很显然，该方法中需要提供两个参数，即两个用于HTTPS非对称加密的证书文件以及对应的秘钥文件。
 
 
->[success] ## 准备工作
+## 准备工作
 
 在本地演示的需要，我们可以使用```openssl```命令生成本地用于测试的证书和对应的秘钥文件。命令如下：
 
@@ -66,7 +66,7 @@ drwxr-xr-x 90 john john 4096 Apr 23 20:55 ../
 其中，生成证书的命令提示需要录入一些信息，可以直接回车留空即可，我们这里随便填写了一些。
 
 
->[success] ## 示例代码
+## 示例代码
 
 根据以上生成的秘钥和证书文件，我们来演示如果使用ghttp.Server实现一个HTTPS服务。示例代码如下：
 ```go
@@ -96,7 +96,7 @@ func main() {
 ![](images/Selection_008.png)
 
 
->[danger] # HTTPS与HTTP支持
+# HTTPS与HTTP支持
 
 我们经常会遇到需要通过HTTP和HTTPS来提供同一个服务的情况，即除了端口和访问协议不一样，其他都是相同的。如果按照传统的使用多Web Server的方式来运行的话会比较繁琐，为轻松地解决开发者的烦恼，ghttp提供了非常方便的特性：支持 “同一个”Web Server同时支持HTTPS及HTTP访问协议。我们先来看一个例子：
 ```go

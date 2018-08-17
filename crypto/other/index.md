@@ -1,4 +1,4 @@
->[danger] # gcrc32
+# gcrc32
 
 CRC32摘要算法。
 
@@ -12,7 +12,7 @@ func EncryptBytes(v []byte) uint32
 func EncryptString(v string) uint32
 ```
 
->[danger] # gmd5
+# gmd5
 
 最常用的MD5摘要算法。
 
@@ -27,7 +27,7 @@ func EncryptFile(path string) string
 func EncryptString(v string) string
 ```
 
->[danger] # gsha1
+# gsha1
 
 SHA1摘要算法。
 

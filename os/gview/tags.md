@@ -1,7 +1,7 @@
 
 [TOC]
 
->[danger] # 基本语法
+# 基本语法
 
 模板引擎统一使用了 `{{` 和 `}}` 作为左右标签，没有其他的标签符号。
 
@@ -37,7 +37,7 @@
 
 那么这个 pipeline 被认为是空
 
->[success] ## if ... else ... end
+## if ... else ... end
 
 ```
 {{if pipeline}}{{end}}
@@ -64,7 +64,7 @@ if 判断时，pipeline 为空时，相当于判断为 false
 {{end}}
 ```
 
->[success] ## range ... end
+## range ... end
 
 ```
 {{range pipeline}}{{.}}{{end}}
@@ -76,7 +76,7 @@ range 循环内部的 `.` 改变为以上类型的子元素
 
 对应的值长度为 0 时，range 不会执行，`.` 不会改变
 
->[success] ## with ... end
+## with ... end
 
 ```
 {{with pipeline}}{{end}}
@@ -91,7 +91,7 @@ with 用于重定向 pipeline
 ```
 
 
->[success] ## define
+## define
 
 define 可以用来定义自模板，可用于模块定义和模板嵌套
 
@@ -111,7 +111,7 @@ define 可以用来定义自模板，可用于模块定义和模板嵌套
 </ul>
 ```
 
->[success] ## template
+## template
 
 ```
 {{template "模板名" pipeline}}
@@ -120,7 +120,7 @@ define 可以用来定义自模板，可用于模块定义和模板嵌套
 将对应的上下文 pipeline 传给模板，才可以在模板中调用。
 
 
->[success] ## include
+## include
 
 **该标签为gf模板引擎新增标签**
 
@@ -133,7 +133,7 @@ define 可以用来定义自模板，可用于模块定义和模板嵌套
 {{include "模板文件名" .}}
 ```
 
->[success] ## 注释
+## 注释
 
 允许多行文本注释，不允许嵌套
 

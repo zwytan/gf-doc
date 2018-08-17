@@ -1,5 +1,5 @@
 
->[danger] # genv
+# genv
 
 环境变量管理模块。
 

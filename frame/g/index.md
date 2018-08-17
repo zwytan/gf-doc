@@ -2,7 +2,7 @@
 [TOC]
 
 
->[danger] # 全局对象
+# 全局对象
 
 gf框架封装了一些常用的数据类型以及对象，可以直接通过```g.*```方便获取。
 
@@ -11,7 +11,7 @@ gf框架封装了一些常用的数据类型以及对象，可以直接通过```
 import "gitee.com/johng/gf/g"
 ```
 
->[success] ## 数据类型
+## 数据类型
 ```go
 // 常用map数据结构
 type Map map[string]interface{}
@@ -20,7 +20,7 @@ type Map map[string]interface{}
 type List []Map
 ```
 
->[success] ## 常用对象
+## 常用对象
 
 1. **(单例)配置管理对象**
 	```go

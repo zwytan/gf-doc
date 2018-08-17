@@ -1,5 +1,5 @@
 
->[danger] # gcache
+# gcache
 
 gcache是一个高速的单进程缓存模块，提供了并发安全的缓存控制接口。
 

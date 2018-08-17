@@ -1,5 +1,5 @@
 
->[danger] # gfile
+# gfile
 
 通用的文件管理模块。
 

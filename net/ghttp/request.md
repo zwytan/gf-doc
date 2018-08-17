@@ -1,4 +1,4 @@
->[danger] # 请求输入
+# 请求输入
 
 请求输入依靠 ghttp.Request 对象实现：
 ```go
@@ -69,7 +69,7 @@ func (r *Request) IsExited() bool
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：```http://127.0.0.1:8199/?amount=19.66```，通过```Get```/```GetQueryString```将会返回19.66的字符串类型，```GetQueryFloat32```/```GetQueryFloat64```将会分别返回float32和float64类型的数值19.66。**但是，```GetQueryInt```/```GetQueryUint```将会返回0，而不会返回19或者20，数值的处理交给业务逻辑本身来执行**。
 
 <!--
->[danger] # 流程自定义传参
+# 流程自定义传参
 
 ghttp.Request对象有一个```Param```参数属性，该属性用于开发者请求流程处理的自定义传参参数，它的数据类型为```interface{}```，因此可以传递任何类型的参数。我们使用一个例子来说明如何使用ghttp.Request的自定义传参特性：
 

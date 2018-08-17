@@ -1,4 +1,4 @@
->[danger] # gflock
+# gflock
 
 文件锁常用于多进程的互斥锁操作，类似于单进程中的```sync.Mutex```机制，当一个进程对指定文件锁进程```Lock```之后，其他进程将会被阻塞等待，直到该文件锁被同一个进程```Unlock```(或者对应进程退出)。同时，gflock也支持类似于```sync.RWMutex```读写文件锁特性，以及```TryLock/TryRLock```特性。
 

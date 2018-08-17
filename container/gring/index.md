@@ -1,4 +1,4 @@
->[danger] # gring
+# gring
 
 并发安全环结构。
 
