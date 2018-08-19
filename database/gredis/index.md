@@ -7,7 +7,7 @@ Redis客户端由```gredis```包实现。
 import "gitee.com/johng/gf/g/database/gredis"
 ```
 
-方法列表：godoc.org/github.com/johng-cn/gf/g/database/gredis
+方法列表：[godoc.org/github.com/johng-cn/gf/g/database/gredis](https://godoc.org/github.com/johng-cn/gf/g/database/gredis)
 ```go
 func New(address string, db ...interface{}) *Redis
 func (r *Redis) Close() error

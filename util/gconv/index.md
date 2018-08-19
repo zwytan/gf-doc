@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/util/gconv"
 ```
 
-方法列表： godoc.org/github.com/johng-cn/gf/g/util/gconv
+方法列表： [godoc.org/github.com/johng-cn/gf/g/util/gconv](https://godoc.org/github.com/johng-cn/gf/g/util/gconv)
 ```
 func Bool(i interface{}) bool
 func Bytes(i interface{}) []byte

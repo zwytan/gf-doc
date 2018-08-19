@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/encoding/gjson"
 ```
 
-方法列表： godoc.org/github.com/johng-cn/gf/g/encoding/gjson
+方法列表： [godoc.org/github.com/johng-cn/gf/g/encoding/gjson](https://godoc.org/github.com/johng-cn/gf/g/encoding/gjson)
 ```go
 func Decode(b []byte) (interface{}, error)
 func DecodeTo(b []byte, v interface{}) error

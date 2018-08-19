@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/container/gchan"
 ```
 
-方法列表：godoc.org/github.com/johng-cn/gf/g/container/gchan
+方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gchan](https://godoc.org/github.com/johng-cn/gf/g/container/gchan)
 
 ```go
 type Chan

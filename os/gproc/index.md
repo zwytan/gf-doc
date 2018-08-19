@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/os/gproc"
 ```
 
-方法列表：godoc.org/github.com/johng-cn/gf/g/os/gproc
+方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gproc](https://godoc.org/github.com/johng-cn/gf/g/os/gproc)
 
 
 由于进程管理及通信的内容比较多，以下对常用的几种使用做简单介绍。

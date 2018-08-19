@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/os/gfsnotify"
 ```
 
-方法列表：godoc.org/github.com/johng-cn/gf/g/os/gfsnotify
+方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gfsnotify](https://godoc.org/github.com/johng-cn/gf/g/os/gfsnotify)
 ```go
 func Add(path string, callback func(event *Event)) error
 func Remove(path string) error

@@ -40,7 +40,7 @@ func (md *Model) Value() (Value, error)
 func (md *Model) Count() (int, error)
 ```
 
-```Insert/Replace/Save```三个方法的区别：
+`Insert/Replace/Save`三个方法的区别：
 1. **Insert**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
 3. **Replace**
@@ -56,10 +56,10 @@ func (md *Model) Count() (int, error)
     db, err := gdb.New()
     // 或者
     db := g.Database()
-    
+
     // 获取配置分组名称为"user-center"的数据库对象
     db, err := gdb.New("user-center")
-    // 或者 
+    // 或者
     db := g.Database("user-center")
 
 	// 注意不用的时候需要使用Close方法关闭数据库连接。
@@ -72,16 +72,16 @@ func (md *Model) Count() (int, error)
     ```go
     // 查询多条记录并使用Limit分页
     r, err := db.Table("user").Where("u.uid > ?", 1).Limit(0, 10).Select()
-    
+
     // 查询符合条件的单条记录(第一条)
     r, err := db.Table("user u").LeftJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.site").Where("u.uid=?", 1).One()
-    
+
     // 查询指定字段值
     r, err := db.Table("user u").RightJoin("user_detail ud", "u.uid=ud.uid").Fields("ud.site").Where("u.uid=?", 1).Value()
-    
+
     // 分组及排序
     r, err := db.Table("user u").InnerJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.city").GroupBy("city").OrderBy("register_time asc").Select()
-    
+
     // 不使用john的联表查询
     r, err := db.Table("user u,user_detail ud").Where("u.uid=ud.uid").Fields("u.*,ud.city").All()
     ```
@@ -96,7 +96,7 @@ func (md *Model) Count() (int, error)
     ```
 1. **like查询**
     ```go
-    // SELECT * FROM `user` WHERE `name` like '%john%' 
+    // SELECT * FROM `user` WHERE `name` like '%john%'
     r, err := db.Table("user").Where("name like ?", "%john%").Select()
     // SELECT * FROM `user` WHERE `birthday` like '1990-%'
     r, err := db.Table("user").Where("birthday like ?", "1990-%").Select()
@@ -164,7 +164,7 @@ func (md *Model) Count() (int, error)
     if err != nil {
         panic(err)
     }
-    
+
     // 使用内置方法转换为json/xml
     fmt.Println(one.ToJson())
     fmt.Println(one.ToXml())

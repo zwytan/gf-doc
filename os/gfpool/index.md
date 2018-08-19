@@ -12,7 +12,7 @@ import "gitee.com/johng/gf/g/os/grpool"
 
 ## 方法列表
 
-godoc.org/github.com/johng-cn/gf/g/os/grpool
+[godoc.org/github.com/johng-cn/gf/g/os/grpool](https://godoc.org/github.com/johng-cn/gf/g/os/grpool)
 
 ```go
 func Add(f func()) error
@@ -35,7 +35,7 @@ type Pool
 
 **1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务**
 
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go
+[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go)
 
 ```go
 package main
@@ -72,7 +72,7 @@ func main() {
 
 **2、我们再来看一个新手经常容易出错的例子**
 
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go
+[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go)
 
 ```go
 package main
@@ -115,7 +115,7 @@ func main() {
 
 1)、使用go关键字
 
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go
+[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go)
 
 ```go
 package main
@@ -154,7 +154,7 @@ func main() {
 
 2)、使用临时变量
 
-gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go
+[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go)
 
 ```go
 package main

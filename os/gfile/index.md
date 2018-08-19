@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/os/gfile"
 ```
 
-方法列表：godoc.org/github.com/johng-cn/gf/g/os/gfile
+方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gfile](https://godoc.org/github.com/johng-cn/gf/g/os/gfile)
 ```go
 func Basename(path string) string
 func Chmod(path string, mode os.FileMode) error

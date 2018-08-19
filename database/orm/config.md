@@ -22,7 +22,7 @@ type ConfigNode  struct {
 }
 ```
 
-```ConfigNode```用于存储一个数据库节点信息；```ConfigGroup```用于管理多个数据库节点组成的配置分组(一般一个分组对应一个业务数据库集群)；```Config```用于管理多个ConfigGroup配置分组。
+`ConfigNode`用于存储一个数据库节点信息；```ConfigGroup```用于管理多个数据库节点组成的配置分组(一般一个分组对应一个业务数据库集群)；```Config```用于管理多个ConfigGroup配置分组。
 
 **配置管理特点：**
 

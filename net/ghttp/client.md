@@ -105,7 +105,7 @@ func (r *ClientResponse) ReadAll() []byte
 gf的HTTP客户端封装并极大简化了文件上传功能，直接上例子：
 
 1. **客户端**
-    gitee.com/johng/gf/blob/master/geg/net/ghttp/client/upload/client.go
+    [gitee.com/johng/gf/blob/master/geg/net/ghttp/client/upload/client.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/client/upload/client.go)
 
     ```go
     package main
@@ -130,7 +130,7 @@ gf的HTTP客户端封装并极大简化了文件上传功能，直接上例子�
 
     可以看到，文件上传参数格式使用```参数名=@file:文件路径```，HTTP客户端将会自动解析**文件路径**对应的文件内容并读取提交给服务端。原本复杂的文件上传操作被gf进行了封装处理，用户只需要使用 ```@file:+文件路径``` 来构成参数值即可。
 1. **服务端**
-    gitee.com/johng/gf/blob/master/geg/net/ghttp/client/upload/server.go
+    [gitee.com/johng/gf/blob/master/geg/net/ghttp/client/upload/server.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/client/upload/server.go)
 
     ```go
     package main
@@ -189,7 +189,7 @@ gf的HTTP客户端封装并极大简化了文件上传功能，直接上例子�
 http客户端发起请求时可以自定义发送给服务端的Header内容，该特性使用```SetHeader(key, value string)```方法实现。我们来看一个客户端自定义Cookie的例子。
 
 1. **客户端**
-    gitee.com/johng/gf/blob/master/geg/net/ghttp/client/cookie/client.go
+    [gitee.com/johng/gf/blob/master/geg/net/ghttp/client/cookie/client.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/client/cookie/client.go)
     ```go
     package main
 
@@ -211,7 +211,7 @@ http客户端发起请求时可以自定义发送给服务端的Header内容，�
     ```
     通过```ghttp.NewClient()```创建一个自定义的http请求客户端对象，并通过```c.SetHeader("Cookie", "name=john; score=100")```设置自定义的Cookie，这里我们设置了两个示例用的Cookie参数，一个```name```，一个```score```，注意多个Cookie参数使用```;```符号分隔。
 1. **服务端**
-    gitee.com/johng/gf/blob/master/geg/net/ghttp/client/cookie/server.go
+    [gitee.com/johng/gf/blob/master/geg/net/ghttp/client/cookie/server.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/client/cookie/server.go)
     ```go
     package main
 

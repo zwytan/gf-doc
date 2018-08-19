@@ -12,7 +12,7 @@
 
 我们可以通过```ghttp.BindObject```方法完成执行对象的注册。
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object.go
+[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object.go)
 
 ```go
 package demo
@@ -53,7 +53,7 @@ panic: interface conversion: interface {} is xxx, not func(*ghttp.Request)
 ### 路由内置变量
 
 对于控制器和执行对象的注册方式来讲，由于是基于对象来进行注册，因此在路由规则中可以使用内置的两个变量：```{.struct}```和```{.method}```，前者表示当前**对象名称**，后者表示当前注册的**方法名**。我们来看一个例子：
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/buildin-vars.go
+[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/buildin-vars.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/buildin-vars.go)
 ```go
 package demo
 
@@ -85,7 +85,7 @@ NAME_TO_URI_TYPE_ALLLOWER = 2      // 仅转为小写，单词间不使用连接
 NAME_TO_URI_TYPE_CAMEL    = 3      // 采用驼峰命名方式
 ```
 我们来看一个示例：
-gitee.com/johng/gf/blob/master/geg/net/ghttp/server/name.go
+[gitee.com/johng/gf/blob/master/geg/net/ghttp/server/name.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/name.go)
 ```go
 package main
 
@@ -214,7 +214,7 @@ func (o *ObjectMethod) Show3(r *ghttp.Request) {
 
 我们可以通过```ghttp.BindObjectRest```方法完成REST对象的注册。
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object_rest.go
+[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object_rest.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/object_rest.go)
 
 ```go
 package demo

@@ -11,7 +11,7 @@ import "gitee.com/johng/gf/g/encoding/gparser"
 
 ## 方法列表
 
-godoc.org/github.com/johng-cn/gf/g/encoding/gparser
+[godoc.org/github.com/johng-cn/gf/g/encoding/gparser](https://godoc.org/github.com/johng-cn/gf/g/encoding/gparser)
 
 ```go
 func VarToJson(value interface{}) ([]byte, error)

@@ -132,7 +132,7 @@ func main() {
 
 来看一个例子：
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/main.go
+[gitee.com/johng/gf/blob/master/geg/frame/mvc/main.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/main.go)
 
 ```go
 package main

@@ -16,7 +16,7 @@
 
 我们可以通过```BindController```方法完成控制器的注册。
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/user.go
+[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/user.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/user.go)
 
 ```go
 package demo
@@ -140,7 +140,7 @@ func (c *Method) Info() {
 
 以下是一个示例：
 
-gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/rest.go
+[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/rest.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/rest.go)
 
 ```go
 package demo

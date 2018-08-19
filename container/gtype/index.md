@@ -6,7 +6,7 @@
 ```go
 import "gitee.com/johng/gf/g/container/gtype"
 ```
-方法列表：godoc.org/github.com/johng-cn/gf/g/container/gtype
+方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gtype](https://godoc.org/github.com/johng-cn/gf/g/container/gtype)
 
 
 基准测试结果如下:

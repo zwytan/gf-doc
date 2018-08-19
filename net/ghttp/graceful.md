@@ -22,7 +22,7 @@ func (s *Server) Shutdown() error
 
 func (s *Server) EnableAdmin(pattern ...string)
 ```
-```Restart```用于重启服务（```*nix```系统下为平滑重启，```windows```下为完整重启），```Shutdown```用于关闭服务，```EnableAdmin```用于将管理页面注册到指定的路由规则上，默认地址是```/debug/admin```。
+`Restart`用于重启服务（```*nix```系统下为平滑重启，```windows```下为完整重启），```Shutdown```用于关闭服务，```EnableAdmin```用于将管理页面注册到指定的路由规则上，默认地址是```/debug/admin```。
 
 以下对其中两个方法做详细说明。
 1. **Restart**
@@ -168,13 +168,3 @@ gf框架除了提供Web方式的管理能力以外，也支持命令行方式来
 ## 其他管理方式
 
 由于gf框架的Web Server采用了单例设计，因此任何地方都可以通过```g.Server(名称)```或者```ghttp.GetServer(名称)```来获得对应Web Server的单例对象，随后通过```Restart```和```Shutdown```方法可以实现对该Web Server的管理。
-
-
-
-
-
-
-
-
-
-

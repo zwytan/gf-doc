@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/container/gmap"
 ```
 
-方法列表：godoc.org/github.com/johng-cn/gf/g/container/gmap
+方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gmap](https://godoc.org/github.com/johng-cn/gf/g/container/gmap)
 
 
 go语言从1.9版本开始引入了并发安全的sync.Map，我们来看看基准测试结果：

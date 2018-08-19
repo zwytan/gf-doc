@@ -1,7 +1,7 @@
 
 [TOC]
 
-API文档地址：godoc.org/github.com/johng-cn/gf/g/encoding
+API文档地址：[godoc.org/github.com/johng-cn/gf/g/encoding](https://godoc.org/github.com/johng-cn/gf/g/encoding)
 
 # gbase64
 

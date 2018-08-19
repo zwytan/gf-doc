@@ -19,7 +19,7 @@ type Request struct {
     Param      interface{}         // 开发者自定义参数
 }
 ```
-```ghttp.Request```继承了底层的http.Request对象，并且包含了会话相关的Cookie和Session对象(每个请求都会有两个独立的Cookie和Session对象)。此外，每个请求有一个唯一的Id（请求Id，全局唯一），用以标识每一个请求。此外，成员对象包含一个与当前请求对应的返回输出对象指针Response，用于数据的返回。
+`ghttp.Request`继承了底层的http.Request对象，并且包含了会话相关的Cookie和Session对象(每个请求都会有两个独立的Cookie和Session对象)。此外，每个请求有一个唯一的Id（请求Id，全局唯一），用以标识每一个请求。此外，成员对象包含一个与当前请求对应的返回输出对象指针Response，用于数据的返回。
 
 相关方法（API详见： [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Request](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)）：
 ```go
@@ -67,11 +67,3 @@ func (r *Request) IsExited() bool
 5. ```GetJson```: 自动将原始请求信息解析为gjson.Json对象返回，gjson.Json对象具体在JSON模块章节中介绍；
 
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：```http://127.0.0.1:8199/?amount=19.66```，通过```Get```/```GetQueryString```将会返回19.66的字符串类型，```GetQueryFloat32```/```GetQueryFloat64```将会分别返回float32和float64类型的数值19.66。**但是，```GetQueryInt```/```GetQueryUint```将会返回0，而不会返回19或者20，数值的处理交给业务逻辑本身来执行**。
-
-<!--
-# 流程自定义传参
-
-ghttp.Request对象有一个```Param```参数属性，该属性用于开发者请求流程处理的自定义传参参数，它的数据类型为```interface{}```，因此可以传递任何类型的参数。我们使用一个例子来说明如何使用ghttp.Request的自定义传参特性：
-
-
-

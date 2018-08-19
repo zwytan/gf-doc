@@ -5,7 +5,7 @@
 # 方法列表
 
 我们先来看看Cookie操作有哪些相关方法：
-godoc.org/github.com/johng-cn/gf/g/net/ghttp#Cookie
+[godoc.org/github.com/johng-cn/gf/g/net/ghttp#Cookie](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Cookie)
 ```go
 func (c *Cookie) Close()
 func (c *Cookie) Map() map[string]string

@@ -8,7 +8,7 @@ gcache是一个高速的单进程缓存模块，提供了并发安全的缓存�
 import "gitee.com/johng/gf/g/os/gcache"
 ```
 
-方法列表： godoc.org/github.com/johng-cn/gf/g/os/gcache
+方法列表： [godoc.org/github.com/johng-cn/gf/g/os/gcache](https://godoc.org/github.com/johng-cn/gf/g/os/gcache)
 ```go
 func BatchRemove(keys []string)
 func BatchSet(data map[string]interface{}, expire int64)
