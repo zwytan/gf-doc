@@ -76,11 +76,13 @@ func (s *Server) BindControllerMethod(pattern string, c Controller, methods stri
 func (s *Server) BindControllerRest(pattern string, c Controller) error
 ```
 
-```BindHandler```方法用于特定的回调函数注册，```BindObject*```方法用于对象相关注册，```BindController*```方法用于控制器相关注册。
+其中，```BindHandler```方法用于特定的回调函数注册，```BindObject*```方法用于对象相关注册，```BindController*```方法用于控制器相关注册。
 
 需要注意的是，```BindController*```系列方法第二个参数为控制器接口，给定的参数必须实现```ghttp.Controller```接口。简便的做法是用户自定义的控制器直接继承```gmvc.Controller```基类即可，```gmvc.Controller```已经实现了对应的接口方法。
 
 服务注册使用的```pattern```参数格式在之前的【[路由控制](路由控制.md)】章节已经有介绍，这里便不再过多赘述。
+
+
 
 
 ## 域名服务注册方法
