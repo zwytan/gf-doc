@@ -59,7 +59,7 @@ Web Server默认情况下是没有任何主目录的设置，只有设置了主�
 
 # 多端口监听
 
-```ghttp.Server```同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
+`ghttp.Server`同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
 
 我们来看一个例子：
 
@@ -90,7 +90,7 @@ http://127.0.0.1:8300/
 
 # 多服务支持
 
-```ghttp.Server```支持多Web Server运行，下面我们来看一个例子：
+`ghttp.Server`支持多Web Server运行，下面我们来看一个例子：
 
 ```go
 package main
@@ -153,7 +153,7 @@ func main() {
 此外，```Domain```方法支持多个域名参数，使用英文“,”号分隔，例如：
 
 	s.Domain("localhost1,localhost2,localhost3").BindHandler("/", Hello2)
-    
+
 这条语句的表示将Hello2方法注册到指定的3个域名中(localhost1~3)，对其他域名不可见。
 
 需要注意的是：Domain方法的参数必须是准确的域名，**不支持泛域名形式**，例如：```*.johng.cn```或者```.johng.cn```是不支持的，```api.johng.cn```或者```johng.cn```才被认为是正确的域名参数。
@@ -161,7 +161,7 @@ func main() {
 
 # 强大路由特性
 
-```ghttp.Server```提供了比任何同类框架更加出色的路由特性，我们先来看一个简单的示例：
+`ghttp.Server`提供了比任何同类框架更加出色的路由特性，我们先来看一个简单的示例：
 ```go
 package main
 
@@ -189,13 +189,13 @@ func main() {
 # 平滑重启特性
 
 
-```ghttp.Server```**内置**支持Web Server平滑重启特性，详细介绍请参考【[平滑重启特性](平滑重启特性.md)】章节。
+`ghttp.Server`**内置** 支持Web Server平滑重启特性，详细介绍请参考【[平滑重启特性](平滑重启特性.md)】章节。
 
 
 # HTTPS服务支持
 
 
-```ghttp.Server```支持HTTPS服务，并且也同时支持单进程提供HTTP&HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。
+`ghttp.Server`支持HTTPS服务，并且也同时支持单进程提供HTTP&HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](HTTPS服务.md)】章节。
 
 
 
