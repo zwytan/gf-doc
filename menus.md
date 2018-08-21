@@ -75,7 +75,7 @@
         * [glog (日志管理模块)](os/glog/index)
         * [gtime (时间管理模块)](os/gtime/index)
         * [gcmd (命令行解析执行)](os/gcmd/index)
-        * [gbinary (二进制编码解析)](os/gbinary/index)
+        * [gbinary (二进制编码解析)](encoding/gbinary/index)
         * [gflock (系统文件锁操作)](os/gflock/index)
         * [genv (环境变量模块)](os/genv/index)
         * [gfile (文件管理模块)](os/gfile/index)

@@ -1,7 +1,7 @@
 
 # gfsnotify
 
-```gfsnotify```能监控指定文件的修改情况，如文件的增加、删除、修改、重命名等操作。
+`gfsnotify`能监控指定文件的修改情况，如文件的增加、删除、修改、重命名等操作。
 
 使用方式：
 ```go
@@ -19,7 +19,7 @@ type Event
     func (e *Event) IsRemove() bool
     func (e *Event) IsRename() bool
     func (e *Event) IsWrite() bool
-    
+
 type Watcher
     func New() (*Watcher, error)
     func (w *Watcher) Add(path string, callback func(event *Event)) error
@@ -27,7 +27,7 @@ type Watcher
     func (w *Watcher) Remove(path string) error
 ```
 
-```gfsnotify```包提供了直接的```Add```和```Remove```包方法，用于添加监控和取消监控。此外也可能通过```New```方法创建一个监控管理对象之后再进行监控管理。其中，添加监控的时候需要给定触发监控时的回调函数，参数为```*gfsnotify.Event```对象指针。
+`gfsnotify`包提供了直接的```Add```和```Remove```包方法，用于添加监控和取消监控。此外也可能通过```New```方法创建一个监控管理对象之后再进行监控管理。其中，添加监控的时候需要给定触发监控时的回调函数，参数为```*gfsnotify.Event```对象指针。
 
 使用示例：
 ```go
