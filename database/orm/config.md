@@ -103,7 +103,7 @@ gdb.SetConfig(gdb.Config {
 # (推荐)配置文件
 
 如果我们使用对象管理包中的```g.Database()```方法获取数据库操作对象，那么数据库配置可以在全局配置文件```config.yml```中进行配置，配置项的数据格式形如：
-```yml
+```yaml
 database:
     分组名称:
         - host:     地址
@@ -117,7 +117,7 @@ database:
           priority: 优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1
 ```
 一个数据库配置项示例：
-```yml
+```yaml
 database:
     default:
         - host:     127.0.0.1

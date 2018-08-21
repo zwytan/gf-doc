@@ -129,7 +129,7 @@ func main() {
 ```
 以上程序执行结果为：
 
-```shell
+```html
 [18 44 1 41 92 143 194 245 40 240 63]
 18 300 1.01
 1
@@ -156,7 +156,7 @@ I'm string!
 1. **编码**
     gbinary.Encode方法是一个非常强大灵活的方法，可以将所有的基本类型转换为二进制类型([ ]byte)。在gbinary.Encode方法内部，会自动对变量进行长度计算，采用最小二进制长度来存放该变量的二进制值。例如，针对int类型值为1的变量，gbinary.Encode将只会用1个byte来存储，而int类型值为300的变量，将会使用2个byte来存储，尽量减少二进制结果的存储空间。因此，在解析的时候要非常注意[ ]byte的长度，建议能够确定变量长度的地方，在进行二进制编码/解码时，尽量采用形如int8/16/32/64的定长基本类型来存储变量，这样解析的时候也能够采用对应的变量形式进行解析，不易产生错误。
     gbinary包也提供了一系列gbinary.Encode\*的方法，用于将基本数据类型转换为二进制。其中，gbinary.EncodeInt/gbinary.EncodeUint也是会在内部自动识别变量值大小，返回不定长度的[ ]byte值，长度范围1/2/4/8。
-    
+
 1. **解码**
     在二进制类型的解析操作中，二进制的长度([ ]byte的长度)是非常重要的，只有给定正确的长度才能执行正确的解析，因此gbinary.Decode方法给定的变量长度必须为确定长度类型的变量，例如：int8/16/32/64、uint8/16/32/64、float32/64，而如果给定的第二个变量地址对应的变量类型为int/uint，无法确定长度，因此解析会失败。
     此外，gbinary包也提供了一系列gbinary.DecodeTo\*的方法，用于将二进制转换为特定的数据类型。其中，gbinary.DecodeToInt/gbinary.DecodeToUint方法会对二进制长度进行自动识别解析，支持的二进制参数长度范围1-8。
@@ -167,9 +167,9 @@ gbinary的Bits相关操作简化了底层二进制位操作的复杂度，为精
 
 1. **批量传感器状态数据上报示例**
     例如，针对于物联网项目而言，传感器设备是比较常见的硬件设备，我们以下的示例展示了网关向平台上报其下管理的传感器的状态信息。由于传感器状态只有4种(0:已下线，1:开启， 2:关闭， 3:待机)，正好对应了2个二进制位(2 bit)，因此1byte(8 bit)便可以表示出4个传感器设备的状态。看以下的例子，用以上报平台100个传感器已开启，上报的状态顺序便是传感器在网关下端口顺序(索引从0开始)：
-    
+
     [gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits1.go](https://gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits1.go)
-    
+
     ```go
     package main
 
@@ -218,9 +218,9 @@ gbinary的Bits相关操作简化了底层二进制位操作的复杂度，为精
     [键名哈希64(64bit,8byte) 键名长度(8bit,1byte) 键值长度(24bit,3byte) 数据文件偏移量(40bit,5byte)](变长)
     ```
     我们使用一条元数据来演示编码/解码操作。
-    
+
 	[gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits2.go](https://gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits2.go)
-    
+
     ```go
     package main
 

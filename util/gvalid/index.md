@@ -1,7 +1,7 @@
 
 [TOC]
 
-```gvalid```包实现了非常强大易用的数据校验功能，封装了```40种```常用的校验规则，支持单数据多规则校验、多数据多规则批量校验、自定义错误信息、自定义正则校验、支持struct tag规则及提示信息绑定等特性。
+`gvalid`包实现了非常强大易用的数据校验功能，封装了```40种```常用的校验规则，支持单数据多规则校验、多数据多规则批量校验、自定义错误信息、自定义正则校验、支持struct tag规则及提示信息绑定等特性。
 
 使用方式：
 ```go
@@ -11,7 +11,7 @@ import "gitee.com/johng/gf/g/util/gvalid"
 # 校验规则
 
 40种常用的校验规则：
-```shell
+```html
 required             格式：required                              说明：必需参数
 required-if          格式：required-if:field,value,...           说明：必需参数(当任意所给定字段值与所给值相等时，即：当field字段的值为value时，当前验证字段为必须参数)
 required-unless      格式：required-unless:field,value,...       说明：必需参数(当所给定字段值与所给值都不相等时，即：当field字段的值不为value时，当前验证字段为必须参数)
@@ -63,7 +63,7 @@ func CheckMap(params map[string]interface{}, rules map[string]string, msgs ...ma
 func CheckStruct(st interface{}, rules map[string]string, msgs ...map[string]interface{}) map[string]map[string]string
 func SetDefaultErrorMsgs(msgs map[string]string)
 ```
-```Check*```方法只有在返回nil的情况下，表示数据校验成功，否则返回校验出错的数据项(```CheckMap```)以及对应的规则和错误信息的map，具体请查看后续示例代码更容易理解。
+`Check*`方法只有在返回nil的情况下，表示数据校验成功，否则返回校验出错的数据项(```CheckMap```)以及对应的规则和错误信息的map，具体请查看后续示例代码更容易理解。
 
 # 使用示例
 
@@ -169,7 +169,7 @@ fmt.Println(gvalid.CheckMap(params, rules, msgs))
 
 ## 多数据校验 - CheckStruct
 
-```CheckStruct```的使用方式同CheckMap，除了第一个参数为```struct类型```的对象（也可以是对象指针）。**但是需要注意的一个细节是，struct的属性会有默认值，因此某些情况下会引起required规则的失效，因此根据实际情况配合多种规则一起校验会是一个比较严谨的做法。**
+`CheckStruct`的使用方式同CheckMap，除了第一个参数为```struct类型```的对象（也可以是对象指针）。**但是需要注意的一个细节是，struct的属性会有默认值，因此某些情况下会引起required规则的失效，因此根据实际情况配合多种规则一起校验会是一个比较严谨的做法。**
 
 ### 示例1，使用map指定规则及提示信息
 ```go
@@ -238,7 +238,7 @@ func main() {
 }
 ```
 可以看到，我们可以对在struct定义时使用了```gvalid```的标签属性来绑定校验的规则及错误提示信息，该标签规则如下：
-```
+```html
 [属性别名@]校验规则[#错误提示]
 ```
 其中，属性别名和错误提示为非必需字段。**属性别名**指定在校验中使用的对应struct属性的别名，同时校验成功后的map中的也将使用该别名返回，例如在处理请求表单时比较有用，因为表单的字段名称往往和struct的属性名称不一致；**校验规则**是必需参数，具体请查看本章节上面的相关说明；**错误提示**表示自定义的错误提示信息，当规则校验时对默认的错误提示信息进行覆盖。
@@ -321,28 +321,3 @@ var defaultMessages = map[string]string {
     "regex"                : "字段值不合法",
 }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

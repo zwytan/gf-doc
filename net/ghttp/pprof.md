@@ -44,7 +44,7 @@ go tool pprof "http://127.0.0.1:8199/debug/pprof/profile"
 执行后pprof工具经过约30秒左右的接口信息采集（这30秒期间Web Server应当有流量进入，我们这里不停地访问hello world页面以作测试），然后生成性能分析报告，随后可以通过```top10```/```web```等pprof命令查看报告结果，更多命令可使用```go tool pprof```查看。关于pprof的详细使用介绍，请查看golang官方：[blog.golang.org/profiling-go-programs](https://blog.golang.org/profiling-go-programs)
 
 本示例中的命令行性能分析结果如下：
-```shell
+```html
 john@johnhome:~/Workspace/Go/gf$ go tool pprof "http://127.0.0.1:8199/debug/pprof/profile"
 Fetching profile over HTTP from http://127.0.0.1:8199/debug/pprof/profile
 Saved profile in /home/john/pprof/pprof.___go_build_pprof_go.samples.cpu.001.pb.gz
@@ -69,12 +69,8 @@ Showing top 10 nodes out of 49
          0     0%   100%       10ms 12.50%  gitee.com/johng/gf/g/container/gqueue.(*Queue).PopFront /home/john/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gqueue/gqueue.go
 (pprof) web
 Failed to execute dot. Is Graphviz installed? Error: exec: "dot": executable file not found in $PATH
-(pprof) web 
-(pprof) 
+(pprof) web
+(pprof)
 ```
 其中```web```命令用以图形展示接口之间的调用关系以及性能情况，但是需要安装```Graphviz```图形化工具，以我目前的系统为ubuntu为例，直接执行```sudo apt-get install graphviz```命令即可安装完成图形化工具，随后再次使用web命令，最终生成以下图表：
 ![](images/pprof001.png)
-
-
-
-

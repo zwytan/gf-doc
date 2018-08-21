@@ -138,7 +138,7 @@ func (r *Request) GetRequestUint(k string) uint
 使用```:name```方式进行匹配(```name```为自定义的匹配名称)，对URI指定层级的参数进行命名匹配（类似正则```([\w\.\-]+)```，该URI层级必须有值），对应匹配参数会被解析为GET参数并传递给注册的服务使用。
 
 匹配示例1：
-```shell
+```html
 rule: /user/:user
 
 /user/john                match
@@ -147,7 +147,7 @@ rule: /user/:user
 /user/                    no match
 ```
 匹配示例2：
-```shell
+```html
 rule: /:name/action
 
 /john/name                no match
@@ -157,7 +157,7 @@ rule: /:name/action
 /smith/action             match
 ```
 匹配示例3：
-```shell
+```html
 rule: /:name/:action
 
 /john/name                match
@@ -172,7 +172,7 @@ rule: /:name/:action
 使用```*any```方式进行匹配(```any```为自定义的匹配名称)，对URI指定位置之后的参数进行模糊匹配（类似正则```(.*)```，该URI层级可以为空），并将匹配参数解析为GET参数并传递给注册的服务使用。
 
 匹配示例1：
-```shell
+```html
 rule: /src/*path
 
 /src/                     match
@@ -182,7 +182,7 @@ rule: /src/*path
 /user/john                no match
 ```
 匹配示例2：
-```shell
+```html
 rule: /src/*path/:action
 
 /src/                     no match
@@ -191,7 +191,7 @@ rule: /src/*path/:action
 /src/subdir/file.go/del   match
 ```
 匹配示例3：
-```shell
+```html
 rule: /src/*path/show
 
 /src/                     no match
@@ -209,7 +209,7 @@ rule: /src/*path/show
 > 这种方式比较于以上两种方式要更加灵活，以上两种方式仅为了兼容现有流行的路由规则，而该规则特性是gf框架仅有的一大特色。
 
 匹配示例1：
-```shell
+```html
 rule: /order/list/{page}.php
 
 /order/list/1.php          match
@@ -219,7 +219,7 @@ rule: /order/list/{page}.php
 /order/list                no match
 ```
 匹配示例2：
-```shell
+```html
 rule: /db-{table}/{id}
 
 /db-user/1                     match
@@ -229,7 +229,7 @@ rule: /db-{table}/{id}
 /database-order/100            no match
 ```
 匹配示例3：
-```shell
+```html
 rule: /{obj}-{act}/*param
 
 /user-delete/10                     match
@@ -300,7 +300,7 @@ score
 3. **同一层级下，模糊匹配优先级：字段匹配 > 命名匹配 > 模糊匹配**；
 
 我们来看示例（左边的规则优先级比右边高）：
-```shell
+```html
 /:name                   >            /*any
 /user/name               >            /user/:action
 /:name/info              >            /:name/:action
@@ -328,6 +328,6 @@ score
 	4). 如果当前链表没有检索到匹配规则，那么重复2) - 3)，直到把链表数组遍历完毕；
 	5). 匹配到规则立即返回，否则全部遍历完以后返回失败；
 
-    
+
 
 这里会有几张图，我后续再补上完善说明。
