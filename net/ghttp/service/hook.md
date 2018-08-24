@@ -34,7 +34,7 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 
 ## 事件优先级
 
-由于事件的绑定也是使用的路由规则，因此它的优先级和【[路由控制](net/ghttp/router)】章节介绍的优先级是一样的。
+由于事件的绑定也是使用的路由规则，因此它的优先级和【[路由控制](net/ghttp/router.md)】章节介绍的优先级是一样的。
 
 但是事件调用时和服务注册调用时的机制不一样，同一个路由规则下允许绑定多个事件回调方法，该路由下的事件调用会按照优先级进行调用，假如优先级相等的路由规则，将会按照事件注册的顺序进行调用。
 

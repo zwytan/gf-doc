@@ -1,17 +1,17 @@
 
 [TOC]
 
-**在开始阅读服务注册的后续章节时，请确定已经了解完毕gf框架的[路由控制](net/ghttp/router)机制。**
+**在开始阅读服务注册的后续章节时，请确定已经了解完毕gf框架的[路由控制](net/ghttp/router.md)机制。**
 
 当用户访问某个URI时，Web Server能够精确的调用特定的服务接口提供服务，这些都是通过```服务注册```来实现的。Web Server提供服务需要回调函数/方法/对象/控制器的支持，ghttp包支持多种服务注册模式，为开发者提供非常强大和灵活的接口功能。服务注册是整个Web Server最核心的部分，也是gf框架中最精心设计的一个模块。
 
-以下章节的所有示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init()```方法进行自动注册），所有示例代码存放于：gitee.com/johng/gf/blob/master/geg/frame/mvc/ 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```包），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 gitee.com/johng/gf/blob/master/geg/net/ghttp/server/  目录中，可独立运行）
+以下章节的所有示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init(.md)```方法进行自动注册），所有示例代码存放于：gitee.com/johng/gf/blob/master/geg/frame/mvc/ 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```包），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 gitee.com/johng/gf/blob/master/geg/net/ghttp/server/  目录中，可独立运行）
 
 服务注册管理由```ghttp```包实现，API文档地址：[godoc.org/github.com/johng-cn/gf/g/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
 # g与ghttp包
 
-在随后的章节示例代码中，我们将会看到频繁的```g.Server()```及```ghttp.GetServer()```混用，其实它们获取的都是同一个Web Server单例对象指针。其中```ghttp.GetServer()```是ghttp包**原生单例**Web Server对象指针获取方法。而```g.Server()```是框架通用**对象管理器**提供的方法，框架```g.*```对象管理器封装了常用的一些对象方法，具体请参看后续的【[对象管理](frame/g/index)】章节。虽然这种方式模块间耦合性比较高，但使用简便，也是推荐的使用方式。
+在随后的章节示例代码中，我们将会看到频繁的```g.Server()```及```ghttp.GetServer()```混用，其实它们获取的都是同一个Web Server单例对象指针。其中```ghttp.GetServer()```是ghttp包**原生单例**Web Server对象指针获取方法。而```g.Server()```是框架通用**对象管理器**提供的方法，框架```g.*```对象管理器封装了常用的一些对象方法，具体请参看后续的【[对象管理](frame/g/index.md)】章节。虽然这种方式模块间耦合性比较高，但使用简便，也是推荐的使用方式。
 
 
 # 服务注册介绍
@@ -80,7 +80,7 @@ func (s *Server) BindControllerRest(pattern string, c Controller) error
 
 需要注意的是，```BindController*```系列方法第二个参数为控制器接口，给定的参数必须实现```ghttp.Controller```接口。简便的做法是用户自定义的控制器直接继承```gmvc.Controller```基类即可，```gmvc.Controller```已经实现了对应的接口方法。
 
-服务注册使用的```pattern```参数格式在之前的【[路由控制](net/ghttp/router)】章节已经有介绍，这里便不再过多赘述。
+服务注册使用的```pattern```参数格式在之前的【[路由控制](net/ghttp/router.md)】章节已经有介绍，这里便不再过多赘述。
 
 
 
