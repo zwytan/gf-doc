@@ -8,7 +8,7 @@ import "gitee.com/johng/gf/g/util/gconv"
 ```
 
 方法列表： [godoc.org/github.com/johng-cn/gf/g/util/gconv](https://godoc.org/github.com/johng-cn/gf/g/util/gconv)
-```
+```go
 func Bool(i interface{}) bool
 func Bytes(i interface{}) []byte
 func Convert(i interface{}, t string) interface{}
@@ -136,4 +136,3 @@ func main() {
 &{1 john 123 123}
 &{2 smith 456 456}
 ```
-
