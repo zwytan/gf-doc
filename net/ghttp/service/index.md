@@ -140,6 +140,53 @@ func main() {
   * 当服务比较多时统一由一个地方进行路由维护，本身耦合性比较强；
   * 必须对外公开可供路由模块调用的注册的地址(方法)，或者结构/对象；
 
+示例：
+1. 控制器源码：
+  ```go
+  package ctldoc
+
+  import (
+      "gitee.com/johng/gf/g/net/ghttp"
+      "gitee.com/johng/gf/g"
+  )
+
+  // 必须公开服务方法
+  func Index(r *ghttp.Request) {
+      // 业务逻辑部分
+  }
+  ```
+1. 路由注册源码：
+    ```go
+    package router
+
+    import (
+        "gitee.com/johng/gf/g"
+        "gitee.com/johng/gf/g/net/ghttp"
+        "gitee.com/johng/gf-home/app/ctl/doc"
+    )
+
+    func init() {
+        g.Server().BindHandler("/doc/*path", ctldoc.Index)
+    }
+    ```
+1. `main`包的加载方式：
+    ```go
+    package main
+
+    import (
+        "gitee.com/johng/gf/g"
+        _ "gitee.com/johng/gf-home/boot"
+        _ "gitee.com/johng/gf-home/router"
+    )
+
+    func main() {
+        g.Server().Run()
+    }
+    ```
+1. 参考目录结构：
+    以[gf-home](https://gitee.com/johng/gf-home)项目为例：
+    ![](/images/united-router-manager.png)
+
 ### 独立路由注册管理
 独立路由注册，指的是实现/统一定义好项目的路由注册规范，而后每个服务按照包的形式分开独立进行注册管理。例如，规范 指定的路由前缀由指定的服务使用，事先分配好路由资源(可设定好路由表)。如`/api`前缀归API服务使用，`/admin`前缀归后台管理使用，以此类推，每个服务下根据拿到的路由资源可继续再规范化拆分。
 1. **优点**
@@ -154,29 +201,44 @@ func main() {
 在这种方式下，所有的服务注册独立在控制器包的```init```初始化方法中完成(```init```是Go语言内置的```包初始化方法```，并且一个包中支持多个```init```方法)，一个包可以包含多个文件，每个文件都可以有一个init初始化方法，可以分开注册，在使用的时候会通过同一个包引入进程序，自动调用初始化方法完成注册。
 
 
+示例：
 
+1. 控制器源码：
+    ```go
+    package ctlapi
 
-来看一个例子：
+    import (
+        "gitee.com/johng/gf/g/net/ghttp"
+        "gitee.com/johng/gf/g"
+    )
 
-[gitee.com/johng/gf/blob/master/geg/frame/mvc/main.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/main.go)
+    // 统一在各自包的init包初始化方法中进行路由注册
+    func init() {
+        g.Server().BindHandler("/api/*path", index)
+    }
 
-```go
-package main
+    // 服务方法不需要对外公开
+    func index(r *ghttp.Request) {
+        // 业务逻辑部分
+    }
+    ```
+1. `main`包源码：
+    ```go
+    package main
 
-import (
-	"gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-    _ "gitee.com/johng/gf/geg/frame/mvc/controller/demo"
-    _ "gitee.com/johng/gf/geg/frame/mvc/controller/stats"
-)
+    import (
+    	"gitee.com/johng/gf/g"
+        "gitee.com/johng/gf/g/net/ghttp"
+        _ "PATH/TO/YOUR/PROJECT/app/ctl/api"
+    )
 
-func main() {
-    g.Server().SetPort(8199)
-    g.Server().Run()
-}
-```
-其中通过：
-```go
-import _ "gitee.com/johng/gf/geg/frame/mvc/controller/demo"
-```
-这样一条类似于```all in one```（针对同一个包）的语句便完成了对包中的所有控制器的引入和注册（当然，包中的```init```应当实现注册方法调用），在demo包中包含了多个控制器、执行对象、回调函数的注册，demo包具体的控制器注册以及相关逻辑我们将在后续章节继续介绍。
+    func main() {
+        g.Server().SetPort(8199)
+        g.Server().Run()
+    }
+    ```
+    其中通过：
+    ```go
+    import _ "PATH/TO/YOUR/PROJECT/app/ctl/api"
+    ```
+    这样一条语句便完成了对包中的所有控制器的引入和注册（当然，包中的```init```应当实现注册方法调用），在demo包中包含了多个控制器、执行对象、回调函数的注册，demo包具体的控制器注册以及相关逻辑我们将在后续章节继续介绍。
