@@ -13,7 +13,7 @@ import "gitee.com/johng/gf/g/os/gtime"
 # 时间格式
 `gtime`模块最大的特点是支持自定义的时间格式，参考[PHP日期时间格式语法](http://php.net/manual/zh/function.date.php)，以下是支持的时间格式语法列表：
 
-![](images/gtime-format2.png)
+![](/images/gtime-format2.png)
 
 
 

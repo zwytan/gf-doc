@@ -43,4 +43,4 @@ func main() {
 ```
 在代码中，我们可以使用```SetUrlTemplate```方法来设置URL模板，执行后，结果如下：
 
-![](images/QQ截图20180806223701.png)
+![](/images/QQ截图20180806223701.png)

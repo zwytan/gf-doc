@@ -3,7 +3,7 @@
 
 # 事件回调注册
 
-![](images/QQ图片20180417140149.png)
+![](/images/QQ图片20180417140149.png)
 
 `ghttp.Server`提供了事件回调注册功能，类似于其他框架所谓的```中间件```功能，支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与服务注册一致)。支持多个方法对同一事件进行监听，```ghttp.Server```将会按照注册顺序进行回调方法调用。
 相关方法如下：
@@ -191,7 +191,7 @@ $.get("http://localhost:8199/api.v1/order", function(result){
 });
 ```
 结果如下：
-![](images/Selection_154.png)
+![](/images/Selection_154.png)
 返回了不允许跨域的错误，接着我们修改一下测试代码，如下：
 
 ```go
@@ -226,4 +226,4 @@ func main() {
 我们增加了针对于路由```/api.v1/*any```的绑定事件```BeforeServe```，该事件将会在所有服务执行之前调用，该事件的回调方法中，我们通过调用```SetAllowCrossDomainRequest```方法设置运行跨域请求。该绑定的事件路由规则使用了模糊匹配规则，表示所有```/api.v1```开头的接口地址都允许跨域请求。
 
 返回刚才的百度首页，再次执行请求AJAX请求，这次便成功了：
-![](images/Selection_155.png)
+![](/images/Selection_155.png)

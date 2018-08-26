@@ -42,5 +42,5 @@ func main() {
 }
 ```
 该示例中，我们展示了四种预定义的分页样式，并通过GET方式进行分页传参。执行后，输出的内容如下图所示：
-![](images/Selection_009.png)
+![](/images/Selection_009.png)
 

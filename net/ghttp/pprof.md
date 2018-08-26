@@ -31,11 +31,11 @@ func main() {
 ```
 其中```/debug/pprof/*action```为页面访问的路由，其他几个地址为```go tool pprof```命令准备的。简单的性能分析我们直接访问```/debug/pprof```地址即可，内容如下：
 1. pprof页面
-![](images/Selection_005.png)
+![](/images/Selection_005.png)
 1. 堆使用量
-![](images/Selection_006.png)
+![](/images/Selection_006.png)
 1. 当前进程中的goroutine详情
-![](images/Selection_007.png)
+![](/images/Selection_007.png)
 
 如果想要进行详细的性能分析，基本上离不开```go tool pprof```命令行工具的支持，在开启性能分析支持后，我们可以使用以下命令执行性能采集分析：
 ```
@@ -73,4 +73,4 @@ Failed to execute dot. Is Graphviz installed? Error: exec: "dot": executable fil
 (pprof)
 ```
 其中```web```命令用以图形展示接口之间的调用关系以及性能情况，但是需要安装```Graphviz```图形化工具，以我目前的系统为ubuntu为例，直接执行```sudo apt-get install graphviz```命令即可安装完成图形化工具，随后再次使用web命令，最终生成以下图表：
-![](images/pprof001.png)
+![](/images/pprof001.png)
