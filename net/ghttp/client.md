@@ -23,7 +23,7 @@ func NewClient() *Client
 ```
 我们可以使用```ghttp.NewClient```创建一个HTTP客户端对象，随后可以使用该对象执行请求。ghttp.Client对象中封装了一系列基于HTTP Method来命名的方法，调用这些方法将会发起对应的HTTP Method请求。常用的方法当然是Get和Post方法，此外DoRequest是核心的请求方法，用户可以调用该方法实现自定义的HTTP Method发送请求。
 
-```ghttp```包也提供了独立的包函数来实现HTTP请求，函数列表如下：
+`ghttp`包也提供了独立的包函数来实现HTTP请求，函数列表如下：
 
 ```go
 func Connect(url, data string) (*ClientResponse, error)
@@ -41,7 +41,7 @@ func Trace(url, data string) (*ClientResponse, error)
 
 ## ghttp.ClientResponse
 
-与ghttp.Client对应的是```ghttp.ClientResponse```，表示HTTP对应请求的返回结果对象，该对象继承于http.Response，可以使用http.Response的所有方法。在此基础之上增加了以下两个方法：
+与ghttp.Client对应的是```ghttp.ClientResponse```，表示HTTP对应请求的返回结果对象，该对象继承于`http.Response`，可以使用`http.Response`的所有方法。在此基础之上增加了以下两个方法：
 ```go
 func (r *ClientResponse) Close()
 func (r *ClientResponse) ReadAll() []byte
@@ -88,7 +88,7 @@ func (r *ClientResponse) ReadAll() []byte
     ```
     对于复杂参数的请求处理来讲，这是一个非常典型的例子。gf的HTTP客户端设计得非常简洁，请求参数类型被设计为最常用的string类型，因此在传递多参数的时候用户可以使用"&"符号进行连接，但当参数中带有特殊字符时，需要使用```ghttp.BuildParams```方法进行编码处理，并生成用于请求的参数字符串。
     当然，您也可以使用```gurl.Encode```方法来自行对参数进行编码处理。
-    
+
 1. **发送DELETE请求，并打印出返回值**
     ```go
     if r, e := ghttp.Delete("http://127.0.0.1:8199/user", "10000"); e != nil {
@@ -98,10 +98,10 @@ func (r *ClientResponse) ReadAll() []byte
         r.Close()
     }
     ```
-    
+
 
 ## 文件上传
-    
+
 gf的HTTP客户端封装并极大简化了文件上传功能，直接上例子：
 
 1. **客户端**
@@ -183,7 +183,7 @@ gf的HTTP客户端封装并极大简化了文件上传功能，直接上例子�
     访问 ```http://127.0.0.1:8199/upload/show``` 选择需要上传的文件，提交之后可以看到文件上传成功到服务器上。
 
     文件上传比较简单，**但是需要注意的是，服务端在上传处理中需要使用f.Close() 关闭掉临时上传文件指针**。
-    
+
 ## 自定义Header
 
 http客户端发起请求时可以自定义发送给服务端的Header内容，该特性使用```SetHeader(key, value string)```方法实现。我们来看一个客户端自定义Cookie的例子。
@@ -230,7 +230,7 @@ http客户端发起请求时可以自定义发送给服务端的Header内容，�
     }
     ```
 	服务端的逻辑很简单，直接将接收到的Cookie参数全部打印出来。
-    
+
 1. **执行结果**
 	客户端代码执行后，终端将会打印出服务端的返回结果，如下：
     ```shell
