@@ -3,18 +3,24 @@
 
 # 调试模式
 
-为便于开发阶段调试，ORM支持调试模式，可以使用以下方式开启调试模式：
+为便于开发阶段调试，gf-orm支持调试模式，可以使用以下方式开启调试模式：
 ```go
 // 是否开启调试服务
 func (db *Db) SetDebug(debug bool)
 ```
-随后我们可以通过以下方法获得调试过程中执行的所有SQL语句：
+随后在ORM的操作过程中，所有的执行语句将会打印到终端进行展示。
+同时，我们可以通过以下方法获得调试过程中执行的所有SQL语句：
 ```go
 // 获取已经执行的SQL列表
 func (db *Db) GetQueriedSqls() []*Sql
 ```
+使用示例1：
 
-使用示例：
+TODO
+
+
+
+使用示例2：
 ```go
 package main
 
@@ -87,7 +93,7 @@ Error: <nil>
 Cost : 3
 Func : DB:Query
 ```
-需要注意的是，获取的已执行SQL列表是按照从最新到旧进行排序(最近执行的SQL排在最前面)；输出结果的SQL中如果出现```?```占位符号，表示这条SQL语句是使用的预处理执行(gf-orm底层采用的也是预处理模式，预防注入风险)，SQL的执行参数是存放到```Args```属性中；```Cost```表示这条SQL花费的执行时间，单位为**毫秒**；```Error```表示这条SQL执行是否产生错误；```Func```表示这条SQL使用的是何种方法执行的，总共有四种：DB:Query/DB:Exec/TX:Query/TX:Exec。
+需要注意的是，获取的已执行SQL列表是按照从最新到旧进行排序(最近执行的SQL排在最前面)；输出结果的SQL中如果出现```?```占位符号，表示这条SQL语句是使用的预处理执行(gf-orm底层采用的也是预处理模式，预防注入风险)，SQL的执行参数是存放到```Args```属性中；```Cost```表示这条SQL花费的执行时间，单位为**毫秒**；```Error```表示这条SQL执行是否产生错误；```Func```表示这条SQL使用的是何种方法执行的，总共有四种：`DB:Query/DB:Exec/TX:Query/TX:Exec`。
 
 
 # 查询缓存
@@ -261,7 +267,7 @@ type Record
 ```
 
 ```go
-// 数据表记录集
+// 数据表记录列表
 type Result
     func (r Result) ToList() List
 	func (r Result) ToJson() string
