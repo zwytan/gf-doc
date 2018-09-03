@@ -14,7 +14,7 @@
 
 **模板中支持的 go 语言符号**
 
-```go
+```markup-templating
 {{"string"}}     // 一般 string
 {{`raw string`}} // 原始 string
 {{'c'}}          // byte
