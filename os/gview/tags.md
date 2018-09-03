@@ -25,7 +25,7 @@
 
 可以是上下文的变量输出，也可以是函数通过管道传递的返回值
 
-```
+```go
 {{. | FuncA | FuncB | FuncC}}
 ```
 
@@ -33,7 +33,7 @@
 
 * `false`或`0`
 * `nil的指针`或`interface`
-* 长度为**0**的`array`, `slice`, `map`, `string`
+* 长度为`0`的`array`, `slice`, `map`, `string`
 
 那么这个`pipeline`被认为是空。
 
