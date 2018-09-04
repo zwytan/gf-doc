@@ -52,11 +52,13 @@
 │   │   ├── gcfg            配置文件管理器
 │   │   ├── gcmd            命令行参数管理
 │   │   ├── genv            环境变量
+│   │   ├── gfcache         文件缓存
 │   │   ├── gfile           文件管理
 │   │   ├── gfilepool       文件指针池
 │   │   ├── gflock          文件锁
 │   │   ├── gfsnotify       文件监控
 │   │   ├── glog            日志管理
+│   │   ├── gmlock          内存锁
 │   │   ├── gmmap           MMAP
 │   │   ├── gproc           进程管理通信
 │   │   ├── grpool          协程池
