@@ -33,6 +33,7 @@
         * [使用方法](os/gview/index.md)
         * [基本语法](os/gview/tags.md)
         * [基本函数](os/gview/funcs.md)
+        * [内置变量](os/gview/buildin-vars.md)
     * [数据库ORM](#)
         * [ORM基本介绍](database/orm/index.md)
         * [ORM使用配置](database/orm/config.md)

@@ -113,3 +113,37 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 ```go
 {{if lt 100 200}}...{{end}}
 ```
+
+# 内置函数
+
+在Web Server的模板引擎内置了多个模板函数，需要注意的是，这些内置函数只在Web Server下使用`ghttp.Response`或者`gmvc.View`对象渲染模板下有效。
+
+## get
+
+```go
+{{get "参数名称"}}
+```
+用于获取GET方式传递的参数。
+
+使用示例：
+```go
+{{if (get "name")}}
+    {{get "name"}}
+{{else}}
+    NoName
+{{end}}
+```
+
+## post
+
+```go
+{{post "参数名称"}}
+```
+用于获取POST方式传递的参数。
+
+## request
+
+```go
+{{request "参数名称"}}
+```
+用于获取路由参数，以及GET/POST方式传递的参数。
