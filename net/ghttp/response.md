@@ -2,11 +2,14 @@
 
 数据输出对象定义如下：
 ```go
+// 服务端请求返回对象。
+// 注意该对象并没有实现http.ResponseWriter接口，而是依靠ghttp.ResponseWriter实现。
 type Response struct {
-    http.ResponseWriter
-    bufmu   sync.RWMutex // 缓冲区互斥锁
-    buffer  []byte       // 每个请求的返回数据缓冲区
-    request *Request     // 关联的Request请求对象
+    ResponseWriter
+    length  int             // 请求返回的内容长度(byte)
+    Server  *Server         // 所属Web Server
+    Writer  *ResponseWriter // ResponseWriter的别名
+    request *Request        // 关联的Request请求对象
 }
 ```
 可以看到```ghttp.Response```对象继承了标准库的```http.ResponseWriter```对象，因此完全可以使用标准库的方法来进行输出控制。
@@ -16,19 +19,32 @@ type Response struct {
 相关方法（API详见： [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Response](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)）：
 ```go
 func (r *Response) Buffer() []byte
-func (r *Response) SetBuffer(buffer []byte)
+func (r *Response) BufferLength() int
 func (r *Response) ClearBuffer()
+func (r *Response) ContentSize() int
 func (r *Response) OutputBuffer()
+func (r *Response) SetBuffer(buffer []byte)
 
-func (r *Response) Write(content...interface{})
-func (r *Response) Writeln(content...interface{})
+func (r *Response) RedirectBack()
+func (r *Response) RedirectTo(location string)
+func (r *Response) ServeFile(path string)
+func (r *Response) SetAllowCrossDomainRequest(allowOrigin string, allowMethods string, maxAge ...int)
+
+func (r *Response) Write(content ...interface{})
+func (r *Response) Writef(format string, params ...interface{})
+func (r *Response) Writefln(format string, params ...interface{})
+func (r *Response) Writeln(content ...interface{})
+
 func (r *Response) WriteXml(content interface{}, rootTag ...string) error
 func (r *Response) WriteJson(content interface{}) error
 func (r *Response) WriteJsonP(content interface{}) error
-func (r *Response) WriteStatus(code int, content ...string)
+func (r *Response) WriteStatus(status int, content ...string)
 
-func (r *Response) SetAllowCrossDomainRequest(allowOrigin string, allowMethods string, maxAge ...int)
-func (r *Response) RedirectTo(location string)
+func (r *Response) WriteTpl(tpl string, params map[string]interface{}, funcmap ...map[string]interface{}) error
+func (r *Response) WriteTplContent(content string, params map[string]interface{}, funcmap ...map[string]interface{}) error
+
+func (r *Response) ParseTpl(tpl string, params map[string]interface{}, funcmap ...map[string]interface{}) ([]byte, error)
+func (r *Response) ParseTplContent(content string, params map[string]interface{}, funcmap ...map[string]interface{}) ([]byte, error)
 ```
 此外，需要提一下，Header的操作可以通过标准库的方法来实现，例如：
 ```go
