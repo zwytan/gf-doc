@@ -2,6 +2,8 @@
 
 并发安全数组。
 
+
+
 使用方式：
 ```go
 import "gitee.com/johng/gf/g/container/garray"
