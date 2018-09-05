@@ -37,9 +37,9 @@ ipv6                 格式：ipv6                                  说明：IPv
 mac                  格式：mac                                   说明：MAC地址
 url                  格式：url                                   说明：URL
 domain               格式：domain                                说明：域名
-length               格式：length:min,max                        说明：参数长度为min到max(长度参数为整形)
-min-length           格式：min-length:min                        说明：参数长度最小为min(长度参数为整形)
-max-length           格式：max-length:max                        说明：参数长度最大为max(长度参数为整形)
+length               格式：length:min,max                        说明：参数长度为min到max(长度参数为整形)，注意中文一个汉字占3字节
+min-length           格式：min-length:min                        说明：参数长度最小为min(长度参数为整形)，注意中文一个汉字占3字节
+max-length           格式：max-length:max                        说明：参数长度最大为max(长度参数为整形)，注意中文一个汉字占3字节
 between              格式：between:min,max                       说明：参数大小为min到max(支持整形和浮点类型参数)
 min                  格式：min:min                               说明：参数最小为min(支持整形和浮点类型参数)
 max                  格式：max:max                               说明：参数最大为max(支持整形和浮点类型参数)
@@ -56,11 +56,17 @@ regex                格式：regex:pattern                         说明：参
 
 # 校验方法
 
+相关数据结构：
+```go
+// 校验错误对象
+type Error map[string]map[string]string
+```
+
 校验方法列表：
 ```go
-func Check(val interface{}, rules string, msgs interface{}, params ...map[string]interface{}) map[string]string
-func CheckMap(params map[string]interface{}, rules map[string]string, msgs ...map[string]interface{}) map[string]map[string]string
-func CheckStruct(st interface{}, rules map[string]string, msgs ...map[string]interface{}) map[string]map[string]string
+func Check(val interface{}, rules string, msgs interface{}, params ...map[string]interface{}) Error
+func CheckMap(params map[string]interface{}, rules map[string]string, msgs ...map[string]interface{}) Error
+func CheckStruct(st interface{}, rules map[string]string, msgs ...map[string]interface{}) Error
 func SetDefaultErrorMsgs(msgs map[string]string)
 ```
 `Check*`方法只有在返回nil的情况下，表示数据校验成功，否则返回校验出错的数据项(```CheckMap```)以及对应的规则和错误信息的map，具体请查看后续示例代码更容易理解。
@@ -74,21 +80,24 @@ func SetDefaultErrorMsgs(msgs map[string]string)
 1、校验数据长度，使用默认的错误提示
 ```go
 rule := "length:6,16"
-if m := gvalid.Check("123456", rule);  m != nil {
-    fmt.Println(m)
+if e := gvalid.Check("123456", rule, nil);  e != nil {
+    fmt.Println(e.String())
 }
-if m := gvalid.Check("12345", rule);  m != nil {
-    fmt.Println(m)
+if e := gvalid.Check("12345", rule, nil);  e != nil {
+    fmt.Println(e.String())
 }
 
-// 输出： map[length:字段长度为6到16个字符]
+// 输出： 字段长度为6到16个字符
 ```
 
 2、校验数据类型及大小，并且使用自定义的错误提示
 ```go
 rule := "integer|between:6,16"
 msgs := "请输入一个整数|参数大小不对啊老铁"
-fmt.Println(gvalid.Check(5.66, rule, msgs))
+if e := gvalid.Check(5.66, rule, msgs); e != nil {
+    _, item := e.FirstItem()
+    fmt.Println(item)
+}
 
 // 输出： map[integer:请输入一个整数 between:参数大小不对啊老铁]
 ```
@@ -100,7 +109,10 @@ msgs := map[string]string{
     "url"       : "请输入正确的URL地址",
     "minlength" : "地址长度至少为:min位"
 }
-fmt.Println(gvalid.Check("http://johngcn", rule, msgs))
+if e := gvalid.Check("http://johngcn", rule, msgs); e != nil {
+    _, item := e.FirstItem()
+    fmt.Println(item)
+}
 
 // 输出： map[url:请输入正确的URL地址]
 ```
@@ -109,11 +121,13 @@ fmt.Println(gvalid.Check("http://johngcn", rule, msgs))
 ```go
 // 参数长度至少为6个数字或者6个字母，但是总长度不能超过16个字符
 rule := `regex:\d{6,}|\D{6,}|max-length:16`
-if m := gvalid.Check("123456", rule);  m != nil {
-    fmt.Println(m)
+if e := gvalid.Check("123456", rule, nil);  e != nil {
+    _, item := e.FirstItem()
+    fmt.Println(item)
 }
-if m := gvalid.Check("abcde6", rule);  m != nil {
-    fmt.Println(m)
+if e := gvalid.Check("abcde6", rule, nil); e != nil {
+    _, item := e.FirstItem()
+    fmt.Println(item)
 }
 
 // 输出： map[regex:字段值不合法]
@@ -135,9 +149,21 @@ rules := map[string]string {
     "password"  : "required|length:6,16|same:password2",
     "password2" : "required|length:6,16",
 }
-fmt.Println(gvalid.CheckMap(params, rules))
+if e := gvalid.CheckMap(params, rules); e != nil {
+    gutil.Dump(e)
+}
 
-// 输出： map[passport:map[length:字段长度为6到16个字符] password:map[same:字段值不合法]]
+/*
+输出： 
+{
+	"passport": {
+		"length": "字段长度为6到16个字符"
+	},
+	"password": {
+		"same": "字段值不合法"
+	}
+}
+*/
 ```
 
 2、多数据多规则校验，使用自定义错误提示
@@ -159,9 +185,21 @@ msgs  := map[string]interface{} {
         "same"     : "两次密码输入不相等",
     },
 }
-fmt.Println(gvalid.CheckMap(params, rules, msgs))
+if e := gvalid.CheckMap(params, rules, msgs); e != nil {
+    gutil.Dump(e)
+}
 
-// 输出： map[passport:map[length:账号长度应当在6到16之间] password:map[same:两次密码输入不相等]]
+/*
+输出：
+{
+	"passport": {
+		"length": "账号长度应当在6到16之间"
+	},
+	"password": {
+		"same": "两次密码输入不相等"
+	}
+}
+*/
 ```
 
 该示例同时也展示了自定义错误传递的两种数据类型，```string```或者```map[string]string```。其中```map[string]string```类型参数需要指定对应字段、对应规则的错误提示信息，是一个二维的“关联数组”。
@@ -169,7 +207,7 @@ fmt.Println(gvalid.CheckMap(params, rules, msgs))
 
 ## 多数据校验 - CheckStruct
 
-`CheckStruct`的使用方式同CheckMap，除了第一个参数为```struct类型```的对象（也可以是对象指针）。**但是需要注意的一个细节是，struct的属性会有默认值，因此某些情况下会引起required规则的失效，因此根据实际情况配合多种规则一起校验会是一个比较严谨的做法。**
+`CheckStruct`的使用方式同CheckMap，除了第一个参数为```struct类型```的对象（也可以是对象指针）。**但是需要注意的一个细节是，struct的属性会有`默认值`，因此某些情况下会引起`required`规则的失效，因此根据实际情况配合多种规则一起校验会是一个比较严谨的做法。**
 
 ### 示例1，使用map指定规则及提示信息
 ```go
@@ -189,14 +227,27 @@ msgs  := map[string]interface{} {
     "Age"  : "年龄为18到30周岁",
 }
 obj := Object{Name : "john"}
-// 也可以是
+// 也可以是指针
 // obj := &Object{Name : "john"}
-fmt.Println(gvalid.CheckStruct(obj, rules, msgs))
+if e := gvalid.CheckStruct(obj, rules, msgs); e != nil {
+    gutil.Dump(e)
+}
 
-// 输出： map[Age:map[between:年龄为18到30周岁] Name:map[length:名称长度为6到16个字符]]
+/*
+输出：
+{
+	"Age": {
+		"between": "年龄为18到30周岁"
+	},
+	"Name": {
+		"length": "名称长度为6到16个字符"
+	}
+}
+
+*/
 ```
 
-在以上示例中，```Age```属性由于默认值0的存在，因此会引起```required```规则的失效，因此这里没有使用```required```规则而是使用```between```规则来进行校验。
+在以上示例中，```Age```属性由于默认值`0`的存在，因此会引起```required```规则的失效，因此这里没有使用```required```规则而是使用```between```规则来进行校验。
 
 ### 示例2，使用struct tag绑定规则及提示信息
 
@@ -238,6 +289,7 @@ func main() {
 }
 ```
 可以看到，我们可以对在struct定义时使用了```gvalid```的标签属性来绑定校验的规则及错误提示信息，该标签规则如下：
+
 ```html
 [属性别名@]校验规则[#错误提示]
 ```
