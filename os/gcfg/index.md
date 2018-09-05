@@ -1,7 +1,7 @@
 [TOC]
 
 
-gf的配置管理由```gcfg```包实现，gcfg包是并发安全的，仅提供配置文件读取功能，不提供数据写入/修改功能，**支持的数据文件格式包括： JSON、XML、YAML/YML、TOML**。如果想要支持对数据文件的读取及修改，并且可以进行数据格式转换，请参看[gparser包](encoding/gparser/index.md)。
+gf的配置管理由```gcfg```包实现，gcfg包是并发安全的，仅提供配置文件读取功能，不提供数据写入/修改功能，**支持的数据文件格式包括： `JSON`、`XML`、`YAML/YML`、`TOML`**。如果想要支持对数据文件的读取及修改，并且可以进行数据格式转换，请参看[gparser包](encoding/gparser/index.md)。
 
 使用方式：
 ```go
