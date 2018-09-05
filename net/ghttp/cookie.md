@@ -4,7 +4,7 @@
 
 # 方法列表
 
-我们先来看看Cookie操作有哪些相关方法：
+我们先来看看`Cookie`操作有哪些相关方法：
 [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Cookie](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Cookie)
 ```go
 func (c *Cookie) Close()
