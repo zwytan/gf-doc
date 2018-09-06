@@ -1,8 +1,6 @@
 # garray
 
-并发安全数组。
-
-
+并发安全数组。支持普通并发安全数组(非排序)，以及排序的并发安全数组，并支持数据项唯一性矫正。
 
 使用方式：
 ```go
@@ -11,7 +9,82 @@ import "gitee.com/johng/gf/g/container/garray"
 
 方法列表：[godoc.org/github.com/johng-cn/gf/g/container/garray](https://godoc.org/github.com/johng-cn/gf/g/container/garray)
 
-支持普通并发安全数组(非排序)。
-以及排序的并发安全数组，支持唯一数据项矫正。
+由于`garray`包下的对象及方法较多，支持`int`/`string`/`interface{}`三种数据类型，这里便不一一列举。`garray`下包含了多种数据类型的slice，可以使用 `garray.New*Array`/`garray.NewSorted*Array` 方法来创建，其中`garray.New*Array`为普通不排序数组，`garray.NewSorted*Array`为排序数组(当创建`interface{}`类型的数组时，创建时可以自定义的排序函数)。
 
-文档未完待续。
+## 使用示例1，普通数组
+```go
+package main
+
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/container/garray"
+)
+
+
+func main () {
+    // 创建普通的int类型数组，并关闭默认的并发安全特性
+    a := garray.NewIntArray(0, 0, false)
+
+    // 添加数据项
+    for i := 0; i < 10; i++ {
+        a.Append(i)
+    }
+
+    // 获取当前数组长度
+    fmt.Println(a.Len())
+
+    // 获取当前数据项列表
+    fmt.Println(a.Slice())
+
+    // 获取指定索引项
+    fmt.Println(a.Get(6))
+
+    // 在指定索引前插入数据项
+    a.InsertAfter(9, 11)
+    // 在指定索引后插入数据项
+    a.InsertBefore(10, 10)
+    fmt.Println(a.Slice())
+
+    // 修改指定索引的数据项
+    a.Set(0, 100)
+    fmt.Println(a.Slice())
+
+    // 搜索数据项，返回搜索到的索引位置
+    fmt.Println(a.Search(5))
+
+    // 删除指定索引的数据项
+    a.Remove(0)
+    fmt.Println(a.Slice())
+
+    // 并发安全，写锁操作
+    a.LockFunc(func(array []int) {
+        // 将末尾项改为100
+        array[len(array) - 1] = 100
+    })
+
+    // 并发安全，读锁操作
+    a.RLockFunc(func(array []int) {
+        fmt.Println(array[len(array) - 1])
+    })
+
+    // 清空数组
+    fmt.Println(a.Slice())
+    a.Clear()
+    fmt.Println(a.Slice())
+}
+```
+执行后，输出结果为：
+```html
+10
+[0 1 2 3 4 5 6 7 8 9]
+6
+[0 1 2 3 4 5 6 7 8 9 10 11]
+[100 1 2 3 4 5 6 7 8 9 10 11]
+5
+[1 2 3 4 5 6 7 8 9 10 11]
+100
+[1 2 3 4 5 6 7 8 9 10 100]
+[]
+```
+
+## 使用示例2，排序数组
