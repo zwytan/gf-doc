@@ -9,7 +9,7 @@ import "gitee.com/johng/gf/g/container/garray"
 
 方法列表：[godoc.org/github.com/johng-cn/gf/g/container/garray](https://godoc.org/github.com/johng-cn/gf/g/container/garray)
 
-由于`garray`包下的对象及方法较多，支持`int`/`string`/`interface{}`三种数据类型，这里便不一一列举。`garray`下包含了多种数据类型的slice，可以使用 `garray.New*Array`/`garray.NewSorted*Array` 方法来创建，其中`garray.New*Array`为普通不排序数组，`garray.NewSorted*Array`为排序数组(当创建`interface{}`类型的数组时，创建时可以自定义的排序函数)。
+由于`garray`包下的对象及方法较多，支持`int`/`string`/`interface{}`三种数据类型，这里便不一一列举。`garray`下包含了多种数据类型的slice，可以使用 `garray.New*Array`/`garray.NewSorted*Array` 方法来创建，其中`garray.New*Array`为普通不排序数组，`garray.NewSorted*Array`为排序数组(当创建`interface{}`类型的数组时，创建时可以指定自定义的排序函数)。
 
 ## 使用示例1，普通数组
 ```go
@@ -88,3 +88,56 @@ func main () {
 ```
 
 ## 使用示例2，排序数组
+
+排序数组的方法与普通数组类似，但是带有排序功能及唯一性过滤功能。
+
+```go
+package main
+
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/container/garray"
+)
+
+
+func main () {
+    // 自定义排序数组，降序排序(SortedIntArray管理的数据是升序)
+    a := garray.NewSortedArray(0, 0, func(v1, v2 interface{}) int {
+        if v1.(int) < v2.(int) {
+            return 1
+        }
+        if v1.(int) > v2.(int) {
+            return -1
+        }
+        return 0
+    })
+
+    // 添加数据
+    a.Add(2)
+    a.Add(3)
+    a.Add(1)
+    fmt.Println(a.Slice())
+
+    // 添加重复数据
+    a.Add(3)
+    fmt.Println(a.Slice())
+
+    // 检索数据，返回最后对比的索引位置，检索结果
+    // 检索结果：0: 匹配; <0:参数小于对比值; >0:参数大于对比值
+    fmt.Println(a.Search(1))
+
+    // 设置不可重复
+    a.SetUnique(true)
+    fmt.Println(a.Slice())
+    a.Add(1)
+    fmt.Println(a.Slice())
+}
+```
+执行后，输出结果：
+```html
+[3 2 1]
+[3 3 2 1]
+3 0
+[3 2 1]
+[3 2 1]
+```
