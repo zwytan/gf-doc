@@ -138,3 +138,5 @@ BenchmarkSyncmapRmove-8   	20000000	        93.6 ns/op
 PASS
 ok  	command-line-arguments	27.950s
 ```
+
+可以看到，`gmap`的性能比较于标准库的`sync.Map`对象更有优势，且提供了更加丰富的功能。
