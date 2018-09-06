@@ -1,3 +1,5 @@
+[TOC]
+
 # gmap
 
 并发安全Map，最常用的并发安全数据结构。
@@ -16,22 +18,7 @@ import "gitee.com/johng/gf/g/container/gmap"
 由于`gmap`包下的对象及方法比较多，这里便不一一列举。`gmap`下包含了多种数据类型的map，可以使用 `gmap.New*` 方法来创建。
 
 
-go语言从1.9版本开始引入了并发安全的`sync.Map`，我们来看看基准测试结果：
-```shell
-john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gmap$ go test *.go -bench=".*"
-goos: linux
-goarch: amd64
-BenchmarkGmapSet-8        	10000000	       181 ns/op
-BenchmarkSyncmapSet-8     	 5000000	       366 ns/op
-BenchmarkGmapGet-8        	30000000	        82.6 ns/op
-BenchmarkSyncmapGet-8     	20000000	        95.7 ns/op
-BenchmarkGmapRemove-8     	20000000	        69.8 ns/op
-BenchmarkSyncmapRmove-8   	20000000	        93.6 ns/op
-PASS
-ok  	command-line-arguments	27.950s
-```
-
-使用示例：
+## 使用示例
 ```go
 package main
 
@@ -123,4 +110,31 @@ true
 100
 3:3 5:5 8:8 7:7 0:0 1:1 2:2 4:4 6:6 99
 true
+```
+
+## 并发安全
+
+`gmap`在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，又或者只是想使用`gmap`对象来便于操作`map`，那么用户选择可以主动关闭`gmap`的并发安全特性(必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升。关闭并发安全特性可以在创建`gmap`对象时传递`false`参数，如：
+```go
+m := gmap.New(false)
+```
+
+不仅仅是`gmap`，gf框架的其他并发安全数据结构也可以关闭并发安全特性，来提升性能或者简化原本复杂的数据结构操作。
+
+
+## gmap与sync.Map
+
+go语言从1.9版本开始引入了并发安全的`sync.Map`，我们来看看基准测试结果：
+```shell
+john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gmap$ go test *.go -bench=".*"
+goos: linux
+goarch: amd64
+BenchmarkGmapSet-8        	10000000	       181 ns/op
+BenchmarkSyncmapSet-8     	 5000000	       366 ns/op
+BenchmarkGmapGet-8        	30000000	        82.6 ns/op
+BenchmarkSyncmapGet-8     	20000000	        95.7 ns/op
+BenchmarkGmapRemove-8     	20000000	        69.8 ns/op
+BenchmarkSyncmapRmove-8   	20000000	        93.6 ns/op
+PASS
+ok  	command-line-arguments	27.950s
 ```
