@@ -31,41 +31,45 @@ type Queue
 package main
 
 import (
-    "gitee.com/johng/gf/g/container/gqueue"
     "fmt"
     "time"
+    "gitee.com/johng/gf/g/os/gtime"
+    "gitee.com/johng/gf/g/container/gqueue"
 )
 
 func main() {
     q := gqueue.New()
+    // 数据生产者，每隔1秒往队列写数据
+    gtime.SetInterval(time.Second, func() bool {
+        v := gtime.Now().String()
+        q.PushBack(v)
+        fmt.Println("PushBack:", v)
+        return true
+    })
 
-    go func() {
-        for i := 0; i < 1000; i++ {
-            time.Sleep(time.Second)
-            q.PushBack(i)
-            fmt.Println("PushBack:", i)
-        }
-    }()
+    // 3秒后关闭队列
+    gtime.SetTimeout(3*time.Second, func() {
+        q.Close()
+    })
 
-
+    // 消费者，不停读取队列数据并输出到终端
     for {
-        fmt.Println("PopFront:", q.PopFront())
+        if v := q.PopFront(); v != nil {
+            fmt.Println("PopFront:", v)
+        } else {
+            break
+        }
     }
 }
 ```
+在该示例中，第3秒时关闭队列，这时程序立即退出，因此结果中只会打印2秒的数据。
 执行后，输出结果为：
 ```html
-PushBack: 0
-PopFront: 0
-PushBack: 1
-PopFront: 1
-PushBack: 2
-PopFront: 2
-PushBack: 3
-PopFront: 3
-...
+PushBack: 2018-09-07 14:03:00
+PopFront: 2018-09-07 14:03:00
+PushBack: 2018-09-07 14:03:01
+PopFront: 2018-09-07 14:03:01
 ```
-
 
 ## gqueue与glist
 
