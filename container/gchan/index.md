@@ -1,6 +1,6 @@
 # gchan
 
-优雅的Channel操作。
+优雅的Channel操作。原生的`channel`操作在`channel`关闭后再向`channel`发送数据，或者多次关闭`channel`会引发`panic`，`gchan`包使得`channel`的操作变得优雅，当然，这一部分优雅是需要牺牲一部分的操作性能来实现的。`gchan`的使用方式同标准库的`chan`。
 
 使用方式：
 ```go
@@ -18,11 +18,8 @@ type Chan
     func (q *Chan) Size() int
 ```
 
-
-原生的channel操作在channel关闭后再向channel发送数据或者多次关闭channel会引发panic，gchan包使得channel的操作变得更加优雅，当然，这一部分优雅是需要牺牲一部分的操作性能来实现的。
-
-gchan与原生channel的性能测试：
-```
+`gchan`与原生`channel`的性能测试：
+```html
 john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gchan$ go test *.go -bench=".*"
 goos: linux
 goarch: amd64
@@ -31,5 +28,3 @@ BenchmarkChannelPushAndPop-8   	50000000	        39.3 ns/op
 PASS
 ok  	command-line-arguments	3.663s
 ```
-
-文档未完待续。
