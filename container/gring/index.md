@@ -34,6 +34,10 @@ type Ring
     func (r *Ring) Val() interface{}
 ```
 
+从以上方法可以看出，`gring`支持链式操作。
+
+
+
 ## 使用示例，约瑟夫问题
 
 我们使用`ring`来模拟一下[约瑟夫问题](https://baike.baidu.com/item/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/3857719)：
