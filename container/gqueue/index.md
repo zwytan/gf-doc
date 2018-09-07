@@ -25,6 +25,48 @@ type Queue
     func (q *Queue) Size() int
 ```
 
+## 使用示例
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/container/gqueue"
+    "fmt"
+    "time"
+)
+
+func main() {
+    q := gqueue.New()
+
+    go func() {
+        for i := 0; i < 1000; i++ {
+            time.Sleep(time.Second)
+            q.PushBack(i)
+            fmt.Println("PushBack:", i)
+        }
+    }()
+
+
+    for {
+        fmt.Println("PopFront:", q.PopFront())
+    }
+}
+```
+执行后，输出结果为：
+```html
+PushBack: 0
+PopFront: 0
+PushBack: 1
+PopFront: 1
+PushBack: 2
+PopFront: 2
+PushBack: 3
+PopFront: 3
+...
+```
+
+
 ## gqueue与glist
 
 `gqueue`的底层基于`list`链表实现动态大小特性，但是`gqueue`的使用场景都是多`goroutine`下的并发安全通信场景。在队列满时存储(限制队列大小时)，或者在队列空时读取数据会产生类似`channel`那样的阻塞效果。
