@@ -96,16 +96,13 @@ func main() {
     // 获取值
     fmt.Println(i.Val())
 
-    // 返回修改之前的数值
+    // 数值-1，并返回修改之后的数值
     fmt.Println(i.Add(-1))
-
-    fmt.Println(i.Val())
 }
 ```
 
 执行后，输出结果为：
 ```html
 10
-9
 9
 ```
