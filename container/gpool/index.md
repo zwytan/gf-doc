@@ -5,16 +5,16 @@
 对象复用池。将对象进行缓存复用，支持`过期时间`、`创建方法`及`销毁方法`定义。
 
 
-使用场景：
+**使用场景**：
 
 任何需要对象(struct)复用的场景。
 
-使用方式：
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/gpool"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gpool](https://godoc.org/github.com/johng-cn/gf/g/container/gpool)
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gpool](https://godoc.org/github.com/johng-cn/gf/g/container/gpool)
 
 ```go
 type Pool

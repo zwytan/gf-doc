@@ -4,16 +4,16 @@
 
 并发安全Map，最常用的并发安全数据结构。
 
-使用场景：
+**使用场景**：
 
 需要并发安全支持的map数据类型场景。例如，map对象会被多个goroutine读写时。
 
-使用方式：
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/gmap"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gmap](https://godoc.org/github.com/johng-cn/gf/g/container/gmap)
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gmap](https://godoc.org/github.com/johng-cn/gf/g/container/gmap)
 
 由于`gmap`包下的对象及方法比较多，这里便不一一列举。`gmap`下包含了多种数据类型的map，可以使用 `gmap.New*` 方法来创建。
 

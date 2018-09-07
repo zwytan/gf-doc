@@ -4,16 +4,16 @@
 
 动态大小的并发安全队列。
 
-使用场景：
+**使用场景**：
 
 该队列是并发安全的，常用于多`goroutine`数据通信的场景。
 
-使用方式：
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/gqueue"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gqueue](https://godoc.org/github.com/johng-cn/gf/g/container/gqueue)
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gqueue](https://godoc.org/github.com/johng-cn/gf/g/container/gqueue)
 ```go
 type Queue
     func New(limit ...int) *Queue

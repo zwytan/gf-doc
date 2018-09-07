@@ -4,12 +4,16 @@
 
 并发安全数组。支持普通并发安全数组(非排序)，以及排序的并发安全数组，并支持数据项唯一性矫正。
 
-使用方式：
+**使用场景**：
+
+当做普通数组用，提供了一系列相关方法可简化`slice`的操作。
+
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/garray"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/garray](https://godoc.org/github.com/johng-cn/gf/g/container/garray)
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/garray](https://godoc.org/github.com/johng-cn/gf/g/container/garray)
 
 由于`garray`包下的对象及方法较多，支持`int`/`string`/`interface{}`三种数据类型，这里便不一一列举。`garray`下包含了多种数据类型的slice，可以使用 `garray.New*Array`/`garray.NewSorted*Array` 方法来创建，其中`garray.New*Array`为普通不排序数组，`garray.NewSorted*Array`为排序数组(当创建`interface{}`类型的数组时，创建时可以指定自定义的排序函数)。
 

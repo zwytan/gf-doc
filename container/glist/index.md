@@ -2,16 +2,16 @@
 
 并发安全双向列表。
 
-使用场景：
+**使用场景**：
 
 并发安全场景下的链表操作，也可以关闭并发安全性当做普通的链表来使用。
 
-使用方式：
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/glist"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/glist](https://godoc.org/github.com/johng-cn/gf/g/container/glist)
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/glist](https://godoc.org/github.com/johng-cn/gf/g/container/glist)
 ```go
 type SafeList
     func New(safe ...bool) *List

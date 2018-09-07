@@ -4,7 +4,7 @@
 
 并发安全的基本类型。
 
-使用场景：
+**使用场景**：
 
 `gtype`使用得非常频繁，任何需要并发安全的场景下都适用。
 在普通的并发安全场景中，一个基本类型的变量，特别是一个struct的属性，往往使用一把(读写)锁或者多把(读写)锁来进行管理。
@@ -12,11 +12,13 @@
 
 `gtype`针对于最常用的基本数据类型，提供了对应的并发安全数据类型，便于在并发安全场景下更好地维护变量/属性，开发者无需在struct中再创建和维护繁琐的`(RW)Mutex`。且`gtype`内部绝大多数基本类型都使用了`atomic`原子操作来维护并发安全性，因此效率会比`(RW)Mutex`互斥锁高出数十倍。
 
-使用方式：
+**使用方式**：
+
 ```go
 import "gitee.com/johng/gf/g/container/gtype"
 ```
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gtype](https://godoc.org/github.com/johng-cn/gf/g/container/gtype)
+
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gtype](https://godoc.org/github.com/johng-cn/gf/g/container/gtype)
 
 由于`gtype`包下的基本类型比较多，这里便不一一列举。任何并发安全的基本类型，可以使用 `gtype.New*` 方法来创建。
 

@@ -2,16 +2,16 @@
 
 并发安全环结构，循环双向链表。
 
-使用场景：
+**使用场景**：
 
 `ring`这种数据结构在底层开发中用得比较多一些，如：并发锁控制、缓冲区控制。`ring`的特点在于，其必须有固定的大小，当不停地往`ring`中追加写数据时，如果数据大小超过容量大小，新值将会将旧值覆盖。
 
-使用方式：
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/gring"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/container/gring](https://godoc.org/github.com/johng-cn/gf/g/container/gring)
+**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gring](https://godoc.org/github.com/johng-cn/gf/g/container/gring)
 
 ```go
 type Ring
