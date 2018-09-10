@@ -49,7 +49,7 @@ import (
 func main() {
     c              := gcfg.New("/home/john/Workspace/Go/GOPATH/src/gitee.com/johng/gf/geg/os/gcfg")
     redisConfig    := c.GetArray("redis-cache", "redis.toml")
-    memConfig      := c.GetArray("", "memcache.toml")
+    memConfig      := c.GetArray("", "memcache.yml")
     fmt.Println(redisConfig)
     fmt.Println(memConfig)
 }
@@ -60,7 +60,7 @@ func main() {
 ```
 以上示例代码中，我们可以通过```pattern```参数指定获取的参数项，如果获取配置文件的所有配置信息，那么```pattern```传递一个**空的字符串**即可。第二个文件参数指定需要操作的配置文件名称，不同的配置文件需要传递不同的配置文件参数，因此相对来说会比较繁琐。我们可以将所有这些基础配置都放到统一的配置文件中，这样我们可以只需要通过```pattern```参数来做区分不同的配置项即可，方便调用，因此我们可以做如下改进。
 
-将所有配置放到```config.yml```配置文件中，此时```config.yml```的配置文件内容如下：
+将所有配置放到```config.toml```配置文件中，此时```config.toml```的配置文件内容如下：
 ```toml
 # redis配置
 [[redis-cache]]
