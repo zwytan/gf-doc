@@ -31,32 +31,34 @@ john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gtype$ g
 goos: linux
 goarch: amd64
 pkg: gitee.com/johng/gf/g/container/gtype
-BenchmarkInt_Set-4          300000000           5.87 ns/op        0 B/op        0 allocs/op
-BenchmarkInt_Val-4          2000000000          0.46 ns/op        0 B/op        0 allocs/op
-BenchmarkInt_Add-4          300000000           5.86 ns/op        0 B/op        0 allocs/op
-BenchmarkInt32_Set-4        300000000           5.87 ns/op        0 B/op        0 allocs/op
-BenchmarkInt32_Val-4        2000000000          0.47 ns/op        0 B/op        0 allocs/op
-BenchmarkInt32_Add-4        300000000           5.85 ns/op        0 B/op        0 allocs/op
-BenchmarkInt64_Set-4        300000000           5.88 ns/op        0 B/op        0 allocs/op
-BenchmarkInt64_Val-4        2000000000          0.46 ns/op        0 B/op        0 allocs/op
-BenchmarkInt64_Add-4        300000000           5.88 ns/op        0 B/op        0 allocs/op
-BenchmarkUint_Set-4         300000000           5.88 ns/op        0 B/op        0 allocs/op
-BenchmarkUint_Val-4         2000000000          0.46 ns/op        0 B/op        0 allocs/op
-BenchmarkUint_Add-4         300000000           5.87 ns/op        0 B/op        0 allocs/op
-BenchmarkUint32_Set-4       300000000           5.86 ns/op        0 B/op        0 allocs/op
-BenchmarkUint32_Val-4       2000000000          0.50 ns/op        0 B/op        0 allocs/op
-BenchmarkUint32_Add-4       200000000           5.86 ns/op        0 B/op        0 allocs/op
-BenchmarkUint64_Set-4       300000000           5.86 ns/op        0 B/op        0 allocs/op
-BenchmarkUint64_Val-4       2000000000          0.47 ns/op        0 B/op        0 allocs/op
-BenchmarkUint64_Add-4       300000000           5.85 ns/op        0 B/op        0 allocs/op
-BenchmarkBool_Set-4         300000000           5.85 ns/op        0 B/op        0 allocs/op
-BenchmarkBool_Val-4         2000000000          0.46 ns/op        0 B/op        0 allocs/op
-BenchmarkString_Set-4       20000000            66.7 ns/op        7 B/op        0 allocs/op
-BenchmarkString_Val-4       100000000           17.6 ns/op        0 B/op        0 allocs/op
-BenchmarkBytes_Set-4        30000000            49.1 ns/op        3 B/op        1 allocs/op
-BenchmarkBytes_Val-4        100000000           17.9 ns/op        0 B/op        0 allocs/op
-BenchmarkInterface_Set-4    50000000            28.8 ns/op        8 B/op        0 allocs/op
-BenchmarkInterface_Val-4    2000000000          0.72 ns/op        0 B/op        0 allocs/op
+BenchmarkInt_Set-4            300000000           5.87 ns/op        0 B/op        0 allocs/op
+BenchmarkInt_Val-4            2000000000          0.46 ns/op        0 B/op        0 allocs/op
+BenchmarkInt_Add-4            300000000           5.86 ns/op        0 B/op        0 allocs/op
+BenchmarkInt32_Set-4          300000000           5.87 ns/op        0 B/op        0 allocs/op
+BenchmarkInt32_Val-4          2000000000          0.47 ns/op        0 B/op        0 allocs/op
+BenchmarkInt32_Add-4          300000000           5.85 ns/op        0 B/op        0 allocs/op
+BenchmarkInt64_Set-4          300000000           5.88 ns/op        0 B/op        0 allocs/op
+BenchmarkInt64_Val-4          2000000000          0.46 ns/op        0 B/op        0 allocs/op
+BenchmarkInt64_Add-4          300000000           5.88 ns/op        0 B/op        0 allocs/op
+BenchmarkUint_Set-4           300000000           5.88 ns/op        0 B/op        0 allocs/op
+BenchmarkUint_Val-4           2000000000          0.46 ns/op        0 B/op        0 allocs/op
+BenchmarkUint_Add-4           300000000           5.87 ns/op        0 B/op        0 allocs/op
+BenchmarkUint32_Set-4         300000000           5.86 ns/op        0 B/op        0 allocs/op
+BenchmarkUint32_Val-4         2000000000          0.50 ns/op        0 B/op        0 allocs/op
+BenchmarkUint32_Add-4         200000000           5.86 ns/op        0 B/op        0 allocs/op
+BenchmarkUint64_Set-4         300000000           5.86 ns/op        0 B/op        0 allocs/op
+BenchmarkUint64_Val-4         2000000000          0.47 ns/op        0 B/op        0 allocs/op
+BenchmarkUint64_Add-4         300000000           5.85 ns/op        0 B/op        0 allocs/op
+BenchmarkBool_Set-4           300000000           5.85 ns/op        0 B/op        0 allocs/op
+BenchmarkBool_Val-4           2000000000          0.46 ns/op        0 B/op        0 allocs/op
+BenchmarkString_Set-4         20000000            66.7 ns/op        7 B/op        0 allocs/op
+BenchmarkString_Val-4         100000000           17.6 ns/op        0 B/op        0 allocs/op
+BenchmarkBytes_Set-4          30000000            49.1 ns/op        3 B/op        1 allocs/op
+BenchmarkBytes_Val-4          100000000           17.9 ns/op        0 B/op        0 allocs/op
+BenchmarkInterface_Set-4      50000000            28.8 ns/op        8 B/op        0 allocs/op
+BenchmarkInterface_Val-4      2000000000          0.72 ns/op        0 B/op        0 allocs/op
+BenchmarkAtomicString_Store-4 50000000            27.3 ns/op        8 B/op        0 allocs/op
+BenchmarkAtomicString_Load-4  2000000000          0.73 ns/op        0 B/op        0 allocs/op
 PASS
 ok   gitee.com/johng/gf/g/container/gtype 49.454s
 ```
