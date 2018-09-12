@@ -51,14 +51,14 @@ BenchmarkUint64_Val-4         2000000000          0.47 ns/op        0 B/op      
 BenchmarkUint64_Add-4         300000000           5.85 ns/op        0 B/op        0 allocs/op
 BenchmarkBool_Set-4           300000000           5.85 ns/op        0 B/op        0 allocs/op
 BenchmarkBool_Val-4           2000000000          0.46 ns/op        0 B/op        0 allocs/op
-BenchmarkString_Set-4         20000000            66.7 ns/op        7 B/op        0 allocs/op
-BenchmarkString_Val-4         100000000           17.6 ns/op        0 B/op        0 allocs/op
-BenchmarkBytes_Set-4          30000000            49.1 ns/op        3 B/op        1 allocs/op
-BenchmarkBytes_Val-4          100000000           17.9 ns/op        0 B/op        0 allocs/op
-BenchmarkInterface_Set-4      50000000            28.8 ns/op        8 B/op        0 allocs/op
-BenchmarkInterface_Val-4      2000000000          0.72 ns/op        0 B/op        0 allocs/op
-BenchmarkAtomicString_Store-4 50000000            27.3 ns/op        8 B/op        0 allocs/op
-BenchmarkAtomicString_Load-4  2000000000          0.73 ns/op        0 B/op        0 allocs/op
+BenchmarkString_Set-4         20000000            90.1 ns/op       23 B/op        1 allocs/op
+BenchmarkString_Val-4         2000000000          1.58 ns/op        0 B/op        0 allocs/op
+BenchmarkBytes_Set-4          20000000            76.2 ns/op       35 B/op        2 allocs/op
+BenchmarkBytes_Val-4          2000000000          1.58 ns/op        0 B/op        0 allocs/op
+BenchmarkInterface_Set-4      50000000            30.7 ns/op        8 B/op        0 allocs/op
+BenchmarkInterface_Val-4      2000000000          0.74 ns/op        0 B/op        0 allocs/op
+BenchmarkAtomicValue_Store-4  50000000            27.3 ns/op        8 B/op        0 allocs/op
+BenchmarkAtomicValue_Load-4   2000000000          0.73 ns/op        0 B/op        0 allocs/op
 PASS
 ok   gitee.com/johng/gf/g/container/gtype 49.454s
 ```
