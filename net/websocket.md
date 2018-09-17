@@ -1,0 +1,1 @@
+`WebSocket`功能由`ghttp`包内置实现，具体请查看【[Web开发进阶-WebSocket服务](net/ghttp/websocket.md)】。
