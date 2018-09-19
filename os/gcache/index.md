@@ -148,7 +148,7 @@ func main() {
 
 ## 示例3，GetOrSetFunc/GetOrSetFuncLock
 
-`GetOrSetFunc`获取一个缓存值，当缓存不存在时执行指定的`f func() interface{}`，缓存该`func`的结果值，并返回该结果值。
+`GetOrSetFunc`获取一个缓存值，当缓存不存在时执行指定的`f func() interface{}`，缓存该`f`方法的结果值，并返回该结果。
 
 需要注意的是，`GetOrSetFunc`的缓存方法参数`f`是在缓存的锁机制外执行，因此在`f`内部也可以嵌套调用`GetOrSetFunc`。但如果`f`的执行比较耗时，高并发的时候容易出现`f`被多次执行的情况(缓存设置只有第一个执行的`f`返回结果能够设置成功，其余的被抛弃掉)。而`GetOrSetFuncLock`的缓存方法`f`是在缓存的锁机制内执行，因此可以保证当缓存项不存在时只会执行一次`f`，但是缓存写锁的时间随着`f`方法的执行时间而定。
 
