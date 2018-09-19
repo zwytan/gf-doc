@@ -12,7 +12,7 @@ import "gitee.com/johng/gf/g/os/gcache"
 
 方法列表： [godoc.org/github.com/johng-cn/gf/g/os/gcache](https://godoc.org/github.com/johng-cn/gf/g/os/gcache)
 ```go
-func BatchRemove(keys []interface{})
+func BatchRemove(keys []interface{}) map[interface{}]interface{}
 func BatchSet(data map[interface{}]interface{}, expire int)
 func Contains(key interface{}) bool
 func Get(key interface{}) interface{}
@@ -20,36 +20,36 @@ func GetOrSet(key interface{}, value interface{}, expire int) interface{}
 func GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
 func KeyStrings() []string
 func Keys() []interface{}
-func Remove(key interface{})
+func Remove(key interface{}) interface{}
 func Set(key interface{}, value interface{}, expire int)
-func SetCap(cap int)
 func SetIfNotExist(key interface{}, value interface{}, expire int) bool
 func Size() int
 func Values() []interface{}
 type Cache
-    func New() *Cache
-    func (c *Cache) BatchRemove(keys []interface{})
-    func (c *Cache) BatchSet(data map[interface{}]interface{}, expire int)
+    func New(lruCap ...int) *Cache
+    func (c Cache) BatchRemove(keys []interface{}) map[interface{}]interface{}
+    func (c Cache) BatchSet(data map[interface{}]interface{}, expire int)
     func (c *Cache) Clear()
-    func (c *Cache) Close()
-    func (c *Cache) Contains(key interface{}) bool
-    func (c *Cache) Get(key interface{}) interface{}
-    func (c *Cache) GetOrSet(key interface{}, value interface{}, expire int) interface{}
-    func (c *Cache) GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
-    func (c *Cache) KeyStrings() []string
-    func (c *Cache) Keys() []interface{}
-    func (c *Cache) Remove(key interface{})
-    func (c *Cache) Set(key interface{}, value interface{}, expire int)
-    func (c *Cache) SetCap(cap int)
-    func (c *Cache) SetIfNotExist(key interface{}, value interface{}, expire int) bool
-    func (c *Cache) Size() int
-    func (c *Cache) Values() []interface{}
+    func (c Cache) Close()
+    func (c Cache) Contains(key interface{}) bool
+    func (c Cache) Get(key interface{}) interface{}
+    func (c Cache) GetOrSet(key interface{}, value interface{}, expire int) interface{}
+    func (c Cache) GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
+    func (c Cache) KeyStrings() []string
+    func (c Cache) Keys() []interface{}
+    func (c Cache) Remove(key interface{}) interface{}
+    func (c Cache) Set(key interface{}, value interface{}, expire int)
+    func (c Cache) SetIfNotExist(key interface{}, value interface{}, expire int) bool
+    func (c Cache) Size() int
+    func (c Cache) Values() []interface{}
 ```
 `gcache`可以使用`New`方法创建使用，并且也可以使用包方法使用。在通过包方法使用缓存功能时，其实操作`gcache`默认提供的一个`gcache.Cache`对象，具有全局性，因此在使用时注意全局键名的覆盖。
 
 `gcache`比较有特色的地方是键名使用的是`interface{}`类型，而不是`string`类型，这意味着我们可以使用任意类型的变量作为键名，但大多数时候建议使用`string`或者`[]byte`作为键名，并且统一键名的数据类型，以便维护。
 
 另外需要注意的是，`gcache`的缓存时间单位为`毫秒`，在`Set`缓存变量时，缓存时间参数`expire=0`表示不过期，`expire<0`表示立即过期，`expire>0`表示超时过期。
+
+
 
 ## 示例1，基本使用
 
@@ -131,18 +131,18 @@ func main() {
 
 ```html
 [
-	"k1"
+ "k1"
 ]
 [
-	"k1"
+ "k1"
 ]
 "v2"
 [
-	"k1",
-	"v2"
+ "k1",
+ "v2"
 ]
 [
-	"v2"
+ "v2"
 ]
 ```
 
@@ -186,4 +186,65 @@ func SearchMdByKey(key string) []string {
 
 ## 示例4，LRU缓存淘汰控制
 
-未完待续。
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/os/gcache"
+    "time"
+    "fmt"
+)
+
+func main() {
+    // 设置LRU淘汰数量
+    c := gcache.New(2)
+
+    // 添加10个元素，不过期
+    for i := 0; i < 10; i++ {
+        c.Set(i, i, 0)
+    }
+    fmt.Println(c.Size())
+    fmt.Println(c.Keys())
+
+    // 读取键名1，保证该键名是优先保留
+    fmt.Println(c.Get(1))
+
+    // 等待一定时间后(默认10秒检查一次)，元素会被按照从旧到新的顺序进行淘汰
+    time.Sleep(10*time.Second)
+    fmt.Println(c.Size())
+    fmt.Println(c.Keys())
+}
+```
+
+执行后，输出结果为：
+
+```html
+10
+[2 4 5 7 8 9 0 1 3 6]
+1
+2
+[1 9]
+```
+
+
+## 性能测试
+
+```html
+john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/os/gcache$ go test *.go -bench=".*" -benchmem
+goos: linux
+goarch: amd64
+Benchmark_CacheSet-4                       2000000        897 ns/op      249 B/op        4 allocs/op
+Benchmark_CacheGet-4                       5000000        202 ns/op       49 B/op        1 allocs/op
+Benchmark_CacheRemove-4                   50000000       35.7 ns/op        0 B/op        0 allocs/op
+Benchmark_CacheLruSet-4                    1000000       1024 ns/op      399 B/op        4 allocs/op
+Benchmark_CacheLruGet-4                    3000000        212 ns/op       33 B/op        1 allocs/op
+Benchmark_CacheLruRemove-4                50000000       35.9 ns/op        0 B/op        0 allocs/op
+Benchmark_InterfaceMapWithLockSet-4        3000000        477 ns/op       73 B/op        2 allocs/op
+Benchmark_InterfaceMapWithLockGet-4       10000000        149 ns/op        0 B/op        0 allocs/op
+Benchmark_InterfaceMapWithLockRemove-4    50000000       39.8 ns/op        0 B/op        0 allocs/op
+Benchmark_IntMapWithLockWithLockSet-4      5000000        304 ns/op       53 B/op        0 allocs/op
+Benchmark_IntMapWithLockGet-4             20000000        164 ns/op        0 B/op        0 allocs/op
+Benchmark_IntMapWithLockRemove-4          50000000       33.1 ns/op        0 B/op        0 allocs/op
+PASS
+ok   command-line-arguments 47.503s
+```
