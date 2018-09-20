@@ -5,7 +5,7 @@
 
 ![](/images/QQ图片20180417140149.png)
 
-`ghttp.Server`提供了事件回调注册功能，类似于其他框架所谓的```中间件```功能，支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与服务注册一致)。支持多个方法对同一事件进行监听，```ghttp.Server```将会按照注册顺序进行回调方法调用。
+`ghttp.Server`提供了事件回调注册功能，类似于其他框架的`中间件`功能，相比较于`中间件`，事件回调的特性更加简单。`ghttp.Server`支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与服务注册一致)。支持多个方法对同一事件进行监听，```ghttp.Server```将会按照注册顺序进行回调方法调用。
 相关方法如下：
 ```go
 func (s *Server) BindHookHandler(pattern string, hook string, handler HandlerFunc) error
@@ -16,18 +16,30 @@ func (s *Server) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 func (d *Domain) BindHookHandler(pattern string, hook string, handler HandlerFunc) error
 func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]HandlerFunc) error
 ```
+
 支持的Hook事件列表：
-1. ```BeforeServe```
+1. `BeforeServe/ghttp.HOOK_BEFORE_SERVE`
+
 	在进入/初始化服务对象之前。
-1. ```AfterServe```
+
+1. `AfterServe/ghttp.HOOK_AFTER_SERVE`
+
 	在完成服务执行流程之后。
-1. ```BeforeOutput```
+
+1. `BeforeOutput/ghttp.HOOK_BEFORE_OUTPUT`
+
 	向客户端输出返回内容之前。
-1. ```AfterOutput```
+
+1. `AfterOutput/ghttp.HOOK_AFTER_OUTPUT`
+
 	向客户端输出返回内容之后。
-1. ```BeforeClose```
+
+1. `BeforeClose/ghttp.HOOK_BEFORE_CLOSE`
+
 	在http请求关闭之前（注意请求关闭是异步处理操作，没有在http执行流程中处理）。
-1. ```AfterClose```
+
+1. `AfterClose/ghttp.HOOK_AFTER_CLOSE`
+
 	在http请求关闭之后（注意请求关闭是异步处理操作，没有在http执行流程中处理）。
 
 具体调用时机请参考图例所示。
@@ -159,7 +171,7 @@ func main() {
 ```
 
 ## 使用示例4，使用事件回调处理跨域请求
-首先我们来看一个简单的REST接口示例：
+首先我们来看一个简单的`REST`接口示例：
 ```go
 package main
 
