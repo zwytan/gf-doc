@@ -25,6 +25,14 @@ import "gitee.com/johng/gf/g/container/gtype"
 
 ## 性能测试
 
+### 测试环境
+
+* CPU: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+* MEM: 8GB
+* SYS: Ubuntu 16.04 amd64
+
+## 测试结果
+
 基准测试结果如下:
 ```shell
 john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gtype$ go test -bench=".*"  -benchmem

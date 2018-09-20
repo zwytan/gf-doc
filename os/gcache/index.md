@@ -12,12 +12,13 @@ import "gitee.com/johng/gf/g/os/gcache"
 
 方法列表： [godoc.org/github.com/johng-cn/gf/g/os/gcache](https://godoc.org/github.com/johng-cn/gf/g/os/gcache)
 ```go
-func BatchRemove(keys []interface{}) map[interface{}]interface{}
+func BatchRemove(keys []interface{})
 func BatchSet(data map[interface{}]interface{}, expire int)
 func Contains(key interface{}) bool
 func Get(key interface{}) interface{}
 func GetOrSet(key interface{}, value interface{}, expire int) interface{}
 func GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
+func GetOrSetFuncLock(key interface{}, f func() interface{}, expire int) interface{}
 func KeyStrings() []string
 func Keys() []interface{}
 func Remove(key interface{}) interface{}
@@ -27,7 +28,7 @@ func Size() int
 func Values() []interface{}
 type Cache
     func New(lruCap ...int) *Cache
-    func (c Cache) BatchRemove(keys []interface{}) map[interface{}]interface{}
+    func (c Cache) BatchRemove(keys []interface{})
     func (c Cache) BatchSet(data map[interface{}]interface{}, expire int)
     func (c *Cache) Clear()
     func (c Cache) Close()
@@ -35,6 +36,7 @@ type Cache
     func (c Cache) Get(key interface{}) interface{}
     func (c Cache) GetOrSet(key interface{}, value interface{}, expire int) interface{}
     func (c Cache) GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
+    func (c Cache) GetOrSetFuncLock(key interface{}, f func() interface{}, expire int) interface{}
     func (c Cache) KeyStrings() []string
     func (c Cache) Keys() []interface{}
     func (c Cache) Remove(key interface{}) interface{}
@@ -231,6 +233,14 @@ func main() {
 
 
 ## 性能测试
+
+### 测试环境
+
+* CPU: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+* MEM: 8GB
+* SYS: Ubuntu 16.04 amd64
+
+### 测试结果
 
 ```html
 john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/os/gcache$ go test *.go -bench=".*" -benchmem
