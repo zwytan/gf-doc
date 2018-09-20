@@ -236,9 +236,11 @@ func main() {
 
 ### 测试环境
 
-* CPU: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
-* MEM: 8GB
-* SYS: Ubuntu 16.04 amd64
+```shell
+CPU: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
+MEM: 8GB
+SYS: Ubuntu 16.04 amd64
+```
 
 ### 测试结果
 
