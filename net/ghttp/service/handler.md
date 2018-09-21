@@ -96,7 +96,7 @@ func main() {
     s.Run()
 }
 ```
-可以看到，我们可以在定义struct的时候使用```params```的标签来指定匹配绑定的参数名称，并且支持多个参数名称的绑定，多个参数名称以```,```号分隔。在使用中我们可以使用```GetRequestToStruct/GetPostToStruct/GetQueryToStruct```三种方式来获得指定提交方式的参数map，此外```GetToStruct```是```GetRequestToStruct```的别名，大多数情况下我们使用该方式获取参数即可。
+可以看到，我们可以在定义struct的时候使用```params```的标签来指定匹配绑定的参数名称，并且支持多个参数名称的绑定，多个参数名称以```,```号分隔。在使用中我们可以使用```GetRequestToStruct/GetPostToStruct/GetQueryToStruct```三种方式来获得指定Method提交方式的参数map，此外```GetToStruct```是```GetRequestToStruct```的别名，大多数情况下我们使用该方式获取参数即可。
 
 如果是其他方式提交参数，如果Json/Xml等等，由于设计到自定义参数格式的解析再绑定，请参考```gconv```包map转换struct的标签名称```gconv```的[用法示例](util/gconv/index.md)。
 
