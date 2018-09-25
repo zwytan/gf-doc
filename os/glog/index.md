@@ -38,7 +38,7 @@ func Printf(format string, v ...interface{})
 func Printfln(format string, v ...interface{})
 func Println(v ...interface{})
 func SetDebug(debug bool)
-func SetLogPath(path string)
+func SetPath(path string)
 func Warning(v ...interface{})
 func Warningf(format string, v ...interface{})
 func Warningfln(format string, v ...interface{})
@@ -77,7 +77,7 @@ type Logger
     func (l *Logger) Println(v ...interface{})
     func (l *Logger) SetDebug(debug bool)
     func (l *Logger) SetLogIO(w io.Writer)
-    func (l *Logger) SetLogPath(path string) error
+    func (l *Logger) SetPath(path string) error
     func (l *Logger) Warning(v ...interface{})
     func (l *Logger) Warningf(format string, v ...interface{})
     func (l *Logger) Warningfln(format string, v ...interface{})
@@ -86,7 +86,7 @@ type Logger
 1. ```Debug*```方法是调试方法，可以使用```SetDebug```开启/关闭掉输出信息；
 2. 非```Print*/Info*```的方法都是错误信息日志方法，错误信息方法在打印错误信息的同时也会打印出对应的调用trace信息；
 3. ```Fatal*```方法在输出错误信息之后会停止进程运行；
-4. 日志内容默认是打印到标准输出和标准错误设备上，使用```SetLogPath```可以设定日志的物理化文件存储目录，日志文件固定按照日期来命名，例如：20170102.log；
+4. 日志内容默认是打印到标准输出和标准错误设备上，使用```SetPath```可以设定日志的物理化文件存储目录，日志文件固定按照日期来命名，例如：20170102.log；
 
 ## Trace特性
 
