@@ -68,7 +68,7 @@
         * [gset (并发安全集合)](container/gset/index.md)
         * [garray (并发安全数组)](container/garray/index.md)
         * [gqueue (并发安全队列)](container/gqueue/index.md)
-        * [gchan (优雅的channel操作))](container/gchan/index.md)
+        * [gchan (graceful channel)](container/gchan/index.md)
         * [gpool (goroutine pool)](container/gpool/index.md)
         * [gring (并发安全环型结构)](container/gring/index.md)
         * [gvar (通用动态变量)](container/gvar/index.md)
