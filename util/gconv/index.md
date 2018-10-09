@@ -1,7 +1,5 @@
 [TOC]
 
-# gconv
-
 框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，对常用基本数据类型之间的无缝转换，同时也支持任意类型到`struct`对象的属性赋值。复杂的数据结构，如自定义的struct类型转换，请参考[gparser包](encoding/gparser/index.md)。
 
 使用方式：
@@ -44,7 +42,7 @@ func Struct(params interface{}, objPointer interface{}, attrMapping ...map[strin
 // 类型名称转换
 func Convert(i interface{}, t string, extraParams ...interface{}) interface{}
 ```
-## 基本使用
+# 基本使用
 
 使用示例：
 
@@ -103,9 +101,9 @@ func main() {
 Interfaces: [123]
 ```
 
-## Struct转换
+# Struct转换
 
-### 示例1，基本使用
+## 示例1，基本使用
 ```go
 package main
 
@@ -158,7 +156,7 @@ func main() {
 &{2 smith 456 456}
 ```
 
-### 示例2，slice基本类型属性
+## 示例2，slice基本类型属性
 
 ```go
 package main
@@ -213,7 +211,7 @@ func main() {
 }
 ```
 
-### 示例3，struct属性为struct
+## 示例3，struct属性为struct
 
 ```go
 package main
@@ -262,7 +260,7 @@ func main() {
 ```
 
 
-### 示例4，struct属性为slice，数值为slice
+## 示例4，struct属性为slice，数值为slice
 
 ```go
 package main
@@ -322,7 +320,7 @@ func main() {
 }
 ```
 
-### 示例5，struct属性为slice，数值为非slice
+## 示例5，struct属性为slice，数值为非slice
 
 ```go
 package main
