@@ -71,6 +71,7 @@
         * [gchan](container/gchan/index.md)
         * [gpool](container/gpool/index.md)
         * [gring](container/gring/index.md)
+        * [gvar](container/gvar/index.md)
     * [系统相关模块](#)
         * [gcache (高速缓存模块)](os/gcache/index.md)
         * [glog (日志管理模块)](os/glog/index.md)
