@@ -1,0 +1,1 @@
+数据库ORM功能由`gdb`包实现，具体请参考【[数据库ORM](database/orm/index)】章节。
