@@ -27,7 +27,7 @@ type Chan
 john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gchan$ go test *.go -bench=".*"
 goos: linux
 goarch: amd64
-BenchmarkGqueuePushAndPop-8    	20000000	        71.9 ns/op
+BenchmarkGchanPushAndPop-8    	20000000	        71.9 ns/op
 BenchmarkChannelPushAndPop-8   	50000000	        39.3 ns/op
 PASS
 ok  	command-line-arguments	3.663s

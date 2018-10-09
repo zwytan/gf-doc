@@ -5,14 +5,15 @@
 ├── g			        框架源码目录
 │   ├── container           并发安全容器
 │   │   ├── garray          并发安全数组
-│   │   ├── gchan           优雅的chan管理
+│   │   ├── gchan           优雅的chan操作
 │   │   ├── glist           并发安全链表
 │   │   ├── gmap            并发安全Map
 │   │   ├── gpool           对象复用池
 │   │   ├── gqueue          并发安全队列
 │   │   ├── gring           并发安全的环
 │   │   ├── gset            并发安全集合
-│   │   └── gtype           并发安全类型
+│   │   ├── gtype           并发安全类型
+│   │   └── gvar            通用动态变量
 │   ├── crypto          加密/解密模块
 │   │   ├── gcrc32          CRC32
 │   │   ├── gaes            AES
