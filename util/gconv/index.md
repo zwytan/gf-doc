@@ -9,9 +9,8 @@ import "gitee.com/johng/gf/g/util/gconv"
 
 方法列表： [godoc.org/github.com/johng-cn/gf/g/util/gconv](https://godoc.org/github.com/johng-cn/gf/g/util/gconv)
 ```go
+// 基本类型
 func Bool(i interface{}) bool
-func Bytes(i interface{}) []byte
-func Convert(i interface{}, t string) interface{}
 func Float32(i interface{}) float32
 func Float64(i interface{}) float64
 func Int(i interface{}) int
@@ -20,16 +19,28 @@ func Int32(i interface{}) int32
 func Int64(i interface{}) int64
 func Int8(i interface{}) int8
 func String(i interface{}) string
-func Strings(i interface{}) []string
-func Time(i interface{}) time.Time
-func TimeDuration(i interface{}) time.Duration
 func Uint(i interface{}) uint
 func Uint16(i interface{}) uint16
 func Uint32(i interface{}) uint32
 func Uint64(i interface{}) uint64
 func Uint8(i interface{}) uint8
 
-func MapToStruct(params map[string]interface{}, object interface{}, mapping ...map[string]string) error
+// slice类型
+func Bytes(i interface{}) []byte
+func Ints(i interface{}) []int
+func Floats(i interface{}) []float64
+func Strings(i interface{}) []string
+func Interfaces(i interface{}) []interface{}
+
+// 时间类型
+func Time(i interface{}, format ...string) time.Time
+func TimeDuration(i interface{}) time.Duration
+
+// 对象转换
+func Struct(params interface{}, objPointer interface{}, attrMapping ...map[string]string) error
+
+// 类型名称转换
+func Convert(i interface{}, t string, extraParams ...interface{}) interface{}
 ```
 ## 基本使用
 
@@ -45,22 +56,26 @@ import (
 
 func main() {
     i := 123
-    fmt.Printf("%10s %v\n", "Int:",     gconv.Int(i))
-    fmt.Printf("%10s %v\n", "Int8:",    gconv.Int8(i))
-    fmt.Printf("%10s %v\n", "Int16:",   gconv.Int16(i))
-    fmt.Printf("%10s %v\n", "Int32:",   gconv.Int32(i))
-    fmt.Printf("%10s %v\n", "Int64:",   gconv.Int64(i))
-    fmt.Printf("%10s %v\n", "Uint:",    gconv.Uint(i))
-    fmt.Printf("%10s %v\n", "Uint8:",   gconv.Uint8(i))
-    fmt.Printf("%10s %v\n", "Uint16:",  gconv.Uint16(i))
-    fmt.Printf("%10s %v\n", "Uint32:",  gconv.Uint32(i))
-    fmt.Printf("%10s %v\n", "Uint64:",  gconv.Uint64(i))
-    fmt.Printf("%10s %v\n", "Float32:", gconv.Float32(i))
-    fmt.Printf("%10s %v\n", "Float64:", gconv.Float64(i))
-    fmt.Printf("%10s %v\n", "Bool:",    gconv.Bool(i))
-    fmt.Printf("%10s %v\n", "Bytes:",   gconv.Bytes(i))
-    fmt.Printf("%10s %v\n", "String:",  gconv.String(i))
-    fmt.Printf("%10s %v\n", "Strings:", gconv.Strings(i))
+    fmt.Printf("%10s %v\n", "Int:",        gconv.Int(i))
+    fmt.Printf("%10s %v\n", "Int8:",       gconv.Int8(i))
+    fmt.Printf("%10s %v\n", "Int16:",      gconv.Int16(i))
+    fmt.Printf("%10s %v\n", "Int32:",      gconv.Int32(i))
+    fmt.Printf("%10s %v\n", "Int64:",      gconv.Int64(i))
+    fmt.Printf("%10s %v\n", "Uint:",       gconv.Uint(i))
+    fmt.Printf("%10s %v\n", "Uint8:",      gconv.Uint8(i))
+    fmt.Printf("%10s %v\n", "Uint16:",     gconv.Uint16(i))
+    fmt.Printf("%10s %v\n", "Uint32:",     gconv.Uint32(i))
+    fmt.Printf("%10s %v\n", "Uint64:",     gconv.Uint64(i))
+    fmt.Printf("%10s %v\n", "Float32:",    gconv.Float32(i))
+    fmt.Printf("%10s %v\n", "Float64:",    gconv.Float64(i))
+    fmt.Printf("%10s %v\n", "Bool:",       gconv.Bool(i))
+    fmt.Printf("%10s %v\n", "String:",     gconv.String(i))
+
+    fmt.Printf("%10s %v\n", "Bytes:",      gconv.Bytes(i))
+    fmt.Printf("%10s %v\n", "Strings:",    gconv.Strings(i))
+    fmt.Printf("%10s %v\n", "Ints:",       gconv.Ints(i))
+    fmt.Printf("%10s %v\n", "Floats:",     gconv.Floats(i))
+    fmt.Printf("%10s %v\n", "Interfaces:", gconv.Interfaces(i))
 }
 ```
 执行后，输出结果为：
@@ -78,13 +93,17 @@ func main() {
   Float32: 123
   Float64: 123
      Bool: true
-    Bytes: [123]
    String: 123
+    Bytes: [123]
   Strings: [123]
+     Ints: [123]
+   Floats: [123]
+Interfaces: [123]
 ```
 
-## MapToStruct
+## Struct转换
 
+### 示例1，基本使用
 ```go
 package main
 
@@ -112,7 +131,7 @@ func main() {
         "pass1" : "123",
         "pass2" : "123",
     }
-    if err := gconv.MapToStruct(params1, user); err == nil {
+    if err := gconv.Struct(params1, user); err == nil {
         fmt.Println(user)
     }
 
@@ -124,7 +143,7 @@ func main() {
         "password1" : "456",
         "password2" : "456",
     }
-    if err := gconv.MapToStruct(params2, user); err == nil {
+    if err := gconv.Struct(params2, user); err == nil {
         fmt.Println(user)
     }
 }
