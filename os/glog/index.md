@@ -22,7 +22,9 @@ func Fatal(v ...interface{})
 func Fatalf(format string, v ...interface{})
 func Fatalfln(format string, v ...interface{})
 func Fatalln(v ...interface{})
-func GetLogPath() string
+func GetBacktrace(skip ...int) string
+func GetLevel() int
+func GetPath() string
 func Info(v ...interface{})
 func Infof(format string, v ...interface{})
 func Infofln(format string, v ...interface{})
@@ -34,16 +36,28 @@ func Panicf(format string, v ...interface{})
 func Panicfln(format string, v ...interface{})
 func Panicln(v ...interface{})
 func Print(v ...interface{})
+func PrintBacktrace(skip ...int)
 func Printf(format string, v ...interface{})
 func Printfln(format string, v ...interface{})
 func Println(v ...interface{})
 func SetDebug(debug bool)
+func SetFile(file string)
+func SetLevel(level int)
 func SetPath(path string)
+func SetStdPrint(open bool)
 func Warning(v ...interface{})
 func Warningf(format string, v ...interface{})
 func Warningfln(format string, v ...interface{})
 type Logger
+    func Backtrace(enabled bool, skip ...int) *Logger
+    func Cat(category string) *Logger
+    func File(file string) *Logger
+    func Level(level int) *Logger
     func New() *Logger
+    func StdPrint(enabled bool) *Logger
+    func (l *Logger) Backtrace(enabled bool, skip ...int) *Logger
+    func (l *Logger) Cat(category string) *Logger
+    func (l *Logger) Clone() *Logger
     func (l *Logger) Critical(v ...interface{})
     func (l *Logger) Criticalf(format string, v ...interface{})
     func (l *Logger) Criticalfln(format string, v ...interface{})
@@ -57,13 +71,14 @@ type Logger
     func (l *Logger) Fatalf(format string, v ...interface{})
     func (l *Logger) Fatalfln(format string, v ...interface{})
     func (l *Logger) Fatalln(v ...interface{})
-    func (l *Logger) GetDebug() bool
-    func (l *Logger) GetLastLogDate() string
-    func (l *Logger) GetLogIO() io.Writer
-    func (l *Logger) GetLogPath() string
+    func (l *Logger) File(file string) *Logger
+    func (l *Logger) GetBacktrace(skip ...int) string
+    func (l *Logger) GetIO() io.Writer
+    func (l *Logger) GetLevel() int
     func (l *Logger) Info(v ...interface{})
     func (l *Logger) Infof(format string, v ...interface{})
     func (l *Logger) Infofln(format string, v ...interface{})
+    func (l *Logger) Level(level int) *Logger
     func (l *Logger) Notice(v ...interface{})
     func (l *Logger) Noticef(format string, v ...interface{})
     func (l *Logger) Noticefln(format string, v ...interface{})
@@ -72,21 +87,28 @@ type Logger
     func (l *Logger) Panicfln(format string, v ...interface{})
     func (l *Logger) Panicln(v ...interface{})
     func (l *Logger) Print(v ...interface{})
+    func (l *Logger) PrintBacktrace(skip ...int)
     func (l *Logger) Printf(format string, v ...interface{})
     func (l *Logger) Printfln(format string, v ...interface{})
     func (l *Logger) Println(v ...interface{})
+    func (l *Logger) SetBacktrace(enabled bool)
+    func (l *Logger) SetBacktraceSkip(skip int)
     func (l *Logger) SetDebug(debug bool)
-    func (l *Logger) SetLogIO(w io.Writer)
+    func (l *Logger) SetFile(file string)
+    func (l *Logger) SetIO(w io.Writer)
+    func (l *Logger) SetLevel(level int)
     func (l *Logger) SetPath(path string) error
+    func (l *Logger) SetStdPrint(enabled bool)
+    func (l *Logger) StdPrint(enabled bool) *Logger
     func (l *Logger) Warning(v ...interface{})
     func (l *Logger) Warningf(format string, v ...interface{})
     func (l *Logger) Warningfln(format string, v ...interface{})
 ```
 需要特别说明的几点：
 1. ```Debug*```方法是调试方法，可以使用```SetDebug```开启/关闭掉输出信息；
-2. 非```Print*/Info*```的方法都是错误信息日志方法，错误信息方法在打印错误信息的同时也会打印出对应的调用trace信息；
+2. 非```Print*/Info*```的方法都是错误信息日志方法，错误信息方法在打印错误信息的同时也会打印出对应的调用`trace`信息；
 3. ```Fatal*```方法在输出错误信息之后会停止进程运行；
-4. 日志内容默认是打印到标准输出和标准错误设备上，使用```SetPath```可以设定日志的物理化文件存储目录，日志文件固定按照日期来命名，例如：20170102.log；
+4. 日志内容默认是打印到标准输出和标准错误设备上，使用```SetPath```可以设定日志的文件存储目录，日志文件固定按照日期来命名，如：2017-01-02.log；
 
 ## Trace特性
 
