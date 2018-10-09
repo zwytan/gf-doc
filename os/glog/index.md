@@ -1,4 +1,4 @@
-# glog
+[TOC]
 
 通用日志管理模块。
 
@@ -7,7 +7,10 @@
 import "gitee.com/johng/gf/g/os/glog"
 ```
 
-方法列表： [godoc.org/github.com/johng-cn/gf/g/os/glog](http://godoc.org/github.com/johng-cn/gf/g/os/glog)
+# 方法列表
+[godoc.org/github.com/johng-cn/gf/g/os/glog](http://godoc.org/github.com/johng-cn/gf/g/os/glog)
+
+## 包方法
 ```go
 func Critical(v ...interface{})
 func Criticalf(format string, v ...interface{})
@@ -48,6 +51,9 @@ func SetStdPrint(open bool)
 func Warning(v ...interface{})
 func Warningf(format string, v ...interface{})
 func Warningfln(format string, v ...interface{})
+```
+## 对象方法
+```go
 type Logger
     func Backtrace(enabled bool, skip ...int) *Logger
     func Cat(category string) *Logger
@@ -110,9 +116,9 @@ type Logger
 3. ```Fatal*```方法在输出错误信息之后会停止进程运行；
 4. 日志内容默认是打印到标准输出和标准错误设备上，使用```SetPath```可以设定日志的文件存储目录，日志文件固定按照日期来命名，如：2017-01-02.log；
 
-## Trace特性
+# Trace特性
 
-错误日志信息支持trace功能，来一个例子：
+错误日志信息支持`trace`特性，来一个简单的例子：
 ```go
 package main
 
@@ -126,17 +132,15 @@ func main() {
 ```
 
 打印出的结果如下：
-```shell
+```html
 2018-01-11 17:20:10 [ERRO] 发生错误！
 Trace:
 1. /home/john/Workspace/Go/gitee.com/johng/gf/geg/other/test.go:8
-2. /home/john/Softs/go1.9.2/src/runtime/proc.go:195
-3. /home/john/Softs/go1.9.2/src/runtime/asm_amd64.s:2337
 ```
 
-错误信息的trace信息对于调试错误来说相当有用。
+错误信息的`trace`信息对于调试错误来说相当有用。
 
-## Debug特性
+# Debug特性
 
 ```go
 package main
@@ -157,7 +161,7 @@ func main() {
     }
 }
 ```
-该示例中使用```glog.Debug```方法输出调试信息，3秒后关闭调试信息的输出。执行后，输出结果如下：
+该示例中使用```glog.Debug```方法输出调试信息，3秒后关闭调试信息的输出。执行后，输出结果如下，可以看到只输出了3条日志信息。
 ```html
 2018-07-22 12:20:11.100 [DEBU] 2018-07-22 12:20:11
 2018-07-22 12:20:12.101 [DEBU] 2018-07-22 12:20:12
