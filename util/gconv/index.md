@@ -1,6 +1,6 @@
 # gconv
 
-框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，同时也对常用基本数据类型的无缝转换。复杂的数据类型，如自定义的struct类型转换，请参考[gparser包](encoding/gparser/index.md)。
+框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，对常用基本数据类型之间的无缝转换，同时也支持任意类型到`struct`对象的属性赋值。复杂的数据结构，如自定义的struct类型转换，请参考[gparser包](encoding/gparser/index.md)。
 
 使用方式：
 ```go
@@ -148,10 +148,225 @@ func main() {
     }
 }
 ```
-可以看到，我们可以直接通过```MapToStruct```方法将map按照默认规则绑定到struct上，也可以使用```struct tag```的方式进行灵活的设置。此外，```MapToStruct```方法有第三个map参数，用于指定自定义的参数名称到属性名称的映射关系。
+可以看到，我们可以直接通过```Struct```方法将map按照默认规则绑定到struct上，也可以使用```struct tag```的方式进行灵活的设置。此外，```Struct```方法有第三个map参数，用于指定自定义的参数名称到属性名称的映射关系。
 
 执行后，输出结果为：
 ```shell
 &{1 john 123 123}
 &{2 smith 456 456}
 ```
+
+### 示例2，slice基本类型属性
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/util/gconv"
+    "gitee.com/johng/gf/g"
+    "fmt"
+)
+
+// 演示slice类型属性的赋值
+func main() {
+    type User struct {
+        Scores []int
+    }
+
+    user   := new(User)
+    scores := []interface{}{99, 100, 60, 140}
+
+    // 通过map映射转换
+    if err := gconv.Struct(g.Map{"Scores" : scores}, user); err != nil {
+        fmt.Println(err)
+    } else {
+        g.Dump(user)
+    }
+
+    // 通过变量映射转换，直接slice赋值
+    if err := gconv.Struct(scores, user); err != nil {
+        fmt.Println(err)
+    } else {
+        g.Dump(user)
+    }
+}
+```
+执行后，输出结果为：
+```html
+{
+	"Scores": [
+		99,
+		100,
+		60,
+		140
+	]
+}
+{
+	"Scores": [
+		99,
+		100,
+		60,
+		140
+	]
+}
+```
+
+### 示例3，struct属性为struct
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/util/gconv"
+    "gitee.com/johng/gf/g"
+    "fmt"
+)
+
+func main() {
+    type Score struct {
+        Name   string
+        Result int
+    }
+    type User struct {
+        Scores Score
+    }
+
+    user   := new(User)
+    scores := map[string]interface{}{
+        "Scores" : map[string]interface{}{
+            "Name"   : "john",
+            "Result" : 100,
+        },
+    }
+
+    // 嵌套struct转换
+    if err := gconv.Struct(scores, user); err != nil {
+        fmt.Println(err)
+    } else {
+        g.Dump(user)
+    }
+}
+```
+
+执行后，输出结果为：
+
+```html
+{
+	"Scores": {
+		"Name": "john",
+		"Result": 100
+	}
+}
+```
+
+
+### 示例4，struct属性为slice，数值为slice
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/util/gconv"
+    "gitee.com/johng/gf/g"
+    "fmt"
+)
+
+func main() {
+    type Score struct {
+        Name   string
+        Result int
+    }
+    type User struct {
+        Scores []Score
+    }
+
+    user   := new(User)
+    scores := map[string]interface{}{
+        "Scores" : []interface{}{
+            map[string]interface{}{
+                "Name"   : "john",
+                "Result" : 100,
+            },
+            map[string]interface{}{
+                "Name"   : "smith",
+                "Result" : 60,
+            },
+        },
+    }
+
+    // 嵌套struct转换，属性为slice类型，数值为slice map类型
+    if err := gconv.Struct(scores, user); err != nil {
+        fmt.Println(err)
+    } else {
+        g.Dump(user)
+    }
+}
+```
+
+执行后，输出结果为：
+
+```html
+{
+	"Scores": [
+		{
+			"Name": "john",
+			"Result": 100
+		},
+		{
+			"Name": "smith",
+			"Result": 60
+		}
+	]
+}
+```
+
+### 示例5，struct属性为slice，数值为非slice
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/util/gconv"
+    "gitee.com/johng/gf/g"
+    "fmt"
+)
+
+func main() {
+    type Score struct {
+        Name   string
+        Result int
+    }
+    type User struct {
+        Scores []Score
+    }
+
+    user   := new(User)
+    scores := map[string]interface{}{
+        "Scores" : map[string]interface{}{
+            "Name"   : "john",
+            "Result" : 100,
+        },
+    }
+
+    // 嵌套struct转换，属性为slice类型，数值为map类型
+    if err := gconv.Struct(scores, user); err != nil {
+        fmt.Println(err)
+    } else {
+        g.Dump(user)
+    }
+}
+```
+执行后，输出结果为：
+
+```html
+{
+	"Scores": [
+		{
+			"Name": "john",
+			"Result": 100
+		}
+	]
+}
+```
+
+
