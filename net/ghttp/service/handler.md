@@ -5,7 +5,7 @@
 
 **回调函数+执行对象混合注册是推荐的服务注册方式。**
 
-这种方式是最简单且最灵活的的服务注册方式，注册的服务可以是一个实例化对象的方法地址，也可以是一个包方法地址。服务需要的数据可以通过```包内部变量形式```或者```对象内部变量形式```进行管理，开发者可根据实际情况进行灵活控制。
+这种方式是最简单且最灵活的的服务注册方式，注册的服务可以是一个实例化对象的方法地址，也可以是一个包方法地址。服务需要的数据可以通过```模块内部变量形式```或者```对象内部变量形式```进行管理，开发者可根据实际情况进行灵活控制。
 
 我们可以直接通过```ghttp.BindHandler```方法完成回调函数的注册，在框架的开发手册中很多地方都使用了回调函数注册的方式来做演示，因为这种注册方式比较简单。
 
@@ -98,7 +98,7 @@ func main() {
 ```
 可以看到，我们可以在定义struct的时候使用```params```的标签来指定匹配绑定的参数名称，并且支持多个参数名称的绑定，多个参数名称以```,```号分隔。在使用中我们可以使用```GetRequestToStruct/GetPostToStruct/GetQueryToStruct```三种方式来获得指定Method提交方式的参数map，此外```GetToStruct```是```GetRequestToStruct```的别名，大多数情况下我们使用该方式获取参数即可。
 
-如果是其他方式提交参数，如果Json/Xml等等，由于设计到自定义参数格式的解析再绑定，请参考```gconv```包map转换struct的标签名称```gconv```的[用法示例](util/gconv/index.md)。
+如果是其他方式提交参数，如果Json/Xml等等，由于设计到自定义参数格式的解析再绑定，请参考```gconv```模块map转换struct的标签名称```gconv```的[用法示例](util/gconv/index.md)。
 
 以上示例执行后，我们手动访问地址```http://127.0.0.1:8199/user?uid=1&name=john&password1=123&userpass2=123```，输出结果为：
 ```json
@@ -137,7 +137,7 @@ func main() {
     s.Run()
 }
 ```
-其中，```gvalid```标签为```gavlid```数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节。此外，为了便于查看返回的json结果，这里在示例中使用```gparser```包的```VarToJsonIndent```方法，平常开发中往往直接使用像上一个示例中使用的```r.Response.WriteJson```方法返回json结果即可。执行后，访问URL```http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456```，输出结果为：
+其中，```gvalid```标签为```gavlid```数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节。此外，为了便于查看返回的json结果，这里在示例中使用```gparser```模块的```VarToJsonIndent```方法，平常开发中往往直接使用像上一个示例中使用的```r.Response.WriteJson```方法返回json结果即可。执行后，访问URL```http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456```，输出结果为：
 ```json
 {
 	"password1": {

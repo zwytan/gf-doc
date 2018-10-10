@@ -1,6 +1,6 @@
 # gredis
 
-Redis客户端由```gredis```包实现。
+Redis客户端由```gredis```模块实现。
 
 使用方式：
 ```go
@@ -48,7 +48,7 @@ func main() {
     fmt.Println(gconv.String(v))
 }
 ```
-该示例中，我们通过```New```方法创建一个Redis操作对象，并通过```Do```方法使用Redis Server的KV功能，随后我们再获取设置的信息。由于Do接口返回的都是```interface{}```类型的返回值，我们这里通过```gconv```包将任何类型转换为string来进行显示。
+该示例中，我们通过```New```方法创建一个Redis操作对象，并通过```Do```方法使用Redis Server的KV功能，随后我们再获取设置的信息。由于Do接口返回的都是```interface{}```类型的返回值，我们这里通过```gconv```模块将任何类型转换为string来进行显示。
 执行后输出结果为：
 ```html
 v

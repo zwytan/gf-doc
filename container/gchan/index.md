@@ -1,6 +1,6 @@
 # gchan
 
-优雅的Channel操作。原生的`channel`操作在`channel`关闭后再向`channel`发送数据，或者多次关闭`channel`会引发`panic`，`gchan`包使得`channel`的操作变得优雅，当然，这一部分优雅是需要牺牲一部分的操作性能来实现的。`gchan`的使用方式同标准库的`chan`。
+优雅的Channel操作。原生的`channel`操作在`channel`关闭后再向`channel`发送数据，或者多次关闭`channel`会引发`panic`，`gchan`模块使得`channel`的操作变得优雅，当然，这一部分优雅是需要牺牲一部分的操作性能来实现的。`gchan`的使用方式同标准库的`chan`。
 
 **使用场景**：
 

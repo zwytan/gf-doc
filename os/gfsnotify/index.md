@@ -27,7 +27,7 @@ type Watcher
     func (w *Watcher) Remove(path string) error
 ```
 
-`gfsnotify`包提供了直接的```Add```和```Remove```包方法，用于添加监控和取消监控。此外也可能通过```New```方法创建一个监控管理对象之后再进行监控管理。其中，添加监控的时候需要给定触发监控时的回调函数，参数为```*gfsnotify.Event```对象指针。
+`gfsnotify`模块提供了直接的```Add```和```Remove```模块方法，用于添加监控和取消监控。此外也可能通过```New```方法创建一个监控管理对象之后再进行监控管理。其中，添加监控的时候需要给定触发监控时的回调函数，参数为```*gfsnotify.Event```对象指针。
 
 使用示例：
 ```go

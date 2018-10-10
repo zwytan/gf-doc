@@ -2,7 +2,7 @@
 
 [TOC]
 
-GoFrame框架提供了非常强大的Web Server模块，由```ghttp```包实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
+GoFrame框架提供了非常强大的Web Server模块，由```ghttp```模块实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
 # 哈喽世界
 
@@ -26,7 +26,7 @@ func main() {
 ```
 这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问```http://127.0.0.1/```的时候，它会返回“哈喽世界！”。
 
-任何时候，您都可以通过```g.Server()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象（我们也可以通过```ghttp```包的```ghttp.GetServer()```来获取单例的Web Server对象，后续章节将会有介绍）。
+任何时候，您都可以通过```g.Server()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象（我们也可以通过```ghttp```模块的```ghttp.GetServer()```来获取单例的Web Server对象，后续章节将会有介绍）。
 
 通过Run()方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听80端口。
 

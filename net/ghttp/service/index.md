@@ -5,9 +5,9 @@
 
 当用户访问某个URI时，Web Server能够精确的调用特定的服务接口提供服务，这些都是通过```服务注册```来实现的。Web Server提供服务需要回调函数/方法/对象/控制器的支持，ghttp包支持多种服务注册模式，为开发者提供非常强大和灵活的接口功能。服务注册是整个Web Server最核心的部分，也是gf框架中最精心设计的一个模块。
 
-> 以下章节中部分示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init```方法进行自动注册），所有示例代码存放于：[gitee.com/johng/gf/blob/master/geg/frame/mvc/](https://gitee.com/johng/gf/blob/master/geg/frame/mvc) 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```包），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 [gitee.com/johng/gf/blob/master/geg/net/ghttp/server/](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/)  目录中，可独立运行）
+> 以下章节中部分示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init```方法进行自动注册），所有示例代码存放于：[gitee.com/johng/gf/blob/master/geg/frame/mvc/](https://gitee.com/johng/gf/blob/master/geg/frame/mvc) 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```模块），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 [gitee.com/johng/gf/blob/master/geg/net/ghttp/server/](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/)  目录中，可独立运行）
 
-服务注册管理由```ghttp```包实现，API文档地址：[godoc.org/github.com/johng-cn/gf/g/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
+服务注册管理由```ghttp```模块实现，API文档地址：[godoc.org/github.com/johng-cn/gf/g/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
 
 # g与ghttp包
 
@@ -173,7 +173,7 @@ func main() {
         g.Server().BindHandler("/doc/*path", ctlDoc.Index)
     }
     ```
-1. `main`包的加载方式：
+1. `main`模块的加载方式：
     ```go
     package main
 
@@ -204,7 +204,7 @@ func main() {
   * 由于各服务路由独立运作，但仍有可能出现路由冲突的风险；
   * 同一路由资源下，出现耦合性比较强的多个服务时，需要小心对路由进行解耦再分配；
 
-在这种方式下，所有的服务注册独立在**控制器包**的```init```初始化方法中完成(```init```是Go语言内置的```包初始化方法```，并且一个包中支持多个```init```方法)，一个包可以包含多个文件，每个文件都可以有一个init初始化方法，可以分开注册，在使用的时候会通过同一个包引入进程序，自动调用初始化方法完成注册。
+在这种方式下，所有的服务注册独立在**控制器包**的```init```初始化方法中完成(```init```是Go语言内置的```模块初始化方法```，并且一个包中支持多个```init```方法)，一个包可以包含多个文件，每个文件都可以有一个init初始化方法，可以分开注册，在使用的时候会通过同一个包引入进程序，自动调用初始化方法完成注册。
 
 
 示例：
@@ -228,7 +228,7 @@ func main() {
         // 业务逻辑部分
     }
     ```
-1. `main`包源码：
+1. `main`模块源码：
     ```go
     package main
 
