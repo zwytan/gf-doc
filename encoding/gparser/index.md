@@ -24,28 +24,36 @@ func VarToYaml(value interface{}) ([]byte, error)
 type Parser
     func Load(path string) (*Parser, error)
     func LoadContent(data []byte, dataType ...string) (*Parser, error)
-    func New(values ...interface{}) *Parser
+    func New(value interface{}, safe ...bool) *Parser
+    func NewUnsafe(value ...interface{}) *Parser
+    func (p *Parser) Append(pattern string, value interface{}) error
+    func (p *Parser) Dump() error
     func (p *Parser) Get(pattern ...string) interface{}
     func (p *Parser) GetArray(pattern string) []interface{}
     func (p *Parser) GetBool(pattern string) bool
     func (p *Parser) GetFloat32(pattern string) float32
     func (p *Parser) GetFloat64(pattern string) float64
+    func (p *Parser) GetFloats(pattern string) []float64
     func (p *Parser) GetInt(pattern string) int
     func (p *Parser) GetInt16(pattern string) int16
     func (p *Parser) GetInt32(pattern string) int32
     func (p *Parser) GetInt64(pattern string) int64
     func (p *Parser) GetInt8(pattern string) int8
+    func (p *Parser) GetInterfaces(pattern string) []interface{}
+    func (p *Parser) GetInts(pattern string) []int
     func (p *Parser) GetMap(pattern string) map[string]interface{}
     func (p *Parser) GetString(pattern string) string
     func (p *Parser) GetStrings(pattern string) []string
     func (p *Parser) GetTime(pattern string, format ...string) time.Time
     func (p *Parser) GetTimeDuration(pattern string) time.Duration
+    func (p *Parser) GetToStruct(pattern string, objPointer interface{}) error
     func (p *Parser) GetToVar(pattern string, v interface{}) error
     func (p *Parser) GetUint(pattern string) uint
     func (p *Parser) GetUint16(pattern string) uint16
     func (p *Parser) GetUint32(pattern string) uint32
     func (p *Parser) GetUint64(pattern string) uint64
     func (p *Parser) GetUint8(pattern string) uint8
+    func (p *Parser) Len(pattern string) int
     func (p *Parser) Remove(pattern string) error
     func (p *Parser) Set(pattern string, value interface{}) error
     func (p *Parser) SetSplitChar(char byte)

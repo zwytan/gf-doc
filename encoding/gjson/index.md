@@ -16,29 +16,37 @@ type Json
     func DecodeToJson(b []byte) (*Json, error)
     func Load(path string) (*Json, error)
     func LoadContent(data []byte, dataType ...string) (*Json, error)
-    func New(value interface{}) *Json
+    func New(value interface{}, safe ...bool) *Json
+    func NewUnsafe(value ...interface{}) *Json
+    func (j *Json) Append(pattern string, value interface{}) error
+    func (j *Json) Dump() error
     func (j *Json) Get(pattern ...string) interface{}
     func (j *Json) GetArray(pattern string) []interface{}
     func (j *Json) GetBool(pattern string) bool
     func (j *Json) GetFloat32(pattern string) float32
     func (j *Json) GetFloat64(pattern string) float64
+    func (j *Json) GetFloats(pattern string) []float64
     func (j *Json) GetInt(pattern string) int
     func (j *Json) GetInt16(pattern string) int16
     func (j *Json) GetInt32(pattern string) int32
     func (j *Json) GetInt64(pattern string) int64
     func (j *Json) GetInt8(pattern string) int8
+    func (j *Json) GetInterfaces(pattern string) []interface{}
+    func (j *Json) GetInts(pattern string) []int
     func (j *Json) GetJson(pattern string) *Json
     func (j *Json) GetMap(pattern string) map[string]interface{}
     func (j *Json) GetString(pattern string) string
     func (j *Json) GetStrings(pattern string) []string
     func (j *Json) GetTime(pattern string, format ...string) time.Time
     func (j *Json) GetTimeDuration(pattern string) time.Duration
+    func (j *Json) GetToStruct(pattern string, objPointer interface{}) error
     func (j *Json) GetToVar(pattern string, v interface{}) error
     func (j *Json) GetUint(pattern string) uint
     func (j *Json) GetUint16(pattern string) uint16
     func (j *Json) GetUint32(pattern string) uint32
     func (j *Json) GetUint64(pattern string) uint64
     func (j *Json) GetUint8(pattern string) uint8
+    func (j *Json) Len(pattern string) int
     func (j *Json) Remove(pattern string) error
     func (j *Json) Set(pattern string, value interface{}) error
     func (j *Json) SetSplitChar(char byte)

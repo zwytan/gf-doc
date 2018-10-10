@@ -28,70 +28,88 @@ type Request struct {
 
 相关方法（API详见： [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Request](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)）：
 ```go
-func (r *Request) AddPost(key string, value string)
-func (r *Request) AddQuery(key string, value string)
-func (r *Request) AddRouterString(key, value string)
-func (r *Request) BasicAuth(user, pass string, tips ...string) bool
-func (r *Request) Exit()
+type Request
+    func (r *Request) AddPost(key string, value string)
+    func (r *Request) AddQuery(key string, value string)
+    func (r *Request) AddRouterString(key, value string)
+    func (r *Request) BasicAuth(user, pass string, tips ...string) bool
+    func (r *Request) Exit()
+    func (r *Request) IsAjaxRequest() bool
+    func (r *Request) IsExited() bool
+    func (r *Request) IsFileRequest() bool
+    func (r *Request) SetPost(key string, value string)
+    func (r *Request) SetQuery(key string, value string)
+    func (r *Request) SetRouterString(key, value string)
+    func (r *Request) WebSocket() (*WebSocket, error)
 
-func (r *Request) Get(key string, def ...string) string
-func (r *Request) GetArray(key string, def ...[]string) []string
-func (r *Request) GetClientIp() string
-func (r *Request) GetFloat32(key string, def ...float32) float32
-func (r *Request) GetFloat64(key string, def ...float64) float64
-func (r *Request) GetHost() string
-func (r *Request) GetInt(key string, def ...int) int
-func (r *Request) GetJson() *gjson.Json
-func (r *Request) GetMap(def ...map[string]string) map[string]string
-func (r *Request) GetString(key string, def ...string) string
-func (r *Request) GetToStruct(object interface{}, mapping ...map[string]string)
-func (r *Request) GetUint(key string, def ...uint) uint
-func (r *Request) GetRaw() []byte
-func (r *Request) GetReferer() string
+    func (r *Request) Get(key string, def ...string) string
+    func (r *Request) GetArray(key string, def ...[]string) []string
+    func (r *Request) GetClientIp() string
+    func (r *Request) GetFloat32(key string, def ...float32) float32
+    func (r *Request) GetFloat64(key string, def ...float64) float64
+    func (r *Request) GetFloats(key string, def ...[]float64) []float64
+    func (r *Request) GetHost() string
+    func (r *Request) GetInt(key string, def ...int) int
+    func (r *Request) GetInterfaces(key string, def ...[]interface{}) []interface{}
+    func (r *Request) GetInts(key string, def ...[]int) []int
+    func (r *Request) GetJson() *gjson.Json
+    func (r *Request) GetMap(def ...map[string]string) map[string]string
+    func (r *Request) GetRaw() []byte
+    func (r *Request) GetReferer() string
+    func (r *Request) GetString(key string, def ...string) string
+    func (r *Request) GetStrings(key string, def ...[]string) []string
+    func (r *Request) GetToStruct(object interface{}, mapping ...map[string]string)
+    func (r *Request) GetUint(key string, def ...uint) uint
+    func (r *Request) GetVar(key string, def ...interface{}) *gvar.Var
 
-func (r *Request) GetPost(key string, def ...[]string) []string
-func (r *Request) GetPostArray(key string, def ...[]string) []string
-func (r *Request) GetPostBool(key string, def ...bool) bool
-func (r *Request) GetPostFloat32(key string, def ...float32) float32
-func (r *Request) GetPostFloat64(key string, def ...float64) float64
-func (r *Request) GetPostInt(key string, def ...int) int
-func (r *Request) GetPostMap(def ...map[string]string) map[string]string
-func (r *Request) GetPostString(key string, def ...string) string
-func (r *Request) GetPostToStruct(object interface{}, mapping ...map[string]string)
-func (r *Request) GetPostUint(key string, def ...uint) uint
+    func (r *Request) GetPost(key string, def ...[]string) []string
+    func (r *Request) GetPostArray(key string, def ...[]string) []string
+    func (r *Request) GetPostBool(key string, def ...bool) bool
+    func (r *Request) GetPostFloat32(key string, def ...float32) float32
+    func (r *Request) GetPostFloat64(key string, def ...float64) float64
+    func (r *Request) GetPostFloats(key string, def ...[]float64) []float64
+    func (r *Request) GetPostInt(key string, def ...int) int
+    func (r *Request) GetPostInterfaces(key string, def ...[]interface{}) []interface{}
+    func (r *Request) GetPostInts(key string, def ...[]int) []int
+    func (r *Request) GetPostMap(def ...map[string]string) map[string]string
+    func (r *Request) GetPostString(key string, def ...string) string
+    func (r *Request) GetPostStrings(key string, def ...[]string) []string
+    func (r *Request) GetPostToStruct(object interface{}, mapping ...map[string]string)
+    func (r *Request) GetPostUint(key string, def ...uint) uint
 
-func (r *Request) GetQuery(key string, def ...[]string) []string
-func (r *Request) GetQueryArray(key string, def ...[]string) []string
-func (r *Request) GetQueryBool(key string, def ...bool) bool
-func (r *Request) GetQueryFloat32(key string, def ...float32) float32
-func (r *Request) GetQueryFloat64(key string, def ...float64) float64
-func (r *Request) GetQueryInt(key string, def ...int) int
-func (r *Request) GetQueryMap(def ...map[string]string) map[string]string
-func (r *Request) GetQueryString(key string, def ...string) string
-func (r *Request) GetQueryToStruct(object interface{}, mapping ...map[string]string)
-func (r *Request) GetQueryUint(key string, def ...uint) uint
+    func (r *Request) GetQuery(key string, def ...[]string) []string
+    func (r *Request) GetQueryArray(key string, def ...[]string) []string
+    func (r *Request) GetQueryBool(key string, def ...bool) bool
+    func (r *Request) GetQueryFloat32(key string, def ...float32) float32
+    func (r *Request) GetQueryFloat64(key string, def ...float64) float64
+    func (r *Request) GetQueryFloats(key string, def ...[]float64) []float64
+    func (r *Request) GetQueryInt(key string, def ...int) int
+    func (r *Request) GetQueryInterfaces(key string, def ...[]interface{}) []interface{}
+    func (r *Request) GetQueryInts(key string, def ...[]int) []int
+    func (r *Request) GetQueryMap(def ...map[string]string) map[string]string
+    func (r *Request) GetQueryString(key string, def ...string) string
+    func (r *Request) GetQueryStrings(key string, def ...[]string) []string
+    func (r *Request) GetQueryToStruct(object interface{}, mapping ...map[string]string)
+    func (r *Request) GetQueryUint(key string, def ...uint) uint
 
-func (r *Request) GetRequest(key string, def ...[]string) []string
-func (r *Request) GetRequestArray(key string, def ...[]string) []string
-func (r *Request) GetRequestBool(key string, def ...bool) bool
-func (r *Request) GetRequestFloat32(key string, def ...float32) float32
-func (r *Request) GetRequestFloat64(key string, def ...float64) float64
-func (r *Request) GetRequestInt(key string, def ...int) int
-func (r *Request) GetRequestMap(def ...map[string]string) map[string]string
-func (r *Request) GetRequestString(key string, def ...string) string
-func (r *Request) GetRequestToStruct(object interface{}, mapping ...map[string]string)
-func (r *Request) GetRequestUint(key string, def ...uint) uint
+    func (r *Request) GetRequest(key string, def ...[]string) []string
+    func (r *Request) GetRequestArray(key string, def ...[]string) []string
+    func (r *Request) GetRequestBool(key string, def ...bool) bool
+    func (r *Request) GetRequestFloat32(key string, def ...float32) float32
+    func (r *Request) GetRequestFloat64(key string, def ...float64) float64
+    func (r *Request) GetRequestFloats(key string, def ...[]float64) []float64
+    func (r *Request) GetRequestInt(key string, def ...int) int
+    func (r *Request) GetRequestInterfaces(key string, def ...[]interface{}) []interface{}
+    func (r *Request) GetRequestInts(key string, def ...[]int) []int
+    func (r *Request) GetRequestMap(def ...map[string]string) map[string]string
+    func (r *Request) GetRequestString(key string, def ...string) string
+    func (r *Request) GetRequestStrings(key string, def ...[]string) []string
+    func (r *Request) GetRequestToStruct(object interface{}, mapping ...map[string]string)
+    func (r *Request) GetRequestUint(key string, def ...uint) uint
+    func (r *Request) GetRequestVar(key string, def ...interface{}) *gvar.Var
 
-func (r *Request) GetRouterArray(key string) []string
-func (r *Request) GetRouterString(key string) string
-
-func (r *Request) IsAjaxRequest() bool
-func (r *Request) IsExited() bool
-func (r *Request) IsFileRequest() bool
-func (r *Request) SetPost(key string, value string)
-func (r *Request) SetQuery(key string, value string)
-func (r *Request) SetRouterString(key, value string)
-func (r *Request) WebSocket() (*WebSocket, error)
+    func (r *Request) GetRouterArray(key string) []string
+    func (r *Request) GetRouterString(key string) string
 ```
 以上方法可以分为以下几类：
 1. ```Get```: 常用方法，简化参数获取，```GetRequestString```的别名；
