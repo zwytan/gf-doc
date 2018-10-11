@@ -102,42 +102,33 @@ gdb.SetConfig(gdb.Config {
 
 # (推荐)配置文件
 
-如果我们使用对象管理包中的```g.Database()```方法获取数据库操作对象，那么数据库配置可以在全局配置文件```config.yml```中进行配置，配置项的数据格式形如：
-```yaml
-database:
-    分组名称:
-        - host:     地址
-          port:     端口
-          user:     账号
-          pass:     密码
-          name:     数据库名称
-          type:     数据库类型(目前支持mysql/pgsql)
-          role:     数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master
-          charset:  数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8
-          priority: 优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1
+如果我们使用对象管理包中的```g.Database()```方法获取数据库操作对象，那么数据库配置可以在全局配置文件`config.toml`中进行配置，配置项的数据格式形如：
+```toml
+[database]
+    [[database.分组名称]]
+        host     = "地址"
+        port     = "端口"
+        user     = "账号"
+        pass     = "密码"
+        name     = "数据库名称"
+        type     = "数据库类型(目前支持mysql/pgsql/sqlite)"
+        role     = "数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
+        charset  = "数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
+        priority = "优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1"
 ```
 一个数据库配置项示例：
-```yaml
-database:
-    default:
-        - host:     127.0.0.1
-          port:     3306
-          user:     root
-          pass:     "123456"
-          name:     test
-          type:     mysql
-          role:     master
-          charset:  utf-8
-          priority: 1
-        - host:     127.0.0.1
-          port:     3306
-          user:     root
-          pass:     "123456"
-          name:     test
-          type:     mysql
-          role:     master
-          charset:  utf-8
-          priority: 1
+```toml
+[database]
+    [[database.default]]
+        host     = "127.0.0.1"
+        port     = "3306"
+        user     = "root"
+        pass     = ""
+        name     = "test"
+        type     = "mysql"
+        role     = "master"
+        charset  = "utf8"
+        priority = "1"
 ```
 
 随后，我们可以通过```g.Database("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
