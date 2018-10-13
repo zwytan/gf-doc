@@ -35,10 +35,47 @@ type ConfigNode  struct {
 特别说明，gf-ORM的配置管理最大的**特点**是，(同一进程中)所有的数据库集群信息都使用同一个配置管理模块进行统一维护，**不同业务的数据库集群配置使用不同的分组名称**进行配置和获取。
 
 
+# (推荐)配置文件
+
+> 推荐使用配置文件及单例对象来管理和使用数据库操作。
+
+如果我们使用对象管理包中的```g.Database()/g.DB()```方法获取数据库操作对象(`g.DB()`为`g.Database()`的别名方法)，那么数据库配置可以在全局配置文件`config.toml`中进行配置，配置项的数据格式形如：
+```toml
+[database]
+    [[database.分组名称]]
+        host     = "地址"
+        port     = "端口"
+        user     = "账号"
+        pass     = "密码"
+        name     = "数据库名称"
+        type     = "数据库类型(目前支持mysql/pgsql/sqlite)"
+        role     = "数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
+        charset  = "数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
+        priority = "优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1"
+```
+一个数据库配置项示例：
+```toml
+[database]
+    [[database.default]]
+        host     = "127.0.0.1"
+        port     = "3306"
+        user     = "root"
+        pass     = ""
+        name     = "test"
+        type     = "mysql"
+        role     = "master"
+        charset  = "utf8"
+        priority = "1"
+```
+
+随后，我们可以通过```g.Database("数据库分组名称")/g.DB("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
+
 # 配置方法
 
+> 这是原生调用`gdb`模块来配置管理数据库。
+
 数据库配置管理方法列表：
-```
+```go
 // 添加一个数据库节点到指定的分组中
 func AddConfigNode(group string, node ConfigNode)
 // 添加一个配置分组到数据库配置管理中(同名覆盖)
@@ -100,35 +137,4 @@ gdb.SetConfig(gdb.Config {
 随后，我们可以使用```gdb.New("数据库分组名称")```来获取一个数据库操作对象。该对象用于后续的数据库一系列方法/链式操作。
 
 
-# (推荐)配置文件
 
-如果我们使用对象管理包中的```g.Database()```方法获取数据库操作对象，那么数据库配置可以在全局配置文件`config.toml`中进行配置，配置项的数据格式形如：
-```toml
-[database]
-    [[database.分组名称]]
-        host     = "地址"
-        port     = "端口"
-        user     = "账号"
-        pass     = "密码"
-        name     = "数据库名称"
-        type     = "数据库类型(目前支持mysql/pgsql/sqlite)"
-        role     = "数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
-        charset  = "数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
-        priority = "优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1"
-```
-一个数据库配置项示例：
-```toml
-[database]
-    [[database.default]]
-        host     = "127.0.0.1"
-        port     = "3306"
-        user     = "root"
-        pass     = ""
-        name     = "test"
-        type     = "mysql"
-        role     = "master"
-        charset  = "utf8"
-        priority = "1"
-```
-
-随后，我们可以通过```g.Database("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
