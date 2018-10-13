@@ -58,3 +58,12 @@ func main() {
 
 
 由于对于Web开发者来讲，`Session`都已经是非常熟悉的组件了，相关API也非常简单，这里便不再赘述。
+
+# Session与Redis整合
+
+`gf`框架提供了`SESSION`模块及`gredis`模块，但是考虑到模块的低耦合性，因此默认情况下并没有做直接的整合处理，有需要的开发者可以按照以下思路便可方便地将`session`与`redis`做整合：
+1. 阅读【[事件回调/中间件](net/ghttp/service/hook.md)】章节，及【[Cookie](net/ghttp/cookie.md)】章节；
+1. 我们将会用到`Cookie`对象的`SessionId`方法，用于获取客户端提交的`session id`，依靠这个id从`redis`获取/设置数据；
+1. 注册`ghttp.HOOK_BEFORE_SERVE`回调函数，在接口服务开始，根据获取到的`session id`去`redis`中查询用户`session`数据，随后通过`SESSION.Sets`方法将从redis中获取的数据设置到`SESSION`中；
+1. 注册`ghttp.HOOK_AFTER_SERVE`回调函数，在接口服务结束后，通过`SESSION.Data`方法获取内存中的`session`数据，并将该数据保存到`redis`中；
+
