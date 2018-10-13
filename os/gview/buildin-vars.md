@@ -11,7 +11,7 @@
 ```
 
 ## Cookie
-访问当前请求的`Cookie`对象Map值。
+访问当前请求的`Cookie`对象Map值。仅通过`ghttp`模块使用时有效(通过`g.Response`/`gmv.Controller`对象)。
 
 使用方式：
 ```go
@@ -19,7 +19,7 @@
 ```
 
 ## Session
-访问当前请求的`Session`对象Map值。
+访问当前请求的`Session`对象Map值。仅通过`ghttp`模块使用时有效(通过`g.Response`/`gmv.Controller`对象)。
 
 使用方式：
 ```go
