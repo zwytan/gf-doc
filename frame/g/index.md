@@ -4,7 +4,7 @@
 
 # 全局对象
 
-gf框架封装了一些常用的数据类型以及对象，可以直接通过```g.*```方便获取。
+`gf`框架封装了一些常用的数据类型以及对象，可以直接通过```g.*```方便获取。
 
 使用方式：
 ```go
@@ -24,7 +24,8 @@ type List []Map
 
 1. **(单例)配置管理对象**
 	```go
-    func Config() *gcfg.Config
+    // 参数file未非必需参数，表示指定获取的配置文件管理对象
+    func Config(file...string) *gcfg.Config
     ```
 3. **(单例)模板引擎对象**
 	```go
@@ -42,11 +43,13 @@ type List []Map
 	```go
     func UdpServer(name...interface{}) *gudp.Server
     ```
-11. **数据库ORM对象**
+11. **(单例)数据库ORM对象**
 	```go
     func Database(name...string) *gdb.Db
+    // 别名
+    func DB(name...string) *gdb.Db
     ```
-13. **Redis客户端对象**
+13. **(单例)Redis客户端对象**
 	```go
     func Redis(name...string) *gredis.Redis
     ```
