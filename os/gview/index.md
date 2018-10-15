@@ -19,12 +19,26 @@ type View
     func (view *View) AddPath(path string) error
     func (view *View) SetPath(path string) error
 
+    func (view *View) Assign(key string, value interface{})
+    func (view *View) Assigns(data Params)
+
     func (view *View) BindFunc(name string, function interface{})
     func (view *View) Parse(file string, params map[string]interface{}, funcmap ...map[string]interface{}) ([]byte, error)
     func (view *View) ParseContent(content string, params map[string]interface{}, funcmap ...map[string]interface{}) ([]byte, error)
     func (view *View) SetDelimiters(left, right string)
 ```
-**示例1，解析模板文件：**
+简要说明：
+1. `gview.Get`用于根据给定的一个模板目录路径，获得对应的单例模板引擎对象；
+1. `gview.New`同样可以根据给定的模板目录路径创建模板引擎对象，但没有单例管理；
+1. `SetPath/AddPath`用于设置/添加当前模板引擎对象的模板目录路径，其中`SetPath`会覆盖所有的模板目录设置，推荐使用`AddPath`；
+1. `Assign/Assigns`用于设置模板变量，通过该模板引擎解析的所有模板均可以使用这些模板变量；
+1. `BindFunc`用于绑定模板函数，具体使用方法参考后续示例程序；
+1. `Parse/ParseContent`用于解析模板文件/内容，可以在解析时给定临时的模板变量及模板函数；
+1. `SetDelimiters`用于设置该模板引擎对象的模板解析分隔符号，默认为`{{ }}`（与`view.js`前端框架有冲突）；
+
+
+
+### 示例1，解析模板文件
 ```go
 package main
 
@@ -50,7 +64,7 @@ func main() {
 
 我们也可以通过```SetPath/Addpath```方法中心指定视图对象的模板目录，该方法是并发安全的，但是需要注意一旦改变了该视图对象的模板目录，将会在整个进程中生效。当然，也可以直接解析模板内容。
 
-**示例2，解析模板内容：**
+### 示例2，解析模板内容
 ```go
 package main
 
@@ -75,7 +89,7 @@ func main() {
 ```
 执行后，访问```http://127.0.0.1:8199/template2```可以看到解析后的内容为：```id:123, name:john```
 
-**示例3，自定义模板变量分隔符：**
+### 示例3，自定义模板变量分隔符
 
 在项目中我们经常会遇到Golang默认模板变量分隔符号与```Vue```的变量分隔符号冲突的情况（都使用的是```{{ }}```），我们可以使用```SetDelimiters```方法来自定义全局的Golang模板变量分隔符号：
 ```go
@@ -114,7 +128,7 @@ test.tpl content, vars: map[k:v]
 gf为控制器提供了良好的模板引擎支持，由```gmvc.View```视图对象进行管理，提供了良好的数据`隔离性`。控制器视图是并发安全设计的，允许在多线程中异步操作。
 ```go
 func (view *View) Assign(key string, value interface{})
-func (view *View) Assigns(data map[string]interface{})
+func (view *View) Assigns(data gview.Params)
 
 func (view *View) Parse(file string) ([]byte, error)
 func (view *View) ParseContent(content string) ([]byte, error)
@@ -232,7 +246,7 @@ func main() {
 
 ## 修改模板目录
 
-gf框架的模板引擎支持两种方式的模板目录修改。
+`gf`框架的模板引擎支持两种方式的模板目录修改。
 
 ## 修改模板目录
 模板引擎作为gf框架的核心组件，可以通过以下方式修改模板引擎的默认模板文件查找目录：
@@ -272,5 +286,5 @@ gf框架的模板引擎支持非常灵活的多目录自动搜索功能，通过
 
 模板引擎使用了缓存机制，当模板文件第一次被读取后会被缓存到内存，下一次读取时将会直接从缓存中获取，以提高执行效率。并且，模板引擎提供了对模板文件的**自动检测更新机制**，当模板文件在外部被修改后，模板引擎能够即时地监控到并刷新模板文件的缓存内容。
 
-模板引擎的自动检测更新机制是gf框架特有的一大特色。
+模板引擎的自动检测更新机制是`gf`框架特有的一大特色。
 

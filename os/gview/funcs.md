@@ -164,7 +164,6 @@ func main() {
 <div>测试</div>保留HTML标签<script>alert("test");</script>
 ```
 
-
 ## get
 > 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
