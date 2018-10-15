@@ -256,7 +256,7 @@ func (c *ObjectRest) Hello(r *ghttp.Request) {
 
 执行对象中的```Init```和```Shut```是两个在HTTP请求流程中被Web Server自动调用的特殊方法(类似`构造函数`和`析构函数`的作用)。当struct对象中定义了这两个方法名称时，使用执行对象方式进行服务注册时将会被自动注册到路由表中。
 
-1. ```Init```回调方法
+1. `Init`回调方法
 
 	执行对象收到请求时的初始化方法，在服务接口调用之前被回调执行。
 
@@ -268,7 +268,7 @@ func (c *ObjectRest) Hello(r *ghttp.Request) {
     }
     ```
 
-1. ```Shut```回调方法
+1. `Shut`回调方法
 
 	当请求结束时被Web Server自动调用，可以用于执行对象执行一些收尾处理的操作。
 
