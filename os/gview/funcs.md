@@ -116,9 +116,57 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 
 # 内置函数
 
-在Web Server的模板引擎内置了多个模板函数，需要注意的是，这些内置函数只在Web Server下使用`ghttp.Response`或者`gmvc.View`对象渲染模板下有效。
+## text
+```go
+{{.value | text}}
+```
+将`value`变量值去掉HTML标签，仅显示文字内容（并且去掉`script`标签）。
+
+## html
+在默认情况下，模板引擎会将输出的字符串内容进行HTML转义处理，使用`html`内置函数可以保留HTML标签，并显示完整的HTML内容。
+
+```go
+{{.value | html}}
+```
+将`value`变量值保留HTML标签，显示完整的HTML内容（并且会保留`script`标签）。
+
+使用示例：
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/os/gview"
+    "gitee.com/johng/gf/g"
+)
+
+func main() {
+    if c, err := gview.ParseContent(`{{"<div>测试</div>模板引擎默认处理HTML标签<script>alert(\"test\");</script>\n"}}`, nil); err == nil {
+        g.Dump(c)
+    } else {
+        g.Dump(c)
+    }
+    if c, err := gview.ParseContent(`{{"<div>测试</div>去掉HTML标签<script>alert(\"test\");</script>\n"|text}}`, nil); err == nil {
+        g.Dump(c)
+    } else {
+        g.Dump(c)
+    }
+    if c, err := gview.ParseContent(`{{"<div>测试</div>保留HTML标签<script>alert(\"test\");</script>\n"|html}}`, nil); err == nil {
+        g.Dump(c)
+    } else {
+        g.Dump(c)
+    }
+}
+```
+执行后，输出结果为：
+```html
+&lt;div&gt;测试&lt;/div&gt;模板引擎默认处理HTML标签&lt;script&gt;alert(&#34;test&#34;);&lt;/script&gt;
+测试去掉HTML标签
+<div>测试</div>保留HTML标签<script>alert("test");</script>
+```
+
 
 ## get
+> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
 ```go
 {{get "参数名称"}}
@@ -135,6 +183,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 ```
 
 ## post
+> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
 ```go
 {{post "参数名称"}}
@@ -142,6 +191,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 用于获取POST方式传递的参数。
 
 ## request
+> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
 ```go
 {{request "参数名称"}}
