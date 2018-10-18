@@ -10,6 +10,7 @@
 import "gitee.com/johng/gf/g/os/gmlock"
 ```
 
+
 **使用场景**：
 1. 任何需要并发安全的场景，可以替代`sync.Mutex`；
 1. 需要使用`Try*Lock`的场景(不需要阻塞等待锁释放)；
@@ -70,7 +71,7 @@ func main() {
     wg.Wait()
 }
 ```
-该示例中，模拟了同时开启10个goroutine，同时只有一个goroutine获得锁，并且该goroutine执行1秒后退出，其他goroutine才能获得锁。
+该示例中，模拟了同时开启`10`个goroutine，但同一时刻只能有一个goroutine获得锁，获得锁的goroutine执行1秒后退出，其他goroutine才能获得锁。
 
 执行后，输出结果为：
 ```html
@@ -127,7 +128,9 @@ func main() {
 2018-10-15 23:59:23.665 8
 ```
 
-# 示例3，TryLock
+# 示例3，TryLock非阻塞锁
+
+`TryLock`方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回`true`；如果获取失败（即锁已被其他goroutine获取），则返回`false`。
 
 ```go
 package main
@@ -158,7 +161,7 @@ func main() {
     wg.Wait()
 }
 ```
-同理，在该示例中，同时也只有1个goroutine能获得锁，其他goroutine在`TryLock`失败便直接退出了。
+同理，在该示例中，同时也只有`1`个goroutine能获得锁，其他goroutine在`TryLock`失败便直接退出了。
 
 执行后，输出结果为：
 ```html
@@ -175,6 +178,8 @@ func main() {
 ```
 
 # 示例4，多个锁机制冲突
+
+该示例用来演示在复杂逻辑下的锁机制处理情况。
 
 ```go
 package main
@@ -213,6 +218,7 @@ func main() {
     // 注意3秒之后才会执行这一句
     glog.Println("unlock2")
 
+    // 阻塞进程
     select{}
 }
 ```
@@ -226,3 +232,47 @@ func main() {
 2018-10-16 00:03:43.279 unlock2
 2018-10-16 00:03:43.279 lock by goroutine
 ```
+
+# 示例5，多文件并发写的安全控制
+
+在`glog`模块写日志文件的时候有这么一个核心方法，我们拿来看一下（源代码位于 [/g/os/glog/glog_logger.go](https://gitee.com/johng/gf/blob/master/g/os/glog/glog_logger.go)）。
+
+```go
+// 这里的写锁保证同一时刻只会写入一行日志，防止串日志的情况
+func (l *Logger) print(std io.Writer, s string) {
+    // 优先使用自定义的IO输出
+    if l.printHeader.Val() {
+        s = l.format(s)
+    }
+    writer := l.GetWriter()
+    if writer == nil {
+        // 如果设置的writer为空，那么其次判断是否有文件输出设置
+        // 内部使用了内存锁，保证在glog中对同一个日志文件的并发写入不会串日志(并发安全)
+        if f := l.getFilePointer(); f != nil {
+            defer f.Close()
+            key := l.path.Val()
+            gmlock.Lock(key)
+            _, err := io.WriteString(f, s)
+            gmlock.Unlock(key)
+            if err != nil {
+                fmt.Fprintln(os.Stderr, err.Error())
+            }
+        }
+    } else {
+        l.doStdLockPrint(writer, s)
+    }
+    // 是否允许输出到标准输出
+    if l.alsoStdPrint.Val() {
+        l.doStdLockPrint(std, s)
+    }
+}
+```
+
+其中的：
+
+```go
+gmlock.Lock(key)
+...
+gmlock.Unlock(key)
+```
+便使用到了内存锁的特性，其中的变量`key`表示的是日志文件的`绝对路径`，当多个goroutine对同一个日志文件进行写入时，由`gmlock.Lock(key)`来保证对该文件的并发安全写操作。
