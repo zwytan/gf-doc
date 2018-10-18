@@ -1,11 +1,22 @@
 [TOC]
 
 
-# gmlock
+内存锁。该模块包含两个对象特性：
+1. `Locker` 内存锁，支持按照`给定键名生成内存锁`，并支持`Try*Lock`及`锁过期`特性；
+1. `Mutex` 对标准库底层`sync.Mutex`的封装，增加了`Try*Lock`特性；
 
-内存锁。支持`Try*Lock`及锁过期特性。
+**使用方式**：
+```go
+import "gitee.com/johng/gf/g/os/gmlock"
+```
 
-## 方法列表
+**使用场景**：
+1. 任何需要并发安全的场景，可以替代`sync.Mutex`；
+1. 需要使用`Try*Lock`的场景(不需要阻塞等待锁释放)；
+1. 需要`动态创建互斥锁`，或者需要`维护大量动态锁`的场景；
+
+
+# 方法列表
 
 ```go
 func Lock(key string, expire ...int)
@@ -32,7 +43,7 @@ type Mutex
     func (l *Mutex) Unlock()
 ```
 
-## 示例1，基本使用
+# 示例1，基本使用
 ```go
 package main
 
@@ -75,7 +86,7 @@ func main() {
 2018-10-15 23:57:37.298 8
 ```
 
-## 示例2，过期控制
+# 示例2，过期控制
 
 我们将以上的示例使用过期时间控制来实现。
 
@@ -116,7 +127,7 @@ func main() {
 2018-10-15 23:59:23.665 8
 ```
 
-## 示例3，TryLock
+# 示例3，TryLock
 
 ```go
 package main
@@ -163,7 +174,7 @@ func main() {
 2018-10-16 00:01:59.176 false
 ```
 
-## 示例4，多个锁机制冲突
+# 示例4，多个锁机制冲突
 
 ```go
 package main
