@@ -43,6 +43,7 @@
         * [ORM高级特性](database/orm/senior.md)
         * [ORM数据库类型](database/orm/database.md)
     * [Web开发进阶](#)
+        * [配置管理](net/ghttp/config.md)
         * [HTTPS服务](net/ghttp/https.md)
         * [平滑重启特性](net/ghttp/graceful.md)
         * [服务性能分析](net/ghttp/pprof.md)
