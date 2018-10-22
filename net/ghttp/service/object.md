@@ -54,7 +54,9 @@ panic: interface conversion: interface {} is xxx, not func(*ghttp.Request)
 
 ### 路由内置变量
 
-对于控制器和执行对象的注册方式来讲，由于是基于对象来进行注册，因此在路由规则中可以使用内置的两个变量：```{.struct}```和```{.method}```，前者表示当前**对象名称**，后者表示当前注册的**方法名**。我们来看一个例子：
+当使用`BindObject`方法进行执行对象注册时，在路由规则中可以使用两个内置的变量：```{.struct}```和```{.method}```，前者表示当前**对象名称**，后者表示当前注册的**方法名**。这两个内置变量使得开发者可以非常灵活地自定义路由规则。
+
+我们来看一个例子：
 [gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/buildin-vars.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/buildin-vars.go)
 ```go
 package demo
@@ -80,7 +82,7 @@ func (o *Order) List(r *ghttp.Request) {
 
 当方法名称带有多个`单词`(按照字符大写区分单词)时，路由控制器默认会自动使用英文连接符号```-```进行拼接，因此访问的时候方法名称需要带```-```号。例如，方法名为```UserName```时，生成的URI地址为```user-name```；方法名为```ShowListItems```时，生成的URI地址为```show-list-items```；以此类推。对后续的控制器注册方式同理。
 
-此外，我们可以通过```ghttp.Server.SetNameToUriType```方法来设置struct/method名称与uri的转换方式。支持的方式目前有4种，对应4个常量定义：
+此外，我们可以通过```ghttp.Server.SetNameToUriType```方法来设置`struct/method`名称与uri的转换方式。支持的方式目前有`4`种，对应`4`个常量定义：
 ```go
 NAME_TO_URI_TYPE_DEFAULT  = 0      // 服务注册时对象和方法名称转换为URI时，全部转为小写，单词以'-'连接符号连接
 NAME_TO_URI_TYPE_FULLNAME = 1      // 不处理名称，以原有名称构建成URI
@@ -132,7 +134,7 @@ func main() {
     g.Wait()
 }
 ```
-这个示例采用了多Server运行方式，将不同的名称转换方式使用了不同的Server来配置运行，因此我们可以方便地在同一个程序中，访问不同的Server（通过不同的端口绑定）看到不同的结果。执行以上示例后，可以分别访问以下URL地址得到期望的结果：
+这个示例采用了`多Server`运行方式，将不同的名称转换方式使用了不同的Server来配置运行，因此我们可以方便地在同一个程序中，访问不同的Server（通过不同的端口绑定）看到不同的结果。执行以上示例后，可以分别访问以下URL地址得到期望的结果：
 ```html
 http://127.0.0.1:8100/user/show-list
 http://127.0.0.1:8200/User/ShowList
@@ -144,7 +146,7 @@ http://127.0.0.1:8300/user/showList
 
 假如控制器中有若干公开方法，但是我只想注册其中几个，其余的方法我不想对外公开，怎么办？
 
-我们可以通过```BindObject```传递第三个非必需参数替换实现，参数支持传入多个方法名称，多个名称以英文```,```号分隔（**方法名称参数区分大小写**）。
+我们可以通过```BindObject```传递**第三个非必需参数**替换实现，参数支持传入**多个**方法名称，多个名称以英文```,```号分隔（**方法名称参数区分大小写**）。
 
 示例：
 ```go
@@ -177,6 +179,8 @@ func (o *Object) Show(r *ghttp.Request) {
 
 
 我们可以通过```BindObjectMethod```方法绑定指定的路由到指定的方法执行（**方法名称参数区分大小写**）。
+
+> 注意`BindObjectMethod`和`BindObject`的区别：`BindObjectMethod`只是将对象中的指定方法与指定路由规则进行绑定；`BindObject`是注册执行对象，会生成一系列默认的路由规则(URI后缀形式)，并且可以使用内置变量。
 
 来看一个例子：
 
