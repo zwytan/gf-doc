@@ -1,6 +1,4 @@
 * [框架介绍](index.md)
-* [源码目录](source.md)
-* [加入团队](joinus.md)
 * [Web服务开发](#)
     * [开始使用](net/ghttp/index.md)
     * [路由控制](net/ghttp/router.md)
