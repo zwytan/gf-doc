@@ -73,6 +73,7 @@
         * [gvar (通用动态变量)](container/gvar/index.md)
     * [系统相关模块](#)
         * [gcache (高速缓存模块)](os/gcache/index.md)
+        * [gcron (定时任务模块)](os/gcron/index.md)
         * [glog (日志管理模块)](os/glog/index.md)
         * [gtime (时间管理模块)](os/gtime/index.md)
         * [gcmd (命令行解析执行)](os/gcmd/index.md)
