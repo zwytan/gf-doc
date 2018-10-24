@@ -2,11 +2,11 @@
 
 [TOC]
 
-GoFrame框架提供了非常强大的Web Server模块，由```ghttp```模块实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
+`GF`框架提供了非常强大的Web Server模块，由```ghttp```模块实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
 
 # 哈喽世界
 
-老规矩，我们先来一个Hello World：
+老规矩，我们先来一个`Hello World`：
 
 ```go
 package main
@@ -24,13 +24,13 @@ func main() {
     s.Run()
 }
 ```
-这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问```http://127.0.0.1/```的时候，它会返回“哈喽世界！”。
+这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问```http://127.0.0.1/```的时候，它会返回`哈喽世界！`。
 
 任何时候，您都可以通过```g.Server()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象（我们也可以通过```ghttp```模块的```ghttp.GetServer()```来获取单例的Web Server对象，后续章节将会有介绍）。
 
-通过Run()方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听80端口。
+通过`Run()`方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听`80`端口。
 
-关于其中的服务注册，我们将会在后续章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
+关于其中的服务注册，我们将会在后续的章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
 
 
 # 静态服务
@@ -59,7 +59,7 @@ Web Server默认情况下是没有任何主目录的设置，只有设置了主�
 
 # 多端口监听
 
-`ghttp.Server`同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于HTTPS服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，HTTPS服务的介绍请参看后续对应章节）。
+`ghttp.Server`同时支持多端口监听，只需要往```SetPort```参数设置绑定多个端口号即可（当然，针对于`HTTPS`服务，我们也同样可以通过```SetHTTPSPort```来设置绑定并支持多个端口号的监听，`HTTPS`服务的介绍请参看后续对应章节）。
 
 我们来看一个例子：
 
@@ -151,12 +151,12 @@ func main() {
 我们访问```http://127.0.0.1/```和```http://localhost/```可以看输出不同的内容。
 
 此外，```Domain```方法支持多个域名参数，使用英文“,”号分隔，例如：
+```
+s.Domain("localhost1,localhost2,localhost3").BindHandler("/", Hello2)
+```
+这条语句的表示将Hello2方法注册到指定的3个域名中(`localhost1~3`)，对其他域名不可见。
 
-	s.Domain("localhost1,localhost2,localhost3").BindHandler("/", Hello2)
-
-这条语句的表示将Hello2方法注册到指定的3个域名中(localhost1~3)，对其他域名不可见。
-
-需要注意的是：Domain方法的参数必须是准确的域名，**不支持泛域名形式**，例如：```*.johng.cn```或者```.johng.cn```是不支持的，```api.johng.cn```或者```johng.cn```才被认为是正确的域名参数。
+需要注意的是：`Domain`方法的参数必须是**准确的**域名，**不支持泛域名形式**，例如：```*.johng.cn```或者```.johng.cn```是不支持的，```api.johng.cn```或者```johng.cn```才被认为是正确的域名参数。
 
 
 # 强大路由特性
@@ -184,7 +184,7 @@ func main() {
 ```
 这是一个混合的路由规则示例，用于展示某个班级、某个学科、某个学生、对应的操作，运行后，我们可以通过例如该地址：```http://127.0.0.1:8199/class3-math/john/score```看到测试结果。在页面上你可以看得到对应的路由规则都被一一解析，业务层可以根据解析的参数进行对应的业务逻辑处理。
 
-由于路由控制的知识点比较多，并且gf框架的路由又比较强大，因此具体的路由控制管理介绍请查看后续【[路由控制](net/ghttp/router.md)】章节。
+由于路由控制的知识点比较多，并且`gf`框架的路由又比较强大，因此具体的路由控制管理介绍请查看后续【[路由控制](net/ghttp/router.md)】章节。
 
 # 平滑重启特性
 
@@ -198,6 +198,11 @@ func main() {
 `ghttp.Server`支持HTTPS服务，并且也同时支持单进程提供HTTP&HTTPS服务，HTTPS的详细介绍请参考【[HTTPS服务](net/ghttp/https.md)】章节。
 
 
+# Web Server配置管理
 
+Web Server的配置管理往往不是必须的，因为大多数场景下使用默认的Web Server配置即可。如果想要更进一步进行配置，请查看【[Server配置管理](net/ghttp/config.md)】章节。
+
+
+#
 
 更多功能及特性请继续阅读后续章节。

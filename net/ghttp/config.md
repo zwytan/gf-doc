@@ -1,7 +1,7 @@
 
 # Web Server配置管理
 
-具体请参考Web Server的配置对象结构体：
+## 配置管理对象
 [godoc.org/github.com/johng-cn/gf/g/net/ghttp#ServerConfig](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#ServerConfig)
 ```go
 // HTTP Server 设置结构体，静态配置
@@ -52,4 +52,56 @@ type ServerConfig struct {
 ```
 
 
-Web Server的配置比较丰富，所有的配置均可在创建`ghttp.Server`对象后使用`SetConfig`方法进行统一配置；也可以使用Server对象的`Set*`方法进行特定配置的设置，配置项在Server执行`Start`之后便不能再修改。
+## 配置管理方法
+[godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server)
+```go
+
+func (s *Server) AddSearchPath(path string) error
+func (s *Server) DumpRoutesMap()
+func (s *Server) EnableAdmin(pattern ...string)
+func (s *Server) EnableHTTPS(certFile, keyFile string)
+func (s *Server) EnablePprof(pattern ...string)
+func (s *Server) GetCookieDomain() string
+func (s *Server) GetCookieMaxAge() int
+func (s *Server) GetCookiePath() string
+func (s *Server) GetLogHandler() LogHandler
+func (s *Server) GetLogPath() string
+func (s *Server) GetName() string
+func (s *Server) GetRouteMap() string
+func (s *Server) GetSessionIdName() string
+func (s *Server) GetSessionMaxAge() int
+func (s *Server) IsAccessLogEnabled() bool
+func (s *Server) IsErrorLogEnabled() bool
+func (s *Server) SetAccessLogEnabled(enabled bool)
+func (s *Server) SetAddr(addr string)
+func (s *Server) SetAllowIps(ips []string)
+func (s *Server) SetConfig(c ServerConfig)
+func (s *Server) SetCookieDomain(domain string)
+func (s *Server) SetCookieMaxAge(age int)
+func (s *Server) SetCookiePath(path string)
+func (s *Server) SetDenyIps(ips []string)
+func (s *Server) SetDenyRoutes(routes []string)
+func (s *Server) SetDumpRouteMap(enabled bool)
+func (s *Server) SetErrorLogEnabled(enabled bool)
+func (s *Server) SetGzipContentTypes(types []string)
+func (s *Server) SetHTTPSAddr(addr string)
+func (s *Server) SetHTTPSPort(port ...int)
+func (s *Server) SetIdleTimeout(t time.Duration)
+func (s *Server) SetIndexFiles(index []string)
+func (s *Server) SetIndexFolder(index bool)
+func (s *Server) SetLogHandler(handler LogHandler)
+func (s *Server) SetLogPath(path string)
+func (s *Server) SetMaxHeaderBytes(b int)
+func (s *Server) SetNameToUriType(t int)
+func (s *Server) SetPort(port ...int)
+func (s *Server) SetReadTimeout(t time.Duration)
+func (s *Server) SetServerAgent(agent string)
+func (s *Server) SetServerRoot(root string)
+func (s *Server) SetSessionIdName(name string)
+func (s *Server) SetSessionMaxAge(age int)
+func (s *Server) SetWriteTimeout(t time.Duration)
+func (s *Server) Status() int
+```
+
+
+Web Server的配置比较丰富，所有的配置均可在创建`ghttp.Server`对象后使用`SetConfig`方法进行统一配置；也可以使用Server对象的`Set*/Enable*`方法进行特定配置的设置。主要注意的是，配置项在Server执行`Start`之后便不能再修改。
