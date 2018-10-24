@@ -12,12 +12,17 @@ import "gitee.com/johng/gf/g/os/gcron"
 ```go
 func Add(spec string, f func(), name...string) error
 func Remove(name string)
+func Search(name string) *Entry
 func Entries() []Entry
 ```
 简要说明：
-1. `Add`方法用于添加定时任务，其中`spec`参数使用CRON语法格式(具体说明见随后说明)，`f`参数为需要执行的任务方法，`name`为非必需参数，用于给定时任务指定一个唯一的名称，可用于后续的动态删除；
+1. `Add`方法用于添加定时任务，其中：
+    - `spec` 参数使用`CRON语法格式`(具体说明见本章后续相关说明)；
+    - `f` 参数为需要执行的任务方法(方法地址)；
+    - `name` 为非必需参数，用于给定时任务指定一个**唯一的**名称，注意如果已存在相同名称的任务，那么添加定时任务将会失败；
 1. `Remove`方法用于根据名称删除定时任务；
 1. `Entries`方法用于获取当前所有已注册的定时任务信息；
+1. `Search`方法用于根据名称进行定时任务搜索；
 
 
 
