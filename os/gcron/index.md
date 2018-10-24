@@ -10,10 +10,14 @@ import "gitee.com/johng/gf/g/os/gcron"
 方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gcron](https://godoc.org/github.com/johng-cn/gf/g/os/gcron)
 
 ```go
-func Add(spec string, f func()) error
+func Add(spec string, f func(), name...string) error
+func Remove(name string)
 func Entries() []Entry
 ```
-
+简要说明：
+1. `Add`方法用于添加定时任务，其中`spec`参数使用CRON语法格式(具体说明见随后说明)，`f`参数为需要执行的任务方法，`name`为非必需参数，用于给定时任务指定一个唯一的名称，可用于后续的动态删除；
+1. `Remove`方法用于根据名称删除定时任务；
+1. `Entries`方法用于获取当前所有已注册的定时任务信息；
 
 
 
@@ -31,10 +35,15 @@ import (
 
 func main() {
     gcron.Add("0 30 * * * *", func() { fmt.Println("Every hour on the half hour") })
-    gcron.Add("* * * * * *",  func() { fmt.Println("Every second") })
+    gcron.Add("* * * * * *",  func() { fmt.Println("Every second") }, "second-cron")
     gcron.Add("@hourly",      func() { fmt.Println("Every hour") })
     gcron.Add("@every 1h30m", func() { fmt.Println("Every hour thirty") })
     g.Dump(gcron.Entries())
+
+    time.Sleep(3*time.Second)
+
+    gcron.Remove("second-cron")
+
     time.Sleep(3*time.Second)
 }
 ```
