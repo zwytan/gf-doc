@@ -55,7 +55,6 @@ type ServerConfig struct {
 ## 配置管理方法
 [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server)
 ```go
-
 func (s *Server) AddSearchPath(path string) error
 func (s *Server) DumpRoutesMap()
 func (s *Server) EnableAdmin(pattern ...string)
