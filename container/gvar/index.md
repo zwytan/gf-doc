@@ -1,6 +1,6 @@
 # gvar
 
-`通用动态变量`，支持各种内置的数据类型转换，可以作为`interface{}`类型的替代数据类型，并且该类型支持并发安全。
+`通用动态变量`，支持各种内置的数据类型转换，可以作为`interface{}`类型的替代数据类型，并且该类型支持`并发安全`。
 
 > Tips: 框架同时提供了`g.Var`的数据类型，其实也是`gvar.Var`数据类型的别名。
 
@@ -31,7 +31,7 @@ type Var
     func (v *Var) Interfaces() []interface{}
     func (v *Var) Ints() []int
     func (v *Var) IsNil() bool
-    func (v *Var) Set(value interface{})
+    func (v *Var) Set(value interface{}) (old interface{})
     func (v *Var) String() string
     func (v *Var) Strings() []string
     func (v *Var) Struct(objPointer interface{}, attrMapping ...map[string]string) error

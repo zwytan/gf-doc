@@ -10,19 +10,36 @@ import "gitee.com/johng/gf/g/os/gcron"
 方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gcron](https://godoc.org/github.com/johng-cn/gf/g/os/gcron)
 
 ```go
-func Add(spec string, f func(), name...string) error
+func Add(spec string, f func(), name ...string) error
 func Remove(name string)
+func Start(name string)
+func Stop(name string)
+func Entries() []*Entry
 func Search(name string) *Entry
-func Entries() []Entry
+
+type Cron
+    func New() *Cron
+    func (c *Cron) Add(spec string, f func(), name ...string) error
+    func (c *Cron) Entries() []*Entry
+    func (c *Cron) Remove(name string)
+    func (c *Cron) Search(name string) *Entry
+    func (c *Cron) Start(name ...string)
+    func (c *Cron) Stop(name ...string)
+type Entry
+    func (entry *Entry) Start()
+    func (entry *Entry) Stop()
 ```
 简要说明：
+1. `New`方法用于创建自定义的定时任务管理对象；
 1. `Add`方法用于添加定时任务，其中：
     - `spec` 参数使用`CRON语法格式`(具体说明见本章后续相关说明)；
     - `f` 参数为需要执行的任务方法(方法地址)；
     - `name` 为非必需参数，用于给定时任务指定一个**唯一的**名称，注意如果已存在相同名称的任务，那么添加定时任务将会失败；
-1. `Remove`方法用于根据名称删除定时任务；
 1. `Entries`方法用于获取当前所有已注册的定时任务信息；
-1. `Search`方法用于根据名称进行定时任务搜索；
+1. `Remove`方法用于根据名称删除定时任务(停止并删除)；
+1. `Search`方法用于根据名称进行定时任务搜索(返回定时任务`*Entry`对象指针)；
+1. `Start`方法用于启动定时任务(`Add`后自动启动定时任务)；
+1. `Stop`方法用于停止定时任务(`Remove`会停止并删除)；
 
 
 
@@ -32,25 +49,70 @@ func Entries() []Entry
 package main
 
 import (
-    "fmt"
     "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/os/gcron"
+    "gitee.com/johng/gf/g/os/glog"
     "time"
 )
 
 func main() {
-    gcron.Add("0 30 * * * *", func() { fmt.Println("Every hour on the half hour") })
-    gcron.Add("* * * * * *",  func() { fmt.Println("Every second") }, "second-cron")
-    gcron.Add("@hourly",      func() { fmt.Println("Every hour") })
-    gcron.Add("@every 1h30m", func() { fmt.Println("Every hour thirty") })
+    gcron.Add("0 30 * * * *", func() { glog.Println("Every hour on the half hour") })
+    gcron.Add("* * * * * *",  func() { glog.Println("Every second") }, "second-cron")
+    gcron.Add("@hourly",      func() { glog.Println("Every hour") })
+    gcron.Add("@every 1h30m", func() { glog.Println("Every hour thirty") })
     g.Dump(gcron.Entries())
 
     time.Sleep(3*time.Second)
 
-    gcron.Remove("second-cron")
+    gcron.Stop("second-cron")
+
+    time.Sleep(3*time.Second)
+
+    gcron.Start("second-cron")
 
     time.Sleep(3*time.Second)
 }
+```
+
+执行后，输出结果为：
+
+```html
+[
+	{
+		"Spec": "0 30 * * * *",
+		"Cmd": "main.main.func1",
+		"Time": "2018-10-25T10:05:28.898768522+08:00",
+		"Name": "",
+		"Status": {}
+	},
+	{
+		"Spec": "* * * * * *",
+		"Cmd": "main.main.func2",
+		"Time": "2018-10-25T10:05:28.898773631+08:00",
+		"Name": "second-cron",
+		"Status": {}
+	},
+	{
+		"Spec": "@hourly",
+		"Cmd": "main.main.func3",
+		"Time": "2018-10-25T10:05:28.89885461+08:00",
+		"Name": "",
+		"Status": {}
+	},
+	{
+		"Spec": "@every 1h30m",
+		"Cmd": "main.main.func4",
+		"Time": "2018-10-25T10:05:28.89885883+08:00",
+		"Name": "",
+		"Status": {}
+	}
+]
+2018-10-25 10:05:29.000 Every second
+2018-10-25 10:05:30.000 Every second
+2018-10-25 10:05:31.000 Every second
+2018-10-25 10:05:35.000 Every second
+2018-10-25 10:05:36.000 Every second
+2018-10-25 10:05:37.000 Every second
 ```
 
 ## CRON表达格式
