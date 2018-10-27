@@ -130,7 +130,7 @@ func (s *Server) SetHTTPSPort(port ...int) error
 
 `Let’s Encrypt`官网地址：[https://letsencrypt.org/](https://letsencrypt.org/)
 
-以下以`Ubuntu`系统为例，如何申请`Let’s Encrypt`免费证书及在`gf`下使用其办法的证书
+以下以`Ubuntu`系统为例，如何申请`Let's Encrypt`免费证书及在`gf`框架下对证书的使用。
 
 ## 安装Certbot
 Certbot官网地址：[https://certbot.eff.org/](https://certbot.eff.org/)
