@@ -213,7 +213,7 @@ certbot renew
 
 我们可以使用`crontab`定时任务来实现自动续期：
 ```shell
-# 每个月续期一次，并重启`gf`框架运行的Web Server
-0 */30 * * * certbot renew --quiet --renew-hook "kill -SIGUSR1 $(pidof 进程名称)"
+# 每天尝试续期一次，成功后重启`gf`框架运行的Web Server
+0 0 * * * certbot renew --quiet --renew-hook "kill -SIGUSR1 $(pidof 进程名称)"
 ```
 
