@@ -3,7 +3,7 @@
 
 # HTTPS服务
 
-建立HTTPS服务非常简单，使用框架Web Server提供的```EnableHTTPS(certFile, keyFile string) error```方法即可。很显然，该方法中需要提供两个参数，即两个用于HTTPS非对称加密的证书文件以及对应的秘钥文件。
+建立`HTTPS`服务非常简单，使用框架Web Server提供的```EnableHTTPS(certFile, keyFile string) error```方法即可。很显然，该方法中需要提供两个参数，即两个用于HTTPS非对称加密的证书文件以及对应的秘钥文件。
 
 
 ## 准备工作
@@ -68,7 +68,7 @@ drwxr-xr-x 90 john john 4096 Apr 23 20:55 ../
 
 ## 示例代码
 
-根据以上生成的秘钥和证书文件，我们来演示如果使用ghttp.Server实现一个HTTPS服务。示例代码如下：
+根据以上生成的秘钥和证书文件，我们来演示如果使用`ghttp.Server`实现一个HTTPS服务。示例代码如下：
 ```go
 package main
 
@@ -89,7 +89,7 @@ func main() {
 
 可以看到，我们直接将之前生成的证书和秘钥文件地址传递给```EnableHTTPS```即可，通过```s.SetPort(8199)```设置HTTPS的服务端口，当然我们也可以通过```s.SetHTTPSPort(8199)```来实现，在单一服务下两者没有区别，当Web Server需要同时支持HTTP和HTTPS服务的时候，两者的作用就不同了，这个特性我们会在后面介绍。随后我们访问页面```https://127.0.0.1:8199/```来看一下效果：
 ![](/images/Selection_006_1524490791104.png)
-可以看到浏览器有提示信息，主要是因为我们生成的证书为私有的，非第三方授信企业提供的。浏览器大多会自带一些第三方授信的HTTPS证书机构，这些机构提供的HTTPS证书被浏览器认为是权威的、可信的，才不会出现该提示信息。一般这种第三方权威机构授信证书价格在几千到几十万人民币不等 - **每年**，感兴趣的朋友可在搜索引擎上了解下。
+可以看到浏览器有提示信息，主要是因为我们生成的证书为私有的，非第三方授信企业提供的。浏览器大多会自带一些第三方授信的HTTPS证书机构，这些机构提供的HTTPS证书被浏览器认为是权威的、可信的，才不会出现该提示信息。一般这种第三方权威机构授信证书价格在每年几千到几万人民币不等，感兴趣的朋友可在搜索引擎上了解下。
 
 ![](/images/Selection_007_1524491189160.png)
 我们这里直接点击“Advanced”,然后点击“Proceed to 127.0.0.1 (unsafe)”，最终可以看到页面输出预期的结果：
@@ -98,7 +98,7 @@ func main() {
 
 # HTTPS与HTTP支持
 
-我们经常会遇到需要通过HTTP和HTTPS来提供同一个服务的情况，即除了端口和访问协议不一样，其他都是相同的。如果按照传统的使用多Web Server的方式来运行的话会比较繁琐，为轻松地解决开发者的烦恼，ghttp提供了非常方便的特性：支持 “同一个”Web Server同时支持HTTPS及HTTP访问协议。我们先来看一个例子：
+我们经常会遇到需要通过HTTP和HTTPS来提供同一个服务的情况，即除了端口和访问协议不一样，其他都是相同的。如果按照传统的使用多Web Server的方式来运行的话会比较繁琐，为轻松地解决开发者的烦恼，`ghttp`提供了非常方便的特性：支持 “同一个”Web Server同时支持HTTPS及HTTP访问协议。我们先来看一个例子：
 ```go
 package main
 
@@ -117,7 +117,7 @@ func main() {
     s.Run()
 }
 ```
-执行后，通过本地浏览器访问这两个地址```http://127.0.0.1/```和```https://127.0.0.1/```都会看到同样的内容（需要注意的是，由于部分系统对于权限的限制，Web Server绑定80和443端口需要```root/管理员```权限，如果启动报错，可以更改端口号后重新执行即可）。
+执行后，通过本地浏览器访问这两个地址```http://127.0.0.1/```和```https://127.0.0.1/```都会看到同样的内容（需要注意的是，由于部分系统对于权限的限制，Web Server绑定`80`和`443`端口需要```root/管理员```权限，如果启动报错，可以更改端口号后重新执行即可）。
 
 在本示例中，我们使用了两个方法来开启HTTPS特性：
 ```go
@@ -128,14 +128,29 @@ func (s *Server) SetHTTPSPort(port ...int) error
 
 # 使用Let's Encrypt免费证书
 
-`SSL免费证书`机构比较中，以下以`Let's Encrypt`为例，介绍如何申请、使用、续期免费证书。
+`SSL免费证书`机构比较中，如：
+1. `腾讯云DV SSL 证书` : https://cloud.tencent.com/product/ssl
+
+2. `Let’s Encrypt` : https://letsencrypt.org/
+
+4. `CloudFlare SSL` : https://www.cloudflare.com/
+
+4. `StartSSL` : 
+https://www.startcomca.com/
+
+5. `Wosign沃通SSL` : https://www.wosign.com/
+
+6. `loovit.net AlphaSSL` : https://www.lowendtalk.com/entry/register?Target=discussion%2Fcomment%2F2306096
+
+
+以下以`Let's Encrypt`为例，介绍如何申请、使用、续期免费证书。
 
 `Let’s Encrypt`官网地址：[https://letsencrypt.org/](https://letsencrypt.org/)
 
 以下以`Ubuntu`系统为例，如何申请`Let's Encrypt`免费证书及在`gf`框架下对证书的使用。
 
 ## 安装Certbot
-Certbot官网地址：[https://certbot.eff.org/](https://certbot.eff.org/)
+`Certbot`官网地址：[https://certbot.eff.org/](https://certbot.eff.org/)
 
 申请`Let’s Encrypt`免费证书需要使用到`certbot`工具：
 ```shell
