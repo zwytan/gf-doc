@@ -126,11 +126,15 @@ func (s *Server) SetHTTPSPort(port ...int) error
 ```
 一个是添加证书及密钥文件，一个是设置HTTPS协议的监听端口，一旦这两个属性被设置了，那么Web Server就会启用HTTPS特性。并且，在示例中也通过```SetPort```方法来设置了HTTP服务的监听端口，因此该Web Server将会同时监听指定的HTTPS和HTTP服务端口。
 
-# 使用[Let’s Encrypt](https://letsencrypt.org/)免费证书
+# 使用Let’s Encrypt免费证书
+
+`Let’s Encrypt`官网地址：[https://letsencrypt.org/](https://letsencrypt.org/)
 
 以下以`Ubuntu`系统为例，如何申请`Let’s Encrypt`免费证书及在`gf`下使用其办法的证书
 
-## 安装[Certbot](https://certbot.eff.org/)
+## 安装Certbot
+Certbot官网地址：[https://certbot.eff.org/](https://certbot.eff.org/)
+
 申请`Let’s Encrypt`免费证书需要使用到`certbot`工具：
 ```shell
 sudo apt-get update
@@ -178,6 +182,9 @@ IMPORTANT NOTES:
 /etc/letsencrypt/live/gfer.me/privkey.pem
 ```
 
+
+
+
 ## 使用证书
 
 ```go
@@ -196,3 +203,17 @@ func main() {
     s.Run()
 }
 ```
+
+## 证书续期
+
+证书默认有效期为`3个月`，到期后需要手动续期，使用以下命令：
+```shell
+certbot renew
+```
+
+我们可以使用`crontab`定时任务来实现自动续期：
+```shell
+# 每个月续期一次，并重启`gf`框架运行的Web Server
+0 */30 * * * certbot renew --quiet --renew-hook "kill -SIGUSR1 $(pidof 进程名称)"
+```
+
