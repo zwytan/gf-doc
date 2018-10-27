@@ -125,3 +125,74 @@ func (s *Server) EnableHTTPS(certFile, keyFile string) error
 func (s *Server) SetHTTPSPort(port ...int) error
 ```
 一个是添加证书及密钥文件，一个是设置HTTPS协议的监听端口，一旦这两个属性被设置了，那么Web Server就会启用HTTPS特性。并且，在示例中也通过```SetPort```方法来设置了HTTP服务的监听端口，因此该Web Server将会同时监听指定的HTTPS和HTTP服务端口。
+
+# 使用[Let’s Encrypt](https://letsencrypt.org/)免费证书
+
+以下以`Ubuntu`系统为例，如何申请`Let’s Encrypt`免费证书及在`gf`下使用其办法的证书
+
+## 安装[Certbot](https://certbot.eff.org/)
+申请`Let’s Encrypt`免费证书需要使用到`certbot`工具：
+```shell
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot 
+```
+
+## 申请证书
+使用以下命令：
+```shell
+certbot certonly --standalone -d 申请域名 --staple-ocsp -m 邮箱地址 --agree-tos
+```
+例如：
+```shell
+root@ip-172-31-41-204:~# certbot certonly --standalone -d gfer.me --staple-ocsp -m john@gfer.me --agree-tos
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator standalone, Installer None
+Starting new HTTPS connection (1): acme-v02.api.letsencrypt.org
+Obtaining a new certificate
+Performing the following challenges:
+http-01 challenge for gfer.me
+Waiting for verification...
+Cleaning up challenges
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/gfer.me/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/gfer.me/privkey.pem
+   Your cert will expire on 2019-01-25. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+```
+
+默认情况下，证书会被安装到`/etc/letsencrypt/`，证书和私钥文件分别为：
+```shell
+/etc/letsencrypt/live/gfer.me/fullchain.pem
+/etc/letsencrypt/live/gfer.me/privkey.pem
+```
+
+## 使用证书
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+func main() {
+    s := ghttp.GetServer()
+    s.BindHandler("/", func(r *ghttp.Request){
+        r.Response.Writeln("来自于HTTPS的：哈喽世界！")
+    })
+    s.EnableHTTPS("/etc/letsencrypt/live/gfer.me/fullchain.pem", "/etc/letsencrypt/live/gfer.me/privkey.pem")
+    s.Run()
+}
+```
