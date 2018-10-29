@@ -127,7 +127,8 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // 输出: 测试
 ```
 
-## html/htmlencode
+## html
+别名`htmlencode`。
 ```go
 {{.value | html}}
 ```
@@ -141,7 +142,6 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 ## htmldecode
 ```go
 {{.value | html}}
-{{.value | html}}
 ```
 将`value`变量值进行html反转义。
 示例：
@@ -150,10 +150,10 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // 输出: <div>测试</div>
 ```
 
-## url/urlencode
+## url
+别名`urlencode`。
 ```go
 {{.url | url}}
-{{url .url}}
 ```
 将`url`变量值进行url转义。
 示例：
@@ -165,7 +165,6 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 ## urldecode
 ```go
 {{.url | urldecode}}
-{{urldecode .url}}
 ```
 将`url`变量值进行url反转义。
 示例：
@@ -191,10 +190,10 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // 2018-10-29 22:22:48
 ```
 
-## compre
+## compare
 ```go
-{{compre .str1 .str2}}
-{{.str2 | compre .str1}}
+{{compare .str1 .str2}}
+{{.str2 | compare .str1}}
 ```
 将`str1`和`str2`进行字符串比较，返回值：
 - 0 : `str1` == `str2`
