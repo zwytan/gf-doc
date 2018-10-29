@@ -121,47 +121,112 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 {{.value | text}}
 ```
 将`value`变量值去掉HTML标签，仅显示文字内容（并且去掉`script`标签）。
+示例：
+```go
+{{"<div>测试</div>"|text}}
+// 输出: 测试
+```
 
-## html
-在默认情况下，模板引擎会将输出的字符串内容进行HTML转义处理，使用`html`内置函数可以保留HTML标签，并显示完整的HTML内容。
-
+## html/htmlencode
 ```go
 {{.value | html}}
 ```
-将`value`变量值保留HTML标签，显示完整的HTML内容（并且会保留`script`标签）。
-
-使用示例：
+将`value`变量值进行html转义。
+示例：
 ```go
-package main
-
-import (
-    "gitee.com/johng/gf/g/os/gview"
-    "gitee.com/johng/gf/g"
-)
-
-func main() {
-    if c, err := gview.ParseContent(`{{"<div>测试</div>模板引擎默认处理HTML标签<script>alert(\"test\");</script>\n"}}`, nil); err == nil {
-        g.Dump(c)
-    } else {
-        g.Dump(c)
-    }
-    if c, err := gview.ParseContent(`{{"<div>测试</div>去掉HTML标签<script>alert(\"test\");</script>\n"|text}}`, nil); err == nil {
-        g.Dump(c)
-    } else {
-        g.Dump(c)
-    }
-    if c, err := gview.ParseContent(`{{"<div>测试</div>保留HTML标签<script>alert(\"test\");</script>\n"|html}}`, nil); err == nil {
-        g.Dump(c)
-    } else {
-        g.Dump(c)
-    }
-}
+{{"<div>测试</div>"|html}}
+// 输出: &lt;div&gt;测试&lt;/div&gt;
 ```
-执行后，输出结果为：
-```html
-&lt;div&gt;测试&lt;/div&gt;模板引擎默认处理HTML标签&lt;script&gt;alert(&#34;test&#34;);&lt;/script&gt;
-测试去掉HTML标签
-<div>测试</div>保留HTML标签<script>alert("test");</script>
+
+## htmldecode
+```go
+{{.value | html}}
+{{.value | html}}
+```
+将`value`变量值进行html反转义。
+示例：
+```go
+{{"&lt;div&gt;测试&lt;/div&gt;"|html}}
+// 输出: <div>测试</div>
+```
+
+## url/urlencode
+```go
+{{.url | url}}
+{{url .url}}
+```
+将`url`变量值进行url转义。
+示例：
+```go
+{{"https://gfer.me"|url}}
+// 输出: https%3A%2F%2Fgfer.me
+```
+
+## urldecode
+```go
+{{.url | urldecode}}
+{{urldecode .url}}
+```
+将`url`变量值进行url反转义。
+示例：
+```go
+{{"https%3A%2F%2Fgfer.me"|urldecode}}
+// 输出: https://gfer.me
+```
+
+
+## date
+```go
+{{.timestamp | date .format}}
+{{date .format .timestamp}}
+```
+将`timestamp`时间戳变量进行时间日期格式化，类似PHP的`date`方法，参数支持PHP`date`方法格式。
+可参考【[gtime](os/gtime/index.md)】模块，及【[PHP date](http://php.net/manual/en/function.date.php)】
+示例：
+```go
+{{1540822968 | date "Y-m-d"}}
+{{"1540822968" | date "Y-m-d H:i:s"}}
+// 输出: 
+// 2018-10-29
+// 2018-10-29 22:22:48
+```
+
+## compre
+```go
+{{compre .str1 .str2}}
+{{.str2 | compre .str1}}
+```
+将`str1`和`str2`进行字符串比较，返回值：
+- 0 : `str1` == `str2`
+- 1 : `str1` > `str2`
+- -1 : `str1` < `str2`
+
+示例：
+```go
+{{compare "A" "B"}}
+{{compare "1" "2"}}
+{{compare 2 1}}
+{{compare 1 1}}
+// 输出: 
+// -1
+// -1
+// 1
+// 0
+```
+
+## substr
+```go
+{{.str | substr .start .length}}
+{{substr .start .length .str}}
+```
+将`str`进行字符串截取，支持中文，类似PHP的`substr`函数。
+示例：
+```go
+{{"我是中国人" | substr 2 -1}}
+{{"我是中国人" | substr 2  2}}
+// 输出:
+// 中国人
+// 中国
 ```
 
 ## get
