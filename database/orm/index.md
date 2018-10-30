@@ -31,7 +31,7 @@ type Result      []Record               // 返回数据表记录列表
 
 ## 类型转换
 
-`gf-orm`的数据记录结果（```Value```）支持非常灵活的类型转换，并内置支持常用的数十种数据类型的转换。```Result```/```Record```的类型转换请查看后续【[ORM高级特性](database/orm/senior.md)】章节。
+`gform`的数据记录结果（```Value```）支持非常灵活的类型转换，并内置支持常用的数十种数据类型的转换。```Result```/```Record```的类型转换请查看后续【[ORM高级特性](database/orm/senior.md)】章节。
 
 > `Value`类型是`*gvar.Var`类型的别名，因此可以使用`gvar.Var`数据类型的所有转换方法，具体请查看【[通用动态变量](container/gvar/index.md)】章节
 
