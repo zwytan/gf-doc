@@ -2,9 +2,11 @@
 
 # 内置变量
 
-## Config
-> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+## WebServer内置变量
 
+以下内置模板变量仅在`WebServer`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+
+### Config
 访问默认的配置管理(`config.toml`)对象Map值。
 
 使用方式：
@@ -12,9 +14,7 @@
 {{.Config.配置项路径}}
 ```
 
-## Cookie
-> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
-
+### Cookie
 访问当前请求的`Cookie`对象Map值。
 
 使用方式：
@@ -22,9 +22,7 @@
 {{.Cookie.键名}}
 ```
 
-## Session
-> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
-
+### Session
 访问当前请求的`Session`对象Map值。
 
 使用方式：

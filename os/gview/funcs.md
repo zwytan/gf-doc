@@ -294,9 +294,9 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // Go<br />Frame
 ```
 
-## Web Server模板函数
+## WebServer模板函数
 
-以下内置模板函数仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+以下内置模板函数仅在`WebServer`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
 ### get
 
