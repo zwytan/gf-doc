@@ -194,13 +194,13 @@ func main() {
  uid: 1
 name: john
 ```
-这里，我们自定义了一个struct，里面只包含了```Uid```和```Name```属性，可以看到它的属性并不和数据表的字段一致，这也是ORM灵活的特性之一：支持指定属性获取。
+这里，我们自定义了一个`struct`，里面只包含了```Uid```和```Name```属性，可以看到它的属性并不和数据表的字段一致，这也是ORM灵活的特性之一：支持指定属性获取。
 
 通过```gdb.Model.One```方法获取的返回数据表记录是一个```gdb.Map```数据类型，我们可以直接通过它的```ToStruct(obj interface{}) error```方法转换为指定的struct对象。
 
-需要注意的是，map中的键名为`uid,name,site`，而struct中的属性为`Uid,Name`，那么他们之间是如何执行映射的呢？主要是以下几点重要的规则：
-1. struct中的属性必须为公开属性；
-2. map中的键名会自动将首字母进行大写转换以进行属性匹配；
+需要注意的是，map中的键名为`uid,name,site`，而struct中的属性为`Uid,Name`，那么他们之间是如何执行映射的呢？主要是以下几点简单的规则：
+1. struct中需要匹配的属性必须为`公开属性`(首字母大小)；
+2. map中键名会自动按照`不区分大小写`的形式与struct属性进行匹配；
 3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略；
 
 以下是几个匹配的示例：
@@ -208,10 +208,11 @@ name: john
 map键名    struct属性     是否匹配
 name       Name           match
 Email      Email          match
-nickname   Nickname       match
-Nick-Name  Nickname       not match
-nick_name  Nickname       not match
-nick_name  Nick_name      match
+nickname   NickName       match
+NICKNAME   NickName       match
+Nick-Name  NickName       not match
+nick_name  NickName       not match
+nick_name  Nick_Name      match
 ```
 > 由于数据库结果集转struct的底层是依靠`gconv.Struct`方法实现的，因此如果想要实现自定义的属性转换，请参考【[gconv](util/gconv/index.md)】章节。
 

@@ -103,6 +103,38 @@ Interfaces: [123]
 
 # Struct转换
 
+`struct`转换方法只有一个，定义如下：
+```go
+func Struct(params interface{}, objPointer interface{}, attrMapping ...map[string]string) error
+```
+其中：
+1. `params`为需要转换到`struct`的变量参数，可以为任意数据类型，常见的数据类型为`map`；
+1. `objPointer`为需要执行转的目标`struct`对象，这个参数必须为该`struct`的对象指针，转换成功后该对象的属性将会更新；
+1. `attrMapping`为自定义的`map键名`到`strcut属性`之间的映射关系，此时`params`参数必须为map类型，否则该参数无意义；
+
+
+## 转换规则
+`gconv`模块的`struct`转换特性非常强大，支持任意数据类型到`struct`属性的映射转换。在没有提供自定义`attrMapping`转换规则的情况下，默认的转换规则如下：
+1. `struct`中需要匹配的属性必须为**`公开属性`**(首字母大小)；
+2. 根据`params`类型的不同，逻辑会有不同：
+    - `params`参数为`map`: 键名会自动按照**`不区分大小写`**的形式与`struct`属性进行匹配；
+    - `params`参数为其他类型: 将会把该变量值与`struct`的第一个属性进行匹配；
+    - 此外，如果`struct`的属性为复杂数据类型如`slice`,`map`,`strcut`那么会进行递归匹配赋值； 
+3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略；
+
+以下是几个匹配的示例：
+```html
+map键名    struct属性     是否匹配
+name       Name           match
+Email      Email          match
+nickname   NickName       match
+NICKNAME   NickName       match
+Nick-Name  NickName       not match
+nick_name  NickName       not match
+nick_name  Nick_Name      match
+```
+
+
 ## 示例1，基本使用
 ```go
 package main
@@ -123,13 +155,13 @@ type User struct {
 func main() {
     user    := (*User)(nil)
 
-    // 使用map直接映射绑定属性值到对象
+    // 使用默认映射规则绑定属性值到对象
     user     = new(User)
     params1 := g.Map{
         "uid"   : 1,
-        "name"  : "john",
-        "pass1" : "123",
-        "pass2" : "123",
+        "Name"  : "john",
+        "PASS1" : "123",
+        "PaSs2" : "456",
     }
     if err := gconv.Struct(params1, user); err == nil {
         fmt.Println(user)
@@ -140,8 +172,8 @@ func main() {
     params2 := g.Map {
         "uid"       : 2,
         "name"      : "smith",
-        "password1" : "456",
-        "password2" : "456",
+        "password1" : "111",
+        "password2" : "222",
     }
     if err := gconv.Struct(params2, user); err == nil {
         fmt.Println(user)
@@ -152,11 +184,12 @@ func main() {
 
 执行后，输出结果为：
 ```shell
-&{1 john 123 123}
-&{2 smith 456 456}
+&{1 john 123 456}
+&{2 smith 111 222}
 ```
 
-## 示例2，slice基本类型属性
+## 示例2，复杂类型转换
+### 1. slice基本类型属性
 
 ```go
 package main
@@ -211,7 +244,7 @@ func main() {
 }
 ```
 
-## 示例3，struct属性为struct
+### 2. struct属性为struct
 
 ```go
 package main
@@ -260,7 +293,7 @@ func main() {
 ```
 
 
-## 示例4，struct属性为slice，数值为slice
+### 3. struct属性为slice，数值为slice
 
 ```go
 package main
@@ -320,7 +353,7 @@ func main() {
 }
 ```
 
-## 示例5，struct属性为slice，数值为非slice
+### 4. struct属性为slice，数值为非slice
 
 ```go
 package main
