@@ -404,6 +404,8 @@ func main() {
 
 ## 基准性能测试
 
+测试转换变量值为`123456789`，类型`int`。
+
 ```shell
 john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/util/gconv$ go test *.go -bench=".*" -benchmem
 goos: linux
