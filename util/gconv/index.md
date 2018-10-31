@@ -1,6 +1,6 @@
 [TOC]
 
-框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，对常用基本数据类型之间的无缝转换，同时也支持任意类型到`struct`对象的属性赋值。
+框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，对常用基本数据类型之间的无缝转换，同时也支持任意类型到`struct`对象的属性赋值。由于`gconv`模块内部大量使用了断言而非反射(仅`struct`转换使用到了反射)，因此执行的效率非常高。
 
 使用方式：
 ```go
@@ -39,13 +39,11 @@ func TimeDuration(i interface{}) time.Duration
 // 对象转换
 func Struct(params interface{}, objPointer interface{}, attrMapping ...map[string]string) error
 
-// 类型名称转换
+// 根据类型名称执行基本类型转换(非struct转换))
 func Convert(i interface{}, t string, extraParams ...interface{}) interface{}
 ```
 # 基本使用
-
-使用示例：
-
+常用基本类型的转换方法比较简单，我们这里使用一个例子来演示转换方法的使用及效果。
 ```go
 package main
 
