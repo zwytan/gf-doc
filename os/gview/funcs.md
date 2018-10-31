@@ -218,7 +218,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 {{.str | substr .start .length}}
 {{substr .start .length .str}}
 ```
-将`str`进行字符串截取，支持中文，类似PHP的`substr`函数。
+将`str`从`start`索引位置(索引从0开始)进行字符串截取`length`，支持中文，类似PHP的`substr`函数。
 示例：
 ```go
 {{"我是中国人" | substr 2 -1}}
@@ -228,8 +228,77 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // 中国
 ```
 
-## get
-> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+## strlimit
+```go
+{{.str | strlimit .length .suffix}}
+```
+将`str`字符串截取`length`长度，支持中文，超过长度则追加`suffix`字符串到末尾。
+示例：
+```go
+{{"我是中国人" | strlimit 2  "..."}}
+// 输出:
+// 我是...
+```
+
+## hidestr
+```go
+{{.str | hidestr .percent .hide}}
+```
+将`str`字符串按照`percent`百分比从字符串中间向两边隐藏字符(主要用于姓名、手机号、邮箱地址、身份证号等的隐藏)，隐藏字符由`hide`变量定义。
+支持中文，支持email格式。
+示例：
+```go
+{{"热爱GF热爱生活" | hidestr 20  "*"}}
+{{"热爱GF热爱生活" | hidestr 50  "*"}}
+// 输出:
+// 热爱GF*爱生活
+// 热爱****生活
+```
+
+## highlight
+```go
+{{.str | highlight .key .color}}
+```
+将`str`字符串中的关键字`key`按照定义的颜色`color`进行前置颜色高亮。
+示例：
+```go
+{{"热爱GF热爱生活" | highlight "GF" "red"}}
+// 输出:
+// 热爱<span style="color:red;">GF</span>热爱生活
+```
+
+## toupper/tolower
+```go
+{{.str | toupper}}
+{{.str | tolower}}
+```
+将`str`字符串进行大小写转换。
+示例：
+```go
+{{"gf" | toupper}}
+{{"GF" | tolower}}
+// 输出:
+// GF
+// gf
+```
+
+## nl2br
+```go
+{{.str | nl2br}}
+```
+将`str`字符串中的`\n/\r`替换为html中的`<br />`标签。
+示例：
+```go
+{{"Go\nFrame" | nl2br}}
+// 输出:
+// Go<br />Frame
+```
+
+## Web Server模板函数
+
+以下内置模板函数仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+
+### get
 
 ```go
 {{get "参数名称"}}
@@ -245,16 +314,14 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 {{end}}
 ```
 
-## post
-> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+### post
 
 ```go
 {{post "参数名称"}}
 ```
 用于获取POST方式传递的参数。
 
-## request
-> 仅在`Web Server`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
+### request
 
 ```go
 {{request "参数名称"}}
