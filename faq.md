@@ -39,7 +39,7 @@ func (o *Object) Show(r *ghttp.Request) {
     ```go
     import _ "PATH/TO/YOUR/PROJECT/PACKAGE"
     ```
-    文档链接: 【[服务注册-基本介绍](net/ghttp/service/index。md)】
+    文档链接: 【[服务注册-基本介绍](net/ghttp/service/index.md)】
 
 
 
