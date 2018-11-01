@@ -49,9 +49,10 @@ type ConfigNode  struct {
         pass     = "密码"
         name     = "数据库名称"
         type     = "数据库类型(目前支持mysql/pgsql/sqlite)"
-        role     = "数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
-        charset  = "数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
-        priority = "优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1"
+        role     = "(可选)数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
+        charset  = "(可选)数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
+        priority = "(可选)优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1"
+        linkinfo = "(可选)自定义数据库链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效，但是type必须有值"
 ```
 一个数据库配置项示例：
 ```toml
@@ -66,6 +67,7 @@ type ConfigNode  struct {
         role     = "master"
         charset  = "utf8"
         priority = "1"
+        linkinfo = ""
 ```
 
 随后，我们可以通过```g.Database("数据库分组名称")/g.DB("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
@@ -136,5 +138,21 @@ gdb.SetConfig(gdb.Config {
 ```
 随后，我们可以使用```gdb.New("数据库分组名称")```来获取一个数据库操作对象。该对象用于后续的数据库一系列方法/链式操作。
 
+# 简化配置
 
+为兼容不同的数据库类型，`gform`将数据库的各个字段拆分出来单独配置，这样的兼容性会比较好。但是对于开发者来说看起来配置比较多。针对于特定的数据库类型的配置，我们可以使用`Type`+`Linkinfo`属性进行配置。如：
+```toml
+[database]
+    [[database.default]]
+        type     = "mysql"
+        linkinfo = "root:123456@tcp(127.0.0.1:3306)/test"
+```
 
+不同数据类型对应的linkinfo如下:
+
+|数据库类型|Linkinfo
+|---|---
+|mysql|`账号:密码@tcp(地址:端口)/数据库名称`
+|pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`
+|sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)
+|oracle|`账号/密码@地址:端口/数据库名称`
