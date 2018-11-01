@@ -252,7 +252,7 @@ func main() {
 模板引擎作为gf框架的核心组件，可以通过以下方式修改模板引擎的默认模板文件查找目录：
 1. (推荐)单例模式获取全局View对象，通过```SetPath```方法手动修改；
 2. 修改命令行启动参数 - ```gf.viewpath```；
-3. 修改指定的环境变量 - ```gf.viewpath```；
+3. 修改指定的环境变量 - ```GF_VIEWPATH```；
 
 例如，我们的执行程序文件为`main`，那么可以通过以下方式修改模板引擎的模板目录(Linux下)：
 
@@ -267,11 +267,11 @@ func main() {
 1. 通过环境变量
     * 启动时修改环境变量：
         ```shell
-        gf.viewpath=/opt/config/; ./main
+        GF_VIEWPATH=/opt/config/; ./main
         ```
-    * 使用genv包来修改环境变量：
+    * 使用`genv`模块来修改环境变量：
         ```go
-        genv.Set("gf.viewpath", "/opt/template")
+        genv.Set("GF_VIEWPATH", "/opt/template")
         ```
 
 ## 添加搜索目录

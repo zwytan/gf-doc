@@ -61,6 +61,6 @@ type List []Map
 
 1. (推荐) 使用 `g.SetDebug(false)` 方法设置；
 2. 修改命令行启动参数 - ```gf.debug=false```；
-3. 修改指定的环境变量 - ```gf.debug=false```；
+3. 修改指定的环境变量 - ```GF_DEBUG=false```；
 
 
