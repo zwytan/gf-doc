@@ -1,7 +1,7 @@
 
-# Web Server配置管理
+[TOC]
 
-## 配置管理对象
+# 配置管理对象
 [godoc.org/github.com/johng-cn/gf/g/net/ghttp#ServerConfig](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#ServerConfig)
 ```go
 // HTTP Server 设置结构体，静态配置
@@ -52,7 +52,7 @@ type ServerConfig struct {
 ```
 
 
-## 配置管理方法
+# 配置管理方法
 [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server)
 ```go
 func (s *Server) AddSearchPath(path string) error
@@ -104,3 +104,15 @@ func (s *Server) Status() int
 
 
 Web Server的配置比较丰富，所有的配置均可在创建`ghttp.Server`对象后使用`SetConfig`方法进行统一配置；也可以使用Server对象的`Set*/Enable*`方法进行特定配置的设置。主要注意的是，配置项在Server执行`Start`之后便不能再修改。
+
+
+
+
+
+
+
+
+
+
+
+
