@@ -200,7 +200,7 @@ name: john
 
 需要注意的是，map中的键名为`uid,name,site`，而struct中的属性为`Uid,Name`，那么他们之间是如何执行映射的呢？主要是以下几点简单的规则：
 1. struct中需要匹配的属性必须为`公开属性`(首字母大小)；
-2. map中键名会自动按照`不区分大小写`的形式与struct属性进行匹配；
+2. map中键名会自动按照 **`不区分大小写`** 且 **忽略`-/_/空格`符号** 的形式与`struct`属性进行匹配；
 3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略；
 
 以下是几个匹配的示例：
@@ -210,11 +210,13 @@ name       Name           match
 Email      Email          match
 nickname   NickName       match
 NICKNAME   NickName       match
-Nick-Name  NickName       not match
-nick_name  NickName       not match
+Nick-Name  NickName       match
+nick_name  NickName       match
 nick_name  Nick_Name      match
+NickName   Nick_Name      match
+Nick-Name  Nick_Name      match
 ```
-> 由于数据库结果集转struct的底层是依靠`gconv.Struct`方法实现的，因此如果想要实现自定义的属性转换，请参考【[gconv](util/gconv/index.md)】章节。
+> 由于数据库结果集转struct的底层是依靠`gconv.Struct`方法实现的，因此如果想要实现自定义的属性转换，以及更详细的映射规则说明，请参考【[gconv](util/gconv/index.md)】章节。
 
 
 # Result结果集类型转换
