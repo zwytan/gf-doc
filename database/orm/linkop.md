@@ -97,18 +97,31 @@ func (md *Model) Count() (int, error)
     ```
 1. **like查询**
     ```go
-    // SELECT * FROM `user` WHERE `name` like '%john%'
+    // SELECT * FROM user WHERE name like '%john%'
     r, err := db.Table("user").Where("name like ?", "%john%").Select()
-    // SELECT * FROM `user` WHERE `birthday` like '1990-%'
+    // SELECT * FROM user WHERE birthday like '1990-%'
     r, err := db.Table("user").Where("birthday like ?", "1990-%").Select()
     ```
+1. **sum查询**
+    ```go
+    // SELECT SUM(score) FROM user WHERE uid=1
+    r, err := db.Table("user").Fields("SUM(score)").Where("uid=?", 1).Value()
+    ```
+
 1. **count查询**
     ```go
-    // SELECT COUNT(*) FROM `user` WHERE `birthday`='1990-10-01'
+    // SELECT COUNT(*) FROM user WHERE `birthday`='1990-10-01'
     r, err := db.Table("user").Where("birthday=?", "1990-10-01").Count()
-    // SELECT COUNT(`uid`) FROM `user` WHERE `birthday`='1990-10-01'
+    // SELECT COUNT(uid) FROM user WHERE `birthday`='1990-10-01'
     r, err := db.Table("user").Field("uid").Where("birthday=?", "1990-10-01").Count()
     ```
+
+1. **distinct查询**
+    ```go
+    // SELECT DISTINCT uid,name FROM user 
+    r, err := db.Table("user").Fields("DISTINCT uid,name").Select()
+    ```
+
 3. **链式更新/删除**
     ```go
     // 更新
