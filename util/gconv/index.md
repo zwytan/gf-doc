@@ -131,10 +131,10 @@ nickname   NickName       match
 NICKNAME   NickName       match
 Nick-Name  NickName       match
 nick_name  NickName       match
-nick_name  Nick_Name      match
-NickName   Nick_Name      match
-Nick-Name  Nick_Name      match
 nick name  NickName       match
+NickName   Nick_Name      match
+Nick-name  Nick_Name      match
+nick_name  Nick_Name      match
 nick name  Nick_Name      match
 ```
 
