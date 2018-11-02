@@ -117,7 +117,7 @@ func Struct(params interface{}, objPointer interface{}, attrMapping ...map[strin
 `gconv`模块的`struct`转换特性非常强大，支持任意数据类型到`struct`属性的映射转换。在没有提供自定义`attrMapping`转换规则的情况下，默认的转换规则如下：
 1. `struct`中需要匹配的属性必须为**`公开属性`**(首字母大小)；
 2. 根据`params`类型的不同，逻辑会有不同：
-    - `params`参数为`map`: 键名会自动按照**`不区分大小写`**的形式与`struct`属性进行匹配；
+    - `params`参数为`map`: 键名会自动按照 **`不区分大小写`** 且 **忽略`-/_/空格`符号** 的形式与`struct`属性进行匹配；
     - `params`参数为其他类型: 将会把该变量值与`struct`的第一个属性进行匹配；
     - 此外，如果`struct`的属性为复杂数据类型如`slice`,`map`,`strcut`那么会进行递归匹配赋值； 
 3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略；
@@ -129,9 +129,13 @@ name       Name           match
 Email      Email          match
 nickname   NickName       match
 NICKNAME   NickName       match
-Nick-Name  NickName       not match
-nick_name  NickName       not match
+Nick-Name  NickName       match
+nick_name  NickName       match
 nick_name  Nick_Name      match
+NickName   Nick_Name      match
+Nick-Name  Nick_Name      match
+nick name  NickName       match
+nick name  Nick_Name      match
 ```
 
 
@@ -140,16 +144,17 @@ nick_name  Nick_Name      match
 package main
 
 import (
-    "fmt"
     "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/util/gconv"
 )
 
 type User struct {
-    Uid   int
-    Name  string
-    Pass1 string `gconv:"password1"`
-    Pass2 string `gconv:"password2"`
+    Uid      int
+    Name     string
+    Site_Url string
+    NickName string
+    Pass1    string `gconv:"password1"`
+    Pass2    string `gconv:"password2"`
 }
 
 func main() {
@@ -158,13 +163,15 @@ func main() {
     // 使用默认映射规则绑定属性值到对象
     user     = new(User)
     params1 := g.Map{
-        "uid"   : 1,
-        "Name"  : "john",
-        "PASS1" : "123",
-        "PaSs2" : "456",
+        "uid"       : 1,
+        "Name"      : "john",
+        "siteurl"   : "https://gfer.me",
+        "nick_name" : "johng",
+        "PASS1"     : "123",
+        "PASS2"     : "456",
     }
     if err := gconv.Struct(params1, user); err == nil {
-        fmt.Println(user)
+        g.Dump(user)
     }
 
     // 使用struct tag映射绑定属性值到对象
@@ -172,11 +179,13 @@ func main() {
     params2 := g.Map {
         "uid"       : 2,
         "name"      : "smith",
+        "site-url"  : "https://gfer.me",
+        "nick name" : "johng",
         "password1" : "111",
         "password2" : "222",
     }
     if err := gconv.Struct(params2, user); err == nil {
-        fmt.Println(user)
+        g.Dump(user)
     }
 }
 ```
@@ -184,8 +193,22 @@ func main() {
 
 执行后，输出结果为：
 ```shell
-&{1 john 123 456}
-&{2 smith 111 222}
+{
+	"Uid": 1,
+	"Name": "john",
+	"Site_Url": "https://gfer.me",
+	"NickName": "johng",
+	"Pass1": "123",
+	"Pass2": "456"
+}
+{
+	"Uid": 2,
+	"Name": "smith",
+	"Site_Url": "https://gfer.me",
+	"NickName": "johng",
+	"Pass1": "111",
+	"Pass2": "222"
+}
 ```
 
 ## 示例2，复杂类型转换
