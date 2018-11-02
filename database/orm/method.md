@@ -3,7 +3,7 @@
 
 # 数据库操作
 
-ORM方法操作相对链式操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太过于复杂的SQL操作，可以交给方法操作来处理。
+`gform`方法操作相对链式操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太过于复杂的SQL操作，可以交给方法操作来处理。
 
 ## 方法操作
 
@@ -46,73 +46,76 @@ From(tables string) (*Model)
 Close() error
 ```
 
+需要注意的是`Query`返回的是原生的标准库的结果集对象，需要自行解析。在执行数据查询时推荐使用`Get*`系列查询方法。
+
+
 ## 操作示例
 
 
-1. **ORM对象**
-    ```go
-    // 获取默认配置的数据库对象(配置名称为"default")
-    db, err := gdb.New()
-    // 或者
-    db := g.Database()
-    // 或者(别名方式)
-    db := g.DB()
-    
-    // 获取配置分组名称为"user-center"的数据库对象
-    db, err := gdb.New("user-center")
-    // 或者 
-    db := g.Database("user-center")
-    // 或者 (别名方式)
-    db := g.DB("user-center")
-    
-    // 注意不用的时候不需要使用Close方法关闭数据库连接(并且gdb也没有提供Close方法)，
-    // 数据库引擎底层采用了链接池设计，当链接不再使用时会自动关闭
-    ```
+### 1. ORM对象
+```go
+// 获取默认配置的数据库对象(配置名称为"default")
+db, err := gdb.New()
+// 或者
+db := g.Database()
+// 或者(别名方式)
+db := g.DB()
 
-2. **数据写入**
-    ```go
-    r, err := db.Insert("user", gdb.Map {
-        "name": "john",
-    })
-    ```
+// 获取配置分组名称为"user-center"的数据库对象
+db, err := gdb.New("user-center")
+// 或者 
+db := g.Database("user-center")
+// 或者 (别名方式)
+db := g.DB("user-center")
 
-3. **数据查询(列表)**
-    ```go
-    list, err := db.GetAll("select * from user limit 2")
-    list, err := db.Select("user", "*", nil, "", "", 0, 2)
-    ```
+// 注意不用的时候不需要使用Close方法关闭数据库连接(并且gdb也没有提供Close方法)，
+// 数据库引擎底层采用了链接池设计，当链接不再使用时会自动关闭
+```
 
-4. **数据查询(单条)**
-    ```go
-    one, err := db.GetOne("select * from user limit 2")
-    // 或者
-    one, err := db.GetOne("select * from user where uid=1000")
-    ```
+### 2. 数据写入
+```go
+r, err := db.Insert("user", gdb.Map {
+    "name": "john",
+})
+```
 
-5. **数据保存**
-    ```go
-    r, err := db.Save("user", gdb.Map {
-        "uid"  :  1,
-        "name" : "john",
-    })
-    ```
+### 3. 数据查询(列表)
+```go
+list, err := db.GetAll("select * from user limit 2")
+list, err := db.Select("user", "*", nil, "", "", 0, 2)
+```
 
-6. **批量操作**
-    ```go
-    // BatchInsert/BatchReplace/BatchSave 同理
-    _, err := db.BatchInsert("user", gdb.List {
-        {"name": "john_1"},
-        {"name": "john_2"},
-        {"name": "john_3"},
-        {"name": "john_4"},
-    }, 10)
-    ```
+### 4. 数据查询(单条)
+```go
+one, err := db.GetOne("select * from user limit 2")
+// 或者
+one, err := db.GetOne("select * from user where uid=1000")
+```
 
-7. **数据更新/删除**
-    ```go
-    // db.Update/db.Delete 同理
-    r, err := db.Update("user", gdb.Map {"name": "john"}, "uid=?", 10000)
-    r, err := db.Update("user", "name='john'", "uid=10000")
-    r, err := db.Update("user", "name=?", "uid=?", "john", 10000)
-    ```
-	注意，参数域支持并建议使用预处理模式进行输入，避免SQL注入风险。
+### 5. 数据保存
+```go
+r, err := db.Save("user", gdb.Map {
+    "uid"  :  1,
+    "name" : "john",
+})
+```
+
+### 6. 批量操作
+```go
+// BatchInsert/BatchReplace/BatchSave 同理
+_, err := db.BatchInsert("user", gdb.List {
+    {"name": "john_1"},
+    {"name": "john_2"},
+    {"name": "john_3"},
+    {"name": "john_4"},
+}, 10)
+```
+
+### 7. 数据更新/删除
+```go
+// db.Update/db.Delete 同理
+r, err := db.Update("user", gdb.Map {"name": "john"}, "uid=?", 10000)
+r, err := db.Update("user", "name='john'", "uid=10000")
+r, err := db.Update("user", "name=?", "uid=?", "john", 10000)
+```
+注意，参数域支持并建议使用预处理模式（使用`?`占位符）进行输入，避免SQL注入风险。
