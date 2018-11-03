@@ -63,15 +63,15 @@
 
 ## print
 
-对应`fmt.Sprint`。
+同`fmt.Sprint`。
 
 ## printf
 
-对应`fmt.Sprintf`。
+同`fmt.Sprintf`。
 
 ## println
 
-对应`fmt.Sprintln`。
+同`fmt.Sprintln`。
 
 ## urlquery
 
@@ -151,7 +151,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 ```
 
 ## url
-别名`urlencode`。
+同`urlquery`，别名`urlencode`。
 ```go
 {{.url | url}}
 ```
@@ -294,7 +294,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // Go<br />Frame
 ```
 
-## WebServer模板函数
+## ghttp模板函数
 
 以下内置模板函数仅在`WebServer`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
@@ -327,3 +327,9 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 {{request "参数名称"}}
 ```
 用于获取路由参数，以及GET/POST方式传递的参数。
+
+
+
+
+
+
