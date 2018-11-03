@@ -27,9 +27,12 @@ _ "github.com/lib/pq"
 ```go
 _ "github.com/mattn/go-oci8"
 ```
-关于oracle的一些限制
+### 关于oracle的一些限制
 1.不支持LastInsertId方法。
 2.不支持save/replace方法。
+
+### 关于go 连接oracle开发环境的安装
+[输入链接说明](https://www.cnblogs.com/good-temper/p/3791874.html)
 
 
 ## 其他数据库的支持
