@@ -21,6 +21,16 @@ _ "github.com/mattn/go-sqlite3"
 _ "github.com/lib/pq"
 ```
 
+## Oracle
+
+使用时需导入第三方包：
+```go
+_ "github.com/mattn/go-oci8"
+```
+###关于oracle的一些限制
+1.不支持LastInsertId方法。
+2.不支持save/replace方法，可以调用这2个方法估计会报错，还没测试过,(应该是可以通过oracle的merge来实现这2个功能的，还没仔细研究)
+
 ## 其他数据库的支持
 
 额外接入新的数据库相当方便，可参考源码中关于```PostgreSQL```和```SQLite```的接入方式。
