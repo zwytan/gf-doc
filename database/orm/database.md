@@ -38,4 +38,4 @@ _ "github.com/mattn/go-oci8"
 
 ## 其他数据库的支持
 
-额外接入新的数据库相当方便，可参考源码中关于```PostgreSQL```和```SQLite```的接入方式。
+额外接入新的数据库相当方便，可参考源码中关于`PostgreSQL`、`SQLite`、`Oracle`的接入方式。
