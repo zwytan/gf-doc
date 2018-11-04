@@ -1,8 +1,54 @@
 [TOC]
 
+# 变量对象
+
+我们可以在模板中使用对象，并可在模板中访问对象的属性及调用其方法。
+
+示例：
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+)
+
+type T struct {
+    Name string
+}
+
+func (t *T) Hello(name string) string {
+    return "Hello " + name
+}
+
+func (t *T) Test() string {
+    return "This is test"
+}
+
+func main() {
+    t := &T{"John"}
+    v := g.View()
+    content := `{{.t.Hello "there"}}, my name's {{.t.Name}}. {{.t.Test}}.`
+    if r, err := v.ParseContent(content, g.Map{"t" : t}); err != nil {
+        g.Dump(err)
+    } else {
+        g.Dump(r)
+    }
+}
+```
+其中，赋值给模板的变量既可以是`对象指针`也可以是`对象变量`。但是注意定义的对象方法，如果为对象指针那么只能调用方法接收器为对象指针的方法；如果为对象变量，那么只能调用方法接收器为对象的方法。
+
+执行后，输出结果为：
+```html
+Hello there, my name's John. This is test.
+```
+
+
+
+
 # 内置变量
 
-## WebServer内置变量
+## `ghttp`内置变量
 
 以下内置模板变量仅在`WebServer`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
 
