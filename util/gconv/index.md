@@ -115,7 +115,7 @@ func Struct(params interface{}, objPointer interface{}, attrMapping ...map[strin
 
 ## 转换规则
 `gconv`模块的`struct`转换特性非常强大，支持任意数据类型到`struct`属性的映射转换。在没有提供自定义`attrMapping`转换规则的情况下，默认的转换规则如下：
-1. `struct`中需要匹配的属性必须为**`公开属性`**(首字母大小)；
+1. `struct`中需要匹配的属性必须为**`公开属性`**(首字母大写)；
 2. 根据`params`类型的不同，逻辑会有不同：
     - `params`参数为`map`: 键名会自动按照 **`不区分大小写`** 且 **忽略`-/_/空格`符号** 的形式与`struct`属性进行匹配；
     - `params`参数为其他类型: 将会把该变量值与`struct`的第一个属性进行匹配；
