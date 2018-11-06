@@ -121,7 +121,7 @@ type Request
 4. ```GetRaw```: 获取原始的客户端提交数据(二进制[ ]byte类型)，与HTTP Method无关(注意由于是读取的请求缓冲区数据，该方法执行一次之后缓冲区便会被清空)；
 5. ```GetJson```: 自动将原始请求信息解析为gjson.Json对象返回，gjson.Json对象具体在JSON模块章节中介绍；
 
-其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：```http://127.0.0.1:8199/?amount=19.66```，通过```Get```/```GetQueryString```将会返回19.66的字符串类型，```GetQueryFloat32```/```GetQueryFloat64```将会分别返回float32和float64类型的数值19.66。**但是，```GetQueryInt```/```GetQueryUint```将会返回0，而不会返回19或者20，数值的处理交给业务逻辑本身来执行**。
+其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：```http://127.0.0.1:8199/?amount=19.66```，通过`Get`/`GetQueryString`将会返回`19.66`的字符串类型，```GetQueryFloat32```/```GetQueryFloat64```将会分别返回`float32`和`float64`类型的数值`19.66`。但是，```GetQueryInt```/```GetQueryUint```将会返回`19`（如果参数为float类型的字符串，将会按照向下取整进行整型转换）。
 
 # 数据校验
 
