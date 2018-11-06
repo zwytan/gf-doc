@@ -286,4 +286,44 @@ func (c *ObjectRest) Hello(r *ghttp.Request) {
 
 ## Exit方法
 
-`ghttp.Request`对象中提供了`Exit()`方法，供业务层直接调用，该方法的作用是标识该请求已退出，不再执行后续的服务处理（但是不影响事件回调处理）。它仅仅是做一个标识作用，并不会马上停止服务执行。假如在```Init```回调方法中调用```Exit```，那么后续的服务逻辑将不会执行。假如在```Shut```方法中调用```Exit```，如果事件回调方法不做任何处理的话，那么该标识操作其实没有任何意义。
+`ghttp.Request`对象中提供了`Exit()`方法，供业务层直接调用，该方法的作用是**使当前业务执行流程立即退出，不再执行后续的服务处理（但是不影响事件回调处理）**。假如在```Init```回调方法中调用```Exit```，那么后续的服务逻辑将不会执行。假如在```Shut```方法中调用```Exit```，如果事件回调方法不做任何处理的话，那么该标识操作其实没有任何意义。
+
+使用示例：
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/os/glog"
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+func main() {
+    p := "/"
+    s := g.Server()
+    s.BindHandler(p, func(r *ghttp.Request) {
+        r.Response.Writeln("start")
+        r.Exit()
+        r.Response.Writeln("end")
+    })
+    s.BindHookHandlerByMap(p, map[string]ghttp.HandlerFunc{
+        ghttp.HOOK_BEFORE_SERVE : func(r *ghttp.Request){
+            glog.To(r.Response.Writer).Println("BeforeServe")
+        },
+        ghttp.HOOK_AFTER_SERVE  : func(r *ghttp.Request){
+            glog.To(r.Response.Writer).Println("AfterServe")
+        },
+    })
+    s.SetPort(8199)
+    s.Run()
+}
+```
+其中我们使用了两个回调注册`ghttp.HOOK_BEFORE_SERVE`和`ghttp.HOOK_AFTER_SERVE`，以测试`Exit`方法是否会对回调方法产生影响。
+
+执行后访问`http://127.0.0.1:8199`，可以看到页面输出了以下内容：
+```
+2018-11-06 18:57:52.153 BeforeServe
+start
+2018-11-06 18:57:52.153 AfterServe
+```
+并没有输出`end`字符串，表明在调用`r.Exit()`后当前的业务流程被立即退出了。
