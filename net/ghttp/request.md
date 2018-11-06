@@ -120,3 +120,53 @@ type Request
 5. ```GetJson```: 自动将原始请求信息解析为gjson.Json对象返回，gjson.Json对象具体在JSON模块章节中介绍；
 
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：```http://127.0.0.1:8199/?amount=19.66```，通过```Get```/```GetQueryString```将会返回19.66的字符串类型，```GetQueryFloat32```/```GetQueryFloat64```将会分别返回float32和float64类型的数值19.66。**但是，```GetQueryInt```/```GetQueryUint```将会返回0，而不会返回19或者20，数值的处理交给业务逻辑本身来执行**。
+
+# 数据校验
+
+## 使用示例1，请求参数绑定+数据校验示例
+[gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/net/ghttp"
+    "gitee.com/johng/gf/g/util/gvalid"
+    "gitee.com/johng/gf/g/encoding/gparser"
+)
+
+func main() {
+    type User struct {
+        Uid   int    `gvalid:"uid@min:1"`
+        Name  string `params:"username"  gvalid:"username @required|length:6,30"`
+        Pass1 string `params:"password1" gvalid:"password1@required|password3"`
+        Pass2 string `params:"password2" gvalid:"password2@required|password3|same:password1#||两次密码不一致，请重新输入"`
+    }
+
+    s := g.Server()
+    s.BindHandler("/user", func(r *ghttp.Request){
+        user := new(User)
+        r.GetToStruct(user)
+        result  := gvalid.CheckStruct(user, nil)
+        json, _ := gparser.VarToJsonIndent(result)
+        r.Response.Write(json)
+    })
+    s.SetPort(8199)
+    s.Run()
+}
+```
+其中，```gvalid```标签为```gavlid```数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节。此外，为了便于查看返回的json结果，这里在示例中使用```gparser```模块的```VarToJsonIndent```方法，平常开发中往往直接使用像上一个示例中使用的```r.Response.WriteJson```方法返回json结果即可。执行后，访问URL```http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456```，输出结果为：
+```json
+{
+	"password1": {
+		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"
+	},
+	"password2": {
+		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符",
+		"same": "字段值不合法"
+	},
+	"username": {
+		"length": "字段长度为6到30个字符"
+	}
+}
+```
