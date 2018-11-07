@@ -10,22 +10,24 @@ import "gitee.com/johng/gf/g/os/gfsnotify"
 # 方法列表
 [godoc.org/github.com/johng-cn/gf/g/os/gfsnotify](https://godoc.org/github.com/johng-cn/gf/g/os/gfsnotify)
 ```go
-func Add(path string, callback func(event *Event)) error
+func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error)
 func Remove(path string) error
+func RemoveCallback(callbackId int) error
 
 type Event
-    func (e *Event) String() string
     func (e *Event) IsChmod() bool
     func (e *Event) IsCreate() bool
     func (e *Event) IsRemove() bool
     func (e *Event) IsRename() bool
     func (e *Event) IsWrite() bool
+    func (e *Event) String() string
 
 type Watcher
     func New() (*Watcher, error)
-    func (w *Watcher) Add(path string, callback func(event *Event)) error
+    func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error)
     func (w *Watcher) Close()
     func (w *Watcher) Remove(path string) error
+    func (w *Watcher) RemoveCallback(callbackId int) error
 ```
 
 推荐使用`gfsnotify`模块提供的```Add```和```Remove```模块方法，用于添加监控和取消监控。推荐原因见随后章节说明。
@@ -33,7 +35,8 @@ type Watcher
 此外也可能通过```New```方法创建一个监控管理对象之后再进行监控管理。其中，添加监控的时候需要给定触发监控时的回调函数，参数类型为```*gfsnotify.Event```对象指针。
 
 
-# 使用示例
+# 添加监听
+
 ```go
 package main
 
@@ -43,7 +46,9 @@ import (
 )
 
 func main() {
-    err := gfsnotify.Add("/home/john", func(event *gfsnotify.Event) {
+    // /home/john/temp 是一个目录，当然也可以指定文件
+    path := "/home/john/temp"
+    _, err := gfsnotify.Add(path, func(event *gfsnotify.Event) {
         if event.IsCreate() {
             glog.Println("创建文件 : ", event.Path)
         }
@@ -61,6 +66,10 @@ func main() {
         }
         glog.Println(event)
     })
+    
+    // 移除对该path的监听
+    // gfsnotify.Remove(path)
+
     if err != nil {
         glog.Fatalln(err)
     } else {
@@ -68,12 +77,91 @@ func main() {
     }
 }
 ```
-其中`/home/john`参数为一个目录，`gfsnotify.Add`方法默认为递归监控，也就是说当目录下的文件(包括子目录下的文件)发生变化时，也会收到文件监控信息回调。
+其中`/home/john`参数为一个目录，`gfsnotify.Add`方法默认为**递归监控**，也就是说当目录下的文件(包括子目录下的文件)发生变化时，也会收到文件监控信息回调。
 
 当我们在```/home/john```目录下创建/删除/修改文件时，可以看到`gfsnotify`监控到了文件的修改并输出了对应的事件信息。
 
+# 移除监听
 
-# `fs.inotify.max_user_instances`与`fs.inotify.max_user_watches`
+移除监听我们可以使用`Remove`方法，会移除对整个文件/目录的监听。
+
+当对同一个文件/目录存在多个监听回调时，我们可以通过`RemoveCallback`方法移除指定的回调。方法参数`callbackId`是在添加监听时返回的`Callback`对象的唯一ID。
+
+使用示例1：
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/os/gfsnotify"
+    "gitee.com/johng/gf/g/os/glog"
+    "gitee.com/johng/gf/g/os/gtime"
+    "time"
+)
+
+func main() {
+    c1, err := gfsnotify.Add("/home/john/temp/log", func(event *gfsnotify.Event) {
+        glog.Println("callback1")
+    })
+    if err != nil {
+        panic(err)
+    }
+    c2, err := gfsnotify.Add("/home/john/temp/log", func(event *gfsnotify.Event) {
+        glog.Println("callback2")
+    })
+    if err != nil {
+        panic(err)
+    }
+    // 5秒后移除c1的回调函数注册，仅剩c2
+    gtime.SetTimeout(5*time.Second, func() {
+        gfsnotify.RemoveCallback(c1.Id)
+        glog.Println("remove callback c1")
+    })
+    // 10秒后移除c2的回调函数注册，所有的回调都移除，不再有任何打印信息输出
+    gtime.SetTimeout(10*time.Second, func() {
+        gfsnotify.RemoveCallback(c2.Id)
+        glog.Println("remove callback c2")
+    })
+
+    select {}
+}
+```
+
+
+使用示例2：
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/os/gfsnotify"
+    "gitee.com/johng/gf/g/os/glog"
+    "gitee.com/johng/gf/g/os/gtime"
+    "time"
+)
+
+func main() {
+    callback, err := gfsnotify.Add("/home/john/temp", func(event *gfsnotify.Event) {
+        glog.Println("callback")
+    })
+    if err != nil {
+        panic(err)
+    }
+
+    // 在此期间创建文件、目录、修改文件、删除文件
+
+    // 20秒后移除回调函数注册，所有的回调都移除，不再有任何打印信息输出
+    gtime.SetTimeout(20*time.Second, func() {
+        gfsnotify.RemoveCallback(callback.Id)
+        glog.Println("remove callback")
+    })
+
+    select {}
+}
+```
+
+
+
+
+# fs.inotify.max_user_instances与fs.inotify.max_user_watches
 
 在`*nix`系统下，`gfsnotify`模块使用的是系统的`inotify`特性来实现的文件/目录监控，因此该功能在使用时会受到系统的两个内核函数限制：
 
@@ -81,4 +169,8 @@ func main() {
 
 - `fs.inotify.max_user_watches`：表示一个`inotify`实例可添加的监控文件队列大小，往同一个`inotify`添加的监控文件超过该数量限制则会失败，并且会有系统错误日志，系统默认数量往往为：`8192`(有的系统该数值会比较大一些)；
 
-我们推荐使用`gfsnotify`的包方法`Add`/`Remove`来操作文件监控，在`gfsnotify`底层实现中会默认创建多个(默认为`4`个)`Watcher`实例来管理文件监控。不同文件路径会被按照一定规则自动地分配到不同的`Watcher`实例中进行管理，开发者不必关心是否达到文件监控上限问题，并且也能避免可能产生的`fs.inotify.max_user_instances`上限问题。
+我们推荐使用`gfsnotify`的包方法`Add`/`Remove`来操作文件监控，在`gfsnotify`底层实现中会默认创建多个(默认为`2`个)`Watcher`实例来管理文件监控。不同文件路径会被按照一定规则自动地分配到不同的`Watcher`实例中进行管理，开发者不必关心是否达到文件监控上限问题，并且也能避免可能产生的`fs.inotify.max_user_instances`上限问题。
+
+我们可以通过以下方式修改默认创建的`Watcher`数量：
+- 环境变量 `GF_INOTIFY_COUNT`
+- 启动参数 `gf.inotify-count`
