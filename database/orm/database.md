@@ -35,7 +35,19 @@ _ "github.com/mattn/go-oci8"
 1. 不支持`LastInsertId`方法
 2. 不支持`Save/Replace`方法
 
+## Mssql
+
+使用时需导入第三方包：
+```go
+_ "github.com/denisenkom/go-mssqldb"
+```
+
+### 限制
+1. 不支持`LastInsertId`方法
+2. 不支持`Save/Replace`方法
+
+
 
 ## 其他数据库的支持
 
-额外接入新的数据库相当方便，可参考源码中关于`PostgreSQL`、`SQLite`、`Oracle`的接入方式。
+额外接入新的数据库相当方便，可参考源码中关于`PostgreSQL`、`SQLite`、`Oracle`、`Mssql`的接入方式。
