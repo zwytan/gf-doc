@@ -9,7 +9,7 @@
 
 ## SQLite
 
-在使用时需要引入第三方包：
+在使用时需要引入第三方包 ([ go-sqlite3](https://github.com/mattn/go-sqlite3) )：
 ```go
 _ "github.com/mattn/go-sqlite3"
 ```
@@ -18,7 +18,7 @@ _ "github.com/mattn/go-sqlite3"
 
 ## PostgreSQL
 
-在使用时需要引入第三方包：
+在使用时需要引入第三方包 ([pq](https://github.com/lib/pq) )：
 ```go
 _ "github.com/lib/pq"
 ```
@@ -27,7 +27,7 @@ _ "github.com/lib/pq"
 
 ## Oracle
 
-使用时需导入第三方包：
+使用时需导入第三方包 ([go-oci8](https://github.com/mattn/go-oci8") )：
 ```go
 _ "github.com/mattn/go-oci8"
 ```
@@ -35,9 +35,9 @@ _ "github.com/mattn/go-oci8"
 1. 不支持`LastInsertId`方法
 2. 不支持`Save/Replace`方法
 
-## Mssql
+## SQL Server
 
-使用时需导入第三方包：
+使用时需导入第三方包 ([go-mssqldb](https://github.com/denisenkom/go-mssqldb") )：
 ```go
 _ "github.com/denisenkom/go-mssqldb"
 ```
@@ -50,4 +50,4 @@ _ "github.com/denisenkom/go-mssqldb"
 
 ## 其他数据库的支持
 
-额外接入新的数据库相当方便，可参考源码中关于`PostgreSQL`、`SQLite`、`Oracle`、`Mssql`的接入方式。
+额外接入新的数据库相当方便，可参考源码中关于`PostgreSQL`、`SQLite`、`Oracle`、`SQL Server`的接入方式。

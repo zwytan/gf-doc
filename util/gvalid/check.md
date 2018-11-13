@@ -56,7 +56,7 @@ if e := gvalid.Check("abcde6", rule, nil); e != nil {
 // 输出： map[regex:字段值不合法]
 ```
 
-#
+
 
 
 
