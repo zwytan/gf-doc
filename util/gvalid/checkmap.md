@@ -67,14 +67,51 @@ if e := gvalid.CheckMap(params, rules, msgs); e != nil {
 
 # 多数据校验 - 校验结果顺序性
 
-上面的例2多执行几次之后发现返回的结果是没有排序的，而且字段及规则输出的先后顺序完全是随机的。我们使用`FirstItem`,  `FirstString()`等其他方法获取校验结果也是一样，返回的校验结果不固定，不具有幂等性。
+如果将上面的**例2**程序多执行几次之后会发现，返回的结果是没有排序的，而且字段及规则输出的先后顺序完全是随机的。即使我们使用`FirstItem`,  `FirstString()`等其他方法获取校验结果也是一样，返回的校验结果不固定。
 
 那是因为校验的规则我们传递的是`map`类型，而golang的map类型并不具有有序性，因此校验的结果和规则一样是随机的，同一个校验结果的同一个校验方法多次获取结果值返回的可能也不一样了。
 
-## 将上面的示例2进行顺序性改进
+## 使用`gvalid tag`进行顺序性改进
 
-我们想要使得返回的结果如果不满足`required`那么返回对应的错误信息，否则才是后续的校验错误信息；也就是说，返回的错误信息应当和我设定规则时的顺序一致。
+校验结果中如果不满足`required`那么返回对应的错误信息，否则才是后续的校验错误信息；也就是说，返回的错误信息应当和我设定规则时的顺序一致。改进如下：
 
 ```go
+package main
 
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/util/gvalid"
+)
+
+func main() {
+    params := map[string]interface{} {
+        "passport"  : "",
+        "password"  : "123456",
+        "password2" : "1234567",
+    }
+    rules := []string {
+        "passport@required|length:6,16#账号不能为空|账号长度应当在:min到:max之间",
+        "password@required|length:6,16|same:password2#密码不能为空}|两次密码输入不相等",
+        "password2@required|length:6,16#",
+    }
+    if e := gvalid.CheckMap(params, rules); e != nil {
+        fmt.Println(e.Map())
+        fmt.Println(e.FirstItem())
+        fmt.Println(e.FirstString())
+    }
+    // 输出:
+    // map[required:账号不能为空 length:账号长度应当在6到16之间]
+    // passport map[required:账号不能为空 length:账号长度应当在6到16之间]
+    // 账号不能为空
+}
 ```
+可以看到，我们想要校验结果满足顺序性，只需要将`rules`参数的类型修改为`[]string`，按照一定的规则设定即可，并且`msg`参数既可以定义到`rules`参数中，也可以分开传入(第三个参数)。
+
+`rules`的这种满足顺序性校验结果返回的规则，我们称之为`gvalid tag`，在后续的结构体对象校验中，我们也可以遇得到这种`gvalid tag`，语法是一样的。规则如下：
+```
+[键名名称@]校验规则[#错误提示]
+```
+其中：
+- `属性别名` 和 `错误提示` 为**非必需字段**，`校验规则` 是**必需字段**；
+- `键名名称` 非必需字段，指需要校验的map中得键名名称，需要和`params`参数中得键名一致；
+- `错误提示` 非必需字段，示自定义的错误提示信息，当规则校验时对默认的错误提示信息进行覆盖；该字段也可以通过`msg`参数传入覆盖；

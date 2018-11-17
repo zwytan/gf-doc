@@ -214,6 +214,6 @@ regex                格式：regex:pattern                         说明：参
 ## regex
 - 格式: `regex:pattern`
 - 说明：参数值应当满足正则匹配规则`pattern`
-```
+
 
 
