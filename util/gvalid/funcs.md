@@ -5,16 +5,6 @@
 func Check(value interface{}, rules string, msgs interface{}, params ...map[string]interface{}) *Error
 func CheckMap(params map[string]interface{}, rules interface{}, msgs ...CustomMsg) *Error
 func CheckStruct(object interface{}, rules interface{}, msgs ...CustomMsg) *Error
-
-type Error
-    func (e *Error) FirstItem() (key string, msgs map[string]string)
-    func (e *Error) FirstRule() (rule string, err string)
-    func (e *Error) FirstString() (err string)
-    func (e *Error) Map() map[string]string
-    func (e *Error) Maps() ErrorMap
-    func (e *Error) String() string
-    func (e *Error) Strings() (errs []string)
-
 ```
 简要说明：
 1. `Check`方法用于单条数据校验，比较简单，方法详细介绍请看后续章节；
@@ -25,10 +15,21 @@ type Error
 
 # Error校验结果
 
-校验结果对象`Error`包含多个字段及其规则及对应错误信息的层级map，底层的错误信息存放数据结构如下：
+校验结果对象`Error`包含多个字段及其规则及对应错误信息的层级map，底层的错误信息存放数据结构及方法如下：
 ```go
 // 校验错误信息: map[键名]map[规则名]错误信息
 type ErrorMap map[string]map[string]string
+
+// 校验错误对象
+type Error
+    func (e *Error) FirstItem() (key string, msgs map[string]string)
+    func (e *Error) FirstRule() (rule string, err string)
+    func (e *Error) FirstString() (err string)
+    func (e *Error) Map() map[string]string
+    func (e *Error) Maps() ErrorMap
+    func (e *Error) String() string
+    func (e *Error) Strings() (errs []string)
+
 ```
 可以结合后续的示例理解这个数据结构。我们可以通过`Maps()`方法获得该原始错误信息数据结构map。但在大多数时候我们可以通过`Error`对象的其他方法来方便地获取特定的错误信息。
 
@@ -39,6 +40,6 @@ type ErrorMap map[string]map[string]string
 1. `FirstRule` 会返回`FirstItem`中得第一条出错的规则及错误信息；
 1. `FirstString` 会返回`FirstRule`中得第一条规则错误信息；
 1. `Map` 会返回`FirstItem`中得出错自规则及对应错误信息`map`;
-1. `Maps` 会返回所有的出错键名及对应的出错规则及对应的错误信息(两级map)；
+1. `Maps` 会返回所有的出错键名及对应的出错规则及对应的错误信息(`map[string]map[string]string`)；
 1. `String` 会返回所有的错误信息，构成一条字符串返回，多个规则错误信息之间以`;`符号连接；
 1. `Strings` 会返回所有的错误信息，构成`[]string`类型返回；
