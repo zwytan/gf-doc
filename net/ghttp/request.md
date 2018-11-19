@@ -4,26 +4,27 @@
 
 请求输入依靠 `ghttp.Request` 对象实现：
 ```go
-// 客户端请求对象
+// 请求对象
 type Request struct {
     http.Request
-    parsedGet     *gtype.Bool         // GET参数是否已经解析
-    parsedPost    *gtype.Bool         // POST参数是否已经解析
-    queryVars     map[string][]string // GET参数
-    routerVars    map[string][]string // 路由解析参数
-    exit          *gtype.Bool         // 是否退出当前请求流程执行
-    Id            int                 // 请求id(唯一)
-    Server        *Server             // 请求关联的服务器对象
-    Cookie        *Cookie             // 与当前请求绑定的Cookie对象(并发安全)
-    Session       *Session            // 与当前请求绑定的Session对象(并发安全)
-    Response      *Response           // 对应请求的返回数据操作对象
-    Router        *Router             // 匹配到的路由对象
-    EnterTime     int64               // 请求进入时间(微秒)
-    LeaveTime     int64               // 请求完成时间(微秒)
-    Param         interface{}         // 开发者自定义参数
-    parsedHost    *gtype.String       // 解析过后不带端口号的服务器域名名称
-    clientIp      *gtype.String       // 解析过后的客户端IP地址
-    isFileRequest bool                // 是否为静态文件请求(非服务请求，当静态文件存在时，优先级会被服务请求高，被识别为文件请求)
+    parsedGet     bool                    // GET参数是否已经解析
+    parsedPost    bool                    // POST参数是否已经解析
+    queryVars     map[string][]string     // GET参数
+    routerVars    map[string][]string     // 路由解析参数
+    exit          bool                    // 是否退出当前请求流程执行
+    Id            int                     // 请求id(唯一)
+    Server        *Server                 // 请求关联的服务器对象
+    Cookie        *Cookie                 // 与当前请求绑定的Cookie对象(并发安全)
+    Session       *Session                // 与当前请求绑定的Session对象(并发安全)
+    Response      *Response               // 对应请求的返回数据操作对象
+    Router        *Router                 // 匹配到的路由对象
+    EnterTime     int64                   // 请求进入时间(微秒)
+    LeaveTime     int64                   // 请求完成时间(微秒)
+    params        map[string]gvar.VarRead // 开发者自定义参数(请求流程中有效)
+    parsedHost    string                  // 解析过后不带端口号的服务器域名名称
+    clientIp      string                  // 解析过后的客户端IP地址
+    isFileRequest bool                    // 是否为静态文件请求(非服务请求，当静态文件存在时，优先级会被服务请求高，被识别为文件请求)
+    isFileServe   bool                    // 是否为文件处理(调用Server.serveFile时设置为true), isFileRequest为true时isFileServe也为true
 }
 ```
 `ghttp.Request`继承了底层的`http.Request`对象，并且包含了会话相关的`Cookie`和`Session`对象(每个请求都会有两个**独立**的`Cookie`和`Session对象`)。此外，每个请求有一个`唯一的Id`（请求Id，全局唯一），用以标识每一个请求。此外，成员对象包含一个与当前请求对应的返回输出对象指针Response，用于数据的返回。
@@ -43,6 +44,9 @@ type Request
     func (r *Request) SetQuery(key string, value string)
     func (r *Request) SetRouterString(key, value string)
     func (r *Request) WebSocket() (*WebSocket, error)
+
+    func (r *Request) SetParam(key string, value interface{})
+    func (r *Request) GetParam(key string) gvar.VarRead
 
     func (r *Request) Get(key string, def ...string) string
     func (r *Request) GetArray(key string, def ...[]string) []string
@@ -120,12 +124,59 @@ type Request
 3. ```GetRequest*```: 优先查找Router路由参数中是否有指定键名的参数，如果没有则查找GET参数，如果没有则查找POST参数，如果都不存在则返回空或者默认值；
 4. ```GetRaw```: 获取原始的（非表单提交数据）客户端提交数据(二进制`[]byte`类型)，与HTTP Method无关(注意由于是读取的请求缓冲区数据，该方法执行一次之后缓冲区便会被清空)；
 5. ```GetJson```: 自动将原始请求信息解析为`gjson.Json`对象指针返回，`gjson.Json`对象指针具体在【[gjson模块](encoding/gjson/index.md)】章节中介绍；
+6. `SetParam`/`GetParam`: 用于设置/获取请求流程中得共享变量，该共享变量只在该请求流程中有效，请求结束则销毁；
 
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：`http://127.0.0.1:8199/?amount=19.66`，通过`Get`/`GetQueryString`将会返回`19.66`的字符串类型，`GetQueryFloat32`/`GetQueryFloat64`将会分别返回`float32`和`float64`类型的数值`19.66`。但是，`GetQueryInt`/`GetQueryUint`将会返回`19`（如果参数为float类型的字符串，将会按照**向下取整**进行整型转换）。
 
-# 数据校验
+# 使用示例
 
-## 使用示例1，请求参数绑定+数据校验示例
+## 示例1，流程共享变量
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+// 优先调用的HOOK
+func beforeServeHook1(r *ghttp.Request) {
+    r.SetParam("name", "GoFrame")
+    r.Response.Writeln("set name")
+}
+
+// 随后调用的HOOK
+func beforeServeHook2(r *ghttp.Request) {
+    r.SetParam("site", "https://gfer.me")
+    r.Response.Writeln("set site")
+}
+
+// 允许对同一个路由同一个事件注册多个回调函数，按照注册顺序进行优先级调用。
+// 为便于在路由表中对比查看优先级，这里讲HOOK回调函数单独定义为了两个函数。
+func main() {
+    s := g.Server()
+    s.BindHandler("/", func(r *ghttp.Request) {
+        r.Response.Writeln(r.GetParam("name").String())
+        r.Response.Writeln(r.GetParam("site").String())
+    })
+    s.BindHookHandler("/", ghttp.HOOK_BEFORE_SERVE, beforeServeHook1)
+    s.BindHookHandler("/", ghttp.HOOK_BEFORE_SERVE, beforeServeHook2)
+    s.SetPort(8199)
+    s.Run()
+}
+```
+执行后，访问 [http://127.0.0.1:8199/](http://127.0.0.1:8199/) 后，页面输出内容为：
+```
+set name
+set site
+GoFrame
+https://gfer.me
+```
+
+
+## 示例2，请求数据校验
+
+### 请求参数绑定+数据校验示例
 [gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
 ```go
 package main
