@@ -105,9 +105,18 @@ func (s *Server) Status() int
 
 Web Server的配置比较丰富，所有的配置均可在创建`ghttp.Server`对象后使用`SetConfig`方法进行统一配置；也可以使用Server对象的`Set*/Enable*`方法进行特定配置的设置。主要注意的是，配置项在Server执行`Start`之后便不能再修改。
 
+# 常用配置介绍
 
+## 关闭路由表打印
 
-
+在WebServer启动的时候默认会打印出当前注册的所有路由信息(包括HOOK注册)，这对于开发者来说非常有用。如果不想启动时打印路由表信息，可以通过以下方式关闭：
+```go
+g.Server().SetDumpRouteMap(false)
+```
+此外，我们也可以通过以下方式获取路由表信息(不自动打印)，随后我们可以自定义处理：
+```go
+routes := g.Server().GetRouteMap()
+```
 
 
 

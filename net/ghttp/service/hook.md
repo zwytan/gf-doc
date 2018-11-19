@@ -5,7 +5,7 @@
 
 ![](/images/QQ图片20180417140149.png)
 
-`ghttp.Server`提供了事件回调注册功能，类似于其他框架的`中间件`功能，相比较于`中间件`，事件回调的特性更加简单。`ghttp.Server`支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与服务注册一致)。支持多个方法对同一事件进行监听，```ghttp.Server```将会按照`路由优先级`及`回调注册顺序`进行回调方法调用。
+`ghttp.Server`提供了事件回调注册功能，类似于其他框架的`中间件`功能，相比较于`中间件`，事件回调的特性更加简单。`ghttp.Server`支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与服务注册一致)。**支持多个方法对同一事件进行监听**，```ghttp.Server```将会按照`路由优先级`及`回调注册顺序`进行回调方法调用。同一事件时先注册的HOOK回调函数优先级越高。
 相关方法如下：
 ```go
 func (s *Server) BindHookHandler(pattern string, hook string, handler HandlerFunc) error
@@ -48,10 +48,10 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 
 由于事件的绑定也是使用的路由规则，因此它的优先级和【[路由控制](net/ghttp/router.md)】章节介绍的优先级是一样的。
 
-但是事件调用时和服务注册调用时的机制不一样，同一个路由规则下允许绑定多个事件回调方法，该路由下的事件调用会`按照优先级进行调用`，假如优先级相等的路由规则，将会按照事件注册的顺序进行调用。
+但是事件调用时和服务注册调用时的机制不一样，**同一个路由规则下允许绑定多个事件回调方法**，该路由下的事件调用会`按照优先级进行调用`，假如优先级相等的路由规则，将会按照事件注册的顺序进行调用。
 
 
-## 使用示例1，基本使用
+## 示例1，基本使用
 ```go
 package main
 
@@ -82,7 +82,61 @@ func main() {
 ```
 当访问```http://127.0.0.1:8199/john/info/10000```时，运行Web Server进程的终端将会按照事件的执行流程打印出对应的事件名称。
 
-## 使用示例2，改变业务逻辑
+## 示例2，相同事件注册
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/net/ghttp"
+)
+
+// 优先调用的HOOK
+func beforeServeHook1(r *ghttp.Request) {
+    r.SetParam("name", "GoFrame")
+    r.Response.Writeln("set name")
+}
+
+// 随后调用的HOOK
+func beforeServeHook2(r *ghttp.Request) {
+    r.SetParam("site", "https://gfer.me")
+    r.Response.Writeln("set site")
+}
+
+// 允许对同一个路由同一个事件注册多个回调函数，按照注册顺序进行优先级调用。
+// 为便于在路由表中对比查看优先级，这里讲HOOK回调函数单独定义为了两个函数。
+func main() {
+    s := g.Server()
+    s.BindHandler("/", func(r *ghttp.Request) {
+        r.Response.Writeln(r.GetParam("name").String())
+        r.Response.Writeln(r.GetParam("site").String())
+    })
+    s.BindHookHandler("/", ghttp.HOOK_BEFORE_SERVE, beforeServeHook1)
+    s.BindHookHandler("/", ghttp.HOOK_BEFORE_SERVE, beforeServeHook2)
+    s.SetPort(8199)
+    s.Run()
+}
+```
+执行后，终端输出的路由表信息如下：
+```
+  SERVER  | ADDRESS | DOMAIN  | METHOD | P | ROUTE |        HANDLER        |    HOOK      
+|---------|---------|---------|--------|---|-------|-----------------------|-------------|
+  default | :8199   | default | ALL    | 1 | /     | main.main.func1       |              
+|---------|---------|---------|--------|---|-------|-----------------------|-------------|
+  default | :8199   | default | ALL    | 2 | /     | main.beforeServeHook1 | BeforeServe  
+|---------|---------|---------|--------|---|-------|-----------------------|-------------|
+  default | :8199   | default | ALL    | 1 | /     | main.beforeServeHook2 | BeforeServe  
+|---------|---------|---------|--------|---|-------|-----------------------|-------------|
+```
+手动访问 [http://127.0.0.1:8199/](http://127.0.0.1:8199/) 后，页面输出内容为：
+```
+set name
+set site
+GoFrame
+https://gfer.me
+```
+
+## 示例3，改变业务逻辑
 ```go
 package main
 
@@ -125,7 +179,7 @@ func main() {
 
 通过事件1设置了访问```/:name/info```路由规则时的GET参数；通过事件2，改变了当访问的路径匹配路由```/{object}/list/{page}.java```时的输出结果。
 
-## 使用示例3，事件回调注册优先级
+## 示例4，事件回调注册优先级
 ```go
 package main
 
@@ -170,7 +224,7 @@ func main() {
 2018-08-03 15:16:28.385 /priority/*any
 ```
 
-## 使用示例4，使用事件回调处理跨域请求
+## 示例5，使用事件回调允许跨域请求
 首先我们来看一个简单的`REST`接口示例：
 ```go
 package main
@@ -196,7 +250,7 @@ func main() {
     s.Run()
 }
 ```
-接口地址是```http://localhost/api.v1/order```，当然这个接口是不允许跨域的。我们打开一个不同的域名，例如：百度首页，然后按```F12```打开开发者面板，在```console```下执行以下AJAX请求：
+接口地址是```http://localhost/api.v1/order```，当然这个接口是不允许跨域的。我们打开一个不同的域名，例如：百度首页(正好用了jQuery，方便调试)，然后按```F12```打开开发者面板，在```console```下执行以下AJAX请求：
 ```javascript
 $.get("http://localhost:8199/api.v1/order", function(result){
     console.log(result)
