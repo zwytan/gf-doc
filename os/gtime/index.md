@@ -163,6 +163,7 @@ func SetTimeout(t time.Duration, callback func())
 func StrToTime(str string) (time.Time, error)
 func StrToTimeFormat(str string, format string) (time.Time, error)
 func StrToTimeLayout(str string, layout string) (time.Time, error)
+func ParseTimeFromContent(content string, format...string) *Time
 ```
 方法比较简单，比较常用的是以下几个方法;
 1. ```Second```用于获得当前时间戳，```Millisecond```、```Microsecond```及```Nanosecond```用于获得当前的毫秒、微秒和纳秒值；
@@ -170,7 +171,7 @@ func StrToTimeLayout(str string, layout string) (time.Time, error)
 3. ```SetTimeZone```用于设置当前进程的全局时区；
 4. 其他方法说明请查看接口文档；
 
-简单示例：
+## 示例1，基本使用
 ```go
 package main
 
@@ -196,4 +197,35 @@ Second     : 1532231542
 Millisecond: 1532231542688
 Microsecond: 1532231542688688
 Nanosecond : 1532231542688690259
+```
+
+## 示例2，设置时区
+```go
+package main
+
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/os/gtime"
+    "time"
+)
+
+func main() {
+    // 先使用标准库打印当前时间
+    fmt.Println(time.Now().String())
+    // 设置进程时区，全局有效
+    err := gtime.SetTimeZone("Asia/Tokyo")
+    if err != nil {
+        panic(err)
+    }
+    // 使用gtime获取当前时间
+    fmt.Println(gtime.Now().String())
+    // 使用标准库获取当前时间
+    fmt.Println(time.Now().String())
+}
+```
+执行后，输出结果为：
+```
+2018-11-21 22:50:56.723429 +0800 CST m=+0.000649366
+2018-11-21 23:50:56
+2018-11-21 23:50:56.723832 +0900 JST m=+0.001052780
 ```

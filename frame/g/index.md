@@ -31,7 +31,7 @@ type List []Map
 	```go
     func View() *gview.View
     ```
-5. **(单例)Http Server**
+5. **(单例)WEB Server**
 	```go
     func Server(name...interface{}) *ghttp.Server
     ```
@@ -39,7 +39,7 @@ type List []Map
 	```go
     func TcpServer(name...interface{}) *gtcp.Server
     ```
-9. **(单例)Udp Server**
+9. **(单例)UDP Server**
 	```go
     func UdpServer(name...interface{}) *gudp.Server
     ```
