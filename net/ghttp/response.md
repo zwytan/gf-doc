@@ -28,6 +28,7 @@ func (r *Response) SetBuffer(buffer []byte)
 func (r *Response) RedirectBack()
 func (r *Response) RedirectTo(location string)
 func (r *Response) ServeFile(path string)
+func (r *Response) ServeFileDownload(path string, name ...string)
 func (r *Response) SetAllowCrossDomainRequest(allowOrigin string, allowMethods string, maxAge ...int)
 
 func (r *Response) Write(content ...interface{})

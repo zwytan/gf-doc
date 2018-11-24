@@ -169,8 +169,3 @@ func main() {
 
 - `fs.inotify.max_user_watches`：表示一个`inotify`实例可添加的监控文件队列大小，往同一个`inotify`添加的监控文件超过该数量限制则会失败，并且会有系统错误日志，系统默认数量往往为：`8192`(有的系统该数值会比较大一些)；
 
-我们推荐使用`gfsnotify`的包方法`Add`/`Remove`来操作文件监控，在`gfsnotify`底层实现中会默认创建多个(默认为`2`个)`Watcher`实例来管理文件监控。不同文件路径会被按照一定规则自动地分配到不同的`Watcher`实例中进行管理，开发者不必关心是否达到文件监控上限问题，并且也能避免可能产生的`fs.inotify.max_user_instances`上限问题。
-
-我们可以通过以下方式修改默认创建的`Watcher`数量：
-- 环境变量 `GF_INOTIFY_COUNT`
-- 启动参数 `gf.inotify-count`
