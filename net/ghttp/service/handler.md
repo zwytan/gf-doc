@@ -114,7 +114,6 @@ import (
     "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/net/ghttp"
     "gitee.com/johng/gf/g/util/gvalid"
-    "gitee.com/johng/gf/g/encoding/gparser"
 )
 
 func main() {
@@ -129,28 +128,30 @@ func main() {
     s.BindHandler("/user", func(r *ghttp.Request){
         user := new(User)
         r.GetToStruct(user)
-        result  := gvalid.CheckStruct(user, nil)
-        json, _ := gparser.VarToJsonIndent(result)
-        r.Response.Write(json)
+        if err := gvalid.CheckStruct(user, nil); err != nil {
+            r.Response.WriteJson(err.Maps())
+        } else {
+            r.Response.Write("ok")
+        }
     })
     s.SetPort(8199)
     s.Run()
 }
 ```
-其中，```gvalid```标签为```gavlid```数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节。此外，为了便于查看返回的json结果，这里在示例中使用```gparser```模块的```VarToJsonIndent```方法，平常开发中往往直接使用像上一个示例中使用的```r.Response.WriteJson```方法返回json结果即可。执行后，访问URL```http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456```，输出结果为：
+其中，
+1. 这里使用了`r.GetToStruct(user)`方法将请求参数绑定到指定的`user`对象上，注意这里的`user`是`User`的结构体实例化指针；在struct tag中，使用`params`标签来指定参数名称与结构体属性名称对应关系；
+1. 通过`gvalid`标签为`gavlid`数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节；其中，密码字段的校验规则为`password3`，表示: `密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符`；
+1. 当校验染回结果非`nil`时，表示校验不通过，这里使用`r.Response.WriteJson`方法返回json结果；
+
+执行后，试着访问URL: [http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456](http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456)，输出结果为：
 ```json
-{
-	"password1": {
-		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"
-	},
-	"password2": {
-		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符",
-		"same": "字段值不合法"
-	},
-	"username": {
-		"length": "字段长度为6到30个字符"
-	}
-}
+{"password1":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"},"password2":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符","same":"两次密码不一致，请重新输入"},"username":{"length":"字段长度为6到30个字符"}}
+```
+
+
+假如我们访问访问URL: [http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123](http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123)，输出结果为：
+```
+ok
 ```
 
 

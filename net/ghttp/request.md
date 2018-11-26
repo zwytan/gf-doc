@@ -49,6 +49,7 @@ type Request
     func (r *Request) GetParam(key string) gvar.VarRead
 
     func (r *Request) Get(key string, def ...string) string
+    func (r *Request) GetVar(key string, def ...interface{}) gvar.VarRead
     func (r *Request) GetArray(key string, def ...[]string) []string
     func (r *Request) GetClientIp() string
     func (r *Request) GetFloat32(key string, def ...float32) float32
@@ -66,8 +67,7 @@ type Request
     func (r *Request) GetStrings(key string, def ...[]string) []string
     func (r *Request) GetToStruct(object interface{}, mapping ...map[string]string)
     func (r *Request) GetUint(key string, def ...uint) uint
-    func (r *Request) GetVar(key string, def ...interface{}) *gvar.Var
-
+    
     func (r *Request) GetPost(key string, def ...[]string) []string
     func (r *Request) GetPostArray(key string, def ...[]string) []string
     func (r *Request) GetPostBool(key string, def ...bool) bool
@@ -118,12 +118,13 @@ type Request
     func (r *Request) GetRouterString(key string) string
 ```
 以上方法可以分为以下几类：
-1. ```Get*```: 常用方法，简化参数获取，```GetRequest*```的别名；
-1. ```GetQuery*```: 获取GET方式传递过来的参数；
-2. ```GetPost*```: 获取POST方式传递过来的参数；
-3. ```GetRequest*```: 优先查找Router路由参数中是否有指定键名的参数，如果没有则查找GET参数，如果没有则查找POST参数，如果都不存在则返回空或者默认值；
-4. ```GetRaw```: 获取原始的（非表单提交数据）客户端提交数据(二进制`[]byte`类型)，与HTTP Method无关(注意由于是读取的请求缓冲区数据，该方法执行一次之后缓冲区便会被清空)；
-5. ```GetJson```: 自动将原始请求信息解析为`gjson.Json`对象指针返回，`gjson.Json`对象指针具体在【[gjson模块](encoding/gjson/index.md)】章节中介绍；
+1. `Get*`: 常用方法，简化参数获取，```GetRequest*```的别名；
+1. `GetQuery*`: 获取GET方式传递过来的参数；
+2. `GetPost*`: 获取POST方式传递过来的参数；
+3. `GetRequest*`: 优先查找Router路由参数中是否有指定键名的参数，如果没有则查找GET参数，如果没有则查找POST参数，如果都不存在则返回空或者默认值；
+4. `GetRaw`: 获取原始的（非表单提交数据）客户端提交数据(二进制`[]byte`类型)，与HTTP Method无关(注意由于是读取的请求缓冲区数据，该方法执行一次之后缓冲区便会被清空)；
+5. `GetJson`: 自动将原始请求信息解析为`gjson.Json`对象指针返回，`gjson.Json`对象指针具体在【[gjson模块](encoding/gjson/index.md)】章节中介绍；
+1. `GetToStruct`: 将请求参数绑定到指定的struct对象上，注意给定的参数为对象指针；
 6. `SetParam`/`GetParam`: 用于设置/获取请求流程中得共享变量，该共享变量只在该请求流程中有效，请求结束则销毁；
 
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：`http://127.0.0.1:8199/?amount=19.66`，通过`Get`/`GetQueryString`将会返回`19.66`的字符串类型，`GetQueryFloat32`/`GetQueryFloat64`将会分别返回`float32`和`float64`类型的数值`19.66`。但是，`GetQueryInt`/`GetQueryUint`将会返回`19`（如果参数为float类型的字符串，将会按照**向下取整**进行整型转换）。
@@ -185,7 +186,6 @@ import (
     "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/net/ghttp"
     "gitee.com/johng/gf/g/util/gvalid"
-    "gitee.com/johng/gf/g/encoding/gparser"
 )
 
 func main() {
@@ -200,26 +200,28 @@ func main() {
     s.BindHandler("/user", func(r *ghttp.Request){
         user := new(User)
         r.GetToStruct(user)
-        result  := gvalid.CheckStruct(user, nil)
-        json, _ := gparser.VarToJsonIndent(result)
-        r.Response.Write(json)
+        if err := gvalid.CheckStruct(user, nil); err != nil {
+            r.Response.WriteJson(err.Maps())
+        } else {
+            r.Response.Write("ok")
+        }
     })
     s.SetPort(8199)
     s.Run()
 }
 ```
-其中，```gvalid```标签为```gavlid```数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节。此外，为了便于查看返回的json结果，这里在示例中使用```gparser```模块的```VarToJsonIndent```方法，平常开发中往往直接使用像上一个示例中使用的```r.Response.WriteJson```方法返回json结果即可。执行后，访问URL```http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456```，输出结果为：
+其中，
+1. 这里使用了`r.GetToStruct(user)`方法将请求参数绑定到指定的`user`对象上，注意这里的`user`是`User`的结构体实例化指针；在struct tag中，使用`params`标签来指定参数名称与结构体属性名称对应关系；
+1. 通过`gvalid`标签为`gavlid`数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节；其中，密码字段的校验规则为`password3`，表示: `密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符`；
+1. 当校验染回结果非`nil`时，表示校验不通过，这里使用`r.Response.WriteJson`方法返回json结果；
+
+执行后，试着访问URL: [http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456](http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456)，输出结果为：
 ```json
-{
-	"password1": {
-		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"
-	},
-	"password2": {
-		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符",
-		"same": "字段值不合法"
-	},
-	"username": {
-		"length": "字段长度为6到30个字符"
-	}
-}
+{"password1":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"},"password2":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符","same":"两次密码不一致，请重新输入"},"username":{"length":"字段长度为6到30个字符"}}
+```
+
+
+假如我们访问访问URL: [http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123](http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123)，输出结果为：
+```
+ok
 ```
