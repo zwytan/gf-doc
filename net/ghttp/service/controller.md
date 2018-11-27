@@ -55,7 +55,7 @@ func (u *User) List() {
 以上注册的路由列表：
 ```html
 /user
-/user.index
+/user/index
 /user/info
 /user/list
 /user/{.method}/{uid}
