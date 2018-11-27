@@ -59,6 +59,16 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 ### 关于业务函数调用顺序
 建议 相同的业务(同一业务模块) 的多个处理函数(例如: A、B、C)放到同一个HOOK回调函数中进行处理，在注册的回调函数中自行管理业务处理函数的调用顺序(函数调用顺序: A、B、C)，而不是注册多个相同HOOK的回调函数。虽然功能上不会有问题，从设计的角度来讲，内聚性降低了，不便于业务函数管理。
 
+
+
+## 接口鉴权控制
+
+事件回调注册比较常见的应用是在对调用的接口进行鉴权控制。该操作需要绑定`HOOK_BEFORE_SERVE`事件，在该事件中会对所有匹配的接口请求(例如绑定`/*`事件回调路由)服务执行前进行回调处理。当鉴权不通过时，需要调用`r.Exit()`方法退出后续的服务执行。假如后续还有其他的事件回调，可以通过`r.IsExited()`方法判断请求是否已退出，以便判断执行后续的事件回调业务逻辑。
+
+此外，在权限校验的事件回调函数中执行`r.Redirect*`方法，又没有调用`r.Exit()`方法退出业务执行，往往会产生`http multiple response writeheader calls`错误提示。因为`r.Redirect*`方法会往返回的header中写入`Location`头；而随后的业务服务接口往往会往header写入`Content-Type`/`Content-Length`头，这两者有冲突造成的。
+
+
+
 ## 示例1，基本使用
 ```go
 package main
