@@ -72,9 +72,29 @@ type ConfigNode  struct {
 
 随后，我们可以通过```g.Database("数据库分组名称")/g.DB("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
 
+# 简化配置
+
+为兼容不同的数据库类型，`gform`将数据库的各个字段拆分出来单独配置，这样对于各种数据库的对接来说兼容性会很好。但是对于开发者来说看起来配置比较多。针对于项目中使用的已确定的数据库类型的配置，我们可以使用`type`+`linkinfo`属性进行配置。如：
+```toml
+[database]
+    [[database.default]]
+        type     = "mysql"
+        linkinfo = "root:123456@tcp(127.0.0.1:3306)/test"
+```
+
+不同数据类型对应的`linkinfo`如下:
+
+|数据库类型|Linkinfo
+|---|---
+|mysql|`账号:密码@tcp(地址:端口)/数据库名称`
+|pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`
+|mssql|`sqlserver://用户:密码@地址:端口?database=数据库名称`
+|sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)
+|oracle|`账号/密码@地址:端口/数据库名称`
+
 # 配置方法
 
-> 这是原生调用`gdb`模块来配置管理数据库。
+> 这是原生调用`gdb`模块来配置管理数据库。如果开发者想要自行控制数据库配置管理可以参考以下方法。若无需要可忽略该章节。
 
 数据库配置管理方法列表：
 ```go
@@ -137,24 +157,4 @@ gdb.SetConfig(gdb.Config {
 })
 ```
 随后，我们可以使用```gdb.New("数据库分组名称")```来获取一个数据库操作对象。该对象用于后续的数据库一系列方法/链式操作。
-
-# 简化配置
-
-为兼容不同的数据库类型，`gform`将数据库的各个字段拆分出来单独配置，这样的兼容性会比较好。但是对于开发者来说看起来配置比较多。针对于特定的数据库类型的配置，我们可以使用`Type`+`Linkinfo`属性进行配置。如：
-```toml
-[database]
-    [[database.default]]
-        type     = "mysql"
-        linkinfo = "root:123456@tcp(127.0.0.1:3306)/test"
-```
-
-不同数据类型对应的linkinfo如下:
-
-|数据库类型|Linkinfo
-|---|---
-|mysql|`账号:密码@tcp(地址:端口)/数据库名称`
-|pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`
-|mssql|`sqlserver://用户:密码@地址:端口?database=数据库名称`
-|sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)
-|oracle|`账号/密码@地址:端口/数据库名称`
 
