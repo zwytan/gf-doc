@@ -154,5 +154,7 @@ gdb.SetConfig(gdb.Config {
 |---|---
 |mysql|`账号:密码@tcp(地址:端口)/数据库名称`
 |pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`
+|mssql|`sqlserver://用户:密码@地址:端口?database=数据库名称`
 |sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)
 |oracle|`账号/密码@地址:端口/数据库名称`
+
