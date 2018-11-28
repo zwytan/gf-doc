@@ -75,6 +75,14 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 因此，假如在服务回调函数中使用的话，`Request.Router`是有值的，因为只有匹配到了路由才会调用服务回调方法。但是在事件回调函数中，该对象可能为`nil`（表示没有匹配到服务回调函数路由）。特别是在使用时间回调对请求接口鉴权的时候，应当使用`Request.URL`对象获取请求的URL信息，而不是`Request.Router`。
 
 
+## 静态文件事件
+
+需要注意的是，事件回调同样能够匹配到符合路由规则的静态文件访问（静态文件特性在`gf`框架中是默认开启的，我们可以使用WebServer相关配置来手动关闭，具体查看【[Server配置管理](net/ghttp/config.md)】章节）。
+
+例如，我们注册了一个`/*`的全局匹配事件回调路由，那么`/static/js/index.js`或者`/upload/images/thumb.jpg`等等静态文件访问也会被匹配到，会进入到注册的事件回调函数中进行处理。
+
+我们可以在事件回调函数中使用`Request.IsFileRequest()`方法来判断该请求是否是静态文件请求，如果业务逻辑不需要静态文件的请求事件回调，那么在事件回调函数中直接忽略即可，以便进行选择性地处理。
+
 ## 示例1，基本使用
 ```go
 package main
