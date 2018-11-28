@@ -36,11 +36,11 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 
 1. `BeforeClose/ghttp.HOOK_BEFORE_CLOSE`
 
-	在http请求关闭之前（注意请求关闭是异步处理操作，没有在http执行流程中处理）。
+	在http请求关闭之前。
 
 1. `AfterClose/ghttp.HOOK_AFTER_CLOSE`
 
-	在http请求关闭之后（注意请求关闭是异步处理操作，没有在http执行流程中处理）。
+	在http请求关闭之后。
 
 具体调用时机请参考图例所示。
 
@@ -67,6 +67,12 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 
 此外，在权限校验的事件回调函数中执行`r.Redirect*`方法，又没有调用`r.Exit()`方法退出业务执行，往往会产生`http multiple response writeheader calls`错误提示。因为`r.Redirect*`方法会往返回的header中写入`Location`头；而随后的业务服务接口往往会往header写入`Content-Type`/`Content-Length`头，这两者有冲突造成的。
 
+### `Request.URL`与`Request.Router`
+
+`Request.Router`是匹配到的路由对象，包含路由注册信息，一般来说开发者不会用到。
+`Request.URL`是底层请求的URL对象（继承自标准库`http.Request`），包含请求的URL地址信息，特别是`Request.URL.Path`表示请求的URI地址。
+
+因此，假如在服务回调函数中使用的话，`Request.Router`是有值的，因为只有匹配到了路由才会调用服务回调方法。但是在事件回调函数中，该对象可能为`nil`（表示没有匹配到服务回调函数路由）。特别是在使用时间回调对请求接口鉴权的时候，应当使用`Request.URL`对象获取请求的URL信息，而不是`Request.Router`。
 
 
 ## 示例1，基本使用

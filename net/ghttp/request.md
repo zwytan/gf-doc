@@ -17,7 +17,7 @@ type Request struct {
     Cookie        *Cookie                 // 与当前请求绑定的Cookie对象(并发安全)
     Session       *Session                // 与当前请求绑定的Session对象(并发安全)
     Response      *Response               // 对应请求的返回数据操作对象
-    Router        *Router                 // 匹配到的路由对象
+    Router        *Router                 // 匹配到的路由对象(只有匹配到才会有，仅在服务回调中有效)
     EnterTime     int64                   // 请求进入时间(微秒)
     LeaveTime     int64                   // 请求完成时间(微秒)
     params        map[string]gvar.VarRead // 开发者自定义参数(请求流程中有效)
@@ -128,6 +128,13 @@ type Request
 6. `SetParam`/`GetParam`: 用于设置/获取请求流程中得共享变量，该共享变量只在该请求流程中有效，请求结束则销毁；
 
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：`http://127.0.0.1:8199/?amount=19.66`，通过`Get`/`GetQueryString`将会返回`19.66`的字符串类型，`GetQueryFloat32`/`GetQueryFloat64`将会分别返回`float32`和`float64`类型的数值`19.66`。但是，`GetQueryInt`/`GetQueryUint`将会返回`19`（如果参数为float类型的字符串，将会按照**向下取整**进行整型转换）。
+
+## `Request.URL`与`Request.Router`
+
+`Request.Router`是匹配到的路由对象，包含路由注册信息，一般来说开发者不会用得到。
+`Request.URL`是底层请求的URL对象（继承自标准库`http.Request`），包含请求的URL地址信息，特别是`Request.URL.Path`表示请求的URI地址。
+
+因此，假如在服务回调函数中使用的话，`Request.Router`是有值的，因为只有匹配到了路由才会调用服务回调方法。但是在事件回调函数中，该对象可能为`nil`（表示没有匹配到服务回调函数路由）。特别是在使用时间回调对请求接口鉴权的时候，应当使用`Request.URL`对象获取请求的URL信息，而不是`Request.Router`。
 
 # 使用示例
 
