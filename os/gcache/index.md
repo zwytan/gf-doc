@@ -12,18 +12,21 @@ import "gitee.com/johng/gf/g/os/gcache"
 
 方法列表： [godoc.org/github.com/johng-cn/gf/g/os/gcache](https://godoc.org/github.com/johng-cn/gf/g/os/gcache)
 ```go
-func BatchRemove(keys []interface{})
+func Set(key interface{}, value interface{}, expire int)
+func SetIfNotExist(key interface{}, value interface{}, expire int) bool
 func BatchSet(data map[interface{}]interface{}, expire int)
-func Contains(key interface{}) bool
+
 func Get(key interface{}) interface{}
 func GetOrSet(key interface{}, value interface{}, expire int) interface{}
 func GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
 func GetOrSetFuncLock(key interface{}, f func() interface{}, expire int) interface{}
-func KeyStrings() []string
-func Keys() []interface{}
+
 func Remove(key interface{}) interface{}
-func Set(key interface{}, value interface{}, expire int)
-func SetIfNotExist(key interface{}, value interface{}, expire int) bool
+func BatchRemove(keys []interface{})
+
+func Contains(key interface{}) bool
+func Keys() []interface{}
+func KeyStrings() []string
 func Size() int
 func Values() []interface{}
 type Cache
@@ -59,8 +62,8 @@ type Cache
 package main
 
 import (
+    "fmt"
     "gitee.com/johng/gf/g/os/gcache"
-    "gitee.com/johng/gf/g"
 )
 
 func main() {
@@ -71,13 +74,16 @@ func main() {
     c.Set("k1", "v1", 0)
 
     // 获取缓存
-    g.Dump(c.Get("k1"))
+    fmt.Println(c.Get("k1"))
+
+    // 获取缓存大小
+    fmt.Println(c.Size())
 
     // 缓存中是否存在指定键名
-    g.Dump(c.Contains("k1"))
+    fmt.Println(c.Contains("k1"))
 
     // 删除并返回被删除的键值
-    g.Dump(c.Remove("k1"))
+    fmt.Println(c.Remove("k1"))
 
     // 关闭缓存对象，让GC回收资源
     c.Close()
@@ -87,10 +93,10 @@ func main() {
 执行后，输出结果为：
 
 ```html
-"v1"
+v1
 1
 true
-"v1"
+v1
 ```
 
 
@@ -100,59 +106,52 @@ true
 package main
 
 import (
+    "fmt"
     "gitee.com/johng/gf/g/os/gcache"
-    "gitee.com/johng/gf/g"
     "time"
 )
 
 func main() {
     // 当键名不存在时写入，设置过期时间1000毫秒
-    gcache.SetIfNotExist("k1", "k1", 1000)
+    gcache.SetIfNotExist("k1", "v1", 1000)
 
     // 打印当前的键名列表
-    g.Dump(gcache.Keys())
-
-    // 打印当前的键名列表 []string 类型
-    g.Dump(gcache.KeyStrings())
-
-    // 获取指定键值，如果不存在时写入，并返回键值
-    g.Dump(gcache.GetOrSet("k2", "v2", 0))
+    fmt.Println(gcache.Keys())
 
     // 打印当前的键值列表
-    g.Dump(gcache.Values())
+    fmt.Println(gcache.Values())
+
+    // 获取指定键值，如果不存在时写入，并返回键值
+    fmt.Println(gcache.GetOrSet("k2", "v2", 0))
+
+    // 打印当前的键值对
+    fmt.Println(gcache.Data())
 
     // 等待1秒，以便k1:v1自动过期
     time.Sleep(time.Second)
 
-    // 再次打印当前的键值列表，发现k1:v1已经过期，只剩下k2:v2
-    g.Dump(gcache.Values())
+    // 再次打印当前的键值对，发现k1:v1已经过期，只剩下k2:v2
+    fmt.Println(gcache.Data())
 }
 ```
 
 执行后，输出结果为：
 
 ```html
-[
- "k1"
-]
-[
- "k1"
-]
-"v2"
-[
- "k1",
- "v2"
-]
-[
- "v2"
-]
+[k1]
+[v1]
+v2
+map[k1:v1 k2:v2]
+map[k2:v2]
 ```
 
 ## 示例3，GetOrSetFunc/GetOrSetFuncLock
 
 `GetOrSetFunc`获取一个缓存值，当缓存不存在时执行指定的`f func() interface{}`，缓存该`f`方法的结果值，并返回该结果。
 
-需要注意的是，`GetOrSetFunc`的缓存方法参数`f`是在缓存的锁机制外执行，因此在`f`内部也可以嵌套调用`GetOrSetFunc`。但如果`f`的执行比较耗时，高并发的时候容易出现`f`被多次执行的情况(缓存设置只有第一个执行的`f`返回结果能够设置成功，其余的被抛弃掉)。而`GetOrSetFuncLock`的缓存方法`f`是在缓存的锁机制内执行，因此可以保证当缓存项不存在时只会执行一次`f`，但是缓存写锁的时间随着`f`方法的执行时间而定。
+需要注意的是，`GetOrSetFunc`的缓存方法参数`f`是在缓存的**锁机制外执行**，因此在`f`内部也可以嵌套调用`GetOrSetFunc`。但如果`f`的执行比较耗时，高并发的时候容易出现`f`被多次执行的情况(缓存设置只有第一个执行的`f`返回结果能够设置成功，其余的被抛弃掉)。
+
+而`GetOrSetFuncLock`的缓存方法`f`是在缓存的**锁机制内执行**，因此可以保证当缓存项不存在时只会执行一次`f`，但是缓存写锁的时间随着`f`方法的执行时间而定。
 
 我们来看一个在`gf-home`项目中使用`GetOrSetFunc`的示例，该示例遍历检索`markdown`文件进行字符串检索，并根据指定的搜索`key`缓存该结果值，因此多次搜索该`key`时，第一次执行目录遍历搜索，后续将直接使用缓存。
 
@@ -214,8 +213,8 @@ func main() {
     // 读取键名1，保证该键名是优先保留
     fmt.Println(c.Get(1))
 
-    // 等待一定时间后(默认10秒检查一次)，元素会被按照从旧到新的顺序进行淘汰
-    time.Sleep(10*time.Second)
+    // 等待一定时间后(默认1秒检查一次)，元素会被按照从旧到新的顺序进行淘汰
+    time.Sleep(2*time.Second)
     fmt.Println(c.Size())
     fmt.Println(c.Keys())
 }
@@ -251,7 +250,7 @@ goarch: amd64
 Benchmark_CacheSet-4                       2000000        897 ns/op      249 B/op        4 allocs/op
 Benchmark_CacheGet-4                       5000000        202 ns/op       49 B/op        1 allocs/op
 Benchmark_CacheRemove-4                   50000000       35.7 ns/op        0 B/op        0 allocs/op
-Benchmark_CacheLruSet-4                    1000000       1024 ns/op      399 B/op        4 allocs/op
+Benchmark_CacheLruSet-4                    2000000        880 ns/op      399 B/op        4 allocs/op
 Benchmark_CacheLruGet-4                    3000000        212 ns/op       33 B/op        1 allocs/op
 Benchmark_CacheLruRemove-4                50000000       35.9 ns/op        0 B/op        0 allocs/op
 Benchmark_InterfaceMapWithLockSet-4        3000000        477 ns/op       73 B/op        2 allocs/op
