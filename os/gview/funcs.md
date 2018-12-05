@@ -180,7 +180,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 {{date .format .timestamp}}
 {{date .format}}
 ```
-将`timestamp`时间戳变量进行时间日期格式化，类似PHP的`date`方法，参数支持PHP`date`方法格式。
+将`timestamp`时间戳变量进行时间日期格式化，类似PHP的`date`方法，`format`参数支持PHP`date`方法格式。
 可参考【[gtime](os/gtime/index.md)】模块，及【[PHP date](http://php.net/manual/en/function.date.php)】。
 
 当`timestamp`变量为`空`(或者`0`)时，表示以当前时间作为时间戳参数执行打印。
