@@ -110,10 +110,10 @@ r, err := db.Table("user").Fields("SUM(score)").Where("uid=?", 1).Value()
 
 ### 5. `count`查询
 ```go
-// SELECT COUNT(*) FROM user WHERE `birthday`='1990-10-01'
+// SELECT COUNT(1) FROM user WHERE `birthday`='1990-10-01'
 r, err := db.Table("user").Where("birthday=?", "1990-10-01").Count()
 // SELECT COUNT(uid) FROM user WHERE `birthday`='1990-10-01'
-r, err := db.Table("user").Field("uid").Where("birthday=?", "1990-10-01").Count()
+r, err := db.Table("user").Fields("uid").Where("birthday=?", "1990-10-01").Count()
 ```
 
 ### 6. `distinct`查询
