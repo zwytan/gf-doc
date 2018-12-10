@@ -92,8 +92,8 @@ r, err := db.Table("user u,user_detail ud").Where("u.uid=ud.uid").Fields("u.*,ud
 r, err := db.Table("user").Where("u.uid=1",).One()
 r, err := db.Table("user").Where("u.uid=?", 1).One()
 r, err := db.Table("user").Where(g.Map{"uid" : 1}).One()
-r, err := db.Table("user").Where("uid=？", 1}).And("name=?", "john").One()
-r, err := db.Table("user").Where("uid=？", 1}).Or("name=?", "john").One()
+r, err := db.Table("user").Where("uid=？", 1).And("name=?", "john").One()
+r, err := db.Table("user").Where("uid=？", 1).Or("name=?", "john").One()
 ```
 ### 3. `like`查询
 ```go
