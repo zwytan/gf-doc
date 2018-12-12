@@ -22,6 +22,12 @@ func (s *Server) AddStaticPath(prefix string, path string)
 
 // 静态文件服务总开关：是否开启/关闭静态文件服务
 func (s *Server) SetFileServerEnabled(enabled bool)
+
+// 设置URI重写规则
+func (s *Server) SetRewrite(uri string, rewrite string) 
+
+// 设置URI重写规则（批量）
+func (s *Server) SetRewriteMap(rewrites map[string]string) 
 ```
 其中，
 1. `IndexFiles`为当访问目录时默认检索的文件名称列表（按照slice先后顺序进行检索），当检索的文件存在时则返回文件内容，否则展示目录列表(`SetIndexFolder`为`true`时)，默认的`IndexFiles`为：`index.html, index.htm`；
@@ -29,6 +35,9 @@ func (s *Server) SetFileServerEnabled(enabled bool)
 1. `SetServerRoot`为设置默认提供服务的静态文件目录，该目录会被自动添加到`SearchPath`中的第一个搜索路径；
 1. `AddSearchPath`为添加静态文件检索目录，可以有多个，按照文件目录添加的先后顺序执行优先级检索；
 1. `AddStaticPath`为添加URI与目录路径的映射关系，可以自定义静态文件目录的访问URI规则；
+1. `SetRewrite`/`SetRewriteMap`为重写规则设置（类似于`nginx`的`rewrite`），严格上来讲不仅仅是静态文件服务，当然也支持动态的路由注册的`rewrite`；
+
+> 开发者可以设置多个文件目录来提供静态文件服务，并且可以设置目录及URI的优先级，但是一旦通过`SetFileServerEnabled`关闭了静态服务，所有静态文件/目录的访问都将失效。
 
 # 示例1， 基本使用
 ```go
