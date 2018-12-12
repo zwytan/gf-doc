@@ -4,26 +4,35 @@
 
 ### 示例1，使用`map`指定规则及提示信息
 ```go
-type Object struct {
-    Name string
-    Age  int
-}
-rules := map[string]string {
-    "Name" : "required|length:6,16",
-    "Age"  : "between:18,30",
-}
-msgs  := map[string]interface{} {
-    "Name" : map[string]string {
-        "required" : "名称不能为空",
-        "length"   : "名称长度为:min到:max个字符",
-    },
-    "Age"  : "年龄为18到30周岁",
-}
-obj := Object{Name : "john"}
-// 也可以是指针
-// obj := &Object{Name : "john"}
-if e := gvalid.CheckStruct(obj, rules, msgs); e != nil {
-    gutil.Dump(e)
+package main
+
+import (
+    "gitee.com/johng/gf/g"
+    "gitee.com/johng/gf/g/util/gvalid"
+)
+
+func main() {
+    type Object struct {
+        Name string
+        Age  int
+    }
+    rules := map[string]string {
+        "Name" : "required|length:6,16",
+        "Age"  : "between:18,30",
+    }
+    msgs  := map[string]interface{} {
+        "Name" : map[string]string {
+            "required" : "名称不能为空",
+            "length"   : "名称长度为:min到:max个字符",
+        },
+        "Age"  : "年龄为18到30周岁",
+    }
+    obj := Object{Name : "john"}
+    // 也可以是指针
+    // obj := &Object{Name : "john"}
+    if e := gvalid.CheckStruct(obj, rules,msgs); e != nil {
+        g.Dump(e.Maps())
+    }
 }
 
 /*
@@ -51,7 +60,7 @@ if e := gvalid.CheckStruct(obj, rules, msgs); e != nil {
 package main
 
 import (
-    "gitee.com/johng/gf/g/util/gutil"
+    "gitee.com/johng/gf/g"
     "gitee.com/johng/gf/g/util/gvalid"
 )
 
@@ -70,7 +79,7 @@ func main() {
     }
 
     // 使用结构体定义的校验规则和错误提示进行校验
-    gutil.Dump(gvalid.CheckStruct(user, nil))
+    g.Dump(gvalid.CheckStruct(user, nil).Maps())
 
     // 自定义校验规则和错误提示，对定义的特定校验规则和错误提示进行覆盖
     rules := map[string]string {
@@ -81,7 +90,7 @@ func main() {
             "password3" : "名称不能为空",
         },
     }
-    gutil.Dump(gvalid.CheckStruct(user, rules, msgs))
+    g.Dump(gvalid.CheckStruct(user, rules, msgs).Maps())
 }
 ```
 可以看到，我们可以对在`struct`定义时使用了`gvalid`的标签属性(`gvalid tag`)来绑定校验的规则及错误提示信息，规则如下：
@@ -102,21 +111,26 @@ func main() {
 ```json
 {
 	"name": {
-		"length": "字段长度为6到30个字符"
+		"length": "用户名称长度非法"
 	},
 	"password2": {
 		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符",
-		"same": "字段值不合法"
+		"same": "两次密码不一致，请重新输入"
+	},
+	"uid": {
+		"min": "字段最小值为1"
 	}
 }
-
 {
 	"name": {
-		"length": "字段长度为6到30个字符"
+		"length": "用户名称长度非法"
 	},
 	"password2": {
 		"password3": "密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符",
-		"same": "字段值不合法"
+		"same": "两次密码不一致，请重新输入"
+	},
+	"uid": {
+		"min": "字段最小值为1"
 	}
 }
 ```
