@@ -37,6 +37,8 @@ func (s *Server) SetRewriteMap(rewrites map[string]string)
 1. `AddStaticPath`为添加URI与目录路径的映射关系，可以自定义静态文件目录的访问URI规则；
 1. `SetRewrite`/`SetRewriteMap`为重写规则设置（类似于`nginx`的`rewrite`），严格上来讲不仅仅是静态文件服务，当然也支持动态的路由注册的`rewrite`；
 
+> Tips: 设置静态文件服务的目录路径时，可以使用绝对路径，也可以使用相对路径，例如设置当前运行目录提供静态文件服务可以使用`SetServerRoot(".")`。
+
 > 开发者可以设置多个文件目录来提供静态文件服务，并且可以设置目录及URI的优先级，但是一旦通过`SetFileServerEnabled`关闭了静态服务，所有静态文件/目录的访问都将失效。
 
 # 示例1， 基本使用
