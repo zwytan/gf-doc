@@ -79,7 +79,9 @@ func main() {
     }
 
     // 使用结构体定义的校验规则和错误提示进行校验
-    g.Dump(gvalid.CheckStruct(user, nil).Maps())
+    if e := gvalid.CheckStruct(user, nil); e != nil {
+        g.Dump(e.Maps())
+    }
 
     // 自定义校验规则和错误提示，对定义的特定校验规则和错误提示进行覆盖
     rules := map[string]string {
@@ -90,7 +92,9 @@ func main() {
             "password3" : "名称不能为空",
         },
     }
-    g.Dump(gvalid.CheckStruct(user, rules, msgs).Maps())
+    if e := gvalid.CheckStruct(user, rules, msgs); e != nil {
+        g.Dump(e.Maps())
+    }
 }
 ```
 可以看到，我们可以对在`struct`定义时使用了`gvalid`的标签属性(`gvalid tag`)来绑定校验的规则及错误提示信息，规则如下：
