@@ -35,9 +35,12 @@ func (md *Model) Delete() (sql.Result, error)
 func (md *Model) Select() (Result, error)
 func (md *Model) All() (Result, error)
 func (md *Model) One() (Record, error)
-func (md *Model) Struct(obj interface{}) error
 func (md *Model) Value() (Value, error)
 func (md *Model) Count() (int, error)
+func (md *Model) Struct(obj interface{}) error
+
+func (md *Model) Chunk(limit int, callback func(result Result, err error) bool)
+func (md *Model) ForPage(page, limit int) (*Model)
 ```
 
 `Insert/Replace/Save`三个方法的区别：
@@ -56,7 +59,7 @@ func (md *Model) Count() (int, error)
 db, err := gdb.New()
 // 或者
 db := g.Database()
-// 或者(别名方式)
+// 或者(别名方式, 推荐)
 db := g.DB()
 
 // 获取配置分组名称为"user-center"的数据库对象
@@ -95,20 +98,28 @@ r, err := db.Table("user").Where(g.Map{"uid" : 1}).One()
 r, err := db.Table("user").Where("uid=？", 1).And("name=?", "john").One()
 r, err := db.Table("user").Where("uid=？", 1).Or("name=?", "john").One()
 ```
-### 3. `like`查询
+### 3. `in`查询
+```go
+// SELECT * FROM user WHERE uid IN(100,10000,90000)
+r, err := db.Table("user").Where("uid IN(?,?,?)", 100, 10000, 90000).All()
+// SELECT COUNT(*) FROM user WHERE age in(18,50)
+r, err := db.Table("user").Where("age IN(?,?)", 18, 50).Count()
+```
+
+### 4. `like`查询
 ```go
 // SELECT * FROM user WHERE name like '%john%'
 r, err := db.Table("user").Where("name like ?", "%john%").Select()
 // SELECT * FROM user WHERE birthday like '1990-%'
 r, err := db.Table("user").Where("birthday like ?", "1990-%").Select()
 ```
-### 4. `sum`查询
+### 5. `sum`查询
 ```go
 // SELECT SUM(score) FROM user WHERE uid=1
 r, err := db.Table("user").Fields("SUM(score)").Where("uid=?", 1).Value()
 ```
 
-### 5. `count`查询
+### 6. `count`查询
 ```go
 // SELECT COUNT(1) FROM user WHERE `birthday`='1990-10-01'
 r, err := db.Table("user").Where("birthday=?", "1990-10-01").Count()
@@ -116,13 +127,13 @@ r, err := db.Table("user").Where("birthday=?", "1990-10-01").Count()
 r, err := db.Table("user").Fields("uid").Where("birthday=?", "1990-10-01").Count()
 ```
 
-### 6. `distinct`查询
+### 7. `distinct`查询
 ```go
 // SELECT DISTINCT uid,name FROM user 
 r, err := db.Table("user").Fields("DISTINCT uid,name").Select()
 ```
 
-### 7. 链式更新/删除
+### 8. 链式更新/删除
 ```go
 // 更新
 r, err := db.Table("user").Data(gdb.Map{"name" : "john2"}).Where("name=?", "john").Update()
@@ -137,7 +148,7 @@ r, err := db.Table("user").Data(`name="john"`).Update()
 r, err := db.Table("user").Data("name", "john").Update()
 r, err := db.Table("user").Data(g.Map{"name" : "john"}).Update()
 ```
-### 8. 链式写入/保存
+### 9. 链式写入/保存
 ```go
 r, err := db.Table("user").Data(gdb.Map{"name": "john"}).Insert()
 r, err := db.Table("user").Data(g.Map{"uid": 10000, "name": "john"}).Replace()
@@ -145,7 +156,7 @@ r, err := db.Table("user").Data(g.Map{"uid": 10001, "name": "john"}).Save()
 ```
 其中，数值方法参数既可以使用`gdb.Map`，也可以使用`g.Map`。
 
-### 9. 链式批量写入
+### 10. 链式批量写入
 ```go
 r, err := db.Table("user").Data(gdb.List{
     {"name": "john_1"},
@@ -165,7 +176,7 @@ r, err := db.Table("user").Data(g.List{
 ```
 当然，`gdb.List`类型也可以使用`g.List`类型。
 
-### 10. 链式批量保存
+### 11. 链式批量保存
 ```go
 r, err := db.Table("user").Data(gdb.List{
     {"uid":10000, "name": "john_1"},
@@ -175,7 +186,7 @@ r, err := db.Table("user").Data(gdb.List{
 }).Save()
 ```
 
-### 11. 查询结果转换为`Json/Xml`
+### 12. 查询结果转换为`Json/Xml`
 ```go
 one, err := db.Table("user").Where("uid=?", 1).One()
 if err != nil {

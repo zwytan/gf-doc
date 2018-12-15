@@ -3,7 +3,7 @@
 
 # 调试模式
 
-为便于开发阶段调试，gform支持调试模式，可以使用以下方式开启调试模式：
+为便于开发阶段调试，`gform`支持调试模式，可以使用以下方式开启调试模式：
 ```go
 // 是否开启调试服务
 func (db *Db) SetDebug(debug bool)
@@ -159,7 +159,7 @@ CREATE TABLE `user` (
 其次，我们的表数据如下：
 ```html
 uid  name   site
-1    john   http://johng.cn
+1    john   https://gfer.me
 ```
 最后，我们的示例程序如下：
 

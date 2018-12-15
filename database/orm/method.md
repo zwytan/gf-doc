@@ -17,12 +17,9 @@ Prepare(query string) (*sql.Stmt, error)
 // 查询单条记录、查询多条记录、获取记录对象、查询单个字段值(链式操作同理)
 GetAll(query string, args ...interface{}) (Result, error)
 GetOne(query string, args ...interface{}) (Record, error)
-GetStruct(obj interface{}, query string, args ...interface{}) error
 GetValue(query string, args ...interface{}) (Value, error)
-Select(tables, fields string, condition interface{}, groupBy, orderBy string, first, limit int, args ...interface{}) (Result, error)
-
-// 开启事务操作
-Begin() (*Tx, error)
+GetCount(query string, args ...interface{}) (int, error)
+GetStruct(obj interface{}, query string, args ...interface{}) error
 
 // 数据单条操作
 Insert(table string, data Map) (sql.Result, error)
@@ -41,9 +38,17 @@ Delete(table string, condition interface{}, args ...interface{}) (sql.Result, er
 // 创建链式操作对象(Table为From的别名)
 Table(tables string) (*Model)
 From(tables string) (*Model)
-    
-// 关闭数据库
-Close() error
+
+// 开启事务操作
+Begin() (*TX, error)
+
+// 设置管理
+SetDebug(debug bool)
+GetQueriedSqls() []*Sql
+PrintQueriedSqls()
+SetMaxIdleConns(n int)
+SetMaxOpenConns(n int)
+SetConnMaxLifetime(n int)
 ```
 
 需要注意的是`Query`返回的是原生的标准库的结果集对象，需要自行解析。在执行数据查询时推荐使用`Get*`系列查询方法。
@@ -58,7 +63,7 @@ Close() error
 db, err := gdb.New()
 // 或者
 db := g.Database()
-// 或者(别名方式)
+// 或者(别名方式, 推荐)
 db := g.DB()
 
 // 获取配置分组名称为"user-center"的数据库对象
@@ -82,7 +87,6 @@ r, err := db.Insert("user", gdb.Map {
 ### 3. 数据查询(列表)
 ```go
 list, err := db.GetAll("select * from user limit 2")
-list, err := db.Select("user", "*", nil, "", "", 0, 2)
 ```
 
 ### 4. 数据查询(单条)
