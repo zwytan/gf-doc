@@ -8,10 +8,10 @@
 // 自定义错误信息: map[键名] => 字符串|map[规则]错误信息
 type CustomMsg = map[string]interface{}
 
-func CheckMap(params map[string]interface{}, rules interface{}, msgs ...CustomMsg) *Error
+func CheckMap(params interface{}, rules interface{}, msgs ...CustomMsg) *Error
 ```
-
-1. 其中`rules`参数支持 `[]string` / `map[string]string` 数据类型，前面一种类型支持返回校验结果顺序，后一种不支持；
+1. 其中`params`参数支持任意 `map` 数据类型；
+1. `rules`参数支持 `[]string` / `map[string]string` 数据类型，前面一种类型支持返回校验结果顺序，后一种不支持；
 1. `rules`参数中的 `map[string]string` 是一个二维的关联数组，第一维**键名**为参数键名，第二维为带有错误的校验*规则名称**，键值为错误信息；
 1. `msgs`参数为自定义的错误信息，为非必需参数，类型为`CustomMsg`（`map[string]interface{}`）具体使用情擦考后续示例；
 
