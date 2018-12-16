@@ -78,64 +78,63 @@ type ConfigNode  struct {
         max-open     = "100"
         max-lifetime = "30"
 ```
-## 常用数据库配置项示例
-- TOML
-    ```toml
-    [database]
-        [[database.default]]
-            host     = "127.0.0.1"
-            port     = "3306"
-            user     = "root"
-            pass     = "12345678"
-            name     = "test"
-            type     = "mysql"
-    ```
-- YAML
-    ```yaml
-    database:
-        default:
-            - host: 127.0.0.1
-              port: 3306
-              user: root
-              pass: "12345678"
-              name: test
-              type: mysql
-    ```
-- JSON
-    ```json
-    {
-        "database"   : {
-            "default" : [
-                {
-                    "host"     : "127.0.0.1",
-                    "port"     : "3306",
-                    "user"     : "root",
-                    "pass"     : "12345678",
-                    "name"     : "test",
-                    "type"     : "mysql",
-                }
-            ]
-        },
-    }
-    ```
-- XML
-    ```xml
-    <?xml version="1.0" encoding="utf-8"?>
-    <config>
-        <database>
-            <default>
-                <host>127.0.0.1</host>
-                <port>3306</port>
-                <user>root</user>
-                <pass>12345678</pass>
-                <name>test</name>
-                <type>mysql</type>
-            </default>
-        </database>
+## 配置文件示例
+### TOML
+```toml
+[database]
+    [[database.default]]
+        host     = "127.0.0.1"
+        port     = "3306"
+        user     = "root"
+        pass     = "12345678"
+        name     = "test"
+        type     = "mysql"
+```
+### YAML
+```yaml
+database:
+    default:
+        - host: 127.0.0.1
+            port: 3306
+            user: root
+            pass: "12345678"
+            name: test
+            type: mysql
+```
+### JSON
+```json
+{
+    "database"   : {
+        "default" : [
+            {
+                "host"     : "127.0.0.1",
+                "port"     : "3306",
+                "user"     : "root",
+                "pass"     : "12345678",
+                "name"     : "test",
+                "type"     : "mysql",
+            }
+        ]
+    },
+}
+```
+### XML
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <database>
+        <default>
+            <host>127.0.0.1</host>
+            <port>3306</port>
+            <user>root</user>
+            <pass>12345678</pass>
+            <name>test</name>
+            <type>mysql</type>
+        </default>
         <default></default>
     </database>
-    </config>
-    ```
+</config>
+```
 
 随后，我们可以通过```g.Database("数据库分组名称")/g.DB("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
 
@@ -161,48 +160,47 @@ type ConfigNode  struct {
 
 各数据库类型更详细的`linkinfo`参数信息请查看对应引擎官网，参考【[ORM数据库类型](database/orm/database.md)】章节
 
-## 常用数据库配置项示例
-- TOML
-    ```toml
-    [database]
-        [[database.default]]
-            type     = "mysql"
-            linkinfo = "root:12345678@tcp(127.0.0.1:3306)/test"
-    ```
-- YAML
-    ```yaml
-    database:
-        default:
-            - type    : mysql
-              linkinfo: "root:12345678@tcp(127.0.0.1:3306)/test"
-    ```
-- JSON
-    ```json
-    {
-        "database"   : {
-            "default" : [
-                {
-                    "type"     : "mysql",
-                    "linkinfo" : "root:12345678@tcp(127.0.0.1:3306)/test",
-                }
-            ]
-        },
-    }
-    ```
-- XML
-    ```xml
-    <?xml version="1.0" encoding="utf-8"?>
-    <config>
-        <database>
-            <default>
-                <type>mysql</type>
-                <linkinfo>root:12345678@tcp(127.0.0.1:3306)/test</linkinfo>
-            </default>
-        </database>
+## 配置文件示例
+### TOML
+```toml
+[database]
+    [[database.default]]
+        type     = "mysql"
+        linkinfo = "root:12345678@tcp(127.0.0.1:3306)/test"
+```
+### YAML
+```yaml
+database:
+    default:
+        - type    : mysql
+            linkinfo: "root:12345678@tcp(127.0.0.1:3306)/test"
+```
+### JSON
+```json
+{
+    "database"   : {
+        "default" : [
+            {
+                "type"     : "mysql",
+                "linkinfo" : "root:12345678@tcp(127.0.0.1:3306)/test",
+            }
+        ]
+    },
+}
+```
+### XML
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <database>
+        <default>
+            <type>mysql</type>
+            <linkinfo>root:12345678@tcp(127.0.0.1:3306)/test</linkinfo>
+        </default>
         <default></default>
     </database>
-    </config>
-    ```
+</config>
+```
 
 # 配置方法
 
