@@ -98,10 +98,13 @@ r, err := db.Table("user").Where(g.Map{"uid" : 1}).One()
 r, err := db.Table("user").Where("uid=？", 1).And("name=?", "john").One()
 r, err := db.Table("user").Where("uid=？", 1).Or("name=?", "john").One()
 ```
+
 ### 3. `in`查询
 ```go
 // SELECT * FROM user WHERE uid IN(100,10000,90000)
 r, err := db.Table("user").Where("uid IN(?,?,?)", 100, 10000, 90000).All()
+// SELECT * FROM user WHERE gender=1 AND uid IN(100,10000,90000)
+r, err := db.Table("user").Where("gender=? AND uid IN(?)", 1, g.Slice{100, 10000, 90000}).All()
 // SELECT COUNT(*) FROM user WHERE age in(18,50)
 r, err := db.Table("user").Where("age IN(?,?)", 18, 50).Count()
 ```
@@ -113,6 +116,7 @@ r, err := db.Table("user").Where("name like ?", "%john%").Select()
 // SELECT * FROM user WHERE birthday like '1990-%'
 r, err := db.Table("user").Where("birthday like ?", "1990-%").Select()
 ```
+
 ### 5. `sum`查询
 ```go
 // SELECT SUM(score) FROM user WHERE uid=1
