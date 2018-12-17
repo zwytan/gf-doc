@@ -190,7 +190,20 @@ r, err := db.Table("user").Data(gdb.List{
 }).Save()
 ```
 
-### 12. 查询结果转换为`Json/Xml`
+### 12. 参数过滤功能
+`gform`可以自动同步**数据表结构**到程序缓存中(缓存不过期，直至程序重启/重新部署)，并且可以过滤提交参数中不符合表结构的数据项，该特性可以使用`Filter`方法实现，例如:
+```go
+r, err := db.Table("user").Filter().Data(g.Map{
+    "id"          : 1,
+    "uid"         : 1,
+    "passport"    : "john",
+    "password"    : "123456",
+}).Insert()
+// INSERT INTO user(uid,passport,password) VALUES(1, "john", "123456")
+```
+其中`id`为不存在的字段，在写入数据时将会被过滤掉，不至于被构造成写入SQL中产生执行错误。
+
+### 13. 查询结果转换为`Json/Xml`
 ```go
 one, err := db.Table("user").Where("uid=?", 1).One()
 if err != nil {
@@ -204,6 +217,6 @@ fmt.Println(one.ToXml())
 // 自定义方法方法转换为json/xml
 jsonContent, _ := gparser.VarToJson(one.ToMap())
 fmt.Println(jsonContent)
-xmlContent, _ := gparser.VarToXml(one.ToMap())
+xmlContent, _  := gparser.VarToXml(one.ToMap())
 fmt.Println(xmlContent)
 ```
