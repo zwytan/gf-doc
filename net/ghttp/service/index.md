@@ -187,10 +187,6 @@ func main() {
         g.Server().Run()
     }
     ```
-1. 参考目录结构：
-    以[gf-home](https://gitee.com/johng/gf-home)项目为例：
-    ![](/images/united-router-manager.png)
-
 
 ### 独立路由注册管理
 
