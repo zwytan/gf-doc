@@ -141,7 +141,7 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 
 ## htmldecode
 ```go
-{{.value | html}}
+{{.value | htmldecode}}
 ```
 将`value`变量值进行html反转义。
 示例：
