@@ -1,6 +1,6 @@
 * [框架介绍](index.md)
 * [快速开始](#)
-    * [环境安装 (ing...)](http://gfer.me)
+    * [环境安装)](start/install.md)
     * [新建项目 (ing...)](http://gfer.me)
     * [开发工作 (ing...)](http://gfer.me)
     * [服务设置 (ing...)](http://gfer.me)
