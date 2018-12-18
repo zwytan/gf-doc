@@ -17,6 +17,7 @@ Windows(`msi`)和MacOS(`pkg`)推荐使用安装包的方式来安装。作者当
 一直下一步即可。
 
 ![](/images/goinstall-macos-2.png)
+
 ![](/images/goinstall-macos-3.png)
 
 
@@ -32,7 +33,6 @@ Windows(`msi`)和MacOS(`pkg`)推荐使用安装包的方式来安装。作者当
 
 ### Step2 - 创建项目
 这里需要注意的是Go安装文件的路径，官方文档有说明，请仔细阅读。
-![](/images/goland1.png)
 ![](/images/goland2.png)
 
 
@@ -42,7 +42,9 @@ Windows(`msi`)和MacOS(`pkg`)推荐使用安装包的方式来安装。作者当
 
 ### Step4 - 执行运行
 ![](/images/goland4.png)
+
 ![](/images/goland5.png)
+
 ![](/images/goland6.png)
 
 ### Step5 - GOROOT及GOPATH
