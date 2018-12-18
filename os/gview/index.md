@@ -164,7 +164,7 @@ func (c *ControllerTemplate) Info() {
 
 func main() {
     s := ghttp.GetServer()
-    s.BindController("/template", new(ControllerTemplate{}))
+    s.BindController("/template", new(ControllerTemplate))
     s.SetPort(8199)
     s.Run()
 }
