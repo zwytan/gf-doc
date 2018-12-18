@@ -9,7 +9,7 @@
 
 执行对象的定义没有严格要求，也没有强行要求继承```gmvc.Controller```控制器基类，因为在请求进入时没有自动初始化流程，内部的成员变量需要自行维护（包括变量初始化，变量销毁等）。
 
-> <font color=OrangeRed size=3>注意事项：</font>在执行对象的路由注册中，注册的对象都应当是同一个。例如以下的注册方式是错误的：
+> <font color=OrangeRed size=3>注意事项：</font>执行对象和控制对象的路由注册有很大不同，注册的对象都应当是**同一个**。例如以下的注册方式是错误的：
 ```go
 s.BindObjectMethod("GET:/api/user/{id}", new(User), "Show")
 s.BindObjectMethod("POST:/api/user/{id}", new(User), "Edit")
