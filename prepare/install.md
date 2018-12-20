@@ -73,26 +73,6 @@ func main() {
 恭喜你，第一个Go程序便成功了！
 
 
-### Step5. 使用Go Modules包管理
-
-推荐启用和使用Go官方的`Go Modules`包管理特性，这块具体的设置也留给开发者自行研究。
-
-
-### Step6. GOROOT及GOPATH（可选）
-一般来说我们还需要在环境变量中设置`GOROOT`、`GOPATH`、`PATH`。
-
-为什么说这个步骤可选呢？因为新手往往并不需要在命令行执行`go`命令，当新手意识到需要命令行的时候，自己也应该知道怎么做了（^_^）。并且在Goland这个IDE中已经有`Terminal`功能，直接使用这个功能中已经设置好了环境变量。
-
-![](/images/goland7.png)
-
-在`*nix`系统下(`Linux/Unix/MacOS/*BSD`等等)，需要在`/etc/profile`中增加以下环境变量设置，重新登录的时候便会自动添加到用户的环境变量中:
-```shell
-export GOROOT=/usr/local/go
-export GOPATH=/Users/john/Workspace/Go/GOPATH
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-```
-
-Windows需要修改系统环境变量中的`PATH`，至于如何修改请参考网上教程([百度](https://www.baidu.com/s?wd=Windows%20%E4%BF%AE%E6%94%B9%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%20PATH) 或 [Google](https://www.google.com/search?q=Windows+修改系统环境变量+PATH))。
 
 
 
