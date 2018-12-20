@@ -29,6 +29,13 @@ func (g *RouterGroup) REST(pattern string, object interface{})
 func (g *RouterGroup) Bind(group string, items []GroupItem)
 ```
 
+其中，
+1. `Group`方法用户创建一个分组路由对象，并且支持在指定域名对象上创建；
+1. `REST`方法用户注册`RESTful`路由，需给定一个执行对象或者控制器对象；
+1. `Bind`方法用于批量路由注册，具体请见后续示例；
+1. `ALL`方法用于注册所有的`HTTP Method`到指定的函数/对象/控制器上；
+1. 其他以`HTTP Method`命名的方法用以绑定指定的`HTTP Method`路由；
+
 # 基本使用
 ```go
 package main
