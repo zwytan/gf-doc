@@ -83,12 +83,10 @@ $GOARM (for arm only; default is auto-detected if building on the target process
 ```
 
 > 环境变量中的`$GOOS`和`$GOARCH`是比较实用的两个变量，可以用在不同平台的交叉编译中，只需要在`go build`之前设置这两个变量即可，这也是go语言的优势之一：可以编译生成跨平台运行的可执行文件。感觉比QT更高效更轻量级，虽然生成的可执行文件是大了一点，不过也在可接受的范围之内。
-
 例如，在`Linux amd64`架构下编译`Windows x86`的可执行文件，可以使用如下命令：
 ```
 CGO_ENABLED=0 GOOS=windows GOARCH=386 go build hello.go
 ```
-
 遗憾的是交叉编译暂不支持`cgo`方式，因此需要将环境变量`$CGO_ENABLED`设置为0，这样执行之后会在当前目录生成一个`hello.exe`的`windows x86`架构的可执行文件。
 
 # 环境变量设置
