@@ -5,7 +5,7 @@
     * [Go Module](prepare/gomodule.md)
 * [快速开始](#)
     * [新建项目](start/project.md)
-    * [开发工作 (ing...)](http://gfer.me)
+    * [开发工作 (ing...)](start/develop.md)
     * [服务设置 (ing...)](http://gfer.me)
     * [路由注册 (ing...)](http://gfer.me)
     * [开始运行 (ing...)](http://gfer.me)
