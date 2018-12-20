@@ -82,9 +82,9 @@ $GOARM (for arm only; default is auto-detected if building on the target process
     If in doubt, leave this variable unset, and adjust it if required when you first run the Go executable. The GoARM page on the Go community wiki contains further details regarding Go's ARM support.
 ```
 
-环境变量中的`$GOOS`和`$GOARCH`是比较实用的两个变量，可以用在不同平台的交叉编译中，只需要在`go build`之前设置这两个变量即可，这也是go语言的优势之一：可以编译生成跨平台运行的可执行文件。感觉比QT更高效更轻量级，虽然生成的可执行文件是大了一点，不过也在可接受的范围之内。
+> 环境变量中的`$GOOS`和`$GOARCH`是比较实用的两个变量，可以用在不同平台的交叉编译中，只需要在`go build`之前设置这两个变量即可，这也是go语言的优势之一：可以编译生成跨平台运行的可执行文件。感觉比QT更高效更轻量级，虽然生成的可执行文件是大了一点，不过也在可接受的范围之内。
 
-例如，在`Linux amd64`架构下编译`Windows x86`的可执行文件，可以实用如下命令：
+例如，在`Linux amd64`架构下编译`Windows x86`的可执行文件，可以使用如下命令：
 ```
 CGO_ENABLED=0 GOOS=windows GOARCH=386 go build hello.go
 ```
