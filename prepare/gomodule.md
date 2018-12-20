@@ -1,3 +1,4 @@
+[TOC]
 
 # Go Module
 
@@ -24,6 +25,8 @@ module my-first-hello
 # 使用go.mod
 
 使用`go.mod`意即用`go.mod`进行项目依赖管理。我们有两种`go.mod`的使用方式：IDE-vgo和命令行方式。以下我们通过下载使用`GoFrame`框架来演示如何使用这两种方式来管理依赖。
+
+> 如果需要Goland IDE支持`go.mod`，必须要打开`vgo`的支持（包括代码依赖检测）。这两种使用方式的区别仅仅是下载依赖包的方式不同。
 
 ## 使用IDE vgo（推荐）
 `vgo`是基于`Go Module`规范的包管理工具，同官方的`go mod`命令工具类似。
@@ -67,7 +70,7 @@ module my-first-hello
     ```
     且生成了新的`go.sum`依赖分析文件，该文件充其量算是一个临时文件，对于我们平时开发工作来说意义不大。
 
-> 如果需要Goland IDE支持`go.mod`，必须要打开`vgo`的支持（包括代码依赖检测）。这两种使用方式的区别仅仅是下载依赖包的方式不同。
+
 
 # 使用GoFrame
 
@@ -87,6 +90,7 @@ func main() {
 运行结果如下：
 ![](/images/gomodule4.png)
 
+可以看到，`GoFrame`框架已被自动下载成功，并在编译中被正常引入。
 
 恭喜，你已经学会了`Go Module`特性的基本使用了。
 
