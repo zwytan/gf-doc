@@ -15,8 +15,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
-
-
 # 业务逻辑
 
 注意所有的业务逻辑程序都应当存放在`app`目录下。
@@ -109,6 +107,9 @@ func (c *Controller) CheckNickName(r *ghttp.Request) {
 ## 逻辑封装
 
 ### 用户逻辑
+
+用于用户接口的业务逻辑封装。
+
 `/app/library/user/user.go`
 ```go
 package lib_user
@@ -205,6 +206,9 @@ func CheckNickName(nickname string) bool {
 ```
 
 ### 工具类包
+
+主要用于返回JSON数据格式的统一。
+
 `/app/library/response/response.go`
 ```go
 package lib_response
@@ -232,77 +236,3 @@ func Json(r *ghttp.Request, err int, msg string, data...interface{}) {
     r.Exit()
 }
 ```
-
-# 项目配置
-
-## go.mod
-`/go.mod`
-```
-module gitee.com/johng/gf-demos
-
-require gitee.com/johng/gf latest
-```
-其中注意`module`名称设置为`gitee.com/johng/gf-demos`。
-
-
-## 配置文件
-`/config/config.toml`
-```toml
-# 应用系统设置
-[setting]
-    logpath = "/tmp/log/gf-demos"
-
-# 数据库连接
-[database]
-    [[database.default]]
-        host = "127.0.0.1"
-        port = "3306"
-        user = "root"
-        pass = "12345678"
-        name = "test"
-        type = "mysql"
-```
-
-## 路由注册
-`/router/router.go`
-```go
-package router
-
-import (
-    "gitee.com/johng/gf-demos/app/controller/user"
-    "gitee.com/johng/gf/g"
-)
-
-// 统一路由注册.
-func init() {
-	s := g.Server()
-
-	// 某些浏览器直接请求favicon.ico文件，特别是产生404时
-	s.SetRewrite("/favicon.ico", "/resource/image/favicon.ico")
-
-    // 用户模块 路由注册 - 使用执行对象注册方式
-    s.BindObject("/user", new(ctl_user.Controller))
-}
-```
-
-## 启动设置
-`/boot/boot.go`
-```go
-package boot
-
-import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-)
-
-// 用于应用初始化。
-func init() {
-    s := g.Server()
-    s.SetNameToUriType(ghttp.NAME_TO_URI_TYPE_ALLLOWER)
-    s.SetErrorLogEnabled(true)
-    s.SetAccessLogEnabled(true)
-    s.SetPort(8199)
-}
-```
-
-
