@@ -4,7 +4,7 @@
     * [环境变量](prepare/goenv.md)
     * [Go Module](prepare/gomodule.md)
 * [快速开始](#)
-    * [新建项目 (ing...)](http://gfer.me)
+    * [新建项目](start/project.md)
     * [开发工作 (ing...)](http://gfer.me)
     * [服务设置 (ing...)](http://gfer.me)
     * [路由注册 (ing...)](http://gfer.me)
