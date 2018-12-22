@@ -4,7 +4,7 @@
     * [环境变量](prepare/goenv.md)
     * [Go Module](prepare/gomodule.md)
 * [快速开始](#)
-    * [新建项目](start/project.md)
+    * [新建项目](start/index.md)
     * [开发工作](start/develop.md)
     * [服务设置](start/boot.md)
     * [路由注册](start/router.md)
