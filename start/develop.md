@@ -1,25 +1,22 @@
 [TOC]
 
-# 项目设计
 
-## 数据库设计
-`/docfile/sql/create.sql`
-```sql
-CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `passport` varchar(45) NOT NULL COMMENT '账号',
-  `password` char(32) NOT NULL COMMENT '密码',
-  `nickname` varchar(45) NOT NULL COMMENT '昵称',
-  `create_time` timestamp NOT NULL COMMENT '创建时间/注册时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```
+# 包名约定
 
-# 业务逻辑
+根据官方[《Effective Go》](https://golang.google.cn/doc/effective_go.html#package-names)建议，包名尽量采用言简意赅的名称(`short, concise, evocative`)。
 
-注意所有的业务逻辑程序都应当存放在`app`目录下。
+我们建议，对于项目结构中的 控制器层`/app/controller`下的包名统一使用`ctl_`前缀；逻辑封装层`/app/library`下的包名统一使用`lib_`前缀；数据模型`/app/model`下的包名统一使用`mod_`前缀。
 
-## 控制器
+例如，控制器层以及逻辑封装层中都有`user`这个包，虽然通过`import`不同的路径可以做区分，但是在代码中很难以识别，阅读质量不好，并且对于开发中的IDE代码提示来说也十分不友好。
+
+
+
+# 控制器实现
+
+控制器主要用于接口的路由注册以及对于用户输入参数的处理。
+
+我们这里使用执行对象注册方式。
+
 `/app/controller/user/user.go`
 ```go
 package ctl_user
@@ -104,11 +101,13 @@ func (c *Controller) CheckNickName(r *ghttp.Request) {
 }
 ```
 
-## 逻辑封装
+# 逻辑封装实现
 
-### 用户逻辑
+我们这里没有使用到数据模型，仅使用了逻辑封装层+gform来操作数据库。
 
-用于用户接口的业务逻辑封装。
+## 用户逻辑
+
+主要用于用户接口的业务逻辑封装。
 
 `/app/library/user/user.go`
 ```go
@@ -205,7 +204,7 @@ func CheckNickName(nickname string) bool {
 }
 ```
 
-### 工具类包
+## 工具类包
 
 主要用于返回JSON数据格式的统一。
 

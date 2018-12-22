@@ -56,6 +56,8 @@ module my-first-hello
 
 ## 使用命令行
 
+> 有的包被墙下载不了可以设置环境变量: `export GOPROXY=https://goproxy.io`
+
 1. 打开`Terminal`，在项目根目录下执行:
     ```
     export GO111MODULE=on; go get -u gitee.com/johng/gf

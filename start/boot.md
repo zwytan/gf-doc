@@ -1,6 +1,8 @@
 
 # 服务配置
 
+我们使用`go.mod`来管理项目依赖。
+
 ## go.mod
 `/go.mod`
 ```
@@ -12,6 +14,8 @@ require gitee.com/johng/gf latest
 
 
 ## 配置文件
+这里主要配置了数据库的连接信息。
+
 `/config/config.toml`
 ```toml
 # 数据库连接
