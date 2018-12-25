@@ -18,6 +18,7 @@ func (md *Model) Fields(fields string) *Model
 func (md *Model) Limit(start int, limit int) *Model
 func (md *Model) Data(data...interface{}) *Model
 func (md *Model) Batch(batch int) *Model
+func (md *Model) Filter() *Model
 
 func (md *Model) Where(where string, args...interface{}) *Model
 func (md *Model) And(where interface{}, args ...interface{}) *Model
