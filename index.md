@@ -17,7 +17,11 @@
 ```html
 go get -u gitee.com/johng/gf
 ```
-
+或者
+`go.mod`
+```
+require gitee.com/johng/gf latest
+```
 # 限制
 ```html
 golang版本 >= 1.9.2
@@ -49,6 +53,6 @@ golang版本 >= 1.9.2
 
 使用中有任何问题/建议，欢迎加入技术QQ群交流：`116707870`。如有优秀的gf框架使用案例，欢迎联系作者将地址展示到项目库中，您的牛逼将被世人所瞻仰。
 
-<div align=center>
+
 <b>当前文档版本 v1.3.8</b>
-</div>
+

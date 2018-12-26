@@ -3,12 +3,16 @@
 
 Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是在高并发量下的goroutine频繁创建和销毁对于性能损耗以及GC来说压力也不小。充分将goroutine复用，减少goroutine的创建/销毁的性能损耗，这便是grpool对goroutine进行池化封装的目的。例如，针对于100W个执行任务，使用goroutine的话需要不停创建并销毁100W个goroutine，而使用grpool也许底层只需要几千个goroutine便能充分复用地执行完成所有任务。
 
-经测试，goroutine池对于业务逻辑的执行效率提升不大，甚至没有原生的goroutine执行快速(池化goroutine执行调度并没有底层go调度器高效，因为池化goroutine的执行调度也是基于底层go调度器)，但是由于采用了复用的设计，池化后对内存的使用率得到极大的降低。
+经测试，goroutine池对于业务逻辑的执行效率(降低执行时间/CPU使用率)提升不大，甚至没有原生的goroutine执行快速(池化goroutine执行调度并没有底层go调度器高效，因为池化goroutine的执行调度也是基于底层go调度器)，但是由于采用了复用的设计，池化后对内存的使用率得到极大的降低。
 
 使用方式：
 ```go
 import "gitee.com/johng/gf/g/os/grpool"
 ```
+
+使用场景：
+
+管理大量异步任务的场景、需要异步协程复用的场景、需要降低内存使用率的场景。
 
 ## 方法列表
 
@@ -268,7 +272,7 @@ goroutine:
     memory    spent: ~4.8 GB
     time      spent: 27085 ms
 ```
-    
+
     
     
     
