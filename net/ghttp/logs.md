@@ -26,9 +26,9 @@ func main() {
 
 我们在任何地方(包括运行时)可以调用```SetAccessLogEnabled(true)```开启access log的记录功能(并可通过```SetAccessLogEnabled(false)```随时动态关闭日志记录功能)，默认情况下，日志内容将会输出到终端界面。如以上示例程序执行后，访问```http://127.0.0.1:8199/log/access```，日志内容将会输出到终端上，如下：
 ```shell
-2018-04-20 18:11:57.344 "GET 127.0.0.1:8199 /log/access HTTP/1.1" 200 16 0.120, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36"
+2018-04-20 18:11:57.344 "GET 127.0.0.1:8199 /log/access HTTP/1.1" 200 0.120, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36"
 ```
-ghttp的access log将会记录访问时间、请求方式、请求地址、请求协议、处理状态码、返回字节大小、执行时间、来源客户端IP、来源URL地址、UserAgent信息。
+`ghttp`的`access log`将会记录: `访问时间`、`请求方式`、`请求地址`、`请求协议`、`HTTP状态码`、`执行时间(毫秒)`、`客户端IP`、`来源URL`、`UserAgent`。
 
 # 错误日志
 
