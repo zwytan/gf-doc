@@ -33,38 +33,57 @@ golang版本 >= 1.9.2
 </div>
 
 # 特点
-1. 轻量级、高性能，模块化、松耦合设计，丰富的开发模块；
-1. 热重启、热更新特性，并支持Web界面及命令行管理接口；
-1. 专业的技术交流群，完善的开发文档及示例代码，良好的中文化支持；
-1. 支持多种形式的服务注册特性，强大灵活高效的路由控制管理；
-1. 支持服务事件回调注册功能，可供选择的`pprof`性能分析模块；
-1. 支持配置文件及模板文件的自动检测更新机制，即修改即生效；
-1. 支持自定义日期时间格式的时间模块，类似`PHP日期时间格式化`；
-1. 强大的数据/表单校验模块，支持常用的40种及自定义校验规则；
-1. 强大的网络通信`TCP/UDP`组件，并提供TCP连接池特性，简便高效；
-1. 提供了对基本数据类型的并发安全封装，提供了常用的数据结构容器；
-1. 支持`Go变量/Json/Xml/Yml/Toml`任意数据格式之间的相互转换及创建；
-1. 强大的数据库`ORM`，支持应用层级的集群管理、读写分离、负载均衡，查询缓存、方法及链式ORM操作；
-12. 更多特点请查阅框架手册和源码；
+* 模块化、松耦合设计；
+* 丰富实用的开发模块；
+* 详尽的开发文档及示例；
+* 完善的本地中文化支持；
+* 致力于项目的通用方案；
+* 更适合企业及团队使用；
+* 更多请查阅文档及源码；
 
-`gf`是开源的，免费的，基于`MIT`协议进行分发，开源项目地址：
+开源项目地址：
 - **Gitee**( https://gitee.com/johng/gf )
 - **Github**( https://github.com/johng-cn/gf )
 
-使用中有任何问题/建议，欢迎加入技术QQ群交流：`116707870`。如有优秀的gf框架使用案例，欢迎联系作者将地址展示到项目库中，您的牛逼将被世人所瞻仰。
+技术交流Q群：`116707870`。
+
+# 协议
+
+`GF` 使用非常友好的 `MIT` 开源协议进行发布，永久`100%`开源免费。
+
+# 贡献者
+
+<a href="https://gitee.com/johng" target="_blank" title="John"><img src="https://gitee.com/uploads/27/1309327_johng.png?1530630243" width="60" align="left"></a>
+
+<a href="https://gitee.com/wenzi1" target="_blank" title="蚊子"><img src="https://gfer.me/images/contributors/wenzi.png" width="60" align="left"></a>
+
+<a href="https://gitee.com/zseeker" target="_blank" title="zseeker"><img src="https://gfer.me/images/contributors/zseeker.png" width="60" align="left"></a>
+
+<a href="https://gitee.com/ymrjqyy" target="_blank" title="一墨染尽青衣颜"><img src="https://gfer.me/images/contributors/ymrjqyy.png" width="60" align="left"></a>
+
+<a href="https://github.com/chenyang351" target="_blank" title="chenyang351"><img src="https://avatars1.githubusercontent.com/u/30063958?s=60&v=4" width="60" align="left"></a>
+
+<a href="https://gitee.com/wxkj" target="_blank" title="wxkj"><img src="https://gitee.com/uploads/56/91356_wxkj.png" width="60" align="left"></a>
+
+<a href="https://github.com/wxkj001" target="_blank" title="3wxkj001
+"><img src="https://avatars0.githubusercontent.com/u/7794279?s=60&v=4" width="60" align="left"></a>
+
+<a href="https://gitee.com/zhangjinfu" target="_blank" title="张金富"><img src="https://gfer.me/images/contributors/zjf.png" width="60" align="left"></a>
+
+<a href="https://gitee.com/garfieldkwong" target="_blank" title="GarfieldKwong"><img src="https://gfer.me/images/contributors/garfieldkwong.png" width="60" align="left"></a>
+
+<br /><br /><br />
+
+# 捐赠者
+
+<a href="https://gitee.com/zfan_codes" target="_blank" title="范钟"><img src="https://images.gitee.com/uploads/32/2044832_zfan_codes.png" width="60" align="left"></a>
+
+<a href="https://gitee.com/hailaz" target="_blank" title="HaiLaz"><img src="https://gitee.com/uploads/87/1273187_hailaz.png" width="60" align="left"></a>
+
+<a href="https://gitee.com/mg91" target="_blank" title="mg91"><img src="https://images.gitee.com/uploads/30/1410930_mg91.png" width="60" align="left"></a>
 
 
-<b>当前文档版本 v1.3.8</b>
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
+<br /><br />
 
 
 
