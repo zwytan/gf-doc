@@ -58,7 +58,7 @@ golang版本 >= 1.9.2
 
 # 贡献者
 
-<div>
+<div style="clear:both">
 <a href="https://gitee.com/johng" target="_blank" title="John"><img src="https://gitee.com/uploads/27/1309327_johng.png?1530630243" width="50" align="left"></a>
 
 <a href="https://gitee.com/wenzi1" target="_blank" title="蚊子"><img src="https://gfer.me/images/contributors/wenzi.png" width="50" align="left"></a>
