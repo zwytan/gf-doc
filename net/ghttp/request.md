@@ -119,10 +119,10 @@ type Request
 ```
 以上方法可以分为以下几类：
 1. `Get*`: 常用方法，简化参数获取，```GetRequest*```的别名；
-1. `GetQuery*`: 获取GET方式传递过来的参数；
-2. `GetPost*`: 获取POST方式传递过来的参数；
+1. `GetQuery*`: 获取GET方式传递过来的Key-Value查询参数；
+2. `GetPost*`: 获取POST方式传递过来的Key-Value表单参数；
 3. `GetRequest*`: 优先查找Router路由参数中是否有指定键名的参数，如果没有则查找GET参数，如果没有则查找POST参数，如果都不存在则返回空或者默认值；
-4. `GetRaw`: 获取原始的（非表单提交数据）客户端提交数据(二进制`[]byte`类型)，与HTTP Method无关(注意由于是读取的请求缓冲区数据，该方法执行一次之后缓冲区便会被清空)；
+4. `GetRaw`: 获取客户端提交的原始数据(二进制`[]byte`类型)，与HTTP Method无关，例如客户端提交JSON/XML数据格式时可以通过该方法获取原始的提交数据；
 5. `GetJson`: 自动将原始请求信息解析为`gjson.Json`对象指针返回，`gjson.Json`对象指针具体在【[gjson模块](encoding/gjson/index.md)】章节中介绍；
 1. `GetToStruct`: 将请求参数绑定到指定的struct对象上，注意给定的参数为对象指针；
 6. `SetParam`/`GetParam`: 用于设置/获取请求流程中得共享变量，该共享变量只在该请求流程中有效，请求结束则销毁；
