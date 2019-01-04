@@ -54,6 +54,15 @@ module my-first-hello
     ```
     其中`v1.3.8`表示vgo检测到的最新框架版本。
 
+1. 如果下载最新代码框架后出现下图情况( [官方手册](https://www.jetbrains.com/help/go/create-a-project-with-vgo-integration.html) )
+    ![](/images/gomodule6.png)
+
+1. 请按快捷键 `⌥(option)+↩(return)` , 选择 `Sync packages of my-first-hello`
+    ![](/images/gomodule7.png)
+
+1. 随后等待几秒钟之后, 可以看到左侧的`Go Module`已经有内容，并且中终端自动输出了下载的框架版本
+    ![](/images/gomodule8.png)
+
 ## 使用命令行
 
 > 有的包被墙下载不了可以设置环境变量: `export GOPROXY=https://goproxy.io`
