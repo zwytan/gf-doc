@@ -6,13 +6,13 @@
 为便于开发阶段调试，`gform`支持调试模式，可以使用以下方式开启调试模式：
 ```go
 // 是否开启调试服务
-func (db *Db) SetDebug(debug bool)
+func (db DB) SetDebug(debug bool)
 ```
 随后在ORM的操作过程中，所有的执行语句将会打印到终端进行展示。
 同时，我们可以通过以下方法获得调试过程中执行的所有SQL语句：
 ```go
 // 获取已经执行的SQL列表
-func (db *Db) GetQueriedSqls() []*Sql
+func (db DB) GetQueriedSqls() []*Sql
 ```
 使用示例：
 ```go
@@ -23,7 +23,7 @@ import (
     "gitee.com/johng/gf/g/database/gdb"
 )
 
-var db *gdb.Db
+var db gdb.DB
 
 // 初始化配置及创建数据库
 func init () {
