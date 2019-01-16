@@ -8,11 +8,15 @@
 - `gcron`支持`crontab`形式的定时任务语法，可读性较高，适用于应用层研发，最小时间间隔为`秒`；
 - `gcron`底层实现基于`gtimer`；
 
-使用场景：
+**使用场景**：
 
 任何定时任务场景，大数据量的定时任务场景，对于定时时间准确度要求不是很高的业务场景。
 
-使用方式：
+**注意事项**：
+
+任何的定时任务都是有误差的，在并发量大，负载较高的系统中尤其明显，具体请参考：[https://github.com/golang/go/issues/14410](https://github.com/golang/go/issues/14410)
+
+**使用方式**：
 ```go
 import "gitee.com/johng/gf/g/os/gtimer"
 ```
