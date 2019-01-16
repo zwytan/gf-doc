@@ -63,11 +63,17 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 
 
 
+## `Exit`, `ExitAll`与`ExitHook`
+
+1. `Exit`: 仅退出当前执行的逻辑方法，如: 当前HOOK方法、服务方法，不退出后续的逻辑处理，可用于替代`return`；
+1. `ExitAll`: 强行退出当前执行流程，当前执行方法的后续逻辑以及后续所有的逻辑方法将不再执行，常用于权限控制；
+1. `ExitHook`: 当路由匹配到多个HOOK方法时，默认是按照路由匹配优先级顺序执行HOOK方法。当在HOOK方法中调用`ExitHook`方法后，后续的HOOK方法将不会被继续执行，作用类似HOOK方法覆盖；
+
 ## 接口鉴权控制
 
-事件回调注册比较常见的应用是在对调用的接口进行鉴权控制。该操作需要绑定`HOOK_BEFORE_SERVE`事件，在该事件中会对所有匹配的接口请求(例如绑定`/*`事件回调路由)服务执行前进行回调处理。当鉴权不通过时，需要调用`r.Exit()`方法退出后续的服务执行。假如后续还有其他的事件回调，可以通过`r.IsExited()`方法判断请求是否已退出，以便判断执行后续的事件回调业务逻辑。
+事件回调注册比较常见的应用是在对调用的接口进行鉴权控制。该操作需要绑定`HOOK_BEFORE_SERVE`事件，在该事件中会对所有匹配的接口请求(例如绑定`/*`事件回调路由)服务执行前进行回调处理。当鉴权不通过时，需要调用`r.ExitAll()`方法退出后续的服务执行。假如后续还有其他的事件回调，可以通过`r.IsExited()`方法判断请求是否已退出，以便判断执行后续的事件回调业务逻辑。
 
-此外，在权限校验的事件回调函数中执行`r.Redirect*`方法，又没有调用`r.Exit()`方法退出业务执行，往往会产生`http multiple response writeheader calls`错误提示。因为`r.Redirect*`方法会往返回的header中写入`Location`头；而随后的业务服务接口往往会往header写入`Content-Type`/`Content-Length`头，这两者有冲突造成的。
+此外，在权限校验的事件回调函数中执行`r.Redirect*`方法，又没有调用`r.ExitAll()`方法退出业务执行，往往会产生`http multiple response writeheader calls`错误提示。因为`r.Redirect*`方法会往返回的header中写入`Location`头；而随后的业务服务接口往往会往header写入`Content-Type`/`Content-Length`头，这两者有冲突造成的。
 
 ### `Request.URL`与`Request.Router`
 

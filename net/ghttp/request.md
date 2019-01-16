@@ -36,7 +36,6 @@ type Request
     func (r *Request) AddQuery(key string, value string)
     func (r *Request) AddRouterString(key, value string)
     func (r *Request) BasicAuth(user, pass string, tips ...string) bool
-    func (r *Request) Exit()
     func (r *Request) IsAjaxRequest() bool
     func (r *Request) IsExited() bool
     func (r *Request) IsFileRequest() bool
@@ -44,6 +43,10 @@ type Request
     func (r *Request) SetQuery(key string, value string)
     func (r *Request) SetRouterString(key, value string)
     func (r *Request) WebSocket() (*WebSocket, error)
+
+    func (r *Request) Exit()
+    func (r *Request) ExitAll()
+    func (r *Request) ExitHook()
 
     func (r *Request) SetParam(key string, value interface{})
     func (r *Request) GetParam(key string) gvar.VarRead
@@ -126,6 +129,7 @@ type Request
 5. `GetJson`: 自动将原始请求信息解析为`gjson.Json`对象指针返回，`gjson.Json`对象指针具体在【[gjson模块](encoding/gjson/index.md)】章节中介绍；
 1. `GetToStruct`: 将请求参数绑定到指定的struct对象上，注意给定的参数为对象指针；
 6. `SetParam`/`GetParam`: 用于设置/获取请求流程中得共享变量，该共享变量只在该请求流程中有效，请求结束则销毁；
+1. `Exit*`: 用于请求流程退出控制，详见本章后续说明；
 
 其中，获取的参数方法可以对指定键名的数据进行自动类型转换，例如：`http://127.0.0.1:8199/?amount=19.66`，通过`Get`/`GetQueryString`将会返回`19.66`的字符串类型，`GetQueryFloat32`/`GetQueryFloat64`将会分别返回`float32`和`float64`类型的数值`19.66`。但是，`GetQueryInt`/`GetQueryUint`将会返回`19`（如果参数为float类型的字符串，将会按照**向下取整**进行整型转换）。
 
@@ -135,6 +139,13 @@ type Request
 `Request.URL`是底层请求的URL对象（继承自标准库`http.Request`），包含请求的URL地址信息，特别是`Request.URL.Path`表示请求的URI地址。
 
 因此，假如在服务回调函数中使用的话，`Request.Router`是有值的，因为只有匹配到了路由才会调用服务回调方法。但是在事件回调函数中，该对象可能为`nil`（表示没有匹配到服务回调函数路由）。特别是在使用时间回调对请求接口鉴权的时候，应当使用`Request.URL`对象获取请求的URL信息，而不是`Request.Router`。
+
+## `Exit`, `ExitAll`与`ExitHook`
+
+1. `Exit`: 仅退出当前执行的逻辑方法，如: 当前HOOK方法、服务方法，不退出后续的逻辑处理，可用于替代`return`；
+1. `ExitAll`: 强行退出当前执行流程，当前执行方法的后续逻辑以及后续所有的逻辑方法将不再执行，常用于权限控制；
+1. `ExitHook`: 当路由匹配到多个HOOK方法时，默认是按照路由匹配优先级顺序执行HOOK方法。当在HOOK方法中调用`ExitHook`方法后，后续的HOOK方法将不会被继续执行，作用类似HOOK方法覆盖；
+
 
 # 使用示例
 
