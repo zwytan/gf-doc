@@ -30,20 +30,21 @@ type Result      []Record               // 返回数据表记录列表
 ## 类型识别
 
 使用`gform`查询数据时，返回的数据类型将会被自动识别映射到Go变量类型。例如: 当字段类型为`int(xx)`时，查询到的字段值类型将会被识别会`int`类型；当字段类型为`varchar(xxx)`/`char(xxx)`/`text`等类型时将会被自动识别为`string`类型。以下以`mysql`类型为例，介绍数据库类型与Go变量类型的自动识别映射关系:
+
 |数据库类型 | Go变量类型
 |---|---
-|*char   | string
-|*text   | string
-|*binary | bytes
-|*blob   | bytes
-|*int    | int
-|bit     | int
-|big_int | int64
-|float   | float64
-|double  | float64
-|decimal | float64
-|bool    | bool
-|其他     | string
+|`*char`   | `string`
+|`*text`   | `string`
+|`*binary` | `bytes`
+|`*blob`   | `bytes`
+|`*int`    | `int`
+|`bit`     | `int`
+|`big_int` | `int64`
+|`float`   | `float64`
+|`double`  | `float64`
+|`decimal` | `float64`
+|`bool`    | `bool`
+|`其他`     | `string`
 
 
 ## 类型转换
