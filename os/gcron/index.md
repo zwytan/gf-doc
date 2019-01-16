@@ -10,40 +10,64 @@ import "gitee.com/johng/gf/g/os/gcron"
 方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gcron](https://godoc.org/github.com/johng-cn/gf/g/os/gcron)
 
 ```go
-func Add(spec string, f func(), name ...string) error
+func Add(pattern string, job func(), name ...string) (*Entry, error)
+func AddOnce(pattern string, job func(), name ...string) (*Entry, error)
+func AddSingleton(pattern string, job func(), name ...string) (*Entry, error)
+func AddTimes(pattern string, times int, job func(), name ...string) (*Entry, error)
+func DelayAdd(delay int, pattern string, job func(), name ...string)
+func DelayAddOnce(delay int, pattern string, job func(), name ...string)
+func DelayAddSingleton(delay int, pattern string, job func(), name ...string)
+func DelayAddTimes(delay int, pattern string, times int, job func(), name ...string)
 func Remove(name string)
+func Size() int
 func Start(name string)
 func Stop(name string)
 func Entries() []*Entry
 func Search(name string) *Entry
-
 type Cron
-    func New() *Cron
-    func (c *Cron) Add(spec string, f func(), name ...string) error
-    func (c *Cron) Entries() []*Entry
-    func (c *Cron) Remove(name string)
-    func (c *Cron) Search(name string) *Entry
-    func (c *Cron) Start(name ...string)
-    func (c *Cron) Stop(name ...string)
+	func New() *Cron
+	func (c *Cron) Add(pattern string, job func(), name ...string) (*Entry, error)
+	func (c *Cron) AddOnce(pattern string, job func(), name ...string) (*Entry, error)
+	func (c *Cron) AddSingleton(pattern string, job func(), name ...string) (*Entry, error)
+	func (c *Cron) AddTimes(pattern string, times int, job func(), name ...string) (*Entry, error)
+	func (c *Cron) Close()
+	func (c *Cron) DelayAdd(delay int, pattern string, job func(), name ...string)
+	func (c *Cron) DelayAddOnce(delay int, pattern string, job func(), name ...string)
+	func (c *Cron) DelayAddSingleton(delay int, pattern string, job func(), name ...string)
+	func (c *Cron) DelayAddTimes(delay int, pattern string, times int, job func(), name ...string)
+	func (c *Cron) Entries() []*Entry
+	func (c *Cron) Remove(name string)
+	func (c *Cron) Search(name string) *Entry
+	func (c *Cron) Size() int
+	func (c *Cron) Start(name ...string)
+	func (c *Cron) Stop(name ...string)
 type Entry
-    func (entry *Entry) Start()
-    func (entry *Entry) Stop()
+	func (entry *Entry) Close()
+	func (entry *Entry) IsSingleton() bool
+	func (entry *Entry) SetSingleton(enabled bool)
+	func (entry *Entry) SetStatus(status int) int
+	func (entry *Entry) SetTimes(times int)
+	func (entry *Entry) Start()
+	func (entry *Entry) Status() int
+	func (entry *Entry) Stop()
 ```
 简要说明：
 1. `New`方法用于创建自定义的定时任务管理对象；
 1. `Add`方法用于添加定时任务，其中：
-    - `spec` 参数使用`CRON语法格式`(具体说明见本章后续相关说明)；
-    - `f` 参数为需要执行的任务方法(方法地址)；
+    - `pattern` 参数使用`CRON语法格式`(具体说明见本章后续相关说明)；
+    - `job` 参数为需要执行的任务方法(方法地址)；
     - `name` 为非必需参数，用于给定时任务指定一个**唯一的**名称，注意如果已存在相同名称的任务，那么添加定时任务将会失败；
+1. `AddSingleton`方法用于添加单例定时任务，即同时只能有一个该任务正在运行；
+1. `AddOnce`方法用于添加只运行一次的定时任务，当运行一次数后该定时任务自动销毁；
+1. `AddTimes`方法用于添加运行指定次数的定时任务，当运行`times`次数后该定时任务自动销毁；
 1. `Entries`方法用于获取当前所有已注册的定时任务信息；
 1. `Remove`方法用于根据名称删除定时任务(停止并删除)；
 1. `Search`方法用于根据名称进行定时任务搜索(返回定时任务`*Entry`对象指针)；
-1. `Start`方法用于启动定时任务(`Add`后自动启动定时任务)；
-1. `Stop`方法用于停止定时任务(`Remove`会停止并删除)；
+1. `Start`方法用于启动定时任务(`Add`后自动启动定时任务), 可通过`name`参数指定需要启动的任务名称；
+1. `Stop`方法用于停止定时任务(`Remove`会停止并删除), 可通过`name`参数指定需要停止的任务名称；
+1. `Close`方法用于关闭自定义的定时任务管理对象；
 
-
-
-## 使用示例
+## 使用示例1, 基本使用 
 
 ```go
 package main
@@ -114,20 +138,49 @@ func main() {
 2018-10-25 10:05:36.000 Every second
 2018-10-25 10:05:37.000 Every second
 ```
+## 使用示例2, 单例定时任务
+
+单例定时任务，即同时只能有一个该任务正在运行。当第二个相同的定时任务触发执行时，如果发现已有该任务正在执行，第二个任务将会退出不执行，定时器将会继续等待下一次定时任务的触发检测，以此类推。可以使用`AddSingleton`添加单例定时任务。
+
+```go
+package main
+
+import (
+    "gitee.com/johng/gf/g/os/gcron"
+    "gitee.com/johng/gf/g/os/glog"
+    "time"
+)
+
+func main() {
+    gcron.AddSingleton("* * * * * *", func() {
+        glog.Println("doing")
+        time.Sleep(2*time.Second)
+    })
+    select { }
+}
+```
+执行后，输出结果为：
+```html
+2019-01-16 22:49:27.699 doing
+2019-01-16 22:49:30.696 doing
+2019-01-16 22:49:33.699 doing
+...
+```
+
 
 ## CRON表达格式
 
 `cron表达式`表示一组时间，使用`6`个空格分隔的字段。
 
 ```
-Field name   | Mandatory? | Allowed values  | Allowed special characters
-----------   | ---------- | --------------  | --------------------------
-Seconds      | Yes        | 0-59            | * / , -
-Minutes      | Yes        | 0-59            | * / , -
-Hours        | Yes        | 0-23            | * / , -
-Day          | Yes        | 1-31            | * / , - ?
-Month        | Yes        | 1-12 or JAN-DEC | * / , -
-Week         | Yes        | 0-6 or SUN-SAT  | * / , - ?
+Field name    | Allowed values  | Allowed special characters
+----------    | --------------  | --------------------------
+Seconds       | 0-59            | * / , -
+Minutes       | 0-59            | * / , -
+Hours         | 0-23            | * / , -
+Day           | 1-31            | * / , - ?
+Month         | 1-12 or JAN-DEC | * / , -
+Week          | 0-6 or SUN-SAT  | * / , - ?
 ```
 
 注意：月份和星期几字段值不区分大小写。 “SUN”，“Sun”，
@@ -171,7 +224,7 @@ Entry                  | Description                                | Equivalent
 
 #### 间隔
 
-您还可以定义任务以固定的时间间隔执行，从添加时开始运行。这可以通过格式化cron规范来支持，如下所示：
+您还可以定义任务以固定的时间间隔执行，从添加时开始运行。这可以通过格式化`cron`规范来支持，如下所示：
 ```
 @every <duration>
 ```
