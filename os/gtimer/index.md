@@ -58,7 +58,7 @@ type Entry
 
 ## 时间轮设计
 
-`gtimer`采用
+To be continued...
 
 
 
