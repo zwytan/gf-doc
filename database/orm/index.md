@@ -27,6 +27,23 @@ type Result      []Record               // 返回数据表记录列表
 1. ```Map```与```List```用于ORM操作过程中的输入参数类型（与全局类型```g.Map```和```g.List```一致，在项目开发中常用`g.Map`和`g.List`替换）；
 2. ```Value/Record/Result```用于ORM操作的结果数据类型，其中```Result```表示数据表记录列表，```Record```表示一条数据表记录，```Value```表示记录中的一条键值数据；
 
+## 类型识别
+
+使用`gform`查询数据时，返回的数据类型将会被自动识别映射到Go变量类型。例如: 当字段类型为`int(xx)`时，查询到的字段值类型将会被识别会`int`类型；当字段类型为`varchar(xxx)`/`char(xxx)`/`text`等类型时将会被自动识别为`string`类型。以下以`mysql`类型为例，介绍数据库类型与Go变量类型的自动识别映射关系:
+|数据库类型 | Go变量类型
+|---|---
+|*char   | string
+|*text   | string
+|*binary | bytes
+|*blob   | bytes
+|*int    | int
+|bit     | int
+|big_int | int64
+|float   | float64
+|double  | float64
+|decimal | float64
+|bool    | bool
+|其他     | string
 
 
 ## 类型转换
