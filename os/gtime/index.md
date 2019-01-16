@@ -157,9 +157,7 @@ func Microsecond() int64
 func Millisecond() int64
 func Nanosecond() int64
 func Second() int64
-func SetInterval(t time.Duration, callback func() bool)
 func SetTimeZone(zone string) error
-func SetTimeout(t time.Duration, callback func())
 func StrToTime(str string) (time.Time, error)
 func StrToTimeFormat(str string, format string) (time.Time, error)
 func StrToTimeLayout(str string, layout string) (time.Time, error)
