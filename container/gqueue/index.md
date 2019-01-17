@@ -93,3 +93,18 @@ PASS
 
 `gqueue`使用起来比`channel`更加灵活，不仅创建效率高，不受队列大小限制(当然也可以指定大小)。从基准测试结果中也可以看得到，相比较`channel`，这些灵活性都是靠牺牲了一定的效率来实现的。
 
+## 性能基准测试
+
+```
+goos: darwin
+goarch: amd64
+pkg: gitee.com/johng/gf/g/container/gqueue
+Benchmark_Gqueue_StaticPushAndPop-4   	20000000	        97.7 ns/op
+Benchmark_Gqueue_DynamicPush-4        	20000000	         183 ns/op
+Benchmark_Gqueue_DynamicPop-4         	20000000	        96.7 ns/op
+Benchmark_Channel_PushAndPop-4        	20000000	        75.8 ns/op
+PASS
+```
+
+
+

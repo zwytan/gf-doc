@@ -37,4 +37,16 @@ type SafeList
     func (this *List) RemoveAll()
 ```
 
-由于链表本身是比较简单的数据结构，这里便不再举例说明，通过方法名称即可知其意。
+## 性能基准测试
+
+```
+goos: darwin
+goarch: amd64
+pkg: gitee.com/johng/gf/g/container/glist
+Benchmark_PushBack-4    	20000000	       194 ns/op
+Benchmark_PushFront-4   	20000000	       243 ns/op
+Benchmark_Len-4         	20000000	        20.3 ns/op
+Benchmark_PopFront-4    	20000000	        65.6 ns/op
+Benchmark_PopBack-4     	20000000	        51.8 ns/op
+PASS
+```
