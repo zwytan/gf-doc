@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/database/gkafka"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/database/gkafka](https://godoc.org/github.com/johng-cn/gf/g/database/gkafka)
+方法列表：[godoc.org/github.com/gogf/gf/g/database/gkafka](https://godoc.org/github.com/gogf/gf/g/database/gkafka)
 ```go
 type Client
     func NewClient(config *Config) *Client

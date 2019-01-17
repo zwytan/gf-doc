@@ -2,7 +2,7 @@
 
 ## 仓库地址
   * [https://gitee.com/johng/gf-demos](https://gitee.com/johng/gf-demos)
-  * [https://github.com/johng-cn/gf-demos](https://github.com/johng-cn/gf-demos)
+  * [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)
 
 ## 关于项目
 

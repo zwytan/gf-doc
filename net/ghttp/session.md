@@ -5,7 +5,7 @@
 # 方法列表
 
 与`Session`操作相关的方法：
-[godoc.org/github.com/johng-cn/gf/g/net/ghttp#Session](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Session)
+[godoc.org/github.com/gogf/gf/g/net/ghttp#Session](https://godoc.org/github.com/gogf/gf/g/net/ghttp#Session)
 ```go
 func (s *Session) BatchSet(m map[string]interface{})
 func (s *Session) Contains(k string) bool

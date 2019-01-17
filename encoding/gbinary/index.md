@@ -1,7 +1,7 @@
 
 # gbianry
 
-`gf`框架提供了独立的二进制数据操作包`gbinary`，主要用于各种数据类型与`[ ]byte`二进制类型之间的相互转换；以及针对于整型数据进行精准按位处理的功能。常用于网络通信时数据编码/解码，以及数据文件操作时的编码/解码。API文档：[godoc.org/github.com/johng-cn/gf/g/encoding/gbinary](https://godoc.org/github.com/johng-cn/gf/g/encoding/gbinary)
+`gf`框架提供了独立的二进制数据操作包`gbinary`，主要用于各种数据类型与`[ ]byte`二进制类型之间的相互转换；以及针对于整型数据进行精准按位处理的功能。常用于网络通信时数据编码/解码，以及数据文件操作时的编码/解码。API文档：[godoc.org/github.com/gogf/gf/g/encoding/gbinary](https://godoc.org/github.com/gogf/gf/g/encoding/gbinary)
 
 使用方式：
 ```go

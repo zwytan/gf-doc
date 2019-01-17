@@ -29,7 +29,7 @@ type Request struct {
 ```
 `ghttp.Request`继承了底层的`http.Request`对象，并且包含了会话相关的`Cookie`和`Session`对象(每个请求都会有两个**独立**的`Cookie`和`Session对象`)。此外，每个请求有一个`唯一的Id`（请求Id，全局唯一），用以标识每一个请求。此外，成员对象包含一个与当前请求对应的返回输出对象指针Response，用于数据的返回。
 
-相关方法（API详见： [godoc.org/github.com/johng-cn/gf/g/net/ghttp#Request](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)）：
+相关方法（API详见： [godoc.org/github.com/gogf/gf/g/net/ghttp#Request](https://godoc.org/github.com/gogf/gf/g/net/ghttp)）：
 ```go
 type Request
     func (r *Request) AddPost(key string, value string)

@@ -13,7 +13,7 @@
 import "gitee.com/johng/gf/g/container/gqueue"
 ```
 
-**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gqueue](https://godoc.org/github.com/johng-cn/gf/g/container/gqueue)
+**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
 ```go
 type Queue
     func New(limit ...int) *Queue

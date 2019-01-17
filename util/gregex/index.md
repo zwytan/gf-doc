@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/util/gregex"
 ```
 
-方法列表： [godoc.org/github.com/johng-cn/gf/g/util/gregex](https://godoc.org/github.com/johng-cn/gf/g/util/gregex)
+方法列表： [godoc.org/github.com/gogf/gf/g/util/gregex](https://godoc.org/github.com/gogf/gf/g/util/gregex)
 ```go
 func IsMatch(pattern string, src []byte) bool
 func IsMatchString(pattern string, src string) bool

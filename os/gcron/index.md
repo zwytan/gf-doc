@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/os/gcron"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gcron](https://godoc.org/github.com/johng-cn/gf/g/os/gcron)
+方法列表：[godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
 
 ```go
 func Add(pattern string, job func(), name ...string) (*Entry, error)

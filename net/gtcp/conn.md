@@ -9,7 +9,7 @@ import "gitee.com/johng/gf/g/net/gtcp"
 ```
 
 方法列表：
-[godoc.org/github.com/johng-cn/gf/g/net/gtcp#Conn](https://godoc.org/github.com/johng-cn/gf/g/net/gtcp)
+[godoc.org/github.com/gogf/gf/g/net/gtcp#Conn](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type Conn
     func NewConn(addr string, timeout ...int) (*Conn, error)

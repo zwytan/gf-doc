@@ -11,7 +11,7 @@
 import "gitee.com/johng/gf/g/container/gset"
 ```
 
-**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gset](https://godoc.org/github.com/johng-cn/gf/g/container/gset)
+**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gset](https://godoc.org/github.com/gogf/gf/g/container/gset)
 ```go
 type Set
     func New(safe ...bool) *Set

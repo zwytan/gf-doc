@@ -6,7 +6,7 @@ import "gitee.com/johng/gf/g/net/gudp"
 ```
 
 方法列表：
-[godoc.org/github.com/johng-cn/gf/g/net/gudp#Conn](https://godoc.org/github.com/johng-cn/gf/g/net/gudp)
+[godoc.org/github.com/gogf/gf/g/net/gudp#Conn](https://godoc.org/github.com/gogf/gf/g/net/gudp)
 ```go
 type Conn
     func NewConn(raddr string, laddr ...string) (*Conn, error)

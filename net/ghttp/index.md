@@ -2,7 +2,7 @@
 
 [TOC]
 
-`GF`框架提供了非常强大的Web Server模块，由```ghttp```模块实现，API文档地址： [godoc.org/github.com/johng-cn/gf/g/net/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)
+`GF`框架提供了非常强大的Web Server模块，由```ghttp```模块实现，API文档地址： [godoc.org/github.com/gogf/gf/g/net/ghttp](https://godoc.org/github.com/gogf/gf/g/net/ghttp)
 
 # 哈喽世界
 
@@ -55,7 +55,7 @@ func main() {
 1. ```SetIndexFolder```用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
 1. ```SetServerRoot```用来设置Web Server的主目录（类似其他Web Server中的```DocumentRoot```地址，默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
-Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [API文档](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
+Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [API文档](https://godoc.org/github.com/gogf/gf/g/net/ghttp)。
 
 # 多端口监听
 

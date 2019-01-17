@@ -16,7 +16,7 @@ import "gitee.com/johng/gf/g/os/grpool"
 
 ## 方法列表
 
-[godoc.org/github.com/johng-cn/gf/g/os/grpool](https://godoc.org/github.com/johng-cn/gf/g/os/grpool)
+[godoc.org/github.com/gogf/gf/g/os/grpool](https://godoc.org/github.com/gogf/gf/g/os/grpool)
 
 ```go
 func Add(f func()) error

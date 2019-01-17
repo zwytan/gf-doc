@@ -13,7 +13,7 @@
 import "gitee.com/johng/gf/g/container/gvar"
 ```
 
-**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gvar](https://godoc.org/github.com/johng-cn/gf/g/container/gvar)
+**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gvar](https://godoc.org/github.com/gogf/gf/g/container/gvar)
 ```go
 type Var
     func New(value interface{}, safe ... bool) *Var

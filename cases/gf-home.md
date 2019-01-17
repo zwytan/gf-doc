@@ -2,7 +2,7 @@
 
 ## 仓库地址
   * [https://gitee.com/johng/gf-home](https://gitee.com/johng/gf-home)
-  * [https://github.com/johng-cn/gf-home](https://github.com/johng-cn/gf-home)
+  * [https://github.com/gogf/gf-home](https://github.com/gogf/gf-home)
 
 ## 关于项目
 

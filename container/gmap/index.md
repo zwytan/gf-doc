@@ -13,7 +13,7 @@
 import "gitee.com/johng/gf/g/container/gmap"
 ```
 
-**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gmap](https://godoc.org/github.com/johng-cn/gf/g/container/gmap)
+**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gmap](https://godoc.org/github.com/gogf/gf/g/container/gmap)
 
 <!-- 由于`gmap`模块下的对象及方法比较多，这里便不一一列举。`gmap`下包含了多种数据类型的map，可以使用 `gmap.New*` 方法来创建。 -->
 

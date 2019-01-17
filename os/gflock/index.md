@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/os/gflock"
 ```
 
-方法列表：[godoc.org/github.com/johng-cn/gf/g/os/gflock](https://godoc.org/github.com/johng-cn/gf/g/os/gflock)
+方法列表：[godoc.org/github.com/gogf/gf/g/os/gflock](https://godoc.org/github.com/gogf/gf/g/os/gflock)
 ```go
 type Locker
     func New(file string) *Locker

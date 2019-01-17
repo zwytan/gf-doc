@@ -16,7 +16,7 @@ if tx, err := db.Begin(); err == nil {
     fmt.Println("开启事务操作")
 }
 ```
-事务操作对象可以执行所有db对象的方法，具体请参考[API文档](https://godoc.org/github.com/johng-cn/gf/g/database/gdb)。
+事务操作对象可以执行所有db对象的方法，具体请参考[API文档](https://godoc.org/github.com/gogf/gf/g/database/gdb)。
 
 ### 2. 事务回滚操作
 ```go

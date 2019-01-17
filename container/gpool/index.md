@@ -14,7 +14,7 @@
 import "gitee.com/johng/gf/g/container/gpool"
 ```
 
-**方法列表**：[godoc.org/github.com/johng-cn/gf/g/container/gpool](https://godoc.org/github.com/johng-cn/gf/g/container/gpool)
+**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gpool](https://godoc.org/github.com/gogf/gf/g/container/gpool)
 
 ```go
 type Pool

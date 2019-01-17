@@ -6,7 +6,7 @@ import "gitee.com/johng/gf/g/net/gtcp"
 ```
 
 方法列表：
-[godoc.org/github.com/johng-cn/gf/g/net/gtcp](https://godoc.org/github.com/johng-cn/gf/g/net/gtcp)
+[godoc.org/github.com/gogf/gf/g/net/gtcp](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 func Checksum(buffer []byte) uint32
 func NewNetConn(addr string, timeout ...int) (net.Conn, error)

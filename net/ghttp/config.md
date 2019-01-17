@@ -2,7 +2,7 @@
 [TOC]
 
 # 配置管理对象
-[godoc.org/github.com/johng-cn/gf/g/net/ghttp#ServerConfig](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#ServerConfig)
+[godoc.org/github.com/gogf/gf/g/net/ghttp#ServerConfig](https://godoc.org/github.com/gogf/gf/g/net/ghttp#ServerConfig)
 ```go
 // HTTP Server 设置结构体，静态配置
 type ServerConfig struct {
@@ -53,7 +53,7 @@ type ServerConfig struct {
 
 
 # 配置管理方法
-[godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp#Server)
+[godoc.org/github.com/gogf/gf/g/net/ghttp#Server](https://godoc.org/github.com/gogf/gf/g/net/ghttp#Server)
 ```go
 func (s *Server) AddSearchPath(path string) error
 func (s *Server) DumpRoutesMap()

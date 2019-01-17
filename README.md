@@ -5,11 +5,11 @@
 
 ## GoFrame框架地址
   * [https://gitee.com/johng/gf](https://gitee.com/johng/gf)
-  * [https://github.com/johng-cn/gf](https://github.com/johng-cn/gf)
+  * [https://github.com/gogf/gf](https://github.com/gogf/gf)
 
 ## GoFrame开发文档
   * [gfer.me](https://gfer.me)
 
 ## 文档镜像仓库地址
   * [https://gitee.com/johng/gf-doc](https://gitee.com/johng/gf-doc)
-  * [https://github.com/johng-cn/gf-doc](https://github.com/johng-cn/gf-doc)
+  * [https://github.com/gogf/gf-doc](https://github.com/gogf/gf-doc)

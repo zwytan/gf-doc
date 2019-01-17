@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/os/gtime"
 ```
 
-方法列表： [godoc.org/github.com/johng-cn/gf/g/os/gtime](https://godoc.org/github.com/johng-cn/gf/g/os/gtime)
+方法列表： [godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
 
 # 时间格式
 `gtime`模块最大的特点是支持自定义的时间格式，参考[PHP日期时间格式语法](http://php.net/manual/zh/function.date.php)，以下是支持的时间格式语法列表：
@@ -149,7 +149,7 @@ func main() {
 该示例比较简单，便不多赘述。
 
 # 工具方法
-[godoc.org/github.com/johng-cn/gf/g/os/gtime](https://godoc.org/github.com/johng-cn/gf/g/os/gtime)
+[godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
 ```go
 func Date() string
 func Datetime() string

@@ -7,7 +7,7 @@
 
 > 以下章节中部分示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init```方法进行自动注册），所有示例代码存放于：[gitee.com/johng/gf/blob/master/geg/frame/mvc/](https://gitee.com/johng/gf/blob/master/geg/frame/mvc) 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```模块），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 [gitee.com/johng/gf/blob/master/geg/net/ghttp/server/](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/)  目录中，可独立运行）
 
-服务注册管理由```ghttp```模块实现，API文档地址：[godoc.org/github.com/johng-cn/gf/g/ghttp](https://godoc.org/github.com/johng-cn/gf/g/net/ghttp)。
+服务注册管理由```ghttp```模块实现，API文档地址：[godoc.org/github.com/gogf/gf/g/ghttp](https://godoc.org/github.com/gogf/gf/g/net/ghttp)。
 
 # g与ghttp包
 

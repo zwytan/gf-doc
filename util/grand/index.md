@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/util/grand"
 ```
 
-方法列表： [godoc.org/github.com/johng-cn/gf/g/util/grand](https://godoc.org/github.com/johng-cn/gf/g/util/grand)
+方法列表： [godoc.org/github.com/gogf/gf/g/util/grand](https://godoc.org/github.com/gogf/gf/g/util/grand)
 ```go
 func Rand(min, max int) int
 func RandDigits(n int) string

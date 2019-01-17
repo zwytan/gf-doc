@@ -10,7 +10,7 @@ import "gitee.com/johng/gf/g/os/gcfg"
 
 # 方法列表 
 
-[godoc.org/github.com/johng-cn/gf/g/os/gcfg](https://godoc.org/github.com/johng-cn/gf/g/os/gcfg)
+[godoc.org/github.com/gogf/gf/g/os/gcfg](https://godoc.org/github.com/gogf/gf/g/os/gcfg)
 
 ```go
 type Config

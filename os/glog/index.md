@@ -8,7 +8,7 @@ import "gitee.com/johng/gf/g/os/glog"
 ```
 
 # 方法列表
-[godoc.org/github.com/johng-cn/gf/g/os/glog](http://godoc.org/github.com/johng-cn/gf/g/os/glog)
+[godoc.org/github.com/gogf/gf/g/os/glog](http://godoc.org/github.com/gogf/gf/g/os/glog)
 
 ## 包方法
 ```go
