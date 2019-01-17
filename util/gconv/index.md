@@ -44,12 +44,12 @@ func Map(i interface{}, noTagCheck...bool) map[string]interface{}
 // 对象转换
 func Struct(params interface{}, objPointer interface{}, attrMapping ...map[string]string) error
 
-// 根据类型名称执行基本类型转换(非struct转换))
+// 根据类型名称执行基本类型转换(非struct转换)
 func Convert(i interface{}, t string, extraParams ...interface{}) interface{}
 ```
 
 
-# 基准性能测试
+## 基准性能测试
 
 测试转换变量值为`123456789`，类型`int`。
 
