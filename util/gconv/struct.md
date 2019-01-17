@@ -169,7 +169,7 @@ func main() {
 }
 ```
 
-### 2. struct属性为struct/*struct
+### 2. `struct`属性为`struct`/`*struct`
 
 属性支持struct对象或者struct对象指针(目标为指针时，转换时会自动初始化)转换。
 
@@ -235,7 +235,7 @@ func main() {
 
 
 
-### 3. struct属性为slice，数值为slice
+### 3. `struct`属性为`slice`，数值为`slice`
 
 ```go
 package main
@@ -295,7 +295,7 @@ func main() {
 }
 ```
 
-### 4. struct属性为slice，数值为非slice
+### 4. `struct`属性为`slice`，数值为`非slice`
 
 ```go
 package main
@@ -344,7 +344,7 @@ func main() {
 }
 ```
 
-### 4. struct属性为[]*struct
+### 5. `struct`属性为`[]*struct`
 
 ```go
 package main
