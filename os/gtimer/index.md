@@ -76,7 +76,9 @@ type Entry
 1. `Close`方法用于关闭定时器；
 
 ## 时间轮设计
+<div align=center>
 <img src="images/hierarchical-timing-wheel.png" />
+</div>
 
 `gtimer`采用的是分层时间轮设计，相比较于单层时间轮设计，可以更高效地管理更多的定时任务。
 
