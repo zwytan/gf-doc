@@ -1,6 +1,6 @@
 # gtimer
 
-`gtimer`是一个高性能的任务定时器，类似于Java的`Timer`，但是比较于Java的`Timer`更加强大，内部实现采用灵活高效的分层时间轮设计，被设计为可管理维护百万级别以上数量的定时任务。
+`gtimer`是一个并发安全的高性能任务定时器，类似于Java的`Timer`，但是比较于Java的`Timer`更加强大，内部实现采用灵活高效的分层时间轮设计，被设计为可管理维护百万级别以上数量的定时任务。
 
 `gtimer`任务定时器与`gcron`定时任务模块区别:
 - `gtimer`属于高性能模块，是框架的核心模块，构建任何定时任务的基础，任何方法操作都是在`纳秒`级别；
@@ -14,7 +14,9 @@
 
 **注意事项**：
 
-任何的定时任务都是有误差的，在并发量大，负载较高的系统中尤其明显，具体请参考：[https://github.com/golang/go/issues/14410](https://github.com/golang/go/issues/14410)
+1. 任何的定时任务都是有误差的，在时间轮刻度比较大，或者并发量大，负载较高的系统中尤其明显，具体请参考：[https://github.com/golang/go/issues/14410](https://github.com/golang/go/issues/14410)
+1. 间隔不会考虑任务的执行时间。例如，如果一项工作需要3分钟才能执行完成，并且计划每隔5分钟运行一次，那么每次任务之间只有2分钟的空闲时间。
+1. 需要注意的是**单例模式**运行的定时任务，任务的执行时间会影响该任务下一次执行的**开始时间**。例如：一个每秒执行的任务，运行耗时为1秒，那么在第1秒开始运行后，下一次任务将会在第3秒开始执行。
 
 **使用方式**：
 ```go
@@ -25,10 +27,12 @@ import "gitee.com/johng/gf/g/os/gtimer"
 
 ```go
 func Add(interval time.Duration, job JobFunc) *Entry
+func AddEntry(interval time.Duration, job JobFunc, singleton bool, times int, status int) *Entry
 func AddOnce(interval time.Duration, job JobFunc) *Entry
 func AddSingleton(interval time.Duration, job JobFunc) *Entry
 func AddTimes(interval time.Duration, times int, job JobFunc) *Entry
 func DelayAdd(delay time.Duration, interval time.Duration, job JobFunc)
+func DelayAddEntry(delay time.Duration, interval time.Duration, job JobFunc, singleton bool, times int, status int)
 func DelayAddOnce(delay time.Duration, interval time.Duration, job JobFunc)
 func DelayAddSingleton(delay time.Duration, interval time.Duration, job JobFunc)
 func DelayAddTimes(delay time.Duration, interval time.Duration, times int, job JobFunc)
@@ -50,10 +54,10 @@ type Timer
     func (t *Timer) Close()
 type Entry
     func (entry *Entry) IsSingleton() bool
-    func (entry *Entry) Run()
     func (entry *Entry) SetSingleton(enabled bool)
     func (entry *Entry) SetStatus(status int) int
     func (entry *Entry) SetTimes(times int)
+    func (entry *Entry) Run()
     func (entry *Entry) Status() int
     func (entry *Entry) Start()
     func (entry *Entry) Stop()
@@ -67,6 +71,7 @@ type Entry
 1. `Add`方法用于添加定时任务，其中：
     - `interval` 参数用于指定方法的执行的时间间隔；
     - `job` 参数为需要执行的任务方法(方法地址)；
+1. `AddEntry`方法添加定时任务，支持更多参数的控制；
 1. `AddSingleton`方法用于添加单例定时任务，即同时只能有一个该任务正在运行；
 1. `AddOnce`方法用于添加只运行一次的定时任务，当运行一次数后该定时任务自动销毁；
 1. `AddTimes`方法用于添加运行指定次数的定时任务，当运行`times`次数后该定时任务自动销毁；
@@ -86,6 +91,11 @@ type Entry
 * http://www.embeddedlinux.org.cn/RTConforEmbSys/5107final/LiB0071.html
 * https://www.slideshare.net/supperniu/timing-wheels
 
+分层时间轮的设计类似于时钟的转动，相当于底层的时间轮转一圈，上层的时间轮才会移动一个刻度，如此循环。
+
+时间间隔比较大的定时任务将会被添加到高层的时间轮，当刻度指向该任务的槽时，会将该任务移动到低层的时间轮继续运行。
+
+## 默认定时器
 使用`gtimer`的默认定时器时，默认的时间轮槽数为`10`，间隔时间为`50ms`，分层大小为`6`，每一层的时间轮信息如下：
 
 | 层级 | 槽数 | 间隔 | 一周大小
@@ -97,9 +107,15 @@ type Entry
 |4 | 10 | 500000ms  | 5000000ms
 |5 | 10 | 5000000ms | 50000000ms
 
-相当于底层的时间轮转一圈，上层的时间轮才会移动一个刻度(执行一次任务检查)。
-
-时间间隔比较大的定时任务将会被添加到高层的时间轮，当刻度指向该任务的槽时，会将该任务移动到低层的时间轮继续运行。
+可以使用以下两种方式修改默认的定时器参数：
+1. 使用启动参数
+ - `gf.gtimer.slots=100`: 修改默认的槽数为`100`；
+ - `gf.gtimer.level=7`: 修改默认的分层数为`7`；
+ - `gf.gtimer.interval=10`: 修改默认的时间刻度为`10毫秒`；
+1. 使用环境变量
+ - `GF_GTIMER_SLOTS=100`
+ - `GF_GTIMER_LEVEL=7`
+ - `GF_GTIMER_INTERVAL=10`
 
 ## 性能基准测试
 
@@ -158,10 +174,10 @@ import (
 )
 
 func main() {
-    interval := time.Millisecond
+    interval := time.Second
     gtimer.AddSingleton(interval, func() {
         glog.Println("doing")
-        time.Sleep(2*time.Second)
+        time.Sleep(5*time.Second)
     })
 
     select { }
@@ -169,11 +185,10 @@ func main() {
 ```
 执行后，输出结果为:
 ```
-2019-01-17 18:19:42.678 doing
-2019-01-17 18:19:44.678 doing
-2019-01-17 18:19:46.728 doing
-2019-01-17 18:19:48.731 doing
-2019-01-17 18:19:50.782 doing
+2019-01-23 17:04:18.892 doing
+2019-01-23 17:04:24.890 doing
+2019-01-23 17:04:29.892 doing
+2019-01-23 17:04:35.891 doing
 ...
 ```
 
