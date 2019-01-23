@@ -70,7 +70,7 @@ var (
 
 func main() {
     // 关闭并发安全，当前场景没有必要
-    r := gring.New(playerCount, false)
+    r := gring.New(playerCount, true)
 
     // 设置所有玩家初始值
     for i := 1; i <= playerCount; i++ {

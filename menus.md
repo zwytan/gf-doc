@@ -89,7 +89,7 @@
         * [gpool (对象复用池)](container/gpool/index.md)
         * [garray (并发安全数组)](container/garray/index.md)
         * [gchan (优雅的chan操作)](container/gchan/index.md)
-        * [gring (并发安全的环)](container/gring/index.md)
+        * [gring (并发安全环结构)](container/gring/index.md)
     * [系统相关模块](#)
         * [gcache (高速缓存模块)](os/gcache/index.md)
         * [gcron (定时任务模块)](os/gcron/index.md)
