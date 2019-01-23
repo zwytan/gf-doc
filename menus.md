@@ -121,6 +121,7 @@
         * [gxml (XML编解码)](encoding/gxml/index.md)
         * [gyaml (YAML编解码)](encoding/gyaml/index.md)
         * [gtoml (TOML编解码)](encoding/gtoml/index.md)
+        * [gcharset (字符集转换)](encoding/gcharset/index.md)
         * [gcompress (压缩/解压)](encoding/gcompress/index.md)
     * [加密解密模块](#)
         * [gmd5 (MD5算法)](crypto/gmd5/index.md)
