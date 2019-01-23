@@ -25,7 +25,7 @@ type Queue
     func (q *Queue) Size() int
 ```
 
-## 使用示例
+## 使用示例1，基本使用
 
 ```go
 package main
@@ -33,22 +33,21 @@ package main
 import (
     "fmt"
     "time"
-    "gitee.com/johng/gf/g/os/gtime"
+    "gitee.com/johng/gf/g/os/gtimer"
     "gitee.com/johng/gf/g/container/gqueue"
 )
 
 func main() {
     q := gqueue.New()
     // 数据生产者，每隔1秒往队列写数据
-    gtime.SetInterval(time.Second, func() bool {
+    gtimer.SetInterval(time.Second, func() {
         v := gtime.Now().String()
         q.Push(v)
         fmt.Println("Push:", v)
-        return true
     })
 
     // 3秒后关闭队列
-    gtime.SetTimeout(3*time.Second, func() {
+    gtimer.SetTimeout(3*time.Second, func() {
         q.Close()
     })
 
@@ -69,6 +68,52 @@ Push: 2018-09-07 14:03:00
  Pop: 2018-09-07 14:03:00
 Push: 2018-09-07 14:03:01
  Pop: 2018-09-07 14:03:01
+```
+
+## 使用示例2，结合`select`语法使用
+
+使用队列对象公开的`Queue.C`属性，结合`select`IO复用语法实现对队列的读取。
+
+```go
+package main
+
+import (
+    "fmt"
+    "gitee.com/johng/gf/g/container/gqueue"
+    "gitee.com/johng/gf/g/os/gtime"
+    "gitee.com/johng/gf/g/os/gtimer"
+    "time"
+)
+
+func main() {
+    queue := gqueue.New()
+    // 数据生产者，每隔1秒往队列写数据
+    gtimer.SetInterval(time.Second, func() {
+        queue.Push(gtime.Now().String())
+    })
+
+    // 消费者，不停读取队列数据并输出到终端
+    for {
+        select {
+            case v := <-queue.C:
+                if v != nil {
+                    fmt.Println(v)
+                } else {
+                    return
+                }
+        }
+    }
+}
+```
+执行后，输出结果为：
+```
+2019-01-23 20:42:01
+2019-01-23 20:42:02
+2019-01-23 20:42:03
+2019-01-23 20:42:04
+2019-01-23 20:42:05
+2019-01-23 20:42:06
+...
 ```
 
 ## gqueue与glist
