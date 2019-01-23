@@ -14,7 +14,7 @@ import "gitee.com/johng/gf/g/container/glist"
 **方法列表**：[godoc.org/github.com/gogf/gf/g/container/glist](https://godoc.org/github.com/gogf/gf/g/container/glist)
 ```go
 type SafeList
-    func New(safe ...bool) *List
+    func New(unsafe ...bool) *List
     func (this *List) Back() *list.Element
     func (this *List) BackAll() []interface{}
     func (this *List) BackItem() interface{}

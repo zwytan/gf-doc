@@ -24,7 +24,7 @@ func VarToYaml(value interface{}) ([]byte, error)
 type Parser
     func Load(path string) (*Parser, error)
     func LoadContent(data []byte, dataType ...string) (*Parser, error)
-    func New(value interface{}, safe ...bool) *Parser
+    func New(value interface{}, unsafe ...bool) *Parser
     func NewUnsafe(value ...interface{}) *Parser
     func (p *Parser) Append(pattern string, value interface{}) error
     func (p *Parser) Dump() error

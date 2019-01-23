@@ -19,7 +19,7 @@ import "gitee.com/johng/gf/g/container/gmap"
 
 ```go
 type IntBoolMap
-    func NewIntBoolMap(safe ...bool) *IntBoolMap
+    func NewIntBoolMap(unsafe ...bool) *IntBoolMap
     func (this *IntBoolMap) BatchRemove(keys []int)
     func (this *IntBoolMap) BatchSet(m map[int]bool)
     func (this *IntBoolMap) Clear()
@@ -39,7 +39,7 @@ type IntBoolMap
     func (this *IntBoolMap) SetIfNotExist(key int, value bool) bool
     func (this *IntBoolMap) Size() int
 type IntIntMap
-    func NewIntIntMap(safe ...bool) *IntIntMap
+    func NewIntIntMap(unsafe ...bool) *IntIntMap
     func (this *IntIntMap) BatchRemove(keys []int)
     func (this *IntIntMap) BatchSet(m map[int]int)
     func (this *IntIntMap) Clear()
@@ -60,7 +60,7 @@ type IntIntMap
     func (this *IntIntMap) Size() int
     func (this *IntIntMap) Values() []int
 type IntInterfaceMap
-    func NewIntInterfaceMap(safe ...bool) *IntInterfaceMap
+    func NewIntInterfaceMap(unsafe ...bool) *IntInterfaceMap
     func (this *IntInterfaceMap) BatchRemove(keys []int)
     func (this *IntInterfaceMap) BatchSet(m map[int]interface{})
     func (this *IntInterfaceMap) Clear()
@@ -81,7 +81,7 @@ type IntInterfaceMap
     func (this *IntInterfaceMap) Size() int
     func (this *IntInterfaceMap) Values() []interface{}
 type IntStringMap
-    func NewIntStringMap(safe ...bool) *IntStringMap
+    func NewIntStringMap(unsafe ...bool) *IntStringMap
     func (this *IntStringMap) BatchRemove(keys []int)
     func (this *IntStringMap) BatchSet(m map[int]string)
     func (this *IntStringMap) Clear()
@@ -102,7 +102,7 @@ type IntStringMap
     func (this *IntStringMap) Size() int
     func (this *IntStringMap) Values() []string
 type InterfaceInterfaceMap
-    func NewInterfaceInterfaceMap(safe ...bool) *InterfaceInterfaceMap
+    func NewInterfaceInterfaceMap(unsafe ...bool) *InterfaceInterfaceMap
     func (this *InterfaceInterfaceMap) BatchRemove(keys []interface{})
     func (this *InterfaceInterfaceMap) BatchSet(m map[interface{}]interface{})
     func (this *InterfaceInterfaceMap) Clear()
@@ -123,9 +123,9 @@ type InterfaceInterfaceMap
     func (this *InterfaceInterfaceMap) Size() int
     func (this *InterfaceInterfaceMap) Values() []interface{}
 type Map
-    func New(safe ...bool) *Map
+    func New(unsafe ...bool) *Map
 type StringBoolMap
-    func NewStringBoolMap(safe ...bool) *StringBoolMap
+    func NewStringBoolMap(unsafe ...bool) *StringBoolMap
     func (this *StringBoolMap) BatchRemove(keys []string)
     func (this *StringBoolMap) BatchSet(m map[string]bool)
     func (this *StringBoolMap) Clear()
@@ -145,7 +145,7 @@ type StringBoolMap
     func (this *StringBoolMap) SetIfNotExist(key string, value bool) bool
     func (this *StringBoolMap) Size() int
 type StringIntMap
-    func NewStringIntMap(safe ...bool) *StringIntMap
+    func NewStringIntMap(unsafe ...bool) *StringIntMap
     func (this *StringIntMap) BatchRemove(keys []string)
     func (this *StringIntMap) BatchSet(m map[string]int)
     func (this *StringIntMap) Clear()
@@ -166,7 +166,7 @@ type StringIntMap
     func (this *StringIntMap) Size() int
     func (this *StringIntMap) Values() []int
 type StringInterfaceMap
-    func NewStringInterfaceMap(safe ...bool) *StringInterfaceMap
+    func NewStringInterfaceMap(unsafe ...bool) *StringInterfaceMap
     func (this *StringInterfaceMap) BatchRemove(keys []string)
     func (this *StringInterfaceMap) BatchSet(m map[string]interface{})
     func (this *StringInterfaceMap) Clear()
@@ -187,7 +187,7 @@ type StringInterfaceMap
     func (this *StringInterfaceMap) Size() int
     func (this *StringInterfaceMap) Values() []interface{}
 type StringStringMap
-    func NewStringStringMap(safe ...bool) *StringStringMap
+    func NewStringStringMap(unsafe ...bool) *StringStringMap
     func (this *StringStringMap) BatchRemove(keys []string)
     func (this *StringStringMap) BatchSet(m map[string]string)
     func (this *StringStringMap) Clear()

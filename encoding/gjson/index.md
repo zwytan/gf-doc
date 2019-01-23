@@ -22,7 +22,7 @@ type Json
     func DecodeToJson(b []byte) (*Json, error)
     func Load(path string) (*Json, error)
     func LoadContent(data []byte, dataType ...string) (*Json, error)
-    func New(value interface{}, safe ...bool) *Json
+    func New(value interface{}, unsafe ...bool) *Json
     func NewUnsafe(value ...interface{}) *Json
     func (j *Json) Append(pattern string, value interface{}) error
     func (j *Json) Dump() error

@@ -14,9 +14,9 @@ import "gitee.com/johng/gf/g/container/gset"
 **方法列表**：[godoc.org/github.com/gogf/gf/g/container/gset](https://godoc.org/github.com/gogf/gf/g/container/gset)
 ```go
 type Set
-    func New(safe ...bool) *Set
+    func New(unsafe ...bool) *Set
 type IntSet
-    func NewIntSet(safe ...bool) *IntSet
+    func NewIntSet(unsafe ...bool) *IntSet
     func (this *IntSet) Add(item int) *IntSet
     func (this *IntSet) BatchAdd(items []int) *IntSet
     func (this *IntSet) Clear()
@@ -29,7 +29,7 @@ type IntSet
     func (this *IntSet) Slice() []int
     func (this *IntSet) String() string
 type InterfaceSet
-    func NewInterfaceSet(safe ...bool) *InterfaceSet
+    func NewInterfaceSet(unsafe ...bool) *InterfaceSet
     func (this *InterfaceSet) Add(item interface{}) *InterfaceSet
     func (this *InterfaceSet) BatchAdd(items []interface{}) *InterfaceSet
     func (this *InterfaceSet) Clear()
@@ -42,7 +42,7 @@ type InterfaceSet
     func (this *InterfaceSet) Slice() []interface{}
     func (this *InterfaceSet) String() string
 type StringSet
-    func NewStringSet(safe ...bool) *StringSet
+    func NewStringSet(unsafe ...bool) *StringSet
     func (this *StringSet) Add(item string) *StringSet
     func (this *StringSet) BatchAdd(items []string) *StringSet
     func (this *StringSet) Clear()
