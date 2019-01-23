@@ -55,8 +55,8 @@ golang版本 >= 1.9.2
 
 捐赠时请备注您的`github`/`gitee`账号名称
 
-<a href="images/donate.png" target="_blank">
-<img src="images/donate.png" width="270"/>
+<a href="/images/donate.png" target="_blank">
+<img src="images/donate.png" width="300"/>
 </a>
 
 
