@@ -68,6 +68,76 @@ type Entry
 1. `Stop`方法用于停止定时任务(`Remove`会停止并删除), 可通过`name`参数指定需要停止的任务名称；
 1. `Close`方法用于关闭自定义的定时任务管理对象；
 
+
+
+## CRON表达格式
+
+`cron表达式`表示一组时间，使用`6`个空格分隔的字段。
+
+```
+Field name    | Allowed values  | Allowed special characters
+----------    | --------------  | --------------------------
+Seconds       | 0-59            | * / , -
+Minutes       | 0-59            | * / , -
+Hours         | 0-23            | * / , -
+Day           | 1-31            | * / , - ?
+Month         | 1-12 or JAN-DEC | * / , -
+Week          | 0-6 or SUN-SAT  | * / , - ?
+```
+
+注意：月份和星期几字段值不区分大小写。 “SUN”，“Sun”，
+和“sun”同样被接受。
+
+### 特殊字符
+
+#### 星号（`*`）
+
+星号表示cron表达式将匹配所有的值。例如，在第五个字段(`Month`)中使用星号表示每个月。
+
+#### 斜线（`/`）
+
+斜杠用于描述范围的增量。例如：第二个字段使用`3-59/15`表示每小时的第3分钟开始到第59分钟，每隔15分钟执行。
+
+#### 逗号（`,`）
+
+逗号用于分隔列表的项目。例如，第五个字段使用`MON,WED,FRI`将指每周一，周三和周五执行。
+
+#### 连字符（`-`）
+
+连字符用于定义范围。例如，第三个字段使用`9-17`表示每天上午9点至下午5点（含）。
+
+#### 问号（`?`）
+
+可以使用`问号`而不是`*`来让`Day`或`Week`字段为空。
+
+#### 预定义的时间表
+
+您可以使用几个预定义的时间来代替cron表达式。
+
+```
+Entry                  | Description                                | Equivalent To
+-----                  | -----------                                | -------------
+@yearly (or @annually) | Run once a year, midnight, Jan. 1st        | 0 0 0 1 1 *
+@monthly               | Run once a month, midnight, first of month | 0 0 0 1 * *
+@weekly                | Run once a week, midnight between Sat/Sun  | 0 0 0 * * 0
+@daily (or @midnight)  | Run once a day, midnight                   | 0 0 0 * * *
+@hourly                | Run once an hour, beginning of hour        | 0 0 * * * *
+```
+
+#### 间隔
+
+您还可以定义任务以固定的时间间隔执行，从添加时开始运行。这可以通过格式化`cron`规范来支持，如下所示：
+```
+@every <duration>
+```
+其中`duration`是`time.ParseDuration`接受的字符串
+（[http://golang.org/pkg/time/#ParseDuration](http://golang.org/pkg/time/#ParseDuration)）。
+
+例如，`@every 1h30m10s`将表示添加任务之后每隔`1小时30分10秒`执行。
+
+> 注意：间隔不会考虑任务的执行时间。例如，如果一项工作需要3分钟才能执行完成，并且计划每隔5分钟运行一次，那么每次任务之间只有2分钟的空闲时间。
+
+
 ## 使用示例1, 基本使用 
 
 ```go
@@ -167,71 +237,3 @@ func main() {
 2019-01-16 22:49:33.699 doing
 ...
 ```
-
-
-## CRON表达格式
-
-`cron表达式`表示一组时间，使用`6`个空格分隔的字段。
-
-```
-Field name    | Allowed values  | Allowed special characters
-----------    | --------------  | --------------------------
-Seconds       | 0-59            | * / , -
-Minutes       | 0-59            | * / , -
-Hours         | 0-23            | * / , -
-Day           | 1-31            | * / , - ?
-Month         | 1-12 or JAN-DEC | * / , -
-Week          | 0-6 or SUN-SAT  | * / , - ?
-```
-
-注意：月份和星期几字段值不区分大小写。 “SUN”，“Sun”，
-和“sun”同样被接受。
-
-### 特殊字符
-
-#### 星号（`*`）
-
-星号表示cron表达式将匹配所有的值。例如，在第五个字段(`Month`)中使用星号表示每个月。
-
-#### 斜线（`/`）
-
-斜杠用于描述范围的增量。例如：第二个字段使用`3-59/15`表示每小时的第3分钟开始到第59分钟，每隔15分钟执行。
-
-#### 逗号（`,`）
-
-逗号用于分隔列表的项目。例如，第五个字段使用`MON,WED,FRI`将指每周一，周三和周五执行。
-
-#### 连字符（`-`）
-
-连字符用于定义范围。例如，第三个字段使用`9-17`表示每天上午9点至下午5点（含）。
-
-#### 问号（`?`）
-
-可以使用`问号`而不是`*`来让`Day`或`Week`字段为空。
-
-#### 预定义的时间表
-
-您可以使用几个预定义的时间来代替cron表达式。
-
-```
-Entry                  | Description                                | Equivalent To
------                  | -----------                                | -------------
-@yearly (or @annually) | Run once a year, midnight, Jan. 1st        | 0 0 0 1 1 *
-@monthly               | Run once a month, midnight, first of month | 0 0 0 1 * *
-@weekly                | Run once a week, midnight between Sat/Sun  | 0 0 0 * * 0
-@daily (or @midnight)  | Run once a day, midnight                   | 0 0 0 * * *
-@hourly                | Run once an hour, beginning of hour        | 0 0 * * * *
-```
-
-#### 间隔
-
-您还可以定义任务以固定的时间间隔执行，从添加时开始运行。这可以通过格式化`cron`规范来支持，如下所示：
-```
-@every <duration>
-```
-其中`duration`是`time.ParseDuration`接受的字符串
-（[http://golang.org/pkg/time/#ParseDuration](http://golang.org/pkg/time/#ParseDuration)）。
-
-例如，`@every 1h30m10s`将表示添加任务之后每隔`1小时30分10秒`执行。
-
-> 注意：间隔不会考虑任务的执行时间。例如，如果一项工作需要3分钟才能执行完成，并且计划每隔5分钟运行一次，那么每次任务之间只有2分钟的空闲时间。
