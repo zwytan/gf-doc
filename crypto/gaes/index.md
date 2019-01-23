@@ -6,7 +6,7 @@ AES算法。
 import "gitee.com/johng/gf/g/crypto/gaes"
 ```
 
-方法列表：
+接口文档：
 
 ```go
 func Decrypt(cipherText []byte, key []byte, iv ...[]byte) ([]byte, error)

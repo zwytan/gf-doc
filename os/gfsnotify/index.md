@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/os/gfsnotify"
 ```
 
-# 方法列表
+# 接口文档
 [godoc.org/github.com/gogf/gf/g/os/gfsnotify](https://godoc.org/github.com/gogf/gf/g/os/gfsnotify)
 ```go
 func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error)

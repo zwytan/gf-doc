@@ -2,7 +2,7 @@
 [TOC]
 
 
-# 方法列表
+# 接口文档
 
 与`Session`操作相关的方法：
 [godoc.org/github.com/gogf/gf/g/net/ghttp#Session](https://godoc.org/github.com/gogf/gf/g/net/ghttp#Session)

@@ -13,7 +13,7 @@ gdes包中补位方式支持：PKCS5PADDING、NOPADDING两种方式，当使用N
 **关于gdes包中的密钥的说明，当使用三倍长的DES算法时，密钥为16字节时，key3等于key1**
 
 
-方法列表：
+接口文档：
 ```go
 
 //单倍长ECB模式的DES加密方法

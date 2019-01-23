@@ -11,7 +11,7 @@
 import "gitee.com/johng/gf/g/container/glist"
 ```
 
-**方法列表**：[godoc.org/github.com/gogf/gf/g/container/glist](https://godoc.org/github.com/gogf/gf/g/container/glist)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/container/glist](https://godoc.org/github.com/gogf/gf/g/container/glist)
 ```go
 type SafeList
     func New(unsafe ...bool) *List

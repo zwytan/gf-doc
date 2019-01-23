@@ -17,7 +17,7 @@ import "gitee.com/johng/gf/g/os/gmlock"
 1. 需要`动态创建互斥锁`，或者需要`维护大量动态锁`的场景；
 
 
-# 方法列表
+# 接口文档
 [godoc.org/github.com/gogf/gf/g/os/gmlock](https://godoc.org/github.com/gogf/gf/g/os/gmlock)
 ```go
 func Lock(key string, expire ...int)

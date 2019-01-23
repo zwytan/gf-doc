@@ -5,7 +5,7 @@ UDPServer通过```gudp.Server```实现。
 import "gitee.com/johng/gf/g/net/gudp"
 ```
 
-方法列表：
+接口文档：
 [godoc.org/github.com/gogf/gf/g/net/gudp#Server](https://godoc.org/github.com/gogf/gf/g/net/gudp)
 ```go
 type Server

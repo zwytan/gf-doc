@@ -2,7 +2,7 @@
 
 # gtype
 
-并发安全的常用基本类型。
+并发安全基本类型。
 
 **使用场景**：
 
@@ -18,22 +18,10 @@
 import "gitee.com/johng/gf/g/container/gtype"
 ```
 
-**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gtype](https://godoc.org/github.com/gogf/gf/g/container/gtype)
-
-由于`gtype`模块下的基本类型比较多，这里便不一一列举。任何并发安全的基本类型，可以使用 `gtype.New*` 方法来创建。
+**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gtype](https://godoc.org/github.com/gogf/gf/g/container/gtype)
 
 
 ## 性能测试
-
-### 测试环境
-
-```shell
-CPU: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
-MEM: 8GB
-SYS: Ubuntu 16.04 amd64
-```
-
-## 测试结果
 
 基准测试结果如下:
 ```shell

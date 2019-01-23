@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/encoding/gbinary"
 ```
 
-用于二进制数据结构转换处理的方法列表如下：
+用于二进制数据结构转换处理的接口文档如下：
 ```go
 func Encode(vs ...interface{}) ([]byte, error)
 func EncodeInt(i int) []byte
@@ -43,7 +43,7 @@ func DecodeToFloat64(b []byte) float64
 func DecodeToString(b []byte) string
 ```
 
-支持按位处理的方法列表如下：
+支持按位处理的接口文档如下：
 ```go
 func EncodeBits(bits []Bit, i int, l int) []Bit
 func EncodeBitsWithUint(bits []Bit, ui uint, l int) []Bit

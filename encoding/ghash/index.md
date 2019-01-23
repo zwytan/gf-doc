@@ -6,7 +6,7 @@
 ```go
 import "gitee.com/johng/gf/g/encoding/ghash"
 ```
-方法列表：
+接口文档：
 ```go
 func APHash(str []byte) uint32
 func APHash64(str []byte) uint64

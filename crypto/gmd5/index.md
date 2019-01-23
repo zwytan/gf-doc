@@ -6,7 +6,7 @@ MD5算法。
 import "gitee.com/johng/gf/g/crypto/gmd5"
 ```
 
-方法列表：
+接口文档：
 
 ```go
 func Encrypt(v interface{}) string

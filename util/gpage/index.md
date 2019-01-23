@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/util/gpage"
 ```
 
-方法列表：[godoc.org/github.com/gogf/gf/g/util/gpage](https://godoc.org/github.com/gogf/gf/g/util/gpage)
+接口文档：[godoc.org/github.com/gogf/gf/g/util/gpage](https://godoc.org/github.com/gogf/gf/g/util/gpage)
 ```go
 type Page
     func New(TotalSize, perPage int, CurrentPage interface{}, url string, router ...*ghttp.Router) *Page

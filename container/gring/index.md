@@ -11,7 +11,7 @@
 import "gitee.com/johng/gf/g/container/gring"
 ```
 
-**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gring](https://godoc.org/github.com/gogf/gf/g/container/gring)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gring](https://godoc.org/github.com/gogf/gf/g/container/gring)
 
 ```go
 type Ring

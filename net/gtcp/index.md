@@ -5,7 +5,7 @@ TCPServer通过```gtcp.Server```实现。
 import "gitee.com/johng/gf/g/net/gtcp"
 ```
 
-方法列表：
+接口文档：
 [godoc.org/github.com/gogf/gf/g/net/gtcp#Server](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type Server

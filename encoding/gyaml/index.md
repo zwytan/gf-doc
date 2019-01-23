@@ -7,7 +7,7 @@ YAML数据格式编码解析。
 import "gitee.com/johng/gf/g/encoding/gyaml"
 ```
 
-方法列表：
+接口文档：
 ```go
 func Decode(v []byte) (interface{}, error)
 func DecodeTo(v []byte, result interface{}) error

@@ -64,7 +64,7 @@ func main() {
 
 
 
-## 服务注册方法列表
+## 服务注册接口文档
 
 服务的注册仅有以下7个方法：
 
@@ -97,7 +97,7 @@ func (s *Server) Domain(domains string) *Domain
 ```
 其中```domains```参数支持多个域名绑定，使用```,```号分隔。
 
-服务注册支持绑定域名，以下是对应的方法列表：
+服务注册支持绑定域名，以下是对应的接口文档：
 ```go
 func (d *Domain) BindHandler(pattern string, handler HandlerFunc) error
 

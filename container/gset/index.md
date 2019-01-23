@@ -1,6 +1,6 @@
 # gset
 
-并发安全集合。集合，即不可重复的一组元素，元素可以为任意类型，常见的如`int`,`string`等。
+并发安全集合。集合，即不可重复的一组元素，元素项可以为任意类型。
 
 **使用场景**：
 
@@ -11,7 +11,7 @@
 import "gitee.com/johng/gf/g/container/gset"
 ```
 
-**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gset](https://godoc.org/github.com/gogf/gf/g/container/gset)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gset](https://godoc.org/github.com/gogf/gf/g/container/gset)
 ```go
 type Set
     func New(unsafe ...bool) *Set

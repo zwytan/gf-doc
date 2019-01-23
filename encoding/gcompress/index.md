@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/encoding/gcompress"
 ```
 
-方法列表：
+接口文档：
 ```go
 func Gzip(data []byte) []byte
 func UnGzip(data []byte) []byte

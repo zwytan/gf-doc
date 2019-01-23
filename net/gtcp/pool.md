@@ -5,7 +5,7 @@
 import "gitee.com/johng/gf/g/net/gtcp"
 ```
 
-方法列表：
+接口文档：
 [godoc.org/github.com/gogf/gf/g/net/gtcp#PoolConn](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type PoolConn

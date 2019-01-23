@@ -9,7 +9,7 @@ import "gitee.com/johng/gf/g/encoding/gparser"
 ```
 
 
-## 方法列表
+## 接口文档
 
 [godoc.org/github.com/gogf/gf/g/encoding/gparser](https://godoc.org/github.com/gogf/gf/g/encoding/gparser)
 

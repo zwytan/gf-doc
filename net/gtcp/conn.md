@@ -8,7 +8,7 @@ gtcp包提供了非常简便易用的```gtcp.Conn```链接操作对象。
 import "gitee.com/johng/gf/g/net/gtcp"
 ```
 
-方法列表：
+接口文档：
 [godoc.org/github.com/gogf/gf/g/net/gtcp#Conn](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type Conn

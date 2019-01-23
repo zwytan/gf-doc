@@ -7,7 +7,7 @@ Redis客户端由```gredis```模块实现，底层采用了**链接池设计**�
 import "gitee.com/johng/gf/g/database/gredis"
 ```
 
-方法列表：[godoc.org/github.com/gogf/gf/g/database/gredis](https://godoc.org/github.com/gogf/gf/g/database/gredis)
+接口文档：[godoc.org/github.com/gogf/gf/g/database/gredis](https://godoc.org/github.com/gogf/gf/g/database/gredis)
 ```go
 func New(address string, db ...interface{}) *Redis
 func (r *Redis) Close() error

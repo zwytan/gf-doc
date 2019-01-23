@@ -8,7 +8,7 @@
 import "gitee.com/johng/gf/g/os/gcfg"
 ```
 
-# 方法列表 
+# 接口文档 
 
 [godoc.org/github.com/gogf/gf/g/os/gcfg](https://godoc.org/github.com/gogf/gf/g/os/gcfg)
 

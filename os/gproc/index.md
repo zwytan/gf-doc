@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/os/gproc"
 ```
 
-方法列表：[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
+接口文档：[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
 
 ```go
 func IsChild() bool

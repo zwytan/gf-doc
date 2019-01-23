@@ -6,7 +6,7 @@ CRC32算法。
 import "gitee.com/johng/gf/g/crypto/gcrc32"
 ```
 
-方法列表：
+接口文档：
 
 ```go
 func EncryptBytes(v []byte) uint32

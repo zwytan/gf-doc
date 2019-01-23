@@ -7,7 +7,7 @@
 import "gitee.com/johng/gf/g/os/gcron"
 ```
 
-方法列表：
+接口文档：
 [godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
 
 ```go

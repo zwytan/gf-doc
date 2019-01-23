@@ -2,18 +2,20 @@
 
 # gqueue
 
-**动态大小**的并发安全队列。同时，`gqueue`也支持限制队列大小，此时功能和效率和标准库的`channel`无异。
+**动态大小**的并发安全队列。同时，`gqueue`也支持限制队列大小，固定队列大小时效率和标准库的`channel`无异。
 
 **使用场景**：
 
 该队列是并发安全的，常用于多`goroutine`数据通信且支持动态队列大小的场景。
+
+`gqueue`安全队列与`glist`安全链表在使用上区别比较大：`gqueue`的读写操作是阻塞式的(当队列缓冲区满时，写操作会像`channel`那样阻塞等待)，`glist`没有阻塞效果；`gqueue`可以使用在`select`语法中，`glist`不能。
 
 **使用方式**：
 ```go
 import "gitee.com/johng/gf/g/container/gqueue"
 ```
 
-**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
 ```go
 type Queue
     func New(limit ...int) *Queue

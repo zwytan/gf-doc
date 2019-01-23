@@ -8,7 +8,7 @@ XML数据格式编码解析。
 import "gitee.com/johng/gf/g/encoding/gxml"
 ```
 
-方法列表：
+接口文档：
 ```go
 func Decode(xmlbyte []byte) (map[string]interface{}, error)
 func Encode(v map[string]interface{}, rootTag ...string) ([]byte, error)

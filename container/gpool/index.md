@@ -2,7 +2,7 @@
 
 # gpool
 
-对象复用池。将对象进行缓存复用，支持`过期时间`、`创建方法`及`销毁方法`定义。
+对象复用池（并发安全）。将对象进行缓存复用，支持`过期时间`、`创建方法`及`销毁方法`定义。
 
 
 **使用场景**：
@@ -14,11 +14,13 @@
 import "gitee.com/johng/gf/g/container/gpool"
 ```
 
-**方法列表**：[godoc.org/github.com/gogf/gf/g/container/gpool](https://godoc.org/github.com/gogf/gf/g/container/gpool)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gpool](https://godoc.org/github.com/gogf/gf/g/container/gpool)
 
 ```go
+type NewFunc    func() (interface{}, error)
+type ExpireFunc func(interface{})
 type Pool
-    func New(expire int, newFunc ...func() (interface{}, error)) *Pool
+    func New(expire int, newFunc NewFunc, expireFunc...ExpireFunc) *Pool
     func (p *Pool) Close()
     func (p *Pool) Get() (interface{}, error)
     func (p *Pool) Put(value interface{})
@@ -27,8 +29,8 @@ type Pool
 ```
 需要注意两点：
 1. `New`方法的过期时间单位为`毫秒`；
-1. 对象`创建方法`(`newFunc ...func() (interface{}, error)`)返回值包含一个`error`返回，当对象创建失败时可由该返回值反馈原因；
-
+1. 对象`创建方法`(`newFunc NewFunc`)返回值包含一个`error`返回，当对象创建失败时可由该返回值反馈原因；
+1. 对象`销毁方法`(`expireFunc...ExpireFunc`)为可选参数，用以当对象超时时，可以使用自定义的方法销毁对象；
 
 ## gpool与sync.Pool
 

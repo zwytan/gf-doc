@@ -10,7 +10,7 @@
 import "gitee.com/johng/gf/g/os/gcache"
 ```
 
-方法列表： [godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
+接口文档： [godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
 ```go
 func Set(key interface{}, value interface{}, expire int)
 func SetIfNotExist(key interface{}, value interface{}, expire int) bool

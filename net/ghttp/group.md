@@ -5,7 +5,7 @@
 
 `gf`框架当然也支持分组路由的注册方式，可以给分组路由指定一个`prefix`前缀（可选），在该分组下的所有路由注册都将注册在该路由前缀下。
 
-方法列表：
+接口文档：
 
 ```go
 func (s *Server) Group(prefix...string) *RouterGroup

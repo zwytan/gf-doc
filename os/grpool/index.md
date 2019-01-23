@@ -14,7 +14,7 @@ import "gitee.com/johng/gf/g/os/grpool"
 
 管理大量异步任务的场景、需要异步协程复用的场景、需要降低内存使用率的场景。
 
-## 方法列表
+## 接口文档
 
 [godoc.org/github.com/gogf/gf/g/os/grpool](https://godoc.org/github.com/gogf/gf/g/os/grpool)
 

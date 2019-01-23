@@ -7,7 +7,7 @@ BASE64编码解析。
 import "gitee.com/johng/gf/g/encoding/gbase64"
 ```
 
-方法列表：
+接口文档：
 ```go
 func Decode(str string) (string, error)
 func Encode(str string) string
