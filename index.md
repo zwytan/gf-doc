@@ -51,6 +51,16 @@ golang版本 >= 1.9.2
 
 `GF` 使用非常友好的 `MIT` 开源协议进行发布，永久`100%`开源免费。
 
+# 捐赠
+
+捐赠时请备注您的`github`/`gitee`账号名称
+
+<a href="images/donate.png" target="_blank">
+<img src="images/donate.png" width="270"/>
+</a>
+
+
+
 # 贡献者(TOP 10)
 
 <a href="https://gitee.com/johng" target="_blank" title="John"><img src="https://gitee.com/uploads/27/1309327_johng.png?1530630243" width="60" align="left"></a>
