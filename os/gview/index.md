@@ -8,6 +8,7 @@
 通用视图管理即使用原生的模板引擎```gview```模块来实现模板管理，包括模板读取展示，模板变量渲染等等，可以通过对象管理器```g.View()```来获取默认的单例`gview`对象。
 
 方法列表：
+[godoc.org/github.com/gogf/gf/g/os/gview](https://godoc.org/github.com/gogf/gf/g/os/gview)
 ```go
 func HTML(content string) template.HTML
 func ParseContent(content string, params map[string]interface{}) ([]byte, error)
@@ -251,8 +252,8 @@ func main() {
 ## 修改模板目录
 模板引擎作为`gf`框架的核心组件，可以通过以下方式修改模板引擎的默认模板文件查找目录：
 1. (推荐)单例模式获取全局View对象，通过```SetPath```方法手动修改；
-2. 修改命令行启动参数 - ```gf.viewpath```；
-3. 修改指定的环境变量 - ```GF_VIEWPATH```；
+2. 修改命令行启动参数 - ```gf.gview.path```；
+3. 修改指定的环境变量 - ```GF_GVIEW_PATH```；
 
 例如，我们的执行程序文件为`main`，那么可以通过以下方式修改模板引擎的模板目录(Linux下)：
 
@@ -262,16 +263,16 @@ func main() {
     ```
 3. 通过命令行参数
     ```shell
-    ./main --gf.viewpath=/opt/template/
+    ./main --gf.gview.path=/opt/template/
     ```
 1. 通过环境变量
     * 启动时修改环境变量：
         ```shell
-        GF_VIEWPATH=/opt/config/; ./main
+        GF_GVIEW_PATH=/opt/config/; ./main
         ```
     * 使用`genv`模块来修改环境变量：
         ```go
-        genv.Set("GF_VIEWPATH", "/opt/template")
+        genv.Set("GF_GVIEW_PATH", "/opt/template")
         ```
 
 ## 添加搜索目录

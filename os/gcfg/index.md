@@ -123,8 +123,8 @@ func main() {
 ## 修改配置目录
 配置管理器作为gf框架的核心组件，可以通过以下方式修改配置管理器的默认配置文件查找目录：
 1. (推荐)单例模式获取全局```g.Config()```对象，通过`SetPath`方法手动修改；
-2. 修改命令行启动参数 - ```gf.cfgpath```；
-3. 修改指定的环境变量 - ```GF_CFGPATH```；
+2. 修改命令行启动参数 - ```gf.gcfg.path```；
+3. 修改指定的环境变量 - ```GF_GCFG_PATH```；
 
 例如，我们的执行程序文件为```main```，那么可以通过以下方式修改配置管理器的配置文件目录(Linux下)：
 
@@ -134,16 +134,16 @@ func main() {
     ```
 3. **通过命令行参数**
     ```shell
-    ./main --gf.cfgpath=/opt/config/
+    ./main --gf.gcfg.path=/opt/config/
     ```
 1. **通过环境变量**
     * 启动时修改环境变量：
         ```shell
-        GF_CFGPATH=/opt/config/; ./main
+        GF_GCFG_PATH=/opt/config/; ./main
         ```
     * 使用`genv`模块来修改环境变量：
         ```go
-        genv.Set("GF_CFGPATH", "/opt/config")
+        genv.Set("GF_GCFG_PATH", "/opt/config")
         ```
 
 ## 添加搜索目录

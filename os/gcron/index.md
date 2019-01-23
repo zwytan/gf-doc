@@ -7,17 +7,18 @@
 import "gitee.com/johng/gf/g/os/gcron"
 ```
 
-方法列表：[godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
+方法列表：
+[godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
 
 ```go
 func Add(pattern string, job func(), name ...string) (*Entry, error)
 func AddOnce(pattern string, job func(), name ...string) (*Entry, error)
 func AddSingleton(pattern string, job func(), name ...string) (*Entry, error)
 func AddTimes(pattern string, times int, job func(), name ...string) (*Entry, error)
-func DelayAdd(delay int, pattern string, job func(), name ...string)
-func DelayAddOnce(delay int, pattern string, job func(), name ...string)
-func DelayAddSingleton(delay int, pattern string, job func(), name ...string)
-func DelayAddTimes(delay int, pattern string, times int, job func(), name ...string)
+func DelayAdd(delay time.Duration, pattern string, job func(), name ...string)
+func DelayAddOnce(delay time.Duration, pattern string, job func(), name ...string)
+func DelayAddSingleton(delay time.Duration, pattern string, job func(), name ...string)
+func DelayAddTimes(delay time.Duration, pattern string, times int, job func(), name ...string)
 func Remove(name string)
 func Size() int
 func Start(name string)
@@ -31,10 +32,10 @@ type Cron
 	func (c *Cron) AddSingleton(pattern string, job func(), name ...string) (*Entry, error)
 	func (c *Cron) AddTimes(pattern string, times int, job func(), name ...string) (*Entry, error)
 	func (c *Cron) Close()
-	func (c *Cron) DelayAdd(delay int, pattern string, job func(), name ...string)
-	func (c *Cron) DelayAddOnce(delay int, pattern string, job func(), name ...string)
-	func (c *Cron) DelayAddSingleton(delay int, pattern string, job func(), name ...string)
-	func (c *Cron) DelayAddTimes(delay int, pattern string, times int, job func(), name ...string)
+	func (c *Cron) DelayAdd(delay time.Duration, pattern string, job func(), name ...string)
+	func (c *Cron) DelayAddOnce(delay time.Duration, pattern string, job func(), name ...string)
+	func (c *Cron) DelayAddSingleton(delay time.Duration, pattern string, job func(), name ...string)
+	func (c *Cron) DelayAddTimes(delay time.Duration, pattern string, times int, job func(), name ...string)
 	func (c *Cron) Entries() []*Entry
 	func (c *Cron) Remove(name string)
 	func (c *Cron) Search(name string) *Entry

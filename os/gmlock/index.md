@@ -18,21 +18,21 @@ import "gitee.com/johng/gf/g/os/gmlock"
 
 
 # 方法列表
-
+[godoc.org/github.com/gogf/gf/g/os/gmlock](https://godoc.org/github.com/gogf/gf/g/os/gmlock)
 ```go
 func Lock(key string, expire ...int)
-func RLock(key string, expire ...int)
+func RLock(key string)
 func RUnlock(key string)
 func TryLock(key string, expire ...int) bool
-func TryRLock(key string, expire ...int) bool
+func TryRLock(key string) bool
 func Unlock(key string)
 type Locker
     func New() *Locker
     func (l *Locker) Lock(key string, expire ...int)
-    func (l *Locker) RLock(key string, expire ...int)
+    func (l *Locker) RLock(key string)
     func (l *Locker) RUnlock(key string)
     func (l *Locker) TryLock(key string, expire ...int) bool
-    func (l *Locker) TryRLock(key string, expire ...int) bool
+    func (l *Locker) TryRLock(key string) bool
     func (l *Locker) Unlock(key string)
 type Mutex
     func NewMutex() *Mutex
