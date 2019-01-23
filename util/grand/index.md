@@ -9,11 +9,16 @@ import "gitee.com/johng/gf/g/util/grand"
 
 接口文档： [godoc.org/github.com/gogf/gf/g/util/grand](https://godoc.org/github.com/gogf/gf/g/util/grand)
 ```go
+func Meet(num, total int) bool
+func MeetProb(prob float32) bool
+func Digits(n int) string
+func Letters(n int) string
+func N(min, max int) int
 func Rand(min, max int) int
 func RandDigits(n int) string
 func RandLetters(n int) string
 func RandStr(n int) string
-func Seed(seed ...int64)
+func Str(n int) string
 ```
 
 基准测试：
