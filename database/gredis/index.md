@@ -1,6 +1,6 @@
 # gredis
 
-Redis客户端由```gredis```模块实现，底层采用了**链接池设计**，开发者无法手动`Close`链接对象。
+Redis客户端由```gredis```模块实现，底层采用了**链接池设计**，开发者无需手动`Close`链接对象。
 
 使用方式：
 ```go
@@ -24,7 +24,7 @@ func (r *Redis) Stats() *PoolStats
 ```
 `gredis`使用了连接池来进行`Redis`对象管理，通过```Set*```方法可以对连接池的属性进行管理，通过```Stats```方法可以获取连接池的统计信息。我们最常用的方法是```Do```和```Send```方法，分别是同步和异步指令，通过向Redis Server发送对应的Redis API命令，来使用Redis Server的服务。
 
-需要注意的是，`Close`方法是关闭链接池，而不是关闭当前的redis操作链接，只有在开发者期望自行维护`gredis`对象的时候才可能涉及到`Close`方法的使用。绝大部分情况下推荐使用`g.Redis`单例方式来操作redis。
+需要注意的是，`Close`方法是关闭**链接池**，而不是关闭当前的redis操作链接，只有在开发者期望自行维护`gredis`对象的时候才可能涉及到`Close`方法的使用。绝大部分情况下推荐使用`g.Redis`单例方式来操作redis。
 
 - Redis中文手册请参考：http://redisdoc.com/ 
 - Redis官方命令请参考：https://redis.io/commands
