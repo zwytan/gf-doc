@@ -49,7 +49,7 @@ import (
 
 func main () {
     // 创建一个对象池，过期时间为1000毫秒
-    p := gpool.New(1000)
+    p := gpool.New(1000, nil)
 
     // 从池中取一个对象，返回nil及错误信息
     fmt.Println(p.Get())
@@ -60,8 +60,8 @@ func main () {
     // 重新从池中取一个对象，返回1
     fmt.Println(p.Get())
 
-    // 等待1秒后重试，发现对象已过期，返回nil及错误信息
-    time.Sleep(time.Second)
+    // 等待2秒后重试，发现对象已过期，返回nil及错误信息
+    time.Sleep(2*time.Second)
     fmt.Println(p.Get())
 }
 ```
