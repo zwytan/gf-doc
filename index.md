@@ -16,12 +16,12 @@
 
 # 安装
 ```html
-go get -u gitee.com/johng/gf
+go get -u github.com/gogf/gf
 ```
 或者
 `go.mod`
 ```
-require gitee.com/johng/gf latest
+require github.com/gogf/gf latest
 ```
 # 限制
 ```html
@@ -43,7 +43,7 @@ golang版本 >= 1.9.2
 * 更多请查阅文档及源码；
 
 开源项目地址：
-- **Gitee**( https://gitee.com/johng/gf )
+- **Gitee**( https://github.com/gogf/gf )
 - **Github**( https://github.com/gogf/gf )
 
 技术交流Q群：`116707870`。

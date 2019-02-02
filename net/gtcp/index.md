@@ -2,7 +2,7 @@ TCPServer通过```gtcp.Server```实现。
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/net/gtcp"
+import "github.com/gogf/gf/g/net/gtcp"
 ```
 
 接口文档：
@@ -24,7 +24,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/net/gtcp"
+    "github.com/gogf/gf/g/net/gtcp"
 )
 
 func main() {

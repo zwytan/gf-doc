@@ -11,7 +11,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gpool"
+import "github.com/gogf/gf/g/container/gpool"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gpool](https://godoc.org/github.com/gogf/gf/g/container/gpool)
@@ -42,7 +42,7 @@ type Pool
 package main
 
 import (
-    "gitee.com/johng/gf/g/container/gpool"
+    "github.com/gogf/gf/g/container/gpool"
     "fmt"
     "time"
 )
@@ -75,7 +75,7 @@ func main () {
 
 一般的文件操作过程是这样的：当文件被打开之后，会创建一个文件指针，在文件操作结束后，文件指针就会被立即关闭掉。这样的话，在每一次操作或者请求中，对文件的操作都会反复创建/关闭指针，这样产生的问题：一个是操作效率比较低，另一个是系统的最大文件打开数是有限的，在文件操作频繁/访问量大的情况下，会影响整体系统的执行效率（文件锁，资源竞争），甚至引发一些严重的问题。文件指针池对于同一个文件在异步高并发下的读取性能提升非常大（因为读取不需要锁，每一个协程一个文件指针），但是对于写入性能的提升不大，因为文件写入往往都必须加锁以保证数据写入的顺序性。
 
-以下源码可能会有更新，请于代码库查看最新版本: [gitee.com/johng/gf/tree/master/g/os/gfpool](https://gitee.com/johng/gf/tree/master/g/os/gfpool)
+以下源码可能会有更新，请于代码库查看最新版本: [github.com/gogf/gf/tree/master/g/os/gfpool](https://github.com/gogf/gf/tree/master/g/os/gfpool)
 ```go
 // 文件指针池
 type Pool struct {

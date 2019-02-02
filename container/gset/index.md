@@ -8,7 +8,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gset"
+import "github.com/gogf/gf/g/container/gset"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gset](https://godoc.org/github.com/gogf/gf/g/container/gset)
@@ -61,7 +61,7 @@ type StringSet
 package main
 
 import (
-    "gitee.com/johng/gf/g/container/gset"
+    "github.com/gogf/gf/g/container/gset"
     "fmt"
 )
 

@@ -8,8 +8,7 @@
   * [https://github.com/gogf/gf](https://github.com/gogf/gf)
 
 ## GoFrame开发文档
-  * [gfer.me](https://gfer.me)
+  * [https://goframe.org](https://goframe.org)
 
 ## 文档镜像仓库地址
-  * [https://gitee.com/johng/gf-doc](https://gitee.com/johng/gf-doc)
   * [https://github.com/gogf/gf-doc](https://github.com/gogf/gf-doc)

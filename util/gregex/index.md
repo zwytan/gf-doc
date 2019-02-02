@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/util/gregex"
+import "github.com/gogf/gf/g/util/gregex"
 ```
 
 接口文档： [godoc.org/github.com/gogf/gf/g/util/gregex](https://godoc.org/github.com/gogf/gf/g/util/gregex)
@@ -28,7 +28,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/util/gregex"
+    "github.com/gogf/gf/g/util/gregex"
 )
 
 func main() {

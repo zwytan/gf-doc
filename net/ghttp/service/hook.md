@@ -94,9 +94,9 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -125,8 +125,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 // 优先调用的HOOK
@@ -180,8 +180,8 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -222,9 +222,9 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/os/glog"
 )
 
 func main() {
@@ -268,9 +268,9 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 type Order struct {
@@ -302,9 +302,9 @@ $.get("http://localhost:8199/api.v1/order", function(result){
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 type Order struct {

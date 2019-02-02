@@ -12,8 +12,8 @@
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -41,7 +41,7 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g"
 )
 
 func main() {
@@ -67,8 +67,8 @@ Web Server默认情况下是没有任何主目录的设置，只有设置了主�
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -96,7 +96,7 @@ http://127.0.0.1:8300/
 package main
 
 import (
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g"
 )
 
 func main() {
@@ -129,8 +129,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func Hello1(r *ghttp.Request) {
@@ -166,8 +166,8 @@ s.Domain("localhost1,localhost2,localhost3").BindHandler("/", Hello2)
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
 )
 
 func main() {

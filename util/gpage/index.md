@@ -5,7 +5,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/util/gpage"
+import "github.com/gogf/gf/g/util/gpage"
 ```
 
 接口文档：[godoc.org/github.com/gogf/gf/g/util/gpage](https://godoc.org/github.com/gogf/gf/g/util/gpage)

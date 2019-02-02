@@ -8,7 +8,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g"
+import "github.com/gogf/gf/g"
 ```
 
 ## 数据类型

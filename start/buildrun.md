@@ -17,9 +17,9 @@ import _ "PATH"
 package main
 
 import (
-	_ "gitee.com/johng/gf-demos/boot"
-	_ "gitee.com/johng/gf-demos/router"
-	"gitee.com/johng/gf/g"
+	_ "github.com/gogf/gf-demos/boot"
+	_ "github.com/gogf/gf-demos/router"
+	"github.com/gogf/gf/g"
 )
 
 func main() {
@@ -37,17 +37,17 @@ $ ./main
 ```
   SERVER  | ADDRESS | DOMAIN  | METHOD | P |        ROUTE        |                                   HANDLER                                    | HOOK  
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
-  default | :8199   | default | ALL    | 2 | /user/checknickname | gitee.com/johng/gf-demos/app/controller/user.(*ctl_Controller).CheckNickName |       
+  default | :8199   | default | ALL    | 2 | /user/checknickname | github.com/gogf/gf-demos/app/controller/user.(*ctl_Controller).CheckNickName |       
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
-  default | :8199   | default | ALL    | 2 | /user/checkpassport | gitee.com/johng/gf-demos/app/controller/user.(*ctl_Controller).CheckPassport |       
+  default | :8199   | default | ALL    | 2 | /user/checkpassport | github.com/gogf/gf-demos/app/controller/user.(*ctl_Controller).CheckPassport |       
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
-  default | :8199   | default | ALL    | 2 | /user/issignedin    | gitee.com/johng/gf-demos/app/controller/user.(*ctl_Controller).IsSignedIn    |       
+  default | :8199   | default | ALL    | 2 | /user/issignedin    | github.com/gogf/gf-demos/app/controller/user.(*ctl_Controller).IsSignedIn    |       
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
-  default | :8199   | default | ALL    | 2 | /user/signin        | gitee.com/johng/gf-demos/app/controller/user.(*ctl_Controller).SignIn        |       
+  default | :8199   | default | ALL    | 2 | /user/signin        | github.com/gogf/gf-demos/app/controller/user.(*ctl_Controller).SignIn        |       
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
-  default | :8199   | default | ALL    | 2 | /user/signout       | gitee.com/johng/gf-demos/app/controller/user.(*ctl_Controller).SignOut       |       
+  default | :8199   | default | ALL    | 2 | /user/signout       | github.com/gogf/gf-demos/app/controller/user.(*ctl_Controller).SignOut       |       
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
-  default | :8199   | default | ALL    | 2 | /user/signup        | gitee.com/johng/gf-demos/app/controller/user.(*ctl_Controller).SignUp        |       
+  default | :8199   | default | ALL    | 2 | /user/signup        | github.com/gogf/gf-demos/app/controller/user.(*ctl_Controller).SignUp        |       
 |---------|---------|---------|--------|---|---------------------|------------------------------------------------------------------------------|------|
 ```
 
@@ -76,7 +76,7 @@ $ curl -d 'passport=test001&password=123456' http://127.0.0.1:8199/user/signin
 ```
 
 # 源代码仓库
-该示例项目的源代码仓库位于: [https://gitee.com/johng/gf-demos](https://gitee.com/johng/gf-demos)，在`/docfile/postman`目录下有Postman测试的配置，方便使用Postman进行测试。
+该示例项目的源代码仓库位于: [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)，在`/docfile/postman`目录下有Postman测试的配置，方便使用Postman进行测试。
 
 
 

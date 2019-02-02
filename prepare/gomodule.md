@@ -41,7 +41,7 @@ module my-first-hello
     ```
     module my-first-hello
 
-    require gitee.com/johng/gf latest
+    require github.com/gogf/gf latest
     ```
     增加`GoFrame`框架的依赖，其中`latest`表示使用最新版本，IDE将会立即去更新下载框架代码。成功后，IDE将会修改`go.mod`文件并生成`go.sum`依赖分析文件。
     ![](/images/gomodule3.png)
@@ -50,7 +50,7 @@ module my-first-hello
     ```
     module my-first-hello
 
-    require gitee.com/johng/gf v1.3.8
+    require github.com/gogf/gf v1.3.8
     ```
     其中`v1.3.8`表示vgo检测到的最新框架版本。
 
@@ -69,7 +69,7 @@ module my-first-hello
 
 1. 打开`Terminal`，在项目根目录下执行:
     ```
-    export GO111MODULE=on; go get -u gitee.com/johng/gf
+    export GO111MODULE=on; go get -u github.com/gogf/gf
     ```
     该命令将会立即下载最新的`GoFrame`框架。其中 `export GO111MODULE=on;` 表示开启`Go Module`特性（Go `1.11.x`版本默认关闭，需要手动开启）。
 
@@ -79,7 +79,7 @@ module my-first-hello
     ```
     module my-first-hello
 
-    require gitee.com/johng/gf v1.3.8 // indirect
+    require github.com/gogf/gf v1.3.8 // indirect
     ```
     且生成了新的`go.sum`依赖分析文件，该文件充其量算是一个临时文件，对于我们平时开发工作来说意义不大。
 
@@ -93,7 +93,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf"
+    "github.com/gogf/gf"
 )
 
 func main() {

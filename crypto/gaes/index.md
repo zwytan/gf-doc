@@ -3,7 +3,7 @@ AES算法。
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/crypto/gaes"
+import "github.com/gogf/gf/g/crypto/gaes"
 ```
 
 接口文档：

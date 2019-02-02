@@ -1,27 +1,27 @@
 # GoFrame官网项目
 
 ## 仓库地址
-  * [https://gitee.com/johng/gf-home](https://gitee.com/johng/gf-home)
+  * [https://github.com/gogf/gf-home](https://github.com/gogf/gf-home)
   * [https://github.com/gogf/gf-home](https://github.com/gogf/gf-home)
 
 ## 关于项目
 
 ### 1. 使用到的模块
 ```go
-"gitee.com/johng/gf/g"
-"gitee.com/johng/gf/g/os/gfile"
+"github.com/gogf/gf/g"
+"github.com/gogf/gf/g/os/gfile"
 "gopkg.in/russross/blackfriday.v2"
-"gitee.com/johng/gf/g/util/gregex"
-"gitee.com/johng/gf/g/util/gstr"
-"gitee.com/johng/gf/g/os/gfcache"
-"gitee.com/johng/gf/g/os/gcache"
-"gitee.com/johng/gf/g/os/gproc"
-"gitee.com/johng/gf/g/os/glog"
-"gitee.com/johng/gf/g/container/garray"
-"gitee.com/johng/gf/g/util/gconv"
-"gitee.com/johng/gf/g/net/ghttp"
-"gitee.com/johng/gf/g/os/gview"
-"gitee.com/johng/gf/g/encoding/gjson"
+"github.com/gogf/gf/g/util/gregex"
+"github.com/gogf/gf/g/util/gstr"
+"github.com/gogf/gf/g/os/gfcache"
+"github.com/gogf/gf/g/os/gcache"
+"github.com/gogf/gf/g/os/gproc"
+"github.com/gogf/gf/g/os/glog"
+"github.com/gogf/gf/g/container/garray"
+"github.com/gogf/gf/g/util/gconv"
+"github.com/gogf/gf/g/net/ghttp"
+"github.com/gogf/gf/g/os/gview"
+"github.com/gogf/gf/g/encoding/gjson"
 ```
 ### 2. 你能从这个项目了解什么？
 * `GoFrame`框架推荐的项目结构；

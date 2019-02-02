@@ -2,7 +2,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/net/gudp"
+import "github.com/gogf/gf/g/net/gudp"
 ```
 
 接口文档：
@@ -38,9 +38,9 @@ package main
 import (
     "fmt"
     "time"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gtime"
-    "gitee.com/johng/gf/g/net/gudp"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gtime"
+    "github.com/gogf/gf/g/net/gudp"
 )
 
 func main() {

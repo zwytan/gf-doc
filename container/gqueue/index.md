@@ -12,7 +12,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gqueue"
+import "github.com/gogf/gf/g/container/gqueue"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
@@ -33,8 +33,8 @@ package main
 import (
     "fmt"
     "time"
-    "gitee.com/johng/gf/g/os/gtimer"
-    "gitee.com/johng/gf/g/container/gqueue"
+    "github.com/gogf/gf/g/os/gtimer"
+    "github.com/gogf/gf/g/container/gqueue"
 )
 
 func main() {
@@ -79,9 +79,9 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/container/gqueue"
-    "gitee.com/johng/gf/g/os/gtime"
-    "gitee.com/johng/gf/g/os/gtimer"
+    "github.com/gogf/gf/g/container/gqueue"
+    "github.com/gogf/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtimer"
     "time"
 )
 
@@ -128,7 +128,7 @@ func main() {
 ```html
 goos: darwin
 goarch: amd64
-pkg: gitee.com/johng/gf/g/container/gqueue
+pkg: github.com/gogf/gf/g/container/gqueue
 Benchmark_Gqueue_StaticPushAndPop-4       20000000            84.2 ns/op
 Benchmark_Gqueue_DynamicPush-4            20000000             164 ns/op
 Benchmark_Gqueue_DynamicPop-4             20000000             121 ns/op
@@ -145,7 +145,7 @@ PASS
 ```
 goos: darwin
 goarch: amd64
-pkg: gitee.com/johng/gf/g/container/gqueue
+pkg: github.com/gogf/gf/g/container/gqueue
 Benchmark_Gqueue_StaticPushAndPop-4   	20000000	        97.7 ns/op
 Benchmark_Gqueue_DynamicPush-4        	20000000	         183 ns/op
 Benchmark_Gqueue_DynamicPop-4         	20000000	        96.7 ns/op

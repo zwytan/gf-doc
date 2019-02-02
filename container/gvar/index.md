@@ -10,7 +10,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gvar"
+import "github.com/gogf/gf/g/container/gvar"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gvar](https://godoc.org/github.com/gogf/gf/g/container/gvar)
@@ -54,7 +54,7 @@ type Var
 package main
 
 import (
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g"
     "fmt"
 )
 

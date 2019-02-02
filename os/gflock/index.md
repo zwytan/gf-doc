@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gflock"
+import "github.com/gogf/gf/g/os/gflock"
 ```
 
 接口文档：[godoc.org/github.com/gogf/gf/g/os/gflock](https://godoc.org/github.com/gogf/gf/g/os/gflock)
@@ -27,9 +27,9 @@ package main
 
 import (
     "time"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gproc"
-    "gitee.com/johng/gf/g/os/gflock"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gproc"
+    "github.com/gogf/gf/g/os/gflock"
 )
 
 func main() {

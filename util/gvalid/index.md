@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/util/gvalid"
+import "github.com/gogf/gf/g/util/gvalid"
 ```
 
 # 校验规则

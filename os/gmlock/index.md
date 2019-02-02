@@ -7,7 +7,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/os/gmlock"
+import "github.com/gogf/gf/g/os/gmlock"
 ```
 
 
@@ -51,8 +51,8 @@ package main
 import (
     "time"
     "sync"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gmlock"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gmlock"
 )
 
 func main() {
@@ -96,8 +96,8 @@ package main
 
 import (
     "sync"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gmlock"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gmlock"
 )
 
 func main() {
@@ -137,9 +137,9 @@ package main
 
 import (
     "sync"
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/glog"
     "time"
-    "gitee.com/johng/gf/g/os/gmlock"
+    "github.com/gogf/gf/g/os/gmlock"
 )
 
 func main() {
@@ -185,9 +185,9 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/gmlock"
+    "github.com/gogf/gf/g/os/gmlock"
     "time"
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/glog"
     "fmt"
 )
 
@@ -235,7 +235,7 @@ func main() {
 
 # 示例5，多文件并发写的安全控制
 
-在`glog`模块写日志文件的时候有这么一个核心方法，我们拿来看一下（源代码位于 [/g/os/glog/glog_logger.go](https://gitee.com/johng/gf/blob/master/g/os/glog/glog_logger.go)）。
+在`glog`模块写日志文件的时候有这么一个核心方法，我们拿来看一下（源代码位于 [/g/os/glog/glog_logger.go](https://github.com/gogf/gf/blob/master/g/os/glog/glog_logger.go)）。
 
 ```go
 // 这里的写锁保证同一时刻只会写入一行日志，防止串日志的情况

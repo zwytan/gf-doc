@@ -5,7 +5,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gtime"
+import "github.com/gogf/gf/g/os/gtime"
 ```
 
 接口文档： [godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
@@ -53,7 +53,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 func main() {
@@ -86,7 +86,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 func main() {
@@ -119,7 +119,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
     "time"
 )
 
@@ -175,7 +175,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 func main() {
@@ -203,7 +203,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
     "time"
 )
 

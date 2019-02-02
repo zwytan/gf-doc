@@ -154,8 +154,8 @@ type Request
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 // 优先调用的HOOK
@@ -196,14 +196,14 @@ https://gfer.me
 ## 示例2，请求数据校验
 
 ### 请求参数绑定+数据校验示例
-[gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
+[github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
 ```go
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/util/gvalid"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/util/gvalid"
 )
 
 func main() {

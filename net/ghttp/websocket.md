@@ -1,6 +1,6 @@
 [TOC]
 
-使用`gf`框架进行`websocket`开发相当简单！我们以下通过实现一个简单的`echo服务器`来演示`gf`框架的`websocket`的使用（客户端使用HTML5实现）。示例代码：[geg/net/ghttp/websocket/echo](https://gitee.com/johng/gf/tree/master/geg/net/ghttp/websocket/echo)
+使用`gf`框架进行`websocket`开发相当简单！我们以下通过实现一个简单的`echo服务器`来演示`gf`框架的`websocket`的使用（客户端使用HTML5实现）。示例代码：[geg/net/ghttp/websocket/echo](https://github.com/gogf/gf/tree/master/geg/net/ghttp/websocket/echo)
 
 # HTML5客户端
 先上H5客户端的代码
@@ -113,8 +113,8 @@
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {

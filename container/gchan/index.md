@@ -8,7 +8,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gchan"
+import "github.com/gogf/gf/g/container/gchan"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gchan](https://godoc.org/github.com/gogf/gf/g/container/gchan)
@@ -24,7 +24,7 @@ type Chan
 
 `gchan`与原生`channel`的性能测试：
 ```html
-john@johnstation:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gchan$ go test *.go -bench=".*"
+john@johnstation:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gchan$ go test *.go -bench=".*"
 goos: linux
 goarch: amd64
 BenchmarkGchanPushAndPop-8    	20000000	        71.9 ns/op

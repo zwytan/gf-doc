@@ -8,7 +8,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/glist"
+import "github.com/gogf/gf/g/container/glist"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/glist](https://godoc.org/github.com/gogf/gf/g/container/glist)
@@ -42,7 +42,7 @@ type SafeList
 ```
 goos: darwin
 goarch: amd64
-pkg: gitee.com/johng/gf/g/container/glist
+pkg: github.com/gogf/gf/g/container/glist
 Benchmark_PushBack-4    	20000000	       194 ns/op
 Benchmark_PushFront-4   	20000000	       243 ns/op
 Benchmark_Len-4         	20000000	        20.3 ns/op

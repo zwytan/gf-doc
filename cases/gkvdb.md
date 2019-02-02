@@ -8,16 +8,16 @@
 
 ### 1. 使用到的模块
 ```go
-"gitee.com/johng/gf/g/os/gfile"
-"gitee.com/johng/gf/g/encoding/ghash"
-"gitee.com/johng/gf/g/container/gmap"
-"gitee.com/johng/gf/g/container/gtype"
-"gitee.com/johng/gf/g/os/gmlock"
-"gitee.com/johng/gf/g/os/grpool"
-"gitee.com/johng/gf/g/container/glist"
-"gitee.com/johng/gf/g/os/gcache"
+"github.com/gogf/gf/g/os/gfile"
+"github.com/gogf/gf/g/encoding/ghash"
+"github.com/gogf/gf/g/container/gmap"
+"github.com/gogf/gf/g/container/gtype"
+"github.com/gogf/gf/g/os/gmlock"
+"github.com/gogf/gf/g/os/grpool"
+"github.com/gogf/gf/g/container/glist"
+"github.com/gogf/gf/g/os/gcache"
 "gitee.com/johng/gkvdb/gkvdb/gfilespace"
-"gitee.com/johng/gf/g/os/gtime"
+"github.com/gogf/gf/g/os/gtime"
 ```
 
 ### 2. 你能从这个项目了解什么？

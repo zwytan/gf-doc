@@ -78,12 +78,12 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/os/glog"
 )
 
 func main() {
-	g.Config().SetPath("/home/john/Workspace/gitee.com/johng/gf/geg/frame")
+	g.Config().SetPath("/home/john/Workspace/github.com/gogf/gf/geg/frame")
     db := g.Database()
     if r, err := db.Table("goods").Where("id=?", 1).One(); err == nil {
         fmt.Printf("goods    id: %d\n",   r["id"].Int())

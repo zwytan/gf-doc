@@ -2,7 +2,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/net/gudp"
+import "github.com/gogf/gf/g/net/gudp"
 ```
 
 接口文档：

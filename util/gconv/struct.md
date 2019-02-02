@@ -46,8 +46,8 @@ nick name  Nick_Name      match
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/util/gconv"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/util/gconv"
 )
 
 type User struct {
@@ -120,8 +120,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/util/gconv"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/util/gconv"
+    "github.com/gogf/gf/g"
     "fmt"
 )
 
@@ -177,8 +177,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/util/gconv"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/util/gconv"
+    "github.com/gogf/gf/g"
     "fmt"
 )
 
@@ -241,8 +241,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/util/gconv"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/util/gconv"
+    "github.com/gogf/gf/g"
     "fmt"
 )
 
@@ -301,8 +301,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/util/gconv"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/util/gconv"
+    "github.com/gogf/gf/g"
     "fmt"
 )
 
@@ -350,8 +350,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/util/gconv"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/util/gconv"
+    "github.com/gogf/gf/g"
     "fmt"
 )
 

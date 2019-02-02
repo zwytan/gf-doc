@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/database/gkafka"
+import "github.com/gogf/gf/g/database/gkafka"
 ```
 
 接口文档：[godoc.org/github.com/gogf/gf/g/database/gkafka](https://godoc.org/github.com/gogf/gf/g/database/gkafka)
@@ -31,9 +31,9 @@ type Message
 package main
 
 import (
-    "gitee.com/johng/gf/g/database/gkafka"
+    "github.com/gogf/gf/g/database/gkafka"
     "fmt"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
     "time"
 )
 
@@ -65,7 +65,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/database/gkafka"
+    "github.com/gogf/gf/g/database/gkafka"
 )
 
 // 创建kafka消费客户端

@@ -8,7 +8,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gring"
+import "github.com/gogf/gf/g/container/gring"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gring](https://godoc.org/github.com/gogf/gf/g/container/gring)
@@ -51,7 +51,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/container/gring"
+    "github.com/gogf/gf/g/container/gring"
 )
 
 type Player struct {

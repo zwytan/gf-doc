@@ -73,7 +73,7 @@ drwxr-xr-x 90 john john 4096 Apr 23 20:55 ../
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -103,7 +103,7 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -202,7 +202,7 @@ IMPORTANT NOTES:
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {

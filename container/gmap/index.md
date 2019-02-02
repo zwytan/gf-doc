@@ -10,7 +10,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/gmap"
+import "github.com/gogf/gf/g/container/gmap"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/gmap](https://godoc.org/github.com/gogf/gf/g/container/gmap)
@@ -216,7 +216,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/container/gmap"
+    "github.com/gogf/gf/g/container/gmap"
 )
 
 func main() {
@@ -329,7 +329,7 @@ SYS: Ubuntu 16.04 amd64
 
 ### 并发安全
 ```shell
-n@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
+n@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
 goos: linux
 goarch: amd64
 Benchmark_IntBoolMap_Set-4                      10000000        245 ns/op       38 B/op        0 allocs/op
@@ -354,7 +354,7 @@ Benchmark_StringStringMap_Get-4                 10000000        267 ns/op       
 ### 非并发安全
 
 ```shell
-john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
+john@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
 goos: linux
 goarch: amd64
 Benchmark_Unsafe_IntBoolMap_Set-4               10000000        211 ns/op       38 B/op        0 allocs/op
@@ -382,7 +382,7 @@ Benchmark_Unsafe_StringStringMap_Get-4          10000000        200 ns/op       
 
 go语言从`1.9`版本开始引入了并发安全的`sync.Map`，我们来看看基准测试结果：
 ```shell
-john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
+john@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
 goos: linux
 goarch: amd64
 BenchmarkGmapSet-4                              10000000        324 ns/op       62 B/op        0 allocs/op

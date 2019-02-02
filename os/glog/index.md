@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/glog"
+import "github.com/gogf/gf/g/os/glog"
 ```
 
 # 接口文档
@@ -137,7 +137,7 @@ LEVEL_CRIT
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/glog"
 )
 
 // 设置日志等级，过滤掉Info日志信息
@@ -161,9 +161,9 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gfile"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gfile"
+    "github.com/gogf/gf/g"
 )
 
 // 设置日志输出路径
@@ -205,9 +205,9 @@ LOG_LEVEL_CRIT
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gfile"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gfile"
+    "github.com/gogf/gf/g"
 )
 
 // 设置日志等级
@@ -264,9 +264,9 @@ func Level(level int) *Logger
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gfile"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gfile"
+    "github.com/gogf/gf/g"
 )
 
 func main() {
@@ -298,7 +298,7 @@ null
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/glog"
 )
 
 func main() {
@@ -309,7 +309,7 @@ func main() {
 ```html
 2018-01-11 17:20:10 [ERRO] 发生错误！
 Trace:
-1. /home/john/Workspace/Go/gitee.com/johng/gf/geg/other/test.go:8
+1. /home/john/Workspace/Go/github.com/gogf/gf/geg/other/test.go:8
 ```
 
 ## 示例2，通过trace方法打印
@@ -318,7 +318,7 @@ Trace:
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/glog"
     "fmt"
 )
 
@@ -333,13 +333,13 @@ func main() {
 ```
 执行后，输出结果为：
 ```html
-2018-10-10 15:18:34.346 1. /home/john/Workspace/Go/GOPATH/src/gitee.com/johng/gf/geg/os/glog/glog_backtrace.go:10
+2018-10-10 15:18:34.346 1. /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_backtrace.go:10
 
-2018-10-10 15:18:34.346 1. /home/john/Workspace/Go/GOPATH/src/gitee.com/johng/gf/geg/os/glog/glog_backtrace.go:11
+2018-10-10 15:18:34.346 1. /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_backtrace.go:11
 
-1. /home/john/Workspace/Go/GOPATH/src/gitee.com/johng/gf/geg/os/glog/glog_backtrace.go:13
+1. /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_backtrace.go:13
 
-1. /home/john/Workspace/Go/GOPATH/src/gitee.com/johng/gf/geg/os/glog/glog_backtrace.go:14
+1. /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_backtrace.go:14
 ```
 
 
@@ -352,8 +352,8 @@ package main
 
 import (
     "time"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 func main() {

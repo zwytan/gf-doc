@@ -4,7 +4,7 @@ BASE64编码解析。
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/encoding/gbase64"
+import "github.com/gogf/gf/g/encoding/gbase64"
 ```
 
 接口文档：

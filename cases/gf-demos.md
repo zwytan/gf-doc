@@ -1,7 +1,7 @@
 # GoFrame框架开发示例案例
 
 ## 仓库地址
-  * [https://gitee.com/johng/gf-demos](https://gitee.com/johng/gf-demos)
+  * [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)
   * [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)
 
 ## 关于项目
@@ -10,17 +10,17 @@
 
 #### 1. 使用到的模块
 ```go
-"gitee.com/johng/gf/g/container/garray"
-"gitee.com/johng/gf/g/container/gmap"
-"gitee.com/johng/gf/g/container/gset"
-"gitee.com/johng/gf/g/encoding/ghtml"
-"gitee.com/johng/gf/g/encoding/gjson"
-"gitee.com/johng/gf/g/frame/gmvc"
-"gitee.com/johng/gf/g/net/ghttp"
-"gitee.com/johng/gf/g/os/gcache"
-"gitee.com/johng/gf/g/os/glog"
-"gitee.com/johng/gf/g/util/gconv"
-"gitee.com/johng/gf/g/util/gvalid"
+"github.com/gogf/gf/g/container/garray"
+"github.com/gogf/gf/g/container/gmap"
+"github.com/gogf/gf/g/container/gset"
+"github.com/gogf/gf/g/encoding/ghtml"
+"github.com/gogf/gf/g/encoding/gjson"
+"github.com/gogf/gf/g/frame/gmvc"
+"github.com/gogf/gf/g/net/ghttp"
+"github.com/gogf/gf/g/os/gcache"
+"github.com/gogf/gf/g/os/glog"
+"github.com/gogf/gf/g/util/gconv"
+"github.com/gogf/gf/g/util/gvalid"
 ```
 
 #### 2. 你能从这个项目了解什么？

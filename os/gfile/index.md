@@ -5,7 +5,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gfile"
+import "github.com/gogf/gf/g/os/gfile"
 ```
 
 接口文档：[godoc.org/github.com/gogf/gf/g/os/gfile](https://godoc.org/github.com/gogf/gf/g/os/gfile)

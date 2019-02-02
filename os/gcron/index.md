@@ -6,7 +6,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gcron"
+import "github.com/gogf/gf/g/os/gcron"
 ```
 
 接口文档：
@@ -146,9 +146,9 @@ Entry                  | Description                                | Equivalent
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/os/gcron"
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/os/gcron"
+    "github.com/gogf/gf/g/os/glog"
     "time"
 )
 
@@ -219,8 +219,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/gcron"
-    "gitee.com/johng/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gcron"
+    "github.com/gogf/gf/g/os/glog"
     "time"
 )
 

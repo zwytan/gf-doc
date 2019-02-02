@@ -12,13 +12,13 @@
 
 
 ## 使用示例1，与执行对象混合使用
-[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/product.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/product.go)
+[github.com/gogf/gf/blob/master/geg/frame/mvc/controller/demo/product.go](https://github.com/gogf/gf/blob/master/geg/frame/mvc/controller/demo/product.go)
 ```go
 package demo
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 type Product struct {
@@ -43,13 +43,13 @@ func (p *Product) List(r *ghttp.Request) {
 在这个示例中，我们使用对象来封装业务逻辑和所需的变量，使用回调函数注册来灵活注册对应的对象方法。
 
 ## 使用示例2，使用包变量管理内部变量
-[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/stats/stats.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/stats/stats.go)
+[github.com/gogf/gf/blob/master/geg/frame/mvc/controller/stats/stats.go](https://github.com/gogf/gf/blob/master/geg/frame/mvc/controller/stats/stats.go)
 ```go
 package stats
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 var (
@@ -67,13 +67,13 @@ func showTotal(r *ghttp.Request) {
 ```
 
 ## 使用示例3，请求参数绑定到struct对象
-[gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_struct.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_struct.go)
+[github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_struct.go](https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_struct.go)
 ```go
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 type User struct {
@@ -106,14 +106,14 @@ func main() {
 ```
 
 ## 使用示例4，请求参数绑定+数据校验示例
-[gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
+[github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
 ```go
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/util/gvalid"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/util/gvalid"
 )
 
 func main() {

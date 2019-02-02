@@ -7,7 +7,7 @@ Go语言中的goroutine虽然相对于系统线程来说比较轻量级，但是
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/grpool"
+import "github.com/gogf/gf/g/os/grpool"
 ```
 
 使用场景：
@@ -39,7 +39,7 @@ type Pool
 
 **1、使用默认的goroutine池，限制10个工作goroutine执行1000个任务**
 
-[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool1.go)
+[github.com/gogf/gf/blob/master/geg/os/grpool/grpool1.go](https://github.com/gogf/gf/blob/master/geg/os/grpool/grpool1.go)
 
 ```go
 package main
@@ -47,8 +47,8 @@ package main
 import (
     "time"
     "fmt"
-    "gitee.com/johng/gf/g/os/grpool"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/grpool"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 func job() {
@@ -76,7 +76,7 @@ func main() {
 
 **2、我们再来看一个新手经常容易出错的例子**
 
-[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool2.go)
+[github.com/gogf/gf/blob/master/geg/os/grpool/grpool2.go](https://github.com/gogf/gf/blob/master/geg/os/grpool/grpool2.go)
 
 ```go
 package main
@@ -84,7 +84,7 @@ package main
 import (
     "fmt"
     "sync"
-    "gitee.com/johng/gf/g/os/grpool"
+    "github.com/gogf/gf/g/os/grpool"
 )
 
 func main() {
@@ -119,7 +119,7 @@ func main() {
 
 1)、使用go关键字
 
-[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool3.go)
+[github.com/gogf/gf/blob/master/geg/os/grpool/grpool3.go](https://github.com/gogf/gf/blob/master/geg/os/grpool/grpool3.go)
 
 ```go
 package main
@@ -158,7 +158,7 @@ func main() {
 
 2)、使用临时变量
 
-[gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go](https://gitee.com/johng/gf/blob/master/geg/os/grpool/grpool4.go)
+[github.com/gogf/gf/blob/master/geg/os/grpool/grpool4.go](https://github.com/gogf/gf/blob/master/geg/os/grpool/grpool4.go)
 
 ```go
 package main
@@ -166,7 +166,7 @@ package main
 import (
     "fmt"
     "sync"
-    "gitee.com/johng/gf/g/os/grpool"
+    "github.com/gogf/gf/g/os/grpool"
 )
 
 func main() {
@@ -210,8 +210,8 @@ import (
     "fmt"
     "sync"
     "time"
-    "gitee.com/johng/gf/g/os/gtime"
-    "gitee.com/johng/gf/g/os/grpool"
+    "github.com/gogf/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/grpool"
 )
 
 func main() {
@@ -238,7 +238,7 @@ import (
     "fmt"
     "sync"
     "time"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 

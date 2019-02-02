@@ -5,7 +5,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/encoding/gbinary"
+import "github.com/gogf/gf/g/encoding/gbinary"
 ```
 
 用于二进制数据结构转换处理的接口文档如下：
@@ -62,15 +62,15 @@ type Bit int8
 
 我们来看一个比较完整的二进制操作示例，基本演示了绝大部分的二进制转换操作。
 
-[gitee.com/johng/gf/blob/master/geg/encoding/gbinary/binary.go](https://gitee.com/johng/gf/blob/master/geg/encoding/gbinary/binary.go)
+[github.com/gogf/gf/blob/master/geg/encoding/gbinary/binary.go](https://github.com/gogf/gf/blob/master/geg/encoding/gbinary/binary.go)
 
 ```go
 package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/encoding/gbinary"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/encoding/gbinary"
 )
 
 func main() {
@@ -175,14 +175,14 @@ I'm string!
     
     看以下的例子，用以上报平台100个传感器已开启，上报的状态顺序便是传感器在网关下端口顺序(索引从0开始)：
 
-    [gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits1.go](https://gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits1.go)
+    [github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits1.go](https://github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits1.go)
 
     ```go
     package main
 
     import (
         "fmt"
-        "gitee.com/johng/gf/g/encoding/gbinary"
+        "github.com/gogf/gf/g/encoding/gbinary"
     )
 
     func main() {
@@ -227,14 +227,14 @@ I'm string!
     ```
     我们使用一条元数据来演示编码/解码操作。
 
-	[gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits2.go](https://gitee.com/johng/gf/blob/master/geg/encoding/gbinary/bits2.go)
+	[github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits2.go](https://github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits2.go)
 
     ```go
     package main
 
     import (
         "fmt"
-        "gitee.com/johng/gf/g/encoding/gbinary"
+        "github.com/gogf/gf/g/encoding/gbinary"
     )
 
     func main() {

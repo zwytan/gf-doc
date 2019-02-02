@@ -10,7 +10,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/encoding/gjson"
+import "github.com/gogf/gf/g/encoding/gjson"
 ```
 
 接口文档： [godoc.org/github.com/gogf/gf/g/encoding/gjson](https://godoc.org/github.com/gogf/gf/g/encoding/gjson)

@@ -39,8 +39,8 @@ func (s *Server) SetSessionMaxAge(maxage int)
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {

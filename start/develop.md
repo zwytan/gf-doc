@@ -23,10 +23,10 @@
 package ctl_user
 
 import (
-    "gitee.com/johng/gf-demos/app/library/response"
-    "gitee.com/johng/gf-demos/app/library/user"
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/util/gvalid"
+    "github.com/gogf/gf-demos/app/library/response"
+    "github.com/gogf/gf-demos/app/library/user"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/util/gvalid"
 )
 
 // 用户API管理对象
@@ -104,7 +104,7 @@ func (c *Controller) CheckNickName(r *ghttp.Request) {
 
 # 逻辑封装实现
 
-我们这里没有使用到数据模型，仅使用了逻辑封装层+gform来操作数据库。
+我们这里没有使用到数据模型，仅使用了 逻辑封装层+`gform` 来操作数据库。
 
 ## 用户逻辑
 
@@ -117,10 +117,10 @@ package lib_user
 import (
     "errors"
     "fmt"
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/os/gtime"
-    "gitee.com/johng/gf/g/util/gvalid"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/os/gtime"
+    "github.com/gogf/gf/g/util/gvalid"
 )
 
 const (
@@ -214,8 +214,8 @@ func CheckNickName(nickname string) bool {
 package lib_response
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 // 标准返回结果数据结构封装。

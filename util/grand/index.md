@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/util/grand"
+import "github.com/gogf/gf/g/util/grand"
 ```
 
 接口文档： [godoc.org/github.com/gogf/gf/g/util/grand](https://godoc.org/github.com/gogf/gf/g/util/grand)
@@ -25,7 +25,7 @@ func Str(n int) string
 ```html
 goos: linux
 goarch: amd64
-pkg: gitee.com/johng/gf/g/util/grand
+pkg: github.com/gogf/gf/g/util/grand
 Benchmark_Rand-4   	20000000	        68.1 ns/op
 PASS
 ```

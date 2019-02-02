@@ -4,7 +4,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gproc"
+import "github.com/gogf/gf/g/os/gproc"
 ```
 
 接口文档：[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
@@ -68,7 +68,7 @@ type Process
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/gproc"
+    "github.com/gogf/gf/g/os/gproc"
     "fmt"
 )
 
@@ -96,8 +96,8 @@ package main
 import (
     "os"
     "time"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gproc"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gproc"
 )
 
 func main () {
@@ -142,7 +142,7 @@ func main () {
 
     import (
         "fmt"
-        "gitee.com/johng/gf/g/os/gproc"
+        "github.com/gogf/gf/g/os/gproc"
     )
 
     func main () {
@@ -182,8 +182,8 @@ import (
     "os"
     "fmt"
     "time"
-    "gitee.com/johng/gf/g/os/gproc"
-    "gitee.com/johng/gf/g/os/gtime"
+    "github.com/gogf/gf/g/os/gproc"
+    "github.com/gogf/gf/g/os/gtime"
 )
 
 func main () {

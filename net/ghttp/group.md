@@ -41,9 +41,9 @@ func (g *RouterGroup) Bind(group string, items []GroupItem)
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 type Object struct {}
@@ -127,9 +127,9 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 type Object struct {}

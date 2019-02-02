@@ -6,11 +6,11 @@
 ## go.mod
 `/go.mod`
 ```
-module gitee.com/johng/gf-demos
+module github.com/gogf/gf-demos
 
-require gitee.com/johng/gf latest
+require github.com/gogf/gf latest
 ```
-其中注意`module`名称设置为`gitee.com/johng/gf-demos`。
+其中注意`module`名称设置为`github.com/gogf/gf-demos`。
 
 
 ## 配置文件
@@ -39,9 +39,9 @@ require gitee.com/johng/gf latest
 package boot
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 // 用于应用初始化。

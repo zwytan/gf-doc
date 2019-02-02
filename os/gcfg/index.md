@@ -5,7 +5,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gcfg"
+import "github.com/gogf/gf/g/os/gcfg"
 ```
 
 # 接口文档 
@@ -100,7 +100,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g"
 )
 
 func main() {

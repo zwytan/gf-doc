@@ -10,7 +10,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/container/garray"
+import "github.com/gogf/gf/g/container/garray"
 ```
 
 **接口文档**：[godoc.org/github.com/gogf/gf/g/container/garray](https://godoc.org/github.com/gogf/gf/g/container/garray)
@@ -23,13 +23,13 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/container/garray"
+    "github.com/gogf/gf/g/container/garray"
 )
 
 
 func main () {
     // 创建普通的int类型数组，并关闭默认的并发安全特性
-    a := garray.NewIntArray(0, 0, false)
+    a := garray.NewIntArray(true)
 
     // 添加数据项
     for i := 0; i < 10; i++ {
@@ -102,13 +102,13 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/container/garray"
+    "github.com/gogf/gf/g/container/garray"
 )
 
 
 func main () {
     // 自定义排序数组，降序排序(SortedIntArray管理的数据是升序)
-    a := garray.NewSortedArray(0, 0, func(v1, v2 interface{}) int {
+    a := garray.NewSortedArray(func(v1, v2 interface{}) int {
         if v1.(int) < v2.(int) {
             return 1
         }

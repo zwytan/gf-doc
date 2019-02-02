@@ -5,7 +5,7 @@
 
 当用户访问某个URI时，Web Server能够精确的调用特定的服务接口提供服务，这些都是通过```服务注册```来实现的。Web Server提供服务需要回调函数/方法/对象/控制器的支持，ghttp包支持多种服务注册模式，为开发者提供非常强大和灵活的接口功能。服务注册是整个Web Server最核心的部分，也是gf框架中最精心设计的一个模块。
 
-> 以下章节中部分示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init```方法进行自动注册），所有示例代码存放于：[gitee.com/johng/gf/blob/master/geg/frame/mvc/](https://gitee.com/johng/gf/blob/master/geg/frame/mvc) 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```模块），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 [gitee.com/johng/gf/blob/master/geg/net/ghttp/server/](https://gitee.com/johng/gf/blob/master/geg/net/ghttp/server/)  目录中，可独立运行）
+> 以下章节中部分示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init```方法进行自动注册），所有示例代码存放于：[github.com/gogf/gf/blob/master/geg/frame/mvc/](https://github.com/gogf/gf/blob/master/geg/frame/mvc) 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```模块），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 [github.com/gogf/gf/blob/master/geg/net/ghttp/server/](https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/)  目录中，可独立运行）
 
 服务注册管理由```ghttp```模块实现，API文档地址：[godoc.org/github.com/gogf/gf/g/ghttp](https://godoc.org/github.com/gogf/gf/g/net/ghttp)。
 
@@ -21,8 +21,8 @@
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -116,8 +116,8 @@ func (d *Domain) BindControllerRest(pattern string, c Controller) error
 package main
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/net/ghttp"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
@@ -150,8 +150,8 @@ func main() {
   package ctlDoc
 
   import (
-      "gitee.com/johng/gf/g/net/ghttp"
-      "gitee.com/johng/gf/g"
+      "github.com/gogf/gf/g/net/ghttp"
+      "github.com/gogf/gf/g"
   )
 
   // 必须公开服务方法
@@ -164,9 +164,9 @@ func main() {
     package router
 
     import (
-        "gitee.com/johng/gf/g"
-        "gitee.com/johng/gf/g/net/ghttp"
-        "gitee.com/johng/gf-home/app/ctl/doc"
+        "github.com/gogf/gf/g"
+        "github.com/gogf/gf/g/net/ghttp"
+        "github.com/gogf/gf-home/app/ctl/doc"
     )
 
     func init() {
@@ -178,9 +178,9 @@ func main() {
     package main
 
     import (
-        "gitee.com/johng/gf/g"
-        _ "gitee.com/johng/gf-home/boot"
-        _ "gitee.com/johng/gf-home/router"
+        "github.com/gogf/gf/g"
+        _ "github.com/gogf/gf-home/boot"
+        _ "github.com/gogf/gf-home/router"
     )
 
     func main() {
@@ -209,8 +209,8 @@ func main() {
     package ctlApi
 
     import (
-        "gitee.com/johng/gf/g/net/ghttp"
-        "gitee.com/johng/gf/g"
+        "github.com/gogf/gf/g/net/ghttp"
+        "github.com/gogf/gf/g"
     )
 
     // 统一在各自包的init包初始化方法中进行路由注册
@@ -228,8 +228,8 @@ func main() {
     package main
 
     import (
-    	"gitee.com/johng/gf/g"
-        "gitee.com/johng/gf/g/net/ghttp"
+    	"github.com/gogf/gf/g"
+        "github.com/gogf/gf/g/net/ghttp"
         _ "PATH/TO/YOUR/PROJECT/app/ctl/api"
     )
 

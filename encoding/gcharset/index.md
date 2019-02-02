@@ -14,7 +14,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/encoding/gcharset"
+import "github.com/gogf/gf/g/encoding/gcharset"
 ```
 接口文档：[godoc.org/github.com/gogf/gf/g/encoding/gcharset](https://godoc.org/github.com/gogf/gf/g/encoding/gcharset)
 ```go

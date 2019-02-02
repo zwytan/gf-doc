@@ -44,8 +44,8 @@ type View
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/frame/gins"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/frame/gins"
 )
 
 func main() {
@@ -70,8 +70,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/frame/gins"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/frame/gins"
 )
 
 func main() {
@@ -99,7 +99,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g"
+    "github.com/gogf/gf/g"
 )
 
 func main() {
@@ -146,8 +146,8 @@ func (view *View) RLockFunc(f func(vars map[string]interface{}))
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/frame/gmvc"
 )
 
 type ControllerTemplate struct {
@@ -192,8 +192,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/net/ghttp"
-    "gitee.com/johng/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/frame/gmvc"
 )
 
 type ControllerTemplate struct {

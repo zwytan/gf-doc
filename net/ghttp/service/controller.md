@@ -19,14 +19,14 @@
 
 我们可以通过```BindController```方法完成控制器的注册。
 
-[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/user.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/user.go)
+[github.com/gogf/gf/blob/master/geg/frame/mvc/controller/demo/user.go](https://github.com/gogf/gf/blob/master/geg/frame/mvc/controller/demo/user.go)
 
 ```go
 package demo
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
 )
 
 type User struct {
@@ -74,8 +74,8 @@ func (u *User) List() {
 package demo
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
 )
 
 type Method struct {
@@ -108,8 +108,8 @@ func (c *Method) Info() {
 package demo
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
 )
 
 type Method struct {
@@ -143,14 +143,14 @@ func (c *Method) Info() {
 
 以下是一个示例：
 
-[gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/rest.go](https://gitee.com/johng/gf/blob/master/geg/frame/mvc/controller/demo/rest.go)
+[github.com/gogf/gf/blob/master/geg/frame/mvc/controller/demo/rest.go](https://github.com/gogf/gf/blob/master/geg/frame/mvc/controller/demo/rest.go)
 
 ```go
 package demo
 
 import (
-    "gitee.com/johng/gf/g"
-    "gitee.com/johng/gf/g/frame/gmvc"
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/frame/gmvc"
 )
 
 type Rest struct {

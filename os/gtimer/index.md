@@ -20,7 +20,7 @@
 
 **使用方式**：
 ```go
-import "gitee.com/johng/gf/g/os/gtimer"
+import "github.com/gogf/gf/g/os/gtimer"
 ```
 
 接口文档： [godoc.org/github.com/gogf/gf/g/os/gtimer](https://godoc.org/github.com/gogf/gf/g/os/gtimer)
@@ -123,7 +123,7 @@ type Entry
 ```
 goos: darwin
 goarch: amd64
-pkg: gitee.com/johng/gf/g/os/gtimer
+pkg: github.com/gogf/gf/g/os/gtimer
 Benchmark_Add-4               3000000             484 ns/op         152 B/op           5 allocs/op
 Benchmark_StartStop-4       100000000            10.1 ns/op           0 B/op           0 allocs/op
 PASS
@@ -137,7 +137,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gtimer"
+    "github.com/gogf/gf/g/os/gtimer"
     "time"
 )
 
@@ -169,8 +169,8 @@ func main() {
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/glog"
-    "gitee.com/johng/gf/g/os/gtimer"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gtimer"
     "time"
 )
 

@@ -7,7 +7,7 @@
 
 使用方式：
 ```go
-import "gitee.com/johng/gf/g/os/gcache"
+import "github.com/gogf/gf/g/os/gcache"
 ```
 
 接口文档： [godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
@@ -63,7 +63,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gcache"
+    "github.com/gogf/gf/g/os/gcache"
 )
 
 func main() {
@@ -107,7 +107,7 @@ package main
 
 import (
     "fmt"
-    "gitee.com/johng/gf/g/os/gcache"
+    "github.com/gogf/gf/g/os/gcache"
     "time"
 )
 
@@ -155,7 +155,7 @@ map[k2:v2]
 
 我们来看一个在`gf-home`项目中使用`GetOrSetFunc`的示例，该示例遍历检索`markdown`文件进行字符串检索，并根据指定的搜索`key`缓存该结果值，因此多次搜索该`key`时，第一次执行目录遍历搜索，后续将直接使用缓存。
 
-[gitee.com/johng/gf-home/blob/master/app/lib/doc/doc.go](https://gitee.com/johng/gf-home/blob/master/app/lib/doc/doc.go)
+[github.com/gogf/gf-home/blob/master/app/lib/doc/doc.go](https://github.com/gogf/gf-home/blob/master/app/lib/doc/doc.go)
 
 ```go
 // 根据关键字进行markdown文档搜索，返回文档path列表
@@ -194,7 +194,7 @@ func SearchMdByKey(key string) []string {
 package main
 
 import (
-    "gitee.com/johng/gf/g/os/gcache"
+    "github.com/gogf/gf/g/os/gcache"
     "time"
     "fmt"
 )
@@ -244,7 +244,7 @@ SYS: Ubuntu 16.04 amd64
 ### 测试结果
 
 ```html
-john@john-B85M:~/Workspace/Go/GOPATH/src/gitee.com/johng/gf/g/os/gcache$ go test *.go -bench=".*" -benchmem
+john@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/os/gcache$ go test *.go -bench=".*" -benchmem
 goos: linux
 goarch: amd64
 Benchmark_CacheSet-4                       2000000        897 ns/op      249 B/op        4 allocs/op
