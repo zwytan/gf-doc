@@ -17,7 +17,7 @@
     ```
     替换为
     ```
-    /util/gstr
+    /text/gstr
     /text/gregex
     ```
 
