@@ -43,7 +43,7 @@ golang版本 >= 1.9.2
 * 更多请查阅文档及源码；
 
 开源项目地址：
-- **Gitee**( https://github.com/gogf/gf )
+- **Gitee**( https://gitee.com/johng/gf )
 - **Github**( https://github.com/gogf/gf )
 
 技术交流Q群：`116707870`。
