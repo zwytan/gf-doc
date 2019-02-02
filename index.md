@@ -23,6 +23,8 @@ go get -u github.com/gogf/gf
 ```
 require github.com/gogf/gf latest
 ```
+> 如果您是从旧版本`1.x`升级到`1.5.0`那么请参考：[1.x升级到1.5.0](upgradeto150.md)
+
 # 限制
 ```html
 golang版本 >= 1.9.2
