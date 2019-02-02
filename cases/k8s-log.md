@@ -20,7 +20,7 @@
 "github.com/gogf/gf/g/encoding/gjson"
 "github.com/gogf/gf/g/os/gfsnotify"
 "github.com/gogf/gf/g/os/gmlock"
-"github.com/gogf/gf/g/util/gregex"
+"github.com/gogf/gf/g/text/gregex"
 "github.com/gogf/gf/g/database/gkafka"
 "github.com/gogf/gf/g/os/gcache"
 "github.com/gogf/gf/g/container/garray"

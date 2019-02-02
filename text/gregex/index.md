@@ -4,10 +4,10 @@
 
 使用方式：
 ```go
-import "github.com/gogf/gf/g/util/gregex"
+import "github.com/gogf/gf/g/text/gregex"
 ```
 
-接口文档： [godoc.org/github.com/gogf/gf/g/util/gregex](https://godoc.org/github.com/gogf/gf/g/util/gregex)
+接口文档： [godoc.org/github.com/gogf/gf/g/text/gregex](https://godoc.org/github.com/gogf/gf/g/text/gregex)
 ```go
 func IsMatch(pattern string, src []byte) bool
 func IsMatchString(pattern string, src string) bool
@@ -28,7 +28,7 @@ package main
 
 import (
     "fmt"
-    "github.com/gogf/gf/g/util/gregex"
+    "github.com/gogf/gf/g/text/gregex"
 )
 
 func main() {

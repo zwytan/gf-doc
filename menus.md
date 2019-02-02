@@ -135,7 +135,7 @@
             * [基本类型](util/gconv/basic.md)
             * [Map转换](util/gconv/map.md)
             * [Struct转换](util/gconv/struct.md)
-        * [gregex (正则表达式)](util/gregex/index.md)
+        * [gregex (正则表达式)](text/gregex/index.md)
         * [gvalid (数据/表单校验)](util/gvalid/index2.md)
         * [grand (随机数管理)](util/grand/index.md)
         * [gpage (分页管理)](util/gpage/index2.md)

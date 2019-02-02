@@ -11,7 +11,7 @@
 "github.com/gogf/gf/g"
 "github.com/gogf/gf/g/os/gfile"
 "gopkg.in/russross/blackfriday.v2"
-"github.com/gogf/gf/g/util/gregex"
+"github.com/gogf/gf/g/text/gregex"
 "github.com/gogf/gf/g/util/gstr"
 "github.com/gogf/gf/g/os/gfcache"
 "github.com/gogf/gf/g/os/gcache"
