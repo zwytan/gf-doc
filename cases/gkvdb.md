@@ -1,7 +1,6 @@
 # gkvdb高性能Key-Value嵌入式事务数据库
 
 ## 仓库地址
-  * [https://gitee.com/johng/gkvdb](https://gitee.com/johng/gkvdb)
   * [https://github.com/johng-cn/gkvdb](https://github.com/johng-cn/gkvdb)
 
 ## 关于项目

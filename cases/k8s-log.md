@@ -1,8 +1,7 @@
 # 容器日志搜集工具套件
 
 ## 仓库地址
-  * [https://gitee.com/johng/k8s-log](https://gitee.com/johng/k8s-log)
-  * [https://github.com/johng-cn/k8s-log](https://github.com/johng-cn/k8s-log)
+  * [https://github.com/johngcn/k8s-log](https://github.com/johngcn/k8s-log)
 
 ## 关于项目
 

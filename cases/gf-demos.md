@@ -2,7 +2,6 @@
 
 ## 仓库地址
   * [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)
-  * [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)
 
 ## 关于项目
 

@@ -2,7 +2,6 @@
 
 ## 仓库地址
   * [https://github.com/gogf/gf-home](https://github.com/gogf/gf-home)
-  * [https://github.com/gogf/gf-home](https://github.com/gogf/gf-home)
 
 ## 关于项目
 
