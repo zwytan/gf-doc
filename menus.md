@@ -142,7 +142,7 @@
         * [grand (随机数管理)](util/grand/index.md)
         * [gpage (分页管理)](util/gpage/index2.md)
     * [单元测试模块](#)
-        * [gtest (单元测试)](text/gtest/index.md)
+        * [gtest (单元测试)](test/gtest/index.md)
     * [其他模块介绍](other.md)
 * [框架开发案例](#)
     * [GoFrame官网项目](cases/gf-home.md)
