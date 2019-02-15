@@ -19,7 +19,7 @@
 go get -u github.com/gogf/gf
 ```
 或者
-`go.mod`
+`go.mod`:
 ```
 require github.com/gogf/gf latest
 ```
