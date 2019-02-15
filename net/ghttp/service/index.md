@@ -97,7 +97,7 @@ func (s *Server) Domain(domains string) *Domain
 ```
 其中```domains```参数支持多个域名绑定，使用```,```号分隔。
 
-服务注册支持绑定域名，以下是对应的接口文档：
+服务注册支持绑定域名，以下是对应的**接口文档**：
 ```go
 func (d *Domain) BindHandler(pattern string, handler HandlerFunc) error
 

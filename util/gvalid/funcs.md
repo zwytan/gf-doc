@@ -1,6 +1,6 @@
 # 校验方法
 
-接口文档：
+**接口文档**：
 ```go
 func Check(value interface{}, rules string, msgs interface{}, params ...map[string]interface{}) *Error
 func CheckMap(params map[string]interface{}, rules interface{}, msgs ...CustomMsg) *Error

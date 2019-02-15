@@ -13,42 +13,13 @@
 import "github.com/gogf/gf/g/container/gvar"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gvar](https://godoc.org/github.com/gogf/gf/g/container/gvar)
-```go
-type Var
-    func New(value interface{}, unsafe ... bool) *Var
-    func (v *Var) IsNil() bool
-    func (v *Var) Set(value interface{}) (old interface{})
-    func (v *Var) Val() interface{}
-    func (v *Var) Bool() bool
-    func (v *Var) Float32() float32
-    func (v *Var) Float64() float64
-    func (v *Var) Int() int
-    func (v *Var) Int8() int8
-    func (v *Var) Int16() int16
-    func (v *Var) Int32() int32
-    func (v *Var) Int64() int64
-    func (v *Var) Uint() uint
-    func (v *Var) Uint8() uint8
-    func (v *Var) Uint16() uint16
-    func (v *Var) Uint32() uint32
-    func (v *Var) Uint64() uint64
-    func (v *Var) String() string
-    func (v *Var) Interface() interface{}
+**接口文档**：
 
-    func (v *Var) Bytes() []byte
-    func (v *Var) Ints() []int
-    func (v *Var) Floats() []float64
-    func (v *Var) Strings() []string
-    func (v *Var) Interfaces() []interface{}
+[godoc.org/github.com/gogf/gf/g/container/gvar](https://godoc.org/github.com/gogf/gf/g/container/gvar)
 
-    func (v *Var) Time(format ...string) time.Time
-    func (v *Var) TimeDuration() time.Duration
-    func (v *Var) GTime(format ...string) *gtime.Time
-    func (v *Var) Struct(objPointer interface{}, attrMapping ...map[string]string) error
-```
+ 
 
-使用示例:
+## 使用示例
 
 ```go
 package main

@@ -5,12 +5,12 @@
 
 `gcache`是一个高速的单进程缓存模块，提供了并发安全的缓存控制接口。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/gcache"
 ```
 
-接口文档： [godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
+**接口文档**： [godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
 ```go
 func Set(key interface{}, value interface{}, expire int)
 func SetIfNotExist(key interface{}, value interface{}, expire int) bool

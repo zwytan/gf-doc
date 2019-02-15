@@ -55,7 +55,7 @@ Hello there, my name's John. This is test.
 ### Config
 访问默认的配置管理(`config.toml`)对象Map值。
 
-使用方式：
+**使用方式**：
 ```go
 {{.Config.配置项路径}}
 ```
@@ -63,7 +63,7 @@ Hello there, my name's John. This is test.
 ### Cookie
 访问当前请求的`Cookie`对象Map值。
 
-使用方式：
+**使用方式**：
 ```go
 {{.Cookie.键名}}
 ```
@@ -71,7 +71,7 @@ Hello there, my name's John. This is test.
 ### Session
 访问当前请求的`Session`对象Map值。
 
-使用方式：
+**使用方式**：
 ```go
 {{.Session.键名}}
 ```

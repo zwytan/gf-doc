@@ -11,7 +11,9 @@
 import "github.com/gogf/gf/g/container/gchan"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gchan](https://godoc.org/github.com/gogf/gf/g/container/gchan)
+**接口文档**：
+
+[godoc.org/github.com/gogf/gf/g/container/gchan](https://godoc.org/github.com/gogf/gf/g/container/gchan)
 
 ```go
 type Chan

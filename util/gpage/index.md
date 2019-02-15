@@ -3,12 +3,12 @@
 
 分页管理由```gpage```模块实现，gpage提供了强大的动态分页及静态分页功能，并且为开发者自定义分页样式提供了极高的灵活度。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/util/gpage"
 ```
 
-接口文档：[godoc.org/github.com/gogf/gf/g/util/gpage](https://godoc.org/github.com/gogf/gf/g/util/gpage)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/util/gpage](https://godoc.org/github.com/gogf/gf/g/util/gpage)
 ```go
 type Page
     func New(TotalSize, perPage int, CurrentPage interface{}, url string, router ...*ghttp.Router) *Page

@@ -23,7 +23,7 @@
 import "github.com/gogf/gf/g/os/gtimer"
 ```
 
-接口文档： [godoc.org/github.com/gogf/gf/g/os/gtimer](https://godoc.org/github.com/gogf/gf/g/os/gtimer)
+**接口文档**： [godoc.org/github.com/gogf/gf/g/os/gtimer](https://godoc.org/github.com/gogf/gf/g/os/gtimer)
 
 ```go
 func Add(interval time.Duration, job JobFunc) *Entry

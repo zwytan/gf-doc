@@ -2,7 +2,7 @@
 
 `gfsnotify`能监控指定文件/目录的改变，如文件的增加、删除、修改、重命名等操作。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/gfsnotify"
 ```

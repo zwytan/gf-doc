@@ -2,12 +2,12 @@
 
 `gf`框架提供了非常强大的类型转换包```gconv```，可以实现将任何数据类型转换为指定的数据类型，对常用基本数据类型之间的无缝转换，同时也支持任意类型到`struct`对象的转换。由于`gconv`模块内部大量使用了断言而非反射(仅`struct`转换使用到了反射)，因此执行的效率非常高。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/util/gconv"
 ```
 
-接口文档： [godoc.org/github.com/gogf/gf/g/util/gconv](https://godoc.org/github.com/gogf/gf/g/util/gconv)
+**接口文档**： [godoc.org/github.com/gogf/gf/g/util/gconv](https://godoc.org/github.com/gogf/gf/g/util/gconv)
 ```go
 // 基本类型
 func Bool(i interface{}) bool

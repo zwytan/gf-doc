@@ -3,7 +3,7 @@
 
 `gf`的配置管理由```gcfg```模块实现，`gcfg`模块是并发安全的，仅提供配置文件读取功能，不提供数据写入/修改功能，**支持的数据文件格式包括： `JSON`、`XML`、`YAML/YML`、`TOML`**，项目中开发者可以灵活地选择自己熟悉的配置文件格式来进行配置管理。如果想要支持对数据文件的读取及修改，并且可以进行数据格式转换，请参看[gparser包](encoding/gparser/index.md)。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/gcfg"
 ```

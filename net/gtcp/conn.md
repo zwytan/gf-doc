@@ -3,12 +3,12 @@
 
 gtcp包提供了非常简便易用的```gtcp.Conn```链接操作对象。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/net/gtcp"
 ```
 
-接口文档：
+**接口文档**：
 [godoc.org/github.com/gogf/gf/g/net/gtcp#Conn](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type Conn

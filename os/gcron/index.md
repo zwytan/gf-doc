@@ -4,12 +4,12 @@
 
 `gcron`模块提供了对定时任务的实现，支持类似`crontab`的配置管理方式，并支持最小粒度到`秒`的定时任务管理。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/gcron"
 ```
 
-接口文档：
+**接口文档**：
 [godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
 
 ```go

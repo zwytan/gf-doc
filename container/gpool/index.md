@@ -14,19 +14,10 @@
 import "github.com/gogf/gf/g/container/gpool"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gpool](https://godoc.org/github.com/gogf/gf/g/container/gpool)
+**接口文档**：
 
-```go
-type NewFunc    func() (interface{}, error)
-type ExpireFunc func(interface{})
-type Pool
-    func New(expire int, newFunc NewFunc, expireFunc...ExpireFunc) *Pool
-    func (p *Pool) Close()
-    func (p *Pool) Get() (interface{}, error)
-    func (p *Pool) Put(value interface{})
-    func (p *Pool) SetExpireFunc(expireFunc func(interface{}))
-    func (p *Pool) Size() int
-```
+[godoc.org/github.com/gogf/gf/g/container/gpool](https://godoc.org/github.com/gogf/gf/g/container/gpool)
+
 需要注意两点：
 1. `New`方法的过期时间单位为`毫秒`；
 1. 对象`创建方法`(`newFunc NewFunc`)返回值包含一个`error`返回，当对象创建失败时可由该返回值反馈原因；

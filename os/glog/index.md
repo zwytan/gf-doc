@@ -2,7 +2,7 @@
 
 通用日志管理模块。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/glog"
 ```

@@ -161,13 +161,13 @@ func main() {
 gf框架除了提供Web方式的管理能力以外，也支持命令行方式来进行管理，由于命令行采用了```信号量```进行管理，因此仅支持```*nix```系统。
 
 ### 重启服务
-使用```SIGUSR1```信号量实现，使用方式：
+使用```SIGUSR1```信号量实现，**使用方式**：
 ```shell
 kill -SIGUSR1 进程ID
 ```
 
 ### 关闭服务
-使用```SIGINT/SIGQUIT/SIGKILL/SIGHUP/SIGTERM```其中任意一个信号量来实现，使用方式：
+使用```SIGINT/SIGQUIT/SIGKILL/SIGHUP/SIGTERM```其中任意一个信号量来实现，**使用方式**：
 ```shell
 kill -SIGTERM 进程ID
 ```

@@ -3,12 +3,12 @@
 
 通用时间管理模块，封装了常用的时间/日期相关的方法。并支持自定义的日期格式化语法，格式化语法类似PHP的date语法。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/gtime"
 ```
 
-接口文档： [godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
+**接口文档**： [godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
 
 # 时间格式
 `gtime`模块最大的特点是支持自定义的时间格式，参考[PHP日期时间格式语法](http://php.net/manual/zh/function.date.php)，以下是支持的时间格式语法列表：
@@ -18,7 +18,7 @@ import "github.com/gogf/gf/g/os/gtime"
 
 
 # 时间对象
-接口文档：
+**接口文档**：
 ```go
 type Time
     func New(t ...time.Time) *Time

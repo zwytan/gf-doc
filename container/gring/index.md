@@ -11,30 +11,11 @@
 import "github.com/gogf/gf/g/container/gring"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gring](https://godoc.org/github.com/gogf/gf/g/container/gring)
+**接口文档**：
 
-```go
-type Ring
-    func New(cap int) *Ring
-    func (r *Ring) Cap() int
-    func (r *Ring) Len() int
-    func (r *Ring) Link(s *Ring) *Ring
-    func (r *Ring) LockIteratorNext(f func(item *ring.Ring) bool)
-    func (r *Ring) LockIteratorPrev(f func(item *ring.Ring) bool)
-    func (r *Ring) Move(n int) *Ring
-    func (r *Ring) Next() *Ring
-    func (r *Ring) Prev() *Ring
-    func (r *Ring) Put(value interface{}) *Ring
-    func (r *Ring) RLockIteratorNext(f func(value interface{}) bool)
-    func (r *Ring) RLockIteratorPrev(f func(value interface{}) bool)
-    func (r *Ring) Set(value interface{}) *Ring
-    func (r *Ring) SliceNext() []interface{}
-    func (r *Ring) SlicePrev() []interface{}
-    func (r *Ring) Unlink(n int) *Ring
-    func (r *Ring) Val() interface{}
-```
+[godoc.org/github.com/gogf/gf/g/container/gring](https://godoc.org/github.com/gogf/gf/g/container/gring)
 
-从以上方法可以看出，`gring`支持链式操作。
+`gring`支持链式操作。
 
 
 

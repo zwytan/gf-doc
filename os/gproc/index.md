@@ -2,12 +2,12 @@
 
 进程管理以及进程间的通信是通过```gproc```模块实现的，其中进程间通信采用的是本地socket通信机制。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/os/gproc"
 ```
 
-接口文档：[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
 
 ```go
 func IsChild() bool

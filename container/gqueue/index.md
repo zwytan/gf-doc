@@ -15,15 +15,10 @@
 import "github.com/gogf/gf/g/container/gqueue"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
-```go
-type Queue
-    func New(limit ...int) *Queue
-    func (q *Queue) Close()
-    func (q *Queue) Pop() interface{}
-    func (q *Queue) Push(v interface{})
-    func (q *Queue) Size() int
-```
+**接口文档**：
+
+[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
+
 
 ## 使用示例1，基本使用
 

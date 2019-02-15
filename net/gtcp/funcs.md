@@ -1,11 +1,11 @@
 `gtcp`模块也提供了一些常用的工具方法。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/net/gtcp"
 ```
 
-接口文档：
+**接口文档**：
 [godoc.org/github.com/gogf/gf/g/net/gtcp](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 func Checksum(buffer []byte) uint32

@@ -1,11 +1,11 @@
 TCPServer通过```gtcp.Server```实现。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/net/gtcp"
 ```
 
-接口文档：
+**接口文档**：
 [godoc.org/github.com/gogf/gf/g/net/gtcp#Server](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type Server

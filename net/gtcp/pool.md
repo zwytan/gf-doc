@@ -1,11 +1,11 @@
 `gtcp`模块提供了连接池的特性，由```gtcp.PoolConn```对象实现，连接池缓存固定存活时间为600秒，且内部实现了数据发送时的断开重连机制。连接池非常适合于频繁的短链接操作且连接并发量大的场景。我们接下来使用两个示例来演示一下连接池的作用。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/net/gtcp"
 ```
 
-接口文档：
+**接口文档**：
 [godoc.org/github.com/gogf/gf/g/net/gtcp#PoolConn](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
 ```go
 type PoolConn

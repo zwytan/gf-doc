@@ -2,12 +2,12 @@
 
 Redis客户端由```gredis```模块实现，底层采用了**链接池设计**，开发者无需手动`Close`链接对象。
 
-使用方式：
+**使用方式**：
 ```go
 import "github.com/gogf/gf/g/database/gredis"
 ```
 
-接口文档：[godoc.org/github.com/gogf/gf/g/database/gredis](https://godoc.org/github.com/gogf/gf/g/database/gredis)
+**接口文档**：[godoc.org/github.com/gogf/gf/g/database/gredis](https://godoc.org/github.com/gogf/gf/g/database/gredis)
 ```go
 func New(address string, db ...interface{}) *Redis
 func (r *Redis) Close() error

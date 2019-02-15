@@ -45,8 +45,9 @@ golang版本 >= 1.9.2
 * 更多请查阅文档及源码；
 
 开源项目地址：
-- **Gitee**( https://gitee.com/johng/gf )
-- **Github**( https://github.com/gogf/gf )
+- **主库**: https://github.com/gogf/gf 
+- **码云**: https://gitee.com/johng/gf 
+
 
 技术交流Q群：`116707870`。
 
@@ -72,6 +73,8 @@ golang版本 >= 1.9.2
 <br /><br /><br />
 
 # 捐赠者
+
+<a href="https://gitee.com/tiangenglan" target="_blank" title="zhuhuan12"><img src="https://images.gitee.com/uploads/99/1167099_tiangenglan.png" width="60" align="left"></a>
 
 <a href="https://gitee.com/zhuhuan12" target="_blank" title="zhuhuan12"><img src="https://gitee.com/uploads/39/751839_zhuhuan12.png" width="60" align="left"></a>
 
