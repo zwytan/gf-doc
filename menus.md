@@ -11,7 +11,7 @@
     * [开始运行](start/buildrun.md)
 * [项目部署](#)
     * [独立部署](deployment/standalone.md)
-    * [反代部署](deployment/proxy.md)
+    * [代理部署](deployment/proxy.md)
     * [容器部署](deployment/container.md)
 * [WEB服务开发](#)
     * [开始使用](net/ghttp/index.md)

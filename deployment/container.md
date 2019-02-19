@@ -2,8 +2,6 @@
 
 容器部署即使用`docker`化部署`golang`应用程序，这是在云服务时代最流行的部署方式，也是最推荐的部署方式。
 
-> 在企业级生产环境中，`docker`容器往往需要结合`kubernetes`或者`docker swarm`容器编排工具一起使用。
-
 ## 1. 编译程序
 跨平台交叉编译是`golang`的特点之一，可以非常方便地编译出我们需要的目标服务器平台的版本，而且是静态编译，非常方便地解决了运行依赖问题。
 使用以下方式静态编译`Linux`平台`amd64`架构的可执行文件：
@@ -47,11 +45,11 @@ docker run gf-app
 
 ## 4. 镜像分发
 
-容器的分发可以使用`docker`官方的平台：https://hub.docker.com/ ，
-国内也可以考虑使用阿里云：https://www.aliyun.com/product/acr 。
+容器的分发可以使用`docker`官方的平台：https://hub.docker.com/ ，国内也可以考虑使用阿里云：https://www.aliyun.com/product/acr 。
 
 ## 5. 容器编排
 
+在企业级生产环境中，`docker`容器往往需要结合`kubernetes`或者`docker swarm`容器编排工具一起使用。
 容器编排涉及到的内容比较多，感兴趣的同学可以参考以下资料：
 * https://kubernetes.io/
 * https://docs.docker.com/swarm/
