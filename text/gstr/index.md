@@ -7,9 +7,8 @@
 import "github.com/gogf/gf/g/text/gstr"
 ```
 
-**接口文档**： [godoc.org/github.com/gogf/gf/g/text/gstr](https://godoc.org/github.com/gogf/gf/g/text/gstr)
+**接口文档**： 
+
+[godoc.org/github.com/gogf/gf/g/text/gstr](https://godoc.org/github.com/gogf/gf/g/text/gstr)
 
 
-
-
-To be continued..
