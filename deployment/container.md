@@ -13,7 +13,7 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o gf-app main.go
 ## 2. 编译镜像
 我们需要将该可执行文件`gf-app`编译生成`docker`镜像，以便于分发及部署。`Golang`的运行环境推荐使用`alpine`基础系统镜像，编译出的容器镜像约为20MB左右。
 
-一个参考的`Dockerfile`文件如下（可以参考`gf-home`项目的`Dcokerfile`: https://github.com/gogf/gf-home）：
+一个参考的`Dockerfile`文件如下（ 可以参考`gf-home`项目的`Dcokerfile`: https://github.com/gogf/gf-home ）：
 ```dockerfile
 FROM loads/alpine:3.8
 
