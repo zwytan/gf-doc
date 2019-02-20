@@ -23,46 +23,10 @@
 import "github.com/gogf/gf/g/os/gtimer"
 ```
 
-**接口文档**： [godoc.org/github.com/gogf/gf/g/os/gtimer](https://godoc.org/github.com/gogf/gf/g/os/gtimer)
+**接口文档**： 
 
-```go
-func Add(interval time.Duration, job JobFunc) *Entry
-func AddEntry(interval time.Duration, job JobFunc, singleton bool, times int, status int) *Entry
-func AddOnce(interval time.Duration, job JobFunc) *Entry
-func AddSingleton(interval time.Duration, job JobFunc) *Entry
-func AddTimes(interval time.Duration, times int, job JobFunc) *Entry
-func DelayAdd(delay time.Duration, interval time.Duration, job JobFunc)
-func DelayAddEntry(delay time.Duration, interval time.Duration, job JobFunc, singleton bool, times int, status int)
-func DelayAddOnce(delay time.Duration, interval time.Duration, job JobFunc)
-func DelayAddSingleton(delay time.Duration, interval time.Duration, job JobFunc)
-func DelayAddTimes(delay time.Duration, interval time.Duration, times int, job JobFunc)
-func SetInterval(interval time.Duration, job JobFunc)
-func SetTimeout(delay time.Duration, job JobFunc)
-func Exit()
-type Timer
-    func New(slot int, interval time.Duration, level ...int) *Timer
-    func (t *Timer) Add(interval time.Duration, job JobFunc) *Entry
-    func (t *Timer) AddOnce(interval time.Duration, job JobFunc) *Entry
-    func (t *Timer) AddSingleton(interval time.Duration, job JobFunc) *Entry
-    func (t *Timer) AddTimes(interval time.Duration, times int, job JobFunc) *Entry
-    func (t *Timer) DelayAdd(delay time.Duration, interval time.Duration, job JobFunc)
-    func (t *Timer) DelayAddOnce(delay time.Duration, interval time.Duration, job JobFunc)
-    func (t *Timer) DelayAddSingleton(delay time.Duration, interval time.Duration, job JobFunc)
-    func (t *Timer) DelayAddTimes(delay time.Duration, interval time.Duration, times int, job JobFunc)
-    func (t *Timer) Start()
-    func (t *Timer) Stop()
-    func (t *Timer) Close()
-type Entry
-    func (entry *Entry) IsSingleton() bool
-    func (entry *Entry) SetSingleton(enabled bool)
-    func (entry *Entry) SetStatus(status int) int
-    func (entry *Entry) SetTimes(times int)
-    func (entry *Entry) Run()
-    func (entry *Entry) Status() int
-    func (entry *Entry) Start()
-    func (entry *Entry) Stop()
-    func (entry *Entry) Close()
-```
+[godoc.org/github.com/gogf/gf/g/os/gtimer](https://godoc.org/github.com/gogf/gf/g/os/gtimer)
+
 简要说明：
 1. `New`方法用于创建自定义的任务定时器对象:
     - `slot` 参数用于指定每个时间轮的槽数；

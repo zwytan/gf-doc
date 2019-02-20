@@ -14,22 +14,11 @@ import "github.com/gogf/gf/g/os/grpool"
 
 管理大量异步任务的场景、需要异步协程复用的场景、需要降低内存使用率的场景。
 
-## 接口文档
+**接口文档**：
 
 [godoc.org/github.com/gogf/gf/g/os/grpool](https://godoc.org/github.com/gogf/gf/g/os/grpool)
 
-```go
-func Add(f func()) error
-func Jobs() int
-func Size() int
-type Pool
-    func New(size ...int) *Pool
-    func (p *Pool) Add(f func()) error
-    func (p *Pool) Close()
-    func (p *Pool) ForkWorker()
-    func (p *Pool) Jobs() int
-    func (p *Pool) Size() int
-```
+
 
 通过```grpool.New```方法创建一个```goroutine池```，参数为非必需参数，用于限定池中的工作goroutine数量，默认为不限制。需要注意的是，任务可以不停地往池中添加，没有限制，但是工作的goroutine是可以做限制的。我们可以通过```Size()```方法查询当前的工作goroutine数量，使用```Jobs()```方法查询当前池中待处理的任务数量。
 

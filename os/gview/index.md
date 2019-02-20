@@ -8,26 +8,10 @@
 通用视图管理即使用原生的模板引擎```gview```模块来实现模板管理，包括模板读取展示，模板变量渲染等等，可以通过对象管理器```g.View()```来获取默认的单例`gview`对象。
 
 **接口文档**：
+
 [godoc.org/github.com/gogf/gf/g/os/gview](https://godoc.org/github.com/gogf/gf/g/os/gview)
-```go
-func HTML(content string) template.HTML
-func ParseContent(content string, params map[string]interface{}) ([]byte, error)
 
-type View
-    func Get(path string) *View
-    func New(path string) *View
-    
-    func (view *View) AddPath(path string) error
-    func (view *View) SetPath(path string) error
 
-    func (view *View) Assign(key string, value interface{})
-    func (view *View) Assigns(data Params)
-
-    func (view *View) BindFunc(name string, function interface{})
-    func (view *View) Parse(file string, params map[string]interface{}, funcmap ...map[string]interface{}) ([]byte, error)
-    func (view *View) ParseContent(content string, params map[string]interface{}, funcmap ...map[string]interface{}) ([]byte, error)
-    func (view *View) SetDelimiters(left, right string)
-```
 简要说明：
 1. `gview.Get`用于根据给定的一个模板目录路径，获得对应的单例模板引擎对象；
 1. `gview.New`同样可以根据给定的模板目录路径创建模板引擎对象，但没有单例管理；

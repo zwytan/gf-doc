@@ -10,44 +10,10 @@
 import "github.com/gogf/gf/g/os/gcache"
 ```
 
-**接口文档**： [godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
-```go
-func Set(key interface{}, value interface{}, expire int)
-func SetIfNotExist(key interface{}, value interface{}, expire int) bool
-func BatchSet(data map[interface{}]interface{}, expire int)
+**接口文档**： 
 
-func Get(key interface{}) interface{}
-func GetOrSet(key interface{}, value interface{}, expire int) interface{}
-func GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
-func GetOrSetFuncLock(key interface{}, f func() interface{}, expire int) interface{}
+[godoc.org/github.com/gogf/gf/g/os/gcache](https://godoc.org/github.com/gogf/gf/g/os/gcache)
 
-func Remove(key interface{}) interface{}
-func BatchRemove(keys []interface{})
-
-func Contains(key interface{}) bool
-func Keys() []interface{}
-func KeyStrings() []string
-func Size() int
-func Values() []interface{}
-type Cache
-    func New(lruCap ...int) *Cache
-    func (c Cache) BatchRemove(keys []interface{})
-    func (c Cache) BatchSet(data map[interface{}]interface{}, expire int)
-    func (c *Cache) Clear()
-    func (c Cache) Close()
-    func (c Cache) Contains(key interface{}) bool
-    func (c Cache) Get(key interface{}) interface{}
-    func (c Cache) GetOrSet(key interface{}, value interface{}, expire int) interface{}
-    func (c Cache) GetOrSetFunc(key interface{}, f func() interface{}, expire int) interface{}
-    func (c Cache) GetOrSetFuncLock(key interface{}, f func() interface{}, expire int) interface{}
-    func (c Cache) KeyStrings() []string
-    func (c Cache) Keys() []interface{}
-    func (c Cache) Remove(key interface{}) interface{}
-    func (c Cache) Set(key interface{}, value interface{}, expire int)
-    func (c Cache) SetIfNotExist(key interface{}, value interface{}, expire int) bool
-    func (c Cache) Size() int
-    func (c Cache) Values() []interface{}
-```
 `gcache`可以使用`New`方法创建使用，并且也可以使用包方法使用。在通过包方法使用缓存功能时，其实操作`gcache`默认提供的一个`gcache.Cache`对象，具有全局性，因此在使用时注意全局键名的覆盖。
 
 `gcache`比较有特色的地方是键名使用的是`interface{}`类型，而不是`string`类型，这意味着我们可以使用任意类型的变量作为键名，但大多数时候建议使用`string`或者`[]byte`作为键名，并且统一键名的数据类型，以便维护。

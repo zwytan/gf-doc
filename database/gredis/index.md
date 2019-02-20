@@ -7,21 +7,11 @@ Redis客户端由```gredis```模块实现，底层采用了**链接池设计**�
 import "github.com/gogf/gf/g/database/gredis"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/database/gredis](https://godoc.org/github.com/gogf/gf/g/database/gredis)
-```go
-func New(address string, db ...interface{}) *Redis
-func (r *Redis) Close() error
+**接口文档**：
 
-func (r *Redis) Do(command string, args ...interface{}) (interface{}, error)
-func (r *Redis) Send(command string, args ...interface{}) error
+[godoc.org/github.com/gogf/gf/g/database/gredis](https://godoc.org/github.com/gogf/gf/g/database/gredis)
 
-func (r *Redis) SetIdleTimeout(value time.Duration)
-func (r *Redis) SetMaxActive(value int)
-func (r *Redis) SetMaxConnLifetime(value time.Duration)
-func (r *Redis) SetMaxIdle(value int)
 
-func (r *Redis) Stats() *PoolStats
-```
 `gredis`使用了连接池来进行`Redis`对象管理，通过```Set*```方法可以对连接池的属性进行管理，通过```Stats```方法可以获取连接池的统计信息。我们最常用的方法是```Do```和```Send```方法，分别是同步和异步指令，通过向Redis Server发送对应的Redis API命令，来使用Redis Server的服务。
 
 需要注意的是，`Close`方法是关闭**链接池**，而不是关闭当前的redis操作链接，只有在开发者期望自行维护`gredis`对象的时候才可能涉及到`Close`方法的使用。绝大部分情况下推荐使用`g.Redis`单例方式来操作redis。

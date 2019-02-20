@@ -7,19 +7,11 @@
 import "github.com/gogf/gf/g/os/gflock"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/os/gflock](https://godoc.org/github.com/gogf/gf/g/os/gflock)
-```go
-type Locker
-    func New(file string) *Locker
-    func (l *Locker) IsLocked() bool
-    func (l *Locker) Lock()
-    func (l *Locker) Path() string
-    func (l *Locker) RLock()
-    func (l *Locker) RUnlock()
-    func (l *Locker) TryLock() bool
-    func (l *Locker) TryRLock() bool
-    func (l *Locker) UnLock()
-```
+**接口文档**：
+
+[godoc.org/github.com/gogf/gf/g/os/gflock](https://godoc.org/github.com/gogf/gf/g/os/gflock)
+
+
 方法比较实用也很简单，我们这里来展示一个```Lock/Unlock```的示例。
 
 ```go

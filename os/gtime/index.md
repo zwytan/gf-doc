@@ -8,7 +8,9 @@
 import "github.com/gogf/gf/g/os/gtime"
 ```
 
-**接口文档**： [godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
+**接口文档**： 
+
+[godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
 
 # 时间格式
 `gtime`模块最大的特点是支持自定义的时间格式，参考[PHP日期时间格式语法](http://php.net/manual/zh/function.date.php)，以下是支持的时间格式语法列表：
@@ -18,33 +20,9 @@ import "github.com/gogf/gf/g/os/gtime"
 
 
 # 时间对象
-**接口文档**：
-```go
-type Time
-    func New(t ...time.Time) *Time
-    func NewFromStr(str string) *Time
-    func NewFromStrFormat(str string, format string) *Time
-    func NewFromStrLayout(str string, layout string) *Time
-    func NewFromTime(t time.Time) *Time
-    func NewFromTimeStamp(timestamp int64) *Time
-    func Now() *Time
-    func (t *Time) Add(d time.Duration) *Time
-    func (t *Time) AddDate(years int, months int, days int) *Time
-    func (t *Time) Clone() *Time
-    func (t *Time) Format(format string) string
-    func (t *Time) Layout(layout string) string
-    func (t *Time) Local() *Time
-    func (t *Time) Microsecond() int64
-    func (t *Time) Millisecond() int64
-    func (t *Time) Nanosecond() int64
-    func (t *Time) Round(d time.Duration) *Time
-    func (t *Time) Second() int64
-    func (t *Time) String() string
-    func (t *Time) ToLocation(location *time.Location) *Time
-    func (t *Time) ToTime() time.Time
-    func (t *Time) Truncate(d time.Duration) *Time
-    func (t *Time) UTC() *Time
-```
+
+[godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
+
 创建```gtime.Time```对象可以通过标准库```time.Time```对象、Unix时间戳、时间字符串（如：2018-07-18 12:01:00）、自定义时间字符串（需要给定格式，支持自定义格式及标准库格式）。
 
 ## 示例1，自定义时间格式化语法
@@ -149,20 +127,10 @@ func main() {
 该示例比较简单，便不多赘述。
 
 # 工具方法
+
 [godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
-```go
-func Date() string
-func Datetime() string
-func Microsecond() int64
-func Millisecond() int64
-func Nanosecond() int64
-func Second() int64
-func SetTimeZone(zone string) error
-func StrToTime(str string) (time.Time, error)
-func StrToTimeFormat(str string, format string) (time.Time, error)
-func StrToTimeLayout(str string, layout string) (time.Time, error)
-func ParseTimeFromContent(content string, format...string) *Time
-```
+
+
 方法比较简单，比较常用的是以下几个方法;
 1. ```Second```用于获得当前时间戳，```Millisecond```、```Microsecond```及```Nanosecond```用于获得当前的毫秒、微秒和纳秒值；
 2. ```Date```和```Datetime```用于获得当前日期及当前日期时间；

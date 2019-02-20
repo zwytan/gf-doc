@@ -8,7 +8,4 @@ import "github.com/gogf/gf/g/crypto/gcrc32"
 
 **接口文档**：
 
-```go
-func EncryptBytes(v []byte) uint32
-func EncryptString(v string) uint32
-```
+[godoc.org/github.com/gogf/gf/g/crypto/gcrc32](https://godoc.org/github.com/gogf/gf/g/crypto/gcrc32)

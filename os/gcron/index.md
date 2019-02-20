@@ -10,50 +10,10 @@ import "github.com/gogf/gf/g/os/gcron"
 ```
 
 **接口文档**：
+
 [godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
 
-```go
-func Add(pattern string, job func(), name ...string) (*Entry, error)
-func AddOnce(pattern string, job func(), name ...string) (*Entry, error)
-func AddSingleton(pattern string, job func(), name ...string) (*Entry, error)
-func AddTimes(pattern string, times int, job func(), name ...string) (*Entry, error)
-func DelayAdd(delay time.Duration, pattern string, job func(), name ...string)
-func DelayAddOnce(delay time.Duration, pattern string, job func(), name ...string)
-func DelayAddSingleton(delay time.Duration, pattern string, job func(), name ...string)
-func DelayAddTimes(delay time.Duration, pattern string, times int, job func(), name ...string)
-func Remove(name string)
-func Size() int
-func Start(name string)
-func Stop(name string)
-func Entries() []*Entry
-func Search(name string) *Entry
-type Cron
-	func New() *Cron
-	func (c *Cron) Add(pattern string, job func(), name ...string) (*Entry, error)
-	func (c *Cron) AddOnce(pattern string, job func(), name ...string) (*Entry, error)
-	func (c *Cron) AddSingleton(pattern string, job func(), name ...string) (*Entry, error)
-	func (c *Cron) AddTimes(pattern string, times int, job func(), name ...string) (*Entry, error)
-	func (c *Cron) Close()
-	func (c *Cron) DelayAdd(delay time.Duration, pattern string, job func(), name ...string)
-	func (c *Cron) DelayAddOnce(delay time.Duration, pattern string, job func(), name ...string)
-	func (c *Cron) DelayAddSingleton(delay time.Duration, pattern string, job func(), name ...string)
-	func (c *Cron) DelayAddTimes(delay time.Duration, pattern string, times int, job func(), name ...string)
-	func (c *Cron) Entries() []*Entry
-	func (c *Cron) Remove(name string)
-	func (c *Cron) Search(name string) *Entry
-	func (c *Cron) Size() int
-	func (c *Cron) Start(name ...string)
-	func (c *Cron) Stop(name ...string)
-type Entry
-	func (entry *Entry) Close()
-	func (entry *Entry) IsSingleton() bool
-	func (entry *Entry) SetSingleton(enabled bool)
-	func (entry *Entry) SetStatus(status int) int
-	func (entry *Entry) SetTimes(times int)
-	func (entry *Entry) Start()
-	func (entry *Entry) Status() int
-	func (entry *Entry) Stop()
-```
+
 简要说明：
 1. `New`方法用于创建自定义的定时任务管理对象；
 1. `Add`方法用于添加定时任务，其中：

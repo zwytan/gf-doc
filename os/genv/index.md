@@ -8,11 +8,9 @@
 import "github.com/gogf/gf/g/os/genv"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/os/genv](https://godoc.org/github.com/gogf/gf/g/os/genv)
-```go
-func All() []string
-func Get(k string, def ...string) string
-func Remove(k string) error
-func Set(k, v string) error
-```
+**接口文档**：
+
+[godoc.org/github.com/gogf/gf/g/os/genv](https://godoc.org/github.com/gogf/gf/g/os/genv)
+
+
 

@@ -7,47 +7,11 @@
 import "github.com/gogf/gf/g/os/gproc"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
+**接口文档**：
 
-```go
-func IsChild() bool
-func PPid() int
-func PPidOS() int
-func Pid() int
-func Send(pid int, data []byte, group ...string) error
-func SetPPid(ppid int)
-func Shell(cmd string, out io.Writer, in io.Reader) error
-func ShellExec(cmd string) (string, error)
-func ShellRun(cmd string) error
-func StartTime() time.Time
-func Uptime() int
-type Manager
-    func NewManager() *Manager
-    func (m *Manager) AddProcess(pid int)
-    func (m *Manager) Clear()
-    func (m *Manager) GetProcess(pid int) *Process
-    func (m *Manager) KillAll() error
-    func (m *Manager) NewProcess(path string, args []string, environment []string) *Process
-    func (m *Manager) Pids() []int
-    func (m *Manager) Processes() []*Process
-    func (m *Manager) RemoveProcess(pid int)
-    func (m *Manager) Send(data []byte)
-    func (m *Manager) SendTo(pid int, data []byte) error
-    func (m *Manager) SignalAll(sig os.Signal) error
-    func (m *Manager) Size() int
-    func (m *Manager) WaitAll()
-type Msg
-    func Receive(group ...string) *Msg
-type Process
-    func NewProcess(path string, args []string, environment ...[]string) *Process
-    func (p *Process) Kill() error
-    func (p *Process) Pid() int
-    func (p *Process) Release() error
-    func (p *Process) Run() error
-    func (p *Process) Send(data []byte) error
-    func (p *Process) Signal(sig os.Signal) error
-    func (p *Process) Start() (int, error)
-```
+[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
+
+
 简要说明：
 1. `Manager`对象为进程管理对象，可以同时管理多个子进程(当前执行进程为父进程)；
 1. `Process`为进程对象，表示特定执行或者获取的一个进程资源；

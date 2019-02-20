@@ -8,8 +8,7 @@ URL编码解析。
 import "github.com/gogf/gf/g/encoding/gurl"
 ```
 
-**接口文档**：[godoc.org/github.com/gogf/gf/g/encoding/gurl](https://godoc.org/github.com/gogf/gf/g/encoding/gurl)
-```go
-func Decode(str string) (string, error)
-func Encode(str string) string
-```
+**接口文档**：
+
+[godoc.org/github.com/gogf/gf/g/encoding/gurl](https://godoc.org/github.com/gogf/gf/g/encoding/gurl)
+

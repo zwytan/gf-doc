@@ -15,7 +15,7 @@ import "github.com/gogf/gf/g/container/gring"
 
 [godoc.org/github.com/gogf/gf/g/container/gring](https://godoc.org/github.com/gogf/gf/g/container/gring)
 
-`gring`支持链式操作。
+> `gring`支持链式操作。
 
 
 

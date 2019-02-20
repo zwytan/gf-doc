@@ -12,39 +12,6 @@ import "github.com/gogf/gf/g/os/gcfg"
 
 [godoc.org/github.com/gogf/gf/g/os/gcfg](https://godoc.org/github.com/gogf/gf/g/os/gcfg)
 
-```go
-type Config
-    func New(path string, file ...string) *Config
-    func (c *Config) AddPath(path string) error
-    func (c *Config) Get(pattern string, file ...string) interface{}
-    func (c *Config) GetArray(pattern string, file ...string) []interface{}
-    func (c *Config) GetBool(pattern string, file ...string) bool
-    func (c *Config) GetFilePath(file ...string) string
-    func (c *Config) GetFloat32(pattern string, file ...string) float32
-    func (c *Config) GetFloat64(pattern string, file ...string) float64
-    func (c *Config) GetFloats(pattern string, file ...string) []float64
-    func (c *Config) GetInt(pattern string, file ...string) int
-    func (c *Config) GetInt16(pattern string, file ...string) int16
-    func (c *Config) GetInt32(pattern string, file ...string) int32
-    func (c *Config) GetInt64(pattern string, file ...string) int64
-    func (c *Config) GetInt8(pattern string, file ...string) int8
-    func (c *Config) GetInterfaces(pattern string, file ...string) []interface{}
-    func (c *Config) GetInts(pattern string, file ...string) []int
-    func (c *Config) GetMap(pattern string, file ...string) map[string]interface{}
-    func (c *Config) GetString(pattern string, file ...string) string
-    func (c *Config) GetStrings(pattern string, file ...string) []string
-    func (c *Config) GetToStruct(pattern string, objPointer interface{}, file ...string) error
-    func (c *Config) GetUint(pattern string, file ...string) uint
-    func (c *Config) GetUint16(pattern string, file ...string) uint16
-    func (c *Config) GetUint32(pattern string, file ...string) uint32
-    func (c *Config) GetUint64(pattern string, file ...string) uint64
-    func (c *Config) GetUint8(pattern string, file ...string) uint8
-    func (c *Config) Reload()
-    func (c *Config) SetFileName(name string)
-    func (c *Config) SetPath(path string) error
-    func (c *Config) SetViolenceCheck(check bool)
-```
-
 `gcfg`包最大的特点是支持按层级获取配置数据，层级访问通过英文"`.`"号指定，其中```pattern```参数和[gjson包](encoding/gjson/index.md)的`pattern`参数一致。参数`file`指定需要读取的配置文件目录下的文件名称，是一个可选参数，默认为`config.toml`（即读取`config.toml`配置文件数据）。
 
 `toml`类型文件也是推荐的配置文件格式，如果想要自定义文件格式，可以通过`SetFileName`方法修改默认读取的配置文件名称，也可以在读取参数的时候指定第二个参数(配置文件名称)。

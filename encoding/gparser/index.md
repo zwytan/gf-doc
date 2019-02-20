@@ -13,63 +13,7 @@ import "github.com/gogf/gf/g/encoding/gparser"
 
 [godoc.org/github.com/gogf/gf/g/encoding/gparser](https://godoc.org/github.com/gogf/gf/g/encoding/gparser)
 
-```go
-func VarToJson(value interface{}) ([]byte, error)
-func VarToJsonIndent(value interface{}) ([]byte, error)
-func VarToStruct(value interface{}, obj interface{}) error
-func VarToToml(value interface{}) ([]byte, error)
-func VarToXml(value interface{}, rootTag ...string) ([]byte, error)
-func VarToXmlIndent(value interface{}, rootTag ...string) ([]byte, error)
-func VarToYaml(value interface{}) ([]byte, error)
-type Parser
-    func Load(path string) (*Parser, error)
-    func LoadContent(data []byte, dataType ...string) (*Parser, error)
-    func New(value interface{}, unsafe ...bool) *Parser
-    func NewUnsafe(value ...interface{}) *Parser
-    func (p *Parser) Append(pattern string, value interface{}) error
-    func (p *Parser) Dump() error
-    func (p *Parser) Get(pattern ...string) interface{}
-    func (p *Parser) GetArray(pattern string) []interface{}
-    func (p *Parser) GetBool(pattern string) bool
-    func (p *Parser) GetFloat32(pattern string) float32
-    func (p *Parser) GetFloat64(pattern string) float64
-    func (p *Parser) GetFloats(pattern string) []float64
-    func (p *Parser) GetInt(pattern string) int
-    func (p *Parser) GetInt16(pattern string) int16
-    func (p *Parser) GetInt32(pattern string) int32
-    func (p *Parser) GetInt64(pattern string) int64
-    func (p *Parser) GetInt8(pattern string) int8
-    func (p *Parser) GetInterfaces(pattern string) []interface{}
-    func (p *Parser) GetInts(pattern string) []int
-    func (p *Parser) GetMap(pattern string) map[string]interface{}
-    func (p *Parser) GetString(pattern string) string
-    func (p *Parser) GetStrings(pattern string) []string
-    func (p *Parser) GetTime(pattern string, format ...string) time.Time
-    func (p *Parser) GetTimeDuration(pattern string) time.Duration
-    func (p *Parser) GetToStruct(pattern string, objPointer interface{}) error
-    func (p *Parser) GetToVar(pattern string, v interface{}) error
-    func (p *Parser) GetUint(pattern string) uint
-    func (p *Parser) GetUint16(pattern string) uint16
-    func (p *Parser) GetUint32(pattern string) uint32
-    func (p *Parser) GetUint64(pattern string) uint64
-    func (p *Parser) GetUint8(pattern string) uint8
-    func (p *Parser) Len(pattern string) int
-    func (p *Parser) Remove(pattern string) error
-    func (p *Parser) Set(pattern string, value interface{}) error
-    func (p *Parser) SetSplitChar(char byte)
-    func (p *Parser) SetViolenceCheck(check bool)
-    func (p *Parser) ToArray() []interface{}
-    func (p *Parser) ToJson() ([]byte, error)
-    func (p *Parser) ToJsonIndent() ([]byte, error)
-    func (p *Parser) ToMap() map[string]interface{}
-    func (p *Parser) ToStruct(o interface{}) error
-    func (p *Parser) ToToml() ([]byte, error)
-    func (p *Parser) ToXml(rootTag ...string) ([]byte, error)
-    func (p *Parser) ToXmlIndent(rootTag ...string) ([]byte, error)
-    func (p *Parser) ToYaml() ([]byte, error)
-```
-
-方法简要说明，
+简要说明，
 1. ```Load```与```LoadContent```方法支持根据文件及内容，生成```gparser.Parser```对象；
 2. ```New```方法支持生成一个空的```gparser.Parser```对象，常用用于动态数据生成；
 3. ```New```方法同时也支持按照给定的任意Go变量生成一个```gparser.Parser```对象；

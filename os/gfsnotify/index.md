@@ -7,28 +7,10 @@
 import "github.com/gogf/gf/g/os/gfsnotify"
 ```
 
-# 接口文档
+**接口文档**：
+
 [godoc.org/github.com/gogf/gf/g/os/gfsnotify](https://godoc.org/github.com/gogf/gf/g/os/gfsnotify)
-```go
-func Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error)
-func Remove(path string) error
-func RemoveCallback(callbackId int) error
 
-type Event
-    func (e *Event) IsChmod() bool
-    func (e *Event) IsCreate() bool
-    func (e *Event) IsRemove() bool
-    func (e *Event) IsRename() bool
-    func (e *Event) IsWrite() bool
-    func (e *Event) String() string
-
-type Watcher
-    func New() (*Watcher, error)
-    func (w *Watcher) Add(path string, callbackFunc func(event *Event), recursive ...bool) (callback *Callback, err error)
-    func (w *Watcher) Close()
-    func (w *Watcher) Remove(path string) error
-    func (w *Watcher) RemoveCallback(callbackId int) error
-```
 
 推荐使用`gfsnotify`模块提供的```Add```和```Remove```模块方法，用于添加监控和取消监控。推荐原因见随后章节说明。
 

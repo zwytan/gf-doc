@@ -13,60 +13,10 @@
 import "github.com/gogf/gf/g/encoding/gjson"
 ```
 
-**接口文档**： [godoc.org/github.com/gogf/gf/g/encoding/gjson](https://godoc.org/github.com/gogf/gf/g/encoding/gjson)
-```go
-func Decode(b []byte) (interface{}, error)
-func DecodeTo(b []byte, v interface{}) error
-func Encode(v interface{}) ([]byte, error)
-type Json
-    func DecodeToJson(b []byte) (*Json, error)
-    func Load(path string) (*Json, error)
-    func LoadContent(data []byte, dataType ...string) (*Json, error)
-    func New(value interface{}, unsafe ...bool) *Json
-    func NewUnsafe(value ...interface{}) *Json
-    func (j *Json) Append(pattern string, value interface{}) error
-    func (j *Json) Dump() error
-    func (j *Json) Get(pattern ...string) interface{}
-    func (j *Json) GetArray(pattern string) []interface{}
-    func (j *Json) GetBool(pattern string) bool
-    func (j *Json) GetFloat32(pattern string) float32
-    func (j *Json) GetFloat64(pattern string) float64
-    func (j *Json) GetFloats(pattern string) []float64
-    func (j *Json) GetInt(pattern string) int
-    func (j *Json) GetInt16(pattern string) int16
-    func (j *Json) GetInt32(pattern string) int32
-    func (j *Json) GetInt64(pattern string) int64
-    func (j *Json) GetInt8(pattern string) int8
-    func (j *Json) GetInterfaces(pattern string) []interface{}
-    func (j *Json) GetInts(pattern string) []int
-    func (j *Json) GetJson(pattern string) *Json
-    func (j *Json) GetMap(pattern string) map[string]interface{}
-    func (j *Json) GetString(pattern string) string
-    func (j *Json) GetStrings(pattern string) []string
-    func (j *Json) GetTime(pattern string, format ...string) time.Time
-    func (j *Json) GetTimeDuration(pattern string) time.Duration
-    func (j *Json) GetToStruct(pattern string, objPointer interface{}) error
-    func (j *Json) GetToVar(pattern string, v interface{}) error
-    func (j *Json) GetUint(pattern string) uint
-    func (j *Json) GetUint16(pattern string) uint16
-    func (j *Json) GetUint32(pattern string) uint32
-    func (j *Json) GetUint64(pattern string) uint64
-    func (j *Json) GetUint8(pattern string) uint8
-    func (j *Json) Len(pattern string) int
-    func (j *Json) Remove(pattern string) error
-    func (j *Json) Set(pattern string, value interface{}) error
-    func (j *Json) SetSplitChar(char byte)
-    func (j *Json) SetViolenceCheck(check bool)
-    func (j *Json) ToArray() []interface{}
-    func (j *Json) ToJson() ([]byte, error)
-    func (j *Json) ToJsonIndent() ([]byte, error)
-    func (j *Json) ToMap() map[string]interface{}
-    func (j *Json) ToStruct(o interface{}) error
-    func (j *Json) ToToml() ([]byte, error)
-    func (j *Json) ToXml(rootTag ...string) ([]byte, error)
-    func (j *Json) ToXmlIndent(rootTag ...string) ([]byte, error)
-    func (j *Json) ToYaml() ([]byte, error)
-```
+**接口文档**： 
+
+[godoc.org/github.com/gogf/gf/g/encoding/gjson](https://godoc.org/github.com/gogf/gf/g/encoding/gjson)
+
 
 ## 示例1，数据层级检索
 ```go
