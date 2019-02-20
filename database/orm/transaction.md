@@ -51,5 +51,5 @@ if tx, err := db.Begin(); err == nil {
     fmt.Println(r, err)
 }
 ```
-其他链式操作请参考【[链式操作](database/orm/linkop.md)】章节。
+其他链式操作请参考【[链式操作](database/orm/chaining.md)】章节。
 

@@ -56,7 +56,7 @@
     * [数据库ORM](#)
         * [ORM基本介绍](database/orm/index.md)
         * [ORM使用配置](database/orm/config.md)
-        * [ORM链式操作](database/orm/linkop.md)
+        * [ORM链式操作](database/orm/chaining.md)
         * [ORM方法操作](database/orm/method.md)
         * [ORM事务操作](database/orm/transaction.md)
         * [ORM高级特性](database/orm/senior.md)
