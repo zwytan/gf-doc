@@ -49,11 +49,25 @@ golang版本 >= 1.9.2
 - **码云**: https://gitee.com/johng/gf 
 
 
-技术交流Q群：`116707870`。
-
 # 协议
 
 `GF` 使用非常友好的 `MIT` 开源协议进行发布，永久`100%`开源免费。
+
+# 帮助
+- QQ交流群： `116707870`
+- 主库ISSUE：https://github.com/gogf/gf/issues
+- 国内ISSUE：https://gitee.com/johng/gf/issues
+
+# 捐赠
+
+捐赠支持`GF`框架的研发，
+请在捐赠时备注您的`github`/`gitee`账号名称。
+
+<a href="/images/donate.png" target="_blank">
+<img src="images/donate.png" width="300"/>
+</a>
+
+
 
 # 贡献者(TOP 10)
 
