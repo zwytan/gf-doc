@@ -6,6 +6,7 @@
 `gform`方法操作相对链式操作更偏底层操作一些，在项目开发中常用链式操作，因为链式操作更简单灵活，但链式操作执行不了太过于复杂的SQL操作，可以交给方法操作来处理。
 
 ## 方法操作
+https://godoc.org/github.com/gogf/gf/g/database/gdb
 
 ```go
 // SQL操作方法，返回原生的标准库sql对象
@@ -22,14 +23,14 @@ GetCount(query string, args ...interface{}) (int, error)
 GetStruct(obj interface{}, query string, args ...interface{}) error
 
 // 数据单条操作
-Insert(table string, data Map) (sql.Result, error)
-Replace(table string, data Map) (sql.Result, error)
-Save(table string, data Map) (sql.Result, error)
+Insert(table string, data interface{}, batch...int) (sql.Result, error)
+Replace(table string, data interface{}, batch...int) (sql.Result, error)
+Save(table string, data interface{}, batch...int) (sql.Result, error)
 
 // 数据批量操作
-BatchInsert(table string, list List, batch int) (sql.Result, error)
-BatchReplace(table string, list List, batch int) (sql.Result, error)
-BatchSave(table string, list List, batch int) (sql.Result, error)
+BatchInsert(table string, list interface{}, batch...int) (sql.Result, error)
+BatchReplace(table string, list interface{}, batch...int) (sql.Result, error)
+BatchSave(table string, list interface{}, batch...int) (sql.Result, error)
 
 // 数据修改/删除
 Update(table string, data interface{}, condition interface{}, args ...interface{}) (sql.Result, error)
@@ -51,7 +52,11 @@ SetMaxOpenConns(n int)
 SetConnMaxLifetime(n int)
 ```
 
-需要注意的是`Query`返回的是原生的标准库的结果集对象，需要自行解析。在执行数据查询时推荐使用`Get*`系列查询方法。
+需要注意的是：
+1. `Query`返回的是原生的标准库的结果集对象，需要自行解析；
+1. 在执行数据查询时推荐使用`Get*`系列查询方法；
+1. `Insert`/`Replace`/`Save`方法中的`data`参数支持的数据类型为：`string/map/slice/struct/*struct`，当传递为`slice`类型时，自动识别为批量操作，此时`batch`参数有效；
+1. `Batch*`方法中的`list`参数类型支持任意的`slice`类型；
 
 
 ## 操作示例

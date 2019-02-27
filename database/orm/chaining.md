@@ -52,6 +52,10 @@ func (md *Model) ForPage(page, limit int) (*Model)
 5. **Save**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
 
+`Data`方法的重要说明：
+
+`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。但是需要注意的是，如果传递的是`struct`对象，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名。
+
 ## 操作示例
 
 ### 1. 获取ORM对象
