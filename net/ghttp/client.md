@@ -5,51 +5,83 @@
 
 ## ghttp.Client
 
-gf提供了强大易用的HTTP客户端，由ghttp提供支持(ghttp包统一封装了HTTP客户端及服务端功能)，我们先来看一下HTTP客户端的方法有哪些：
+`gf`框架提供了强大易用的HTTP客户端，由`ghttp`实现(ghttp包统一封装了HTTP客户端及服务端功能)，我们先来看一下HTTP客户端的方法有哪些：
+https://godoc.org/github.com/gogf/gf/g/net/ghttp#Client
 ```go
-func NewClient() *Client
-    func (c *Client) Connect(url, data string) (*ClientResponse, error)
-    func (c *Client) Delete(url, data string) (*ClientResponse, error)
-    func (c *Client) DoRequest(method, url string, data []byte) (*ClientResponse, error)
+type Client
+    func NewClient() *Client
+    func (c *Client) Connect(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) ConnectContent(url string, data ...string) string
+    func (c *Client) Delete(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) DeleteContent(url string, data ...string) string
+    func (c *Client) DoRequest(method, url string, data ...string) (*ClientResponse, error)
+    func (c *Client) DoRequestContent(method string, url string, data ...string) string
     func (c *Client) Get(url string) (*ClientResponse, error)
-    func (c *Client) Head(url, data string) (*ClientResponse, error)
-    func (c *Client) Options(url, data string) (*ClientResponse, error)
-    func (c *Client) Patch(url, data string) (*ClientResponse, error)
-    func (c *Client) Post(url, data string) (*ClientResponse, error)
-    func (c *Client) Put(url, data string) (*ClientResponse, error)
+    func (c *Client) GetContent(url string, data ...string) string
+    func (c *Client) Head(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) HeadContent(url string, data ...string) string
+    func (c *Client) Options(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) OptionsContent(url string, data ...string) string
+    func (c *Client) Patch(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) PatchContent(url string, data ...string) string
+    func (c *Client) Post(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) PostContent(url string, data ...string) string
+    func (c *Client) Put(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) PutContent(url string, data ...string) string
     func (c *Client) SetBasicAuth(user, pass string)
+    func (c *Client) SetBrowserMode(enabled bool)
+    func (c *Client) SetCookie(key, value string)
+    func (c *Client) SetCookieMap(cookieMap map[string]string)
     func (c *Client) SetHeader(key, value string)
+    func (c *Client) SetHeaderRaw(header string)
+    func (c *Client) SetPrefix(prefix string)
     func (c *Client) SetTimeOut(t time.Duration)
-    func (c *Client) Trace(url, data string) (*ClientResponse, error)
+    func (c *Client) Trace(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) TraceContent(url string, data ...string) string
 ```
 我们可以使用```ghttp.NewClient```创建一个HTTP客户端对象，随后可以使用该对象执行请求。`ghttp.Clien`t对象中封装了一系列基于`HTTP Method`来命名的方法，调用这些方法将会发起对应的`HTTP Method`请求。常用的方法当然是`Get`和`Post`方法，此外`DoRequest`是核心的请求方法，用户可以调用该方法实现自定义的`HTTP Method`发送请求。
 
 `ghttp`模块也提供了独立的包函数来实现HTTP请求，函数列表如下：
 
 ```go
-func Connect(url, data string) (*ClientResponse, error)
-func Delete(url, data string) (*ClientResponse, error)
-func DoRequest(method, url string, data []byte) (*ClientResponse, error)
 func Get(url string) (*ClientResponse, error)
-func Head(url, data string) (*ClientResponse, error)
-func Options(url, data string) (*ClientResponse, error)
-func Patch(url, data string) (*ClientResponse, error)
-func Post(url, data string) (*ClientResponse, error)
-func Put(url, data string) (*ClientResponse, error)
-func Trace(url, data string) (*ClientResponse, error)
+func Put(url string, data...string) (*ClientResponse, error)
+func Post(url string, data...string) (*ClientResponse, error)
+func Delete(url string, data...string) (*ClientResponse, error)
+func Head(url string, data...string) (*ClientResponse, error)
+func Patch(url string, data...string) (*ClientResponse, error)
+func Connect(url string, data...string) (*ClientResponse, error)
+func Options(url string, data...string) (*ClientResponse, error)
+func Trace(url string, data...string) (*ClientResponse, error)
+func DoRequest(method, url string, data...string) (*ClientResponse, error)
+
+func GetContent(url string, data...string) string
+func PutContent(url string, data...string) string
+func PostContent(url string, data...string) string
+func DeleteContent(url string, data...string) string
+func HeadContent(url string, data...string) string
+func PatchContent(url string, data...string) string
+func ConnectContent(url string, data...string) string 
+func OptionsContent(url string, data...string) string
+func TraceContent(url string, data...string) string 
+func RequestContent(method string, url string, data...string) string 
 ```
-函数说明与`Client`对象的方法说明一致，因此比较常见的情况是直接使用ghttp对应的HTTP包方法来实现HTTP客户端请求，而不用创建一个Client对象来处理。不过，当需要自定义请求的一些细节(例如超时时间、Cookie、Header等)时，就得依靠自定义的Client对象来处理了(需要`New`一个`ghttp.Client`对象来控制)。
+函数说明与`Client`对象的方法说明一致，因此比较常见的情况是直接使用`ghttp`对应的HTTP包方法来实现HTTP客户端请求，而不用创建一个`Client`对象来处理。不过，当需要自定义请求的一些细节(例如超时时间、Cookie、Header等)时，就得依靠自定义的Client对象来处理了(需要`New`一个`ghttp.Client`对象来控制)。
 
 ## ghttp.ClientResponse
 
 与`ghttp.Client`对应的是```ghttp.ClientResponse```，表示HTTP对应请求的返回结果对象，该对象继承于`http.Response`，可以使用`http.Response`的所有方法。在此基础之上增加了以下两个方法：
 ```go
-func (r *ClientResponse) Close()
+func (r *ClientResponse) GetCookie(key string) string
 func (r *ClientResponse) ReadAll() []byte
+func (r *ClientResponse) ReadAllString()
+func (r *ClientResponse) Close()
 ```
-这两个方法也是最常用的两个方法，一个是关闭请求返回结果对象，一个是获取所有的返回内容。
-
 这里也要提醒的是，**ghttp.ClientResponse是需要手动调用`Close`方法关闭的**，也就是说，不管你使用不使用返回的```ghttp.ClientResponse```对象，你都需要将该返回对象赋值给一个变量，并且（在不使用的时候）手动调用其```Close```方法进行关闭。需要手动关闭返回对象这一点，与标准库的HTTP客户端请求对象操作相同。
+
+## 数组及复杂类型参数
+
+数组参数可以通过例如`array=1&array=2&array3`这样的方式传递，但是推荐复杂数据类型使用`JSON`数据格式传递。
 
 ## 基本示例
 
@@ -103,7 +135,7 @@ func (r *ClientResponse) ReadAll() []byte
 
 ## 文件上传
 
-gf的HTTP客户端封装并极大简化了文件上传功能，直接上例子：
+`gf`的HTTP客户端封装并极大简化了文件上传功能，直接上例子：
 
 1. **客户端**
     [github.com/gogf/gf/blob/master/geg/net/ghttp/client/upload/client.go](https://github.com/gogf/gf/blob/master/geg/net/ghttp/client/upload/client.go)
