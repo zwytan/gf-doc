@@ -20,7 +20,7 @@ func (md *Model) Data(data...interface{}) *Model
 func (md *Model) Batch(batch int) *Model
 func (md *Model) Filter() *Model
 
-func (md *Model) Where(where string, args...interface{}) *Model
+func (md *Model) Where(where interface{}, args...interface{}) *Model
 func (md *Model) And(where interface{}, args ...interface{}) *Model
 func (md *Model) Or(where interface{}, args ...interface{}) *Model
 
@@ -46,15 +46,19 @@ func (md *Model) ForPage(page, limit int) (*Model)
 
 `Insert/Replace/Save`三个方法的区别：
 1. **Insert**
-	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，返回失败，否则写入一条新数据；
+	使用```insert into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，返回失败，否则写入一条新数据；
 3. **Replace**
-	使用```replace into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，会删除原有的记录，必定会写入一条新记录；
+	使用```replace into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，会删除原有的记录，必定会写入一条新记录；
 5. **Save**
-	使用```insert into```语句进行数据库写入，如果写入的数据中存在Primary Key或者Unique Key的情况，更新原有数据，否则写入一条新数据；
+	使用```insert into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，更新原有数据，否则写入一条新数据；
 
 `Data`方法的重要说明：
 
-`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。但是需要注意的是，如果传递的是`struct`对象，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名。
+`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。但是需要注意的是，如果传递的是`struct`对象，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
+
+> TIPS: `Where`条件参数推荐使用字符串的传递方式（使用`?`占位符预处理），因为在部分情况下，数据库的索引和你传递的查询条件顺序有一定关系（虽然数据库有时会帮助你自动进行查询索引优化）。
+
+
 
 ## 操作示例
 
@@ -208,7 +212,7 @@ r, err := db.Table("user").Filter().Data(g.Map{
 ```
 其中`id`为不存在的字段，在写入数据时将会被过滤掉，不至于被构造成写入SQL中产生执行错误。
 
-### 13. 查询结果转换为`Json/Xml`
+### 13. 查询结果转换为`JSON/XML`
 ```go
 one, err := db.Table("user").Where("uid=?", 1).One()
 if err != nil {

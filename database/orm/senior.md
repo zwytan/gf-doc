@@ -141,6 +141,19 @@ func main() {
 	"uid": "1"
 }
 ```
+# 使用Struct对象作为参数
+
+在`gform`中，写入/更新的输入参数（例如`Data`方法）支持任意的`string/map/slice/struct/*struct`类型，该特性为`gform`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
+
+例如:
+```go
+type User struct {
+    Uid      int    `gconv:"user_id"`
+    Name     string `gconv:"user_name"`
+    NickName string `gconv:"nick_name"`
+}
+```
+其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。
 
 
 # Record转Struct对象
