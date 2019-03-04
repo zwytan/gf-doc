@@ -229,7 +229,7 @@ nick_name  Nick_Name      match
 NickName   Nick_Name      match
 Nick-Name  Nick_Name      match
 ```
-> 由于数据库结果集转struct的底层是依靠`gconv.Struct`方法实现的，因此如果想要实现**自定义的属性转换**，以及更详细的映射规则说明，请参考【[gconv](util/gconv/index.md)】章节。
+> 由于数据库结果集转struct的底层是依靠`gconv.Struct`方法实现的，因此如果想要实现**自定义的属性转换**，以及更详细的映射规则说明，请参考【[gconv](util/gconv/struct.md)】章节。
 
 我们可以通过`gconv`标签来实现自定义的属性转换，例如：
 ```go
