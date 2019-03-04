@@ -152,8 +152,14 @@ type User struct {
     Name     string `gconv:"user_name"`
     NickName string `gconv:"nick_name"`
 }
+// 或者
+type User struct {
+    Uid      int    `json:"user_id"`
+    Name     string `json:"user_name"`
+    NickName string `json:"nick_name"`
+}
 ```
-其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。
+其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免与`JSON`编码时冲突，推荐是使用`gconv`标签来实现映射关系。
 
 
 # Record转Struct对象
@@ -238,6 +244,7 @@ type User struct {
     Name string `gconv:"user_name"`
 }
 ```
+
 
 
 # Result结果集类型转换
