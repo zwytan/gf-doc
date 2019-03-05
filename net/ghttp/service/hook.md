@@ -319,7 +319,7 @@ func main() {
     s := g.Server()
     s.BindHookHandlerByMap("/api.v1/*any", map[string]ghttp.HandlerFunc {
        "BeforeServe"  : func(r *ghttp.Request) {
-           r.Response.SetAllowCrossDomainRequest("*", "PUT,GET,POST,DELETE,OPTIONS")
+           r.Response.CORSDefault()
        },
     })
     s.BindControllerRest("/api.v1/{.struct}", new(Order))
@@ -327,7 +327,7 @@ func main() {
     s.Run()
 }
 ```
-我们增加了针对于路由```/api.v1/*any```的绑定事件```BeforeServe```，该事件将会在所有服务执行之前调用，该事件的回调方法中，我们通过调用```SetAllowCrossDomainRequest```方法设置运行跨域请求。该绑定的事件路由规则使用了模糊匹配规则，表示所有```/api.v1```开头的接口地址都允许跨域请求。
+我们增加了针对于路由```/api.v1/*any```的绑定事件```BeforeServe```，该事件将会在所有服务执行之前调用，该事件的回调方法中，我们通过调用```CORSDefault```方法使用默认的跨域设置允许跨域请求。该绑定的事件路由规则使用了模糊匹配规则，表示所有```/api.v1```开头的接口地址都允许跨域请求。
 
-返回刚才的百度首页，再次执行请求AJAX请求，这次便成功了：
+返回刚才的百度首页，再次执行请求`AJAX`请求，这次便成功了：
 ![](/images/Selection_155.png)
