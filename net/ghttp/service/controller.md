@@ -104,6 +104,11 @@ func (c *Method) Info() {
 
 ## 绑定路由方法
 
+> 注意`BindControllerMethod`和`BindController`的区别：
+`BindControllerMethod`只是将控制器中的指定方法与指定路由规则进行绑定，第三个`method`参数只能指定一个方法名称；
+`BindController`是注册控制器，会自动按照方法命名生成一系列默认的路由规则(URI后缀形式)，第三个`methods`参数可以指定多个注册的方法名称。
+
+
 ```go
 package demo
 

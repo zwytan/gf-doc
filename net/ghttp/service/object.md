@@ -191,7 +191,9 @@ func (o *Object) Show(r *ghttp.Request) {
 
 我们可以通过```BindObjectMethod```方法绑定指定的路由到指定的方法执行（**方法名称参数区分大小写**）。
 
-> 注意`BindObjectMethod`和`BindObject`的区别：`BindObjectMethod`只是将对象中的指定方法与指定路由规则进行绑定；`BindObject`是注册执行对象，会生成一系列默认的路由规则(URI后缀形式)，并且可以使用内置变量。
+> 注意`BindObjectMethod`和`BindObject`的区别：
+`BindObjectMethod`只是将对象中的指定方法与指定路由规则进行绑定，第三个`method`参数只能指定一个方法名称；
+`BindObject`是注册执行对象，会自动按照方法命名生成一系列默认的路由规则(URI后缀形式)，第三个`methods`参数可以指定多个注册的方法名称。
 
 来看一个例子：
 
