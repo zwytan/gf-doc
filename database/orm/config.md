@@ -73,7 +73,7 @@ type ConfigNode  struct {
         role         = "master"
         charset      = "utf8"
         priority     = "100"
-        linkinfo     = "“
+        linkinfo     = ""
         max-idle     = "10"
         max-open     = "100"
         max-lifetime = "30"

@@ -10,9 +10,9 @@ import "github.com/gogf/gf/g/os/gcfg"
 
 # 接口文档 
 
-[godoc.org/github.com/gogf/gf/g/os/gcfg](https://godoc.org/github.com/gogf/gf/g/os/gcfg)
+https://godoc.org/github.com/gogf/gf/g/os/gcfg
 
-`gcfg`包最大的特点是支持按层级获取配置数据，层级访问通过英文"`.`"号指定，其中```pattern```参数和[gjson包](encoding/gjson/index.md)的`pattern`参数一致。参数`file`指定需要读取的配置文件目录下的文件名称，是一个可选参数，默认为`config.toml`（即读取`config.toml`配置文件数据）。
+`gcfg`包最大的特点是支持按层级获取配置数据，层级访问通过英文"`.`"号指定，其中```pattern```参数和【[gjson包](encoding/gjson/index.md)】的`pattern`参数一致。参数`file`指定需要读取的配置文件目录下的文件名称，是一个可选参数，默认为`config.toml`（即读取`config.toml`配置文件数据）。
 
 `toml`类型文件也是推荐的配置文件格式，如果想要自定义文件格式，可以通过`SetFileName`方法修改默认读取的配置文件名称，也可以在读取参数的时候指定第二个参数(配置文件名称)。
 
@@ -59,7 +59,7 @@ viewpath = "/home/www/templates/"
     disk  = "127.0.0.1:6379,0"
     cache = "127.0.0.1:6379,1"
 ```
-注意：以上toml配置文件中的密码字段值```123456```使用了双引号进行包含，用以标识该密码字段为字符串类型，防止配置文件读取时自动转换为整型，防止引起歧义。
+注意：以上`toml`配置文件中的密码字段值```123456```使用了双引号进行包含，用以标识该密码字段为字符串类型，防止配置文件读取时自动转换为整型，防止引起歧义。
 
 示例程序如下：
 ```go
