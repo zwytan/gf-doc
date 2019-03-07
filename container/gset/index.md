@@ -12,7 +12,7 @@ import "github.com/gogf/gf/g/container/gset"
 ```
 
 **接口文档**：
-[godoc.org/github.com/gogf/gf/g/container/gset](https://godoc.org/github.com/gogf/gf/g/container/gset)
+https://godoc.org/github.com/gogf/gf/g/container/gset
 
 
 ## 使用示例
