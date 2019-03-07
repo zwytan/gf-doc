@@ -15,7 +15,7 @@ import "github.com/gogf/gf/g/container/gmap"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/container/gmap](https://godoc.org/github.com/gogf/gf/g/container/gmap)
+https://godoc.org/github.com/gogf/gf/g/container/gmap
 
 
 
@@ -115,15 +115,15 @@ true
 
 ## 并发安全
 
-`gmap`在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，又或者只是想使用`gmap`对象来便于操作`map`，那么用户可以选择主动关闭`gmap`的并发安全特性(必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升。关闭并发安全特性可以在创建`gmap`对象时传递`false`参数，如：
+`gmap`在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，又或者只是想使用`gmap`对象来便于操作`map`，那么用户可以选择主动关闭`gmap`的并发安全特性(传递初始化参数`unsafe`值为`true`, 必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升。关闭并发安全特性可以在创建`gmap`对象时传递`false`参数，如：
 ```go
-m := gmap.New(false)
+m := gmap.New(true)
 ```
 
 此外，即使在未开启并发安全特性的情况下，也可以使用`Lock`/`RLock`方法来并发安全地自定义操作`gmap`对象。
 
 
-不仅仅是`gmap`，gf框架的其他并发安全数据结构也可以关闭并发安全特性，来提升性能或者简化原本复杂的数据结构操作。
+不仅仅是`gmap`，`gf`框架的其他并发安全数据结构也支持并发安全特性开关，来提升性能或者简化原本复杂的数据结构操作。
 
 
 ## 性能测试
@@ -202,4 +202,4 @@ BenchmarkGmapRemove-4                           10000000        126 ns/op       
 BenchmarkSyncmapRmove-4                         10000000        118 ns/op        0 B/op        0 allocs/op
 ```
 
-可以看到，在写入/删除这块`gmap`的性能与标准库的`sync.Map`对象没有差别，但在写入这块性能优势比较明显。
+可以看到，在读取/删除这块`gmap`的性能与标准库的`sync.Map`对象没有差别，但在写入这块性能优势比较明显。
