@@ -4,6 +4,7 @@
 其中比较重要且复杂的是校验规则参数的定义。
 
 校验方法：
+https://godoc.org/github.com/gogf/gf/g/util/gvalid
 ```go
 // 自定义错误信息: map[键名] => 字符串|map[规则]错误信息
 type CustomMsg = map[string]interface{}

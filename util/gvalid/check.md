@@ -1,8 +1,8 @@
 [TOC]
 
-
+接口文档：https://godoc.org/github.com/gogf/gf/g/util/gvalid
 ```go
-func Check(value interface{}, rules string, msgs interface{}, params ...map[string]interface{}) *Error
+func Check(value interface{}, rules string, msgs interface{}, params ...interface{}) *Error
 ```
 
 # 单数据校验 - Check

@@ -22,6 +22,7 @@ func (md *Model) Limit(start int, limit int) *Model
 func (md *Model) Data(data...interface{}) *Model
 func (md *Model) Batch(batch int) *Model
 func (md *Model) Filter() *Model
+func (md *Model) Alterable() *Model
 
 func (md *Model) Where(where interface{}, args...interface{}) *Model
 func (md *Model) And(where interface{}, args ...interface{}) *Model
@@ -41,7 +42,10 @@ func (md *Model) All() (Result, error)
 func (md *Model) One() (Record, error)
 func (md *Model) Value() (Value, error)
 func (md *Model) Count() (int, error)
-func (md *Model) Struct(obj interface{}) error
+
+func (md *Model) Struct(objPointer interface{}) error
+func (md *Model) Structs(objPointerSlice interface{}) error
+func (md *Model) Scan(objPointer interface{}) error
 
 func (md *Model) Chunk(limit int, callback func(result Result, err error) bool)
 func (md *Model) ForPage(page, limit int) (*Model)
