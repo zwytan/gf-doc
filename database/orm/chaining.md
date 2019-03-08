@@ -3,7 +3,7 @@
 
 # 数据库操作
 
-ORM链式操作使用方式简单灵活，是官方推荐的数据库操作方式。
+`gform`链式操作使用方式简单灵活，是官方推荐的数据库操作方式。
 
 ## 链式操作
 
@@ -59,13 +59,59 @@ func (md *Model) ForPage(page, limit int) (*Model)
 5. **Save**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，更新原有数据，否则写入一条新数据；
 
-`Data`方法的重要说明：
+## 链式安全
+
+在默认情况下，链式操作的每一个方法都将返回一个新的`Model`对象指针，而不是直接修改当前操作的`Model`对象，因此不会对原有`Model`对象产生污染，该`Model`对象可以重复使用，因此是`链式安全`的。
+
+例如，当存在多个分开查询的条件时，你可以这么来使用`Model`对象：
+```go
+m := g.DB().Table("user")
+m  = m.Where("status IN(?)", g.Slice{1,2,3})
+if vip {
+    m = m.And("money>=?", 1000000)
+} else {
+    m = m.And("money<?",  1000000)
+}
+r, err := m.Select()
+```
+可以看到，如果是分开执行链式操作，需要将链式操作的结果返回给原来的`Model`对象指针，以便进一步叠加查询条件。
+
+当然，我们可以通过`Alterable`方法设置当前`Model`为可修改对象，后续的所有链式操作都将会直接修改当前的`Model`对象，该`Model`对象不可重复使用，因此是链式非安全的。
+例如，以上的示例可以这样使用：
+```go
+m := g.DB().Table("user").Alterable()
+m.Where("status IN(?)", g.Slice{1,2,3})
+if vip {
+    m.And("money>=?", 1000000)
+} else {
+    m.And("money<?",  1000000)
+}
+r, err := m.Select()
+```
+
+## Data方法
 
 `Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。但是需要注意的是，如果传递的是`struct`对象，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
 
-> TIPS: `Where`条件参数推荐使用字符串的传递方式（使用`?`占位符预处理），因为在部分情况下，数据库的索引和你传递的查询条件顺序有一定关系（虽然数据库有时会帮助你自动进行查询索引优化）。
+## Struct参数
 
+在`gform`中，写入/更新的输入参数（例如`Data`方法）支持任意的`string/map/slice/struct/*struct`类型，该特性为`gform`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
 
+例如:
+```go
+type User struct {
+    Uid      int    `gconv:"user_id"`
+    Name     string `gconv:"user_name"`
+    NickName string `gconv:"nick_name"`
+}
+// 或者
+type User struct {
+    Uid      int    `json:"user_id"`
+    Name     string `json:"user_name"`
+    NickName string `json:"nick_name"`
+}
+```
+其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐是使用`gconv`标签来实现映射关系。
 
 ## 操作示例
 
@@ -89,6 +135,8 @@ db := g.DB("user-center")
 // 数据库引擎底层采用了链接池设计，当链接不再使用时会自动关闭
 ```
 ### 2. 单表/联表查询
+
+> TIPS: `Where`条件参数推荐使用字符串的传递方式（使用`?`占位符预处理），因为在部分情况下，数据库的索引和你传递的查询条件顺序有一定关系（虽然数据库有时会帮助你自动进行查询索引优化）。
 
 #### 1). 基础查询
 `Where + string`，条件参数使用字符串和预处理。
