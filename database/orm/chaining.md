@@ -206,7 +206,7 @@ r, err := db.Table("user").Fields("uid").Where("birthday=?", "1990-10-01").Count
 r, err := db.Table("user").Fields("DISTINCT uid,name").Select()
 ```
 
-### 8. 链式更新/删除
+### 3. 链式更新/删除
 ```go
 // 更新
 r, err := db.Table("user").Data(gdb.Map{"name" : "john2"}).Where("name=?", "john").Update()
@@ -221,7 +221,7 @@ r, err := db.Table("user").Data(`name="john"`).Update()
 r, err := db.Table("user").Data("name", "john").Update()
 r, err := db.Table("user").Data(g.Map{"name" : "john"}).Update()
 ```
-### 9. 链式写入/保存
+### 4. 链式写入/保存
 ```go
 r, err := db.Table("user").Data(gdb.Map{"name": "john"}).Insert()
 r, err := db.Table("user").Data(g.Map{"uid": 10000, "name": "john"}).Replace()
@@ -249,7 +249,7 @@ r, err := db.Table("user").Data(g.List{
 ```
 当然，`gdb.List`类型也可以使用`g.List`类型。
 
-### 11. 链式批量保存
+### 5. 链式批量保存
 ```go
 r, err := db.Table("user").Data(gdb.List{
     {"uid":10000, "name": "john_1"},
@@ -259,7 +259,7 @@ r, err := db.Table("user").Data(gdb.List{
 }).Save()
 ```
 
-### 12. 参数过滤功能
+### 6. 参数过滤功能
 `gform`可以自动同步**数据表结构**到程序缓存中(缓存不过期，直至程序重启/重新部署)，并且可以过滤提交参数中不符合表结构的数据项，该特性可以使用`Filter`方法实现，例如:
 ```go
 r, err := db.Table("user").Filter().Data(g.Map{
@@ -272,20 +272,6 @@ r, err := db.Table("user").Filter().Data(g.Map{
 ```
 其中`id`为不存在的字段，在写入数据时将会被过滤掉，不至于被构造成写入SQL中产生执行错误。
 
-### 13. 查询结果转换为`JSON/XML`
-```go
-one, err := db.Table("user").Where("uid=?", 1).One()
-if err != nil {
-    panic(err)
-}
+### 7. 查询结果处理
 
-// 使用内置方法转换为json/xml
-fmt.Println(one.ToJson())
-fmt.Println(one.ToXml())
-
-// 自定义方法方法转换为json/xml
-jsonContent, _ := gparser.VarToJson(one.ToMap())
-fmt.Println(jsonContent)
-xmlContent, _  := gparser.VarToXml(one.ToMap())
-fmt.Println(xmlContent)
-```
+请参考【[ORM结果处理](database/orm/result.md)】章节。
