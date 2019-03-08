@@ -89,33 +89,66 @@ db := g.DB("user-center")
 // 数据库引擎底层采用了链接池设计，当链接不再使用时会自动关闭
 ```
 ### 2. 单表/联表查询
+
+#### 1). 基础查询
+`Where + string`，条件参数使用字符串和预处理。
 ```go
 // 查询多条记录并使用Limit分页
-r, err := db.Table("user").Where("u.uid > ?", 1).Limit(0, 10).Select()
+// SELECT * FROM user WHERE uid>1 LIMIT 0,10
+r, err := db.Table("user").Where("uid > ?", 1).Limit(0, 10).Select()
 
+// 使用Fields方法查询指定字段
+// 未使用Fields方法指定查询字段时，默认查询为*
+// SELECT uid,name FROM user WHERE uid>1 LIMIT 0,10
+r, err := db.Table("user").Fileds("uid,name").Where("uid > ?", 1).Limit(0, 10).Select()
+
+// 支持多种Where条件参数类型
+// SELECT * FROM user WHERE uid=1
+r, err := db.Table("user").Where("u.uid=1",).One()
+r, err := db.Table("user").Where("u.uid=?", 1).One()
+// SELECT * FROM user WHERE uid=1 AND name='john'
+r, err := db.Table("user").Where("uid=？", 1).And("name=?", "john").One()
+// SELECT * FROM user WHERE uid=1 OR name='john'
+r, err := db.Table("user").Where("uid=？", 1).Or("name=?", "john").One()
+```
+`Where + map`，条件参数使用任意`map`类型传递。
+```go
+// SELECT * FROM user WHERE uid=1 AND name='john'
+r, err := db.Table("user").Where(g.Map{"uid" : 1, "name" : "john"}).One()
+// SELECT * FROM user WHERE uid=1 AND age>18
+r, err := db.Table("user").Where(g.Map{"uid" : 1, "age>" : 18}).One()
+```
+`Where + struct`，`struct`标签支持 `gconv/json`，映射属性到字段名称关系。
+```go
+type User struct {
+    Id       int    `json:"uid"`
+    UserName string `gconv:"name"`
+}
+// SELECT * FROM user WHERE uid =1 AND name='john'
+r, err := db.Table("user").Where(User{ Id : 1, UserName : "john"}).One()
+```
+
+#### 2). `join`查询
+```go
 // 查询符合条件的单条记录(第一条)
+// SELECT u.*,ud.site FROM user u LEFT JOIN user_detail ud ON u.uid=ud.uid WHERE u.uid=1 LIMIT 1
 r, err := db.Table("user u").LeftJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.site").Where("u.uid=?", 1).One()
 
 // 查询指定字段值
+// SELECT ud.site FROM user u LEFT JOIN user_detail ud ON u.uid=ud.uid WHERE u.uid=1 LIMIT 1
 r, err := db.Table("user u").RightJoin("user_detail ud", "u.uid=ud.uid").Fields("ud.site").Where("u.uid=?", 1).Value()
 
 // 分组及排序
+// SELECT u.*,ud.site FROM user u LEFT JOIN user_detail ud ON u.uid=ud.uid GROUP BY city ORDER BY register_time asc
 r, err := db.Table("user u").InnerJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.city").GroupBy("city").OrderBy("register_time asc").Select()
 
-// 不使用john的联表查询
+// 不使用join的联表查询
+// SELECT u.*,ud.city FROM user u,user_detail ud WHERE u.uid=ud.uid
 r, err := db.Table("user u,user_detail ud").Where("u.uid=ud.uid").Fields("u.*,ud.city").All()
 ```
-其中未使用```Fields```方法指定查询字段时，默认查询为```*```。
-支持多种形式的条件参数：
-```go
-r, err := db.Table("user").Where("u.uid=1",).One()
-r, err := db.Table("user").Where("u.uid=?", 1).One()
-r, err := db.Table("user").Where(g.Map{"uid" : 1}).One()
-r, err := db.Table("user").Where("uid=？", 1).And("name=?", "john").One()
-r, err := db.Table("user").Where("uid=？", 1).Or("name=?", "john").One()
-```
 
-### 3. `in`查询
+#### 3). `select in`查询
+使用字符串参数类型。
 ```go
 // SELECT * FROM user WHERE uid IN(100,10000,90000)
 r, err := db.Table("user").Where("uid IN(?,?,?)", 100, 10000, 90000).All()
@@ -124,8 +157,28 @@ r, err := db.Table("user").Where("gender=? AND uid IN(?)", 1, g.Slice{100, 10000
 // SELECT COUNT(*) FROM user WHERE age in(18,50)
 r, err := db.Table("user").Where("age IN(?,?)", 18, 50).Count()
 ```
+使用任意`map`参数类型。
+```go
+// SELECT * FROM user WHERE gender=1 AND uid IN(100,10000,90000)
+r, err := db.Table("user").Where(g.Map{
+    "gender" : 1,
+    "uid"    : g.Slice{100,10000,90000},
+}).All()
+```
+使用`struct`参数类型，注意查询条件的顺序和`struct`的属性定义顺序有关。
+```go
+type User struct {
+    Id     []int  `gconv:"uid"`
+    Gender int    `gconv:"gender"`
+}
+// SELECT * FROM user WHERE uid IN(100,10000,90000) AND gender=1
+r, err := db.Table("user").Where(User{
+    "gender" : 1,
+    "uid"    : []int{100, 10000, 90000},
+}).All()
+```
 
-### 4. `like`查询
+#### 4). `like`查询
 ```go
 // SELECT * FROM user WHERE name like '%john%'
 r, err := db.Table("user").Where("name like ?", "%john%").Select()
@@ -133,13 +186,13 @@ r, err := db.Table("user").Where("name like ?", "%john%").Select()
 r, err := db.Table("user").Where("birthday like ?", "1990-%").Select()
 ```
 
-### 5. `sum`查询
+#### 5). `sum`查询
 ```go
 // SELECT SUM(score) FROM user WHERE uid=1
 r, err := db.Table("user").Fields("SUM(score)").Where("uid=?", 1).Value()
 ```
 
-### 6. `count`查询
+#### 6). `count`查询
 ```go
 // SELECT COUNT(1) FROM user WHERE `birthday`='1990-10-01'
 r, err := db.Table("user").Where("birthday=?", "1990-10-01").Count()
@@ -147,7 +200,7 @@ r, err := db.Table("user").Where("birthday=?", "1990-10-01").Count()
 r, err := db.Table("user").Fields("uid").Where("birthday=?", "1990-10-01").Count()
 ```
 
-### 7. `distinct`查询
+#### 7). `distinct`查询
 ```go
 // SELECT DISTINCT uid,name FROM user 
 r, err := db.Table("user").Fields("DISTINCT uid,name").Select()

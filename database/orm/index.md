@@ -26,81 +26,8 @@ type Result      []Record               // 返回数据表记录列表
 ```
 
 1. ```Map```与```List```用于ORM操作过程中的输入参数类型（与全局类型```g.Map```和```g.List```一致，在项目开发中常用`g.Map`和`g.List`替换）；
-2. ```Value/Record/Result```用于ORM操作的结果数据类型，其中```Result```表示数据表记录列表，```Record```表示一条数据表记录，```Value```表示记录中的一条键值数据；
+2. ```Value/Record/Result```用于ORM操作的结果数据类型，具体说明请查看【[ORM结果处理](database/orm/result.md)】章节；
 
-## 类型识别
-
-使用`gform`查询数据时，返回的数据类型将会被自动识别映射到`Go变量类型`。例如: 当字段类型为`int(xx)`时，查询到的字段值类型将会被识别会`int`类型；当字段类型为`varchar(xxx)`/`char(xxx)`/`text`等类型时将会被自动识别为`string`类型。以下以`mysql`类型为例，介绍数据库类型与Go变量类型的自动识别映射关系:
-
-|数据库类型 | Go变量类型
-|---|---
-|`*char`   | `string`
-|`*text`   | `string`
-|`*binary` | `bytes`
-|`*blob`   | `bytes`
-|`*int`    | `int`
-|`bit`     | `int`
-|`big_int` | `int64`
-|`float`   | `float64`
-|`double`  | `float64`
-|`decimal` | `float64`
-|`bool`    | `bool`
-|`其他`     | `string`
-
-这一特性对于需要将查询结果进行编码，并通过例如`JSON`方式直接返回给客户端来说将会非常友好。
-
-## 类型转换
-
-`gform`的数据记录结果（```Value```）支持非常灵活的类型转换，并内置支持常用的数十种数据类型的转换。```Result```/```Record```的类型转换请查看后续【[ORM高级特性](database/orm/senior.md)】章节。
-
-> `Value`类型是`*gvar.Var`类型的别名，因此可以使用`gvar.Var`数据类型的所有转换方法，具体请查看【[通用动态变量](container/gvar/index.md)】章节
-
-使用示例：
-
-首先，数据表定义如下：
-```sql
-# 商品表
-CREATE TABLE `goods` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(300) NOT NULL COMMENT '商品名称',
-  `price` decimal(10,2) NOT NULL COMMENT '商品价格',
-  ...
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-```
-其次，数据表中的数据如下：
-```html
-id   title     price
-1    IPhoneX   5999.99
-```
-最后，完整的示例程序如下：
-```go
-package main
-
-import (
-    "fmt"
-    "github.com/gogf/gf/g"
-    "github.com/gogf/gf/g/os/glog"
-)
-
-func main() {
-	g.Config().SetPath("/home/john/Workspace/github.com/gogf/gf/geg/frame")
-    db := g.Database()
-    if r, err := db.Table("goods").Where("id=?", 1).One(); err == nil {
-        fmt.Printf("goods    id: %d\n",   r["id"].Int())
-        fmt.Printf("goods title: %s\n",   r["title"].String())
-        fmt.Printf("goods proce: %.2f\n", r["price"].Float32())
-    } else {
-        glog.Error(err)
-    }
-}
-```
-执行后，输出结果为：
-```shell
-goods    id: 1
-goods title: IPhoneX
-goods proce: 5999.99
-```
 
 # 使用`g.Database/g.DB`与`gdb.New`的区别
 
