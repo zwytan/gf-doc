@@ -11,7 +11,8 @@ type Value       []byte                 // 返回数据表记录值
 type Record      map[string]Value       // 返回数据表记录键值对
 type Result      []Record               // 返回数据表记录列表
 ```
-```Value/Record/Result```用于ORM操作的结果数据类型，其中```Result```表示数据表记录列表，```Record```表示一条数据表记录，```Value```表示记录中的一条键值数据。
+
+`Value/Record/Result`用于ORM操作的结果数据类型，其中```Result```表示数据表记录列表，```Record```表示一条数据表记录，```Value```表示记录中的一条键值数据。
 
 # Record记录集处理
 
