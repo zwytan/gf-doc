@@ -1,5 +1,3 @@
-[TOC]
-
 `gvalid`模块实现了非常强大易用的数据校验功能，封装了`40种`常用的校验规则，支持单数据多规则校验、多数据多规则批量校验、自定义错误信息、自定义正则校验、支持`struct tag`规则及提示信息绑定等特性。
 
 **使用方式**：
@@ -55,6 +53,7 @@ in                   格式：in:value1,value2,...                  说明：参
 not-in               格式：not-in:value1,value2,...              说明：参数值不应该在value1,value2,...中(字符串匹配)
 regex                格式：regex:pattern                         说明：参数值应当满足正则匹配规则pattern
 ```
+[TOC]
 
 ## required
 - 格式: `required`
