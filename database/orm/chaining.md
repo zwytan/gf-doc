@@ -113,6 +113,42 @@ type User struct {
 ```
 其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐是使用`gconv`标签来实现映射关系。
 
+## Struct转换
+
+链式操作提供了3个方法对查询结果执行`struct`对象转换。
+1. `Struct`: 将查询结果转换为一个`struct`对象，查询结果应当是特定的一条记录，并且`objPointer`参数应当为`struct`对象的指针地址，使用方式例如：
+    ```go
+    type User struct {
+        Id         int
+        Passport   string
+        Password   string
+        NickName   string
+        CreateTime gtime.Time
+    }
+    user := new(User)
+    err  := db.Table("user").Where("id", 1).Struct(user)
+    ```
+    或者
+    ```go
+    var user User
+    err  := db.Table("user").Where("id", 1).Struct(&user)
+    ```
+1. `Structs`: 将多条查询结果集转换为一个`[]struct/[]*struct`数组，查询结果应当是多条记录组成的结果集，并且`objPointerSlice`应当为数组的指针地址，使用方式例如：
+    ```go
+    var users []User
+    // 或者 users := ([]User)(nil)
+    err := db.Table("user").Structs(&users)
+    ```
+    或者
+    ```go
+    var user []*User
+    // 或者 users := ([]*User)(nil)
+    err := db.Table("user").Structs(&users)
+    ```
+1. `Scan`: 该方法会根据输入参数`objPointer`的类型选择调用`Struct`还是`Structs`方法，如果结果是特定的一条记录，那么调用`Struct`方法，否则调用`Structs`方法；
+
+
+
 ## 操作示例
 
 ### 1. 获取ORM对象
