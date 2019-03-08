@@ -78,7 +78,7 @@ func main() {
 
 # 示例3，静态目录映射，优先级控制
 
-静态目录映射的优先级按照绑定的URI精准度进行控制，绑定的URI越精准（深度优先匹配），那么优先级越高。
+静态目录映射的优先级按照绑定的`URI`精准度进行控制，绑定的URI越精准（深度优先匹配），那么优先级越高。
 
 ```go
 package main
@@ -99,3 +99,29 @@ func main() {
 ```
 其中，访问`/my-doc/test`的优先级会比`/my-doc`高，因此假如`/Users/john/Documents`目录下存在`test`目录（与自定义的`/my-doc/test`冲突），将会无法被访问到。
 
+# 示例4，URI重写
+
+`gf`框架的静态文件服务支持将任意的`URI`重写，替换为制定的`URI`，使用`SetRewrite/SetRewriteMap`方法。
+
+示例，在`/Users/john/Temp`目录下只有两个文件`test1.html`及`test2.html`。
+```go
+package main
+
+import "github.com/gogf/gf/g"
+
+func main() {
+    s := g.Server()
+    s.SetServerRoot("/Users/john/Temp")
+    s.SetRewrite("/test.html", "/test1.html")
+        s.SetRewriteMap(g.MapStrStr{
+            "/my-test1" : "/test1.html",
+            "/my-test2" : "/test2.html",
+        })
+    s.SetPort(8199)
+    s.Run()
+}
+```
+执行后，
+1. 当我们访问 `/test.html` ，其实最终被重写到了 `test1.html`，返回的是该文件内容；
+1. 当我们访问 `/my-test1` ，其实最终被重写到了 `test1.html`，返回的是该文件内容；
+1. 当我们访问 `/my-test2` ，其实最终被重写到了 `test2.html`，返回的是该文件内容；
