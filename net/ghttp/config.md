@@ -45,7 +45,7 @@ type ServerConfig struct {
     AccessLogEnabled bool         // 是否开启access log
 
     // 其他设置
-    NameToUriType    int          // 服务注册时对象和方法名称转换为URI时的规则
+    NameToUriType    int          // 路由注册时对象和方法名称转换为URI时的规则
     GzipContentTypes []string     // 允许进行gzip压缩的文件类型
     DumpRouteMap     bool         // 是否在程序启动时默认打印路由表信息
 }

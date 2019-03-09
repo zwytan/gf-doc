@@ -49,7 +49,7 @@ func (o *Object) Show(r *ghttp.Request) {
     r.Response.Write("object show")
 }
 ```
-可以看到，执行对象在进行服务注册时便生成了一个对象(执行对象在Web Server启动时便生成)，此后不管多少请求进入，Web Server都是将请求转交给该对象对应的方法进行处理。需要注意的是，公开方法的定义，必须为以下形式：
+可以看到，执行对象在进行路由注册时便生成了一个对象(执行对象在Web Server启动时便生成)，此后不管多少请求进入，Web Server都是将请求转交给该对象对应的方法进行处理。需要注意的是，公开方法的定义，必须为以下形式：
 ```go
 func(r *ghttp.Request) 
 ```
@@ -95,7 +95,7 @@ func (o *Order) List(r *ghttp.Request) {
 
 此外，我们可以通过```ghttp.Server.SetNameToUriType```方法来设置`struct/method`名称与uri的转换方式。支持的方式目前有`4`种，对应`4`个常量定义：
 ```go
-NAME_TO_URI_TYPE_DEFAULT  = 0      // 服务注册时对象和方法名称转换为URI时，全部转为小写，单词以'-'连接符号连接
+NAME_TO_URI_TYPE_DEFAULT  = 0      // 路由注册时对象和方法名称转换为URI时，全部转为小写，单词以'-'连接符号连接
 NAME_TO_URI_TYPE_FULLNAME = 1      // 不处理名称，以原有名称构建成URI
 NAME_TO_URI_TYPE_ALLLOWER = 2      // 仅转为小写，单词间不使用连接符号
 NAME_TO_URI_TYPE_CAMEL    = 3      // 采用驼峰命名方式
@@ -271,7 +271,7 @@ func (c *ObjectRest) Hello(r *ghttp.Request) {
 
 ## 构造方法`Init`与析构方法`Shut`
 
-执行对象中的```Init```和```Shut```是两个在HTTP请求流程中被Web Server自动调用的特殊方法(类似`构造函数`和`析构函数`的作用)。当struct对象中定义了这两个方法名称时，使用执行对象方式进行服务注册时将会被自动注册到路由表中。
+执行对象中的```Init```和```Shut```是两个在HTTP请求流程中被Web Server自动调用的特殊方法(类似`构造函数`和`析构函数`的作用)。当struct对象中定义了这两个方法名称时，使用执行对象方式进行路由注册时将会被自动注册到路由表中。
 
 1. `Init`回调方法
 
