@@ -2,7 +2,11 @@
 
 [TOC]
 
-`GF`框架提供了非常强大的Web Server模块，由```ghttp```模块实现，API文档地址： [godoc.org/github.com/gogf/gf/g/net/ghttp](https://godoc.org/github.com/gogf/gf/g/net/ghttp)
+`gf`框架提供了非常强大的Web Server模块，由```ghttp```模块实现。集成了丰富完善的Web Server相关组件，例如：Router、Cookie、Session、路由注册、配置管理、模板引擎、缓存控制等等，支持热重启、热更新、多域名、多端口、多服务、HTTPS、Rewrite等等特性。
+
+接口文档地址： 
+
+https://godoc.org/github.com/gogf/gf/g/net/ghttp
 
 # 哈喽世界
 
@@ -24,11 +28,9 @@ func main() {
     s.Run()
 }
 ```
-这便是一个最简单的Web Server，它不支持静态文件处理，只有一个功能，访问```http://127.0.0.1/```的时候，它会返回`哈喽世界！`。
+这便是一个最简单的Web Server，默认情况下它不支持静态文件处理，只有一个功能，访问`http://127.0.0.1/`的时候，它会返回`哈喽世界！`。
 
-任何时候，您都可以通过```g.Server()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象（我们也可以通过```ghttp```模块的```ghttp.GetServer()```来获取单例的Web Server对象，后续章节将会有介绍）。
-
-通过`Run()`方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听`80`端口。
+任何时候，您都可以通过```g.Server()```方法获得一个默认的Web Server对象，该方法采用```单例模式```设计，也就是说，多次调用该方法，返回的是同一个Web Server对象。通过`Run()`方法执行Web Server的监听运行，在没有任何额外设置的情况下，它默认监听`80`端口。
 
 关于其中的路由注册，我们将会在后续的章节中介绍，我们继续来看看如何创建一个支持静态文件的Web Server。
 
@@ -52,10 +54,10 @@ func main() {
 }
 ```
 创建了Web Server对象之后，我们可以使用```Set*```方法来设置Web Server的属性，我们这里的示例中涉及到了两个属性设置方法：
-1. ```SetIndexFolder```用来设置是否允许列出Web Server主目录的文件列表（默认为false）；
+1. ```SetIndexFolder```用来设置是否允许列出Web Server主目录的文件列表（默认为`false`）；
 1. ```SetServerRoot```用来设置Web Server的主目录（类似其他Web Server中的```DocumentRoot```地址，默认为空，在某些时候，Web Server仅提供接口服务，因此Web Server的主目录为非必需参数）；
 
-Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。更多属性设置请参考 [API文档](https://godoc.org/github.com/gogf/gf/g/net/ghttp)。
+Web Server默认情况下是没有任何主目录的设置，只有设置了主目录，才支持对应主目录下的静态文件的访问。
 
 # 多端口监听
 
@@ -121,7 +123,7 @@ func main() {
 
 # 域名&多域名
 
-**同一个**Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
+同一个Web Server支持多域名绑定，并且不同的域名可以绑定不同的服务。
 
 我们来看一个简单的例子：
 
