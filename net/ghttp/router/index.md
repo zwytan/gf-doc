@@ -1,22 +1,23 @@
 
 [TOC]
 
-在了解完毕gf框架的[路由控制](net/ghttp/router/rules.md)机制之后，我们来看一下gf框架的路由注册功能。
+`Web Server`提供服务需要回调函数/方法/对象/控制器的支持，`ghttp`包支持多种路由注册模式，为开发者提供非常强大和灵活的接口功能。路由注册是整个Web Server最核心的部分，也是`gf`框架中最精心设计的一个模块。
 
-当用户访问某个URI时，Web Server能够精确的调用特定的服务接口提供服务，这些都是通过```路由注册```来实现的。Web Server提供服务需要回调函数/方法/对象/控制器的支持，ghttp包支持多种路由注册模式，为开发者提供非常强大和灵活的接口功能。路由注册是整个Web Server最核心的部分，也是gf框架中最精心设计的一个模块。
-
+<!-- 
 > 以下章节中部分示例按照MVC模式进行目录管理（控制器需要分别通过独立的包```init```方法进行自动注册），所有示例代码存放于：[github.com/gogf/gf/blob/master/geg/frame/mvc/](https://github.com/gogf/gf/blob/master/geg/frame/mvc) 目录中，每个示例无法独立运行（只是独立注册服务，没有```main```模块），需要访问示例结果的话，需要执行外层的```main.go```入口程序。（少部分示例位于 [github.com/gogf/gf/blob/master/geg/net/ghttp/server/](https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/)  目录中，可独立运行）
+-->
 
-路由注册管理由```ghttp```模块实现，API文档地址：[godoc.org/github.com/gogf/gf/g/ghttp](https://godoc.org/github.com/gogf/gf/g/net/ghttp)。
+接口文档：
+https://godoc.org/github.com/gogf/gf/g/net/ghttp
 
 # g与ghttp包
 
-在随后的章节示例代码中，我们将会看到频繁的```g.Server()```及```ghttp.GetServer()```混用，其实它们获取的都是同一个Web Server单例对象指针。其中```ghttp.GetServer()```是ghttp包**原生单例**Web Server对象指针获取方法。而```g.Server()```是框架通用**对象管理器**提供的方法，框架```g.*```对象管理器封装了常用的一些对象方法，具体请参看后续的【[对象管理](frame/g/index.md)】章节。虽然这种方式模块间耦合性比较高，但使用简便，也是推荐的使用方式。
+在随后的章节示例代码中，我们将会看到频繁的```g.Server()```及```ghttp.GetServer()```混用，其实它们获取的都是同一个`Web Server`单例对象指针。其中```ghttp.GetServer()```是`ghttp`包**原生单例**`Web Server`对象指针获取方法。而```g.Server()```是框架通用**对象管理器**提供的方法，框架```g.*```对象管理器封装了常用的一些对象方法，具体请参看后续的【[对象管理](frame/g/index.md)】章节。虽然这种方式模块间耦合性比较高，但使用简便，也是推荐的使用方式。
 
 
 # 路由注册介绍
 
-本章开始之前，我们再来看一下本手册开头的Hello World程序：
+本章开始之前，我们再来看一下本手册开头的`Hello World`程序：
 ```go
 package main
 
@@ -57,7 +58,7 @@ func main() {
 以上的三种方式对应的是三种```使用习惯```：
 
 1. **回调函数注册**：这种方式的路由注册不限制给定的回调函数是一个对象方法还是包方法，它仅仅需要一个函数的内存地址指针即可，使用比较灵活；
-1. **执行对象注册**：使用一个实例化的struct对象进行路由注册，大多数的go web框架也仅提供这种方式，大部分场景下也推荐使用这种方式进行注册；
+1. **执行对象注册**：使用一个实例化的`struct`对象进行路由注册，大多数的go web框架也仅提供这种方式，大部分场景下也推荐使用这种方式进行注册；
 1. **控制器方式注册**： 非常类似于PHP的执行机制，变量的管理维护比较安全，struct对象的管理更类似于OOP编程，由于内部在运行时使用了反射机制，因此对于性能没有过高要求的场景可以考虑这种方式；
 
 具体详细的介绍及使用请继续查看后续对应的章节。
@@ -72,11 +73,11 @@ func main() {
 func (s *Server) BindHandler(pattern string, handler HandlerFunc) error
 
 func (s *Server) BindObject(pattern string, obj interface{}, methods ...string) error
-func (s *Server) BindObjectMethod(pattern string, obj interface{}, methods string) error
+func (s *Server) BindObjectMethod(pattern string, obj interface{}, method string) error
 func (s *Server) BindObjectRest(pattern string, obj interface{}) error
 
 func (s *Server) BindController(pattern string, c Controller, methods ...string) error
-func (s *Server) BindControllerMethod(pattern string, c Controller, methods string) error
+func (s *Server) BindControllerMethod(pattern string, c Controller, method string) error
 func (s *Server) BindControllerRest(pattern string, c Controller) error
 ```
 
@@ -84,7 +85,7 @@ func (s *Server) BindControllerRest(pattern string, c Controller) error
 
 需要注意的是，控制器注册```BindController*```系列方法第二个参数为控制器接口，给定的参数必须实现```ghttp.Controller```接口。简便的做法是用户自定义的控制器直接继承```gmvc.Controller```基类即可，```gmvc.Controller```已经实现了对应的接口方法。
 
-路由注册使用的```pattern```参数格式在之前的【[路由控制](net/ghttp/router/rules.md)】章节已经有介绍，这里便不再过多赘述。
+路由注册使用的```pattern```参数格式在【[路由规则](net/ghttp/router/rules.md)】章节已经有介绍，这里便不再过多赘述。
 
 
 
@@ -102,16 +103,16 @@ func (s *Server) Domain(domains string) *Domain
 func (d *Domain) BindHandler(pattern string, handler HandlerFunc) error
 
 func (d *Domain) BindObject(pattern string, obj interface{}, methods ...string) error
-func (d *Domain) BindObjectMethod(pattern string, obj interface{}, methods string) error
+func (d *Domain) BindObjectMethod(pattern string, obj interface{}, method string) error
 func (d *Domain) BindObjectRest(pattern string, obj interface{}) error
 
 func (d *Domain) BindController(pattern string, c Controller, methods ...string) error
-func (d *Domain) BindControllerMethod(pattern string, c Controller, methods string) error
+func (d *Domain) BindControllerMethod(pattern string, c Controller, method string) error
 func (d *Domain) BindControllerRest(pattern string, c Controller) error
 ```
 各项参数说明和```Server```的路由注册对应方法一致，只不过在```Domain```对象的底层会自动将方法绑定到指定的域名列表中，只有对应的域名才能提供访问。
 
-我们来看一个简单的例子，我们将前面的Hello World程序改成如下形式：
+我们来看一个简单的例子，我们将前面的`Hello World`程序改成如下形式：
 ```go
 package main
 
@@ -135,7 +136,7 @@ func main() {
 服务的路由注册有两种方式：`统一路由注册管理`和`独立路由注册管理`。
 
 ### 统一路由注册管理
-`统一路由注册`是官方推荐的路由注册管理方式。
+> `统一路由注册`是官方推荐的路由注册管理方式。
 1. **优点**
   * 统一的路由表注册、管理、维护；
   * 很容易根据路由对服务进行定位；
@@ -146,19 +147,19 @@ func main() {
 
 示例：
 1. 控制器源码：
-  ```go
-  package ctlDoc
+    ```go
+    package ctlDoc
 
-  import (
-      "github.com/gogf/gf/g/net/ghttp"
-      "github.com/gogf/gf/g"
-  )
+    import (
+        "github.com/gogf/gf/g/net/ghttp"
+        "github.com/gogf/gf/g"
+    )
 
-  // 必须公开服务方法
-  func Index(r *ghttp.Request) {
-      // 业务逻辑部分
-  }
-  ```
+    // 必须公开服务方法
+    func Index(r *ghttp.Request) {
+        // 业务逻辑部分
+    }
+    ```
 1. 路由注册源码：
     ```go
     package router
@@ -206,7 +207,7 @@ func main() {
 
 1. 控制器源码：
     ```go
-    package ctlApi
+    package controller
 
     import (
         "github.com/gogf/gf/g/net/ghttp"
