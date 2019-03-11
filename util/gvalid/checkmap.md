@@ -92,7 +92,7 @@ func main() {
     }
     rules := []string {
         "passport@required|length:6,16#账号不能为空|账号长度应当在:min到:max之间",
-        "password@required|length:6,16|same:password2#密码不能为空|两次密码输入不相等",
+        "password@required|length:6,16|same:password2#密码不能为空|密码长度应当在:min到:max之间|两次密码输入不相等",
         "password2@required|length:6,16#",
     }
     if e := gvalid.CheckMap(params, rules); e != nil {
