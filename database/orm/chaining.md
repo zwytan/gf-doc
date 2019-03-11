@@ -22,7 +22,7 @@ func (md *Model) Limit(start int, limit int) *Model
 func (md *Model) Data(data...interface{}) *Model
 func (md *Model) Batch(batch int) *Model
 func (md *Model) Filter() *Model
-func (md *Model) Alterable() *Model
+func (md *Model) Safe(safe...bool) *Model
 
 func (md *Model) Where(where interface{}, args...interface{}) *Model
 func (md *Model) And(where interface{}, args ...interface{}) *Model
@@ -61,25 +61,47 @@ func (md *Model) ForPage(page, limit int) (*Model)
 
 ## 链式安全
 
-在默认情况下，链式操作的每一个方法都将返回一个新的`Model`对象指针，而不是直接修改当前操作的`Model`对象，因此不会对原有`Model`对象产生污染，该`Model`对象可以重复使用，因此是`链式安全`的。
-
-例如，当存在多个分开查询的条件时，你可以这么来使用`Model`对象：
+在默认情况下，`gform`是`非链式安全`的，也就是说链式操作的每一个方法都将对操作的`Model`属性进行修改，因此该`Model`对象不可以重复使用。例如，当存在多个分开查询的条件时，我们可以这么来使用`Model`对象：
 ```go
-m := g.DB().Table("user")
-m  = m.Where("status IN(?)", g.Slice{1,2,3})
+user := g.DB().Table("user")
+user.Where("status IN(?)", g.Slice{1,2,3})
 if vip {
-    m = m.And("money>=?", 1000000)
+    user.Where("money>=?", 1000000)
 } else {
-    m = m.And("money<?",  1000000)
+    user.Where("money<?",  1000000)
+}
+r, err := user.Select()
+```
+可以看到，如果是分开执行链式操作，链式的每一个操作都会修改已有的`Model`对象，查询条件会自动叠加。这个时候，每次我们需要操作`user`用户表，都得使用`g.DB().Table("user")`来创建一个新的用户模型对象，相对来说会比较繁琐。
+
+<hr>
+
+当然，我们可以通过`Safe`方法设置当前模型为`链式安全`的对象，后续的所有链式操作返回新的`Model`对象，该`Model`对象可重复使用。
+```go
+// 定义一个用户模型单例
+user := g.DB().Table("user").Safe()
+```
+```go
+m := m.Where("status IN(?)", g.Slice{1,2,3})
+if vip {
+    m := m.And("money>=?", 1000000)
+} else {
+    m := m.And("money<?",  1000000)
 }
 r, err := m.Select()
 ```
-可以看到，如果是分开执行链式操作，需要将链式操作的结果返回给原来的`Model`对象指针，以便进一步叠加查询条件。
+可以看到，示例中得用户模型单例对象`user`可以重复使用，而不用担心被“污染”的问题。在这种链式安全的方式下，我们可以创建一个用户单例对象`user`，并且可以重复使用到后续的各种查询中。
 
-当然，我们可以通过`Alterable`方法设置当前`Model`为可修改对象，后续的所有链式操作都将会直接修改当前的`Model`对象，该`Model`对象不可重复使用，因此是`非链式安全`的。
-例如，以上的示例可以这样使用：
+<hr>
+
+此外，我们也可以使用`Clone`方法克隆当前模型，创建一个新的模型来实现链式安全，由于是新的模型对象，因此并不担心会修改已有的模型对象的问题。例如：
 ```go
-m := g.DB().Table("user").Alterable()
+// 定义一个用户模型单例
+user := g.DB().Table("user").Safe()
+```
+
+```go
+m := user.Clone()
 m.Where("status IN(?)", g.Slice{1,2,3})
 if vip {
     m.And("money>=?", 1000000)
@@ -210,6 +232,19 @@ type User struct {
 }
 // SELECT * FROM user WHERE uid =1 AND name='john'
 r, err := db.Table("user").Where(User{ Id : 1, UserName : "john"}).One()
+```
+
+以上的查询条件相对比较简单，我们来看一个比较复杂的查询示例。
+```go
+conditions := g.Map{
+    "title like ?"         : "%九寨%",
+    "online"               : 1,
+    "hits between ? and ?" : g.Slice{1, 10},
+    "exp > 0"              : nil,
+    "category"             : g.Slice{100, 200},
+}
+result, err := db.Table("article").Where(conditions).All()
+// SELECT * FROM article WHERE title like '%九寨%' AND online=1 AND hits between 1 and 10 AND exp > 0 AND category IN(100,100)
 ```
 
 #### 2). `join`查询
