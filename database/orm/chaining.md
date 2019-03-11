@@ -76,7 +76,7 @@ r, err := m.Select()
 ```
 可以看到，如果是分开执行链式操作，需要将链式操作的结果返回给原来的`Model`对象指针，以便进一步叠加查询条件。
 
-当然，我们可以通过`Alterable`方法设置当前`Model`为可修改对象，后续的所有链式操作都将会直接修改当前的`Model`对象，该`Model`对象不可重复使用，因此是链式非安全的。
+当然，我们可以通过`Alterable`方法设置当前`Model`为可修改对象，后续的所有链式操作都将会直接修改当前的`Model`对象，该`Model`对象不可重复使用，因此是`非链式安全`的。
 例如，以上的示例可以这样使用：
 ```go
 m := g.DB().Table("user").Alterable()
@@ -91,7 +91,7 @@ r, err := m.Select()
 
 ## Data方法
 
-`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。但是需要注意的是，如果传递的是`struct`对象，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
+`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。
 
 ## Struct参数
 
@@ -111,7 +111,7 @@ type User struct {
     NickName string `json:"nick_name"`
 }
 ```
-其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐是使用`gconv`标签来实现映射关系。
+其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐是使用`gconv`标签来实现映射关系。具体转换规则请查看【[gconv.Map转换](util/gconv/map.md)】章节。
 
 ## Struct转换
 
@@ -172,7 +172,7 @@ db := g.DB("user-center")
 ```
 ### 2. 单表/联表查询
 
-> TIPS: `Where`条件参数推荐使用字符串的传递方式（使用`?`占位符预处理），因为在部分情况下，数据库的索引和你传递的查询条件顺序有一定关系（虽然数据库有时会帮助你自动进行查询索引优化）。
+> TIPS: `Where`条件参数推荐使用字符串的传递方式（使用`?`占位符预处理），因为`map`/`struct`类型作为查询参数无法保证顺序性，且在部分情况下（数据库有时会帮助你自动进行查询索引优化），数据库的索引和你传递的查询条件顺序有一定关系。
 
 #### 1). 基础查询
 `Where + string`，条件参数使用字符串和预处理。
@@ -343,7 +343,7 @@ r, err := db.Table("user").Data(gdb.List{
 }).Save()
 ```
 
-### 7. 参数过滤功能
+### 7. 参数自动过滤
 `gform`可以自动同步**数据表结构**到程序缓存中(缓存不过期，直至程序重启/重新部署)，并且可以过滤提交参数中不符合表结构的数据项，该特性可以使用`Filter`方法实现，例如:
 ```go
 r, err := db.Table("user").Filter().Data(g.Map{
