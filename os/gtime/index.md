@@ -10,7 +10,7 @@ import "github.com/gogf/gf/g/os/gtime"
 
 **接口文档**： 
 
-[godoc.org/github.com/gogf/gf/g/os/gtime](https://godoc.org/github.com/gogf/gf/g/os/gtime)
+https://godoc.org/github.com/gogf/gf/g/os/gtime
 
 # 时间格式
 `gtime`模块最大的特点是支持自定义的时间格式，参考[PHP日期时间格式语法](http://php.net/manual/zh/function.date.php)，以下是支持的时间格式语法列表：
@@ -112,7 +112,7 @@ func main() {
     // 下个月1号凌晨0点整
     fmt.Println(gtime.Now().AddDate(0, 1, 0).Format("Y-m-d 00:00:00"))
 
-    // 2个小时前
+    // 1个小时前
     fmt.Println(gtime.Now().Add(-time.Hour).Format("Y-m-d H:i:s"))
 }
 ```
