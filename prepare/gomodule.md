@@ -65,13 +65,15 @@ module my-first-hello
 
 ## 使用命令行
 
-> 有的包被墙下载不了可以设置环境变量: `export GOPROXY=https://goproxy.io`
+
 
 1. 打开`Terminal`，在项目根目录下执行:
     ```
     export GO111MODULE=on; go get -u github.com/gogf/gf
     ```
     该命令将会立即下载最新的`GoFrame`框架。其中 `export GO111MODULE=on;` 表示开启`Go Module`特性（Go `1.11.x`版本默认关闭，需要手动开启）。
+
+    > `GF`框架为开发者解决了所有框架内部的第三方包依赖，因此框架的下载安装非常方便。但是如果您有额外依赖的第三方包被墙下载不了，可以设置环境变量: `export GOPROXY=https://goproxy.io`
 
     ![](/images/gomodule1.png)
 
