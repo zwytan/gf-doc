@@ -31,8 +31,8 @@ LABEL maintainer="john@johng.cn"
 ENV WORKDIR /var/www/main
 
 # 添加应用可执行文件，并设置执行权限
-ADD ./main    $WORKDIR/main
-RUN chmod +x  $WORKDIR/main
+ADD ./main   $WORKDIR/main
+RUN chmod +x $WORKDIR/main
 
 # 添加静态文件、配置文件、模板文件
 ADD public   $WORKDIR/public
