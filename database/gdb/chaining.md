@@ -3,7 +3,7 @@
 
 # 数据库操作
 
-`gform`链式操作使用方式简单灵活，是官方推荐的数据库操作方式。
+`gdb`链式操作使用方式简单灵活，是官方推荐的数据库操作方式。
 
 ## 链式操作
 
@@ -61,7 +61,7 @@ func (md *Model) ForPage(page, limit int) (*Model)
 
 ## 链式安全
 
-在默认情况下，`gform`是`非链式安全`的，也就是说链式操作的每一个方法都将对操作的`Model`属性进行修改，因此该`Model`对象不可以重复使用。例如，当存在多个分开查询的条件时，我们可以这么来使用`Model`对象：
+在默认情况下，`gdb`是`非链式安全`的，也就是说链式操作的每一个方法都将对操作的`Model`属性进行修改，因此该`Model`对象不可以重复使用。例如，当存在多个分开查询的条件时，我们可以这么来使用`Model`对象：
 ```go
 user := g.DB().Table("user")
 user.Where("status IN(?)", g.Slice{1,2,3})
@@ -119,7 +119,7 @@ r, err := m.Select()
 
 ## Struct参数
 
-在`gform`中，写入/更新的输入参数（例如`Data`方法）支持任意的`string/map/slice/struct/*struct`类型，该特性为`gform`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
+在`gdb`中，写入/更新的输入参数（例如`Data`方法）支持任意的`string/map/slice/struct/*struct`类型，该特性为`gdb`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
 
 例如:
 ```go
@@ -198,6 +198,9 @@ db := g.DB("user-center")
 
 > TIPS: `Where`条件参数推荐使用字符串的传递方式（使用`?`占位符预处理），因为`map`/`struct`类型作为查询参数无法保证顺序性，且在部分情况下（数据库有时会帮助你自动进行查询索引优化），数据库的索引和你传递的查询条件顺序有一定关系。
 
+条件连接符号可以使用`Where`/`And`/`Or`，其中当使用多个`Where`方法连接查询条件时，作用同`And`。
+此外，当存在多个查询条件时，`gdb`会默认将多个条件分别使用`()`符号进行包含，这种设计可以非常友好地区分不同的条件分组。
+
 #### 1). 基础查询
 `Where + string`，条件参数使用字符串和预处理。
 ```go
@@ -213,11 +216,13 @@ r, err := db.Table("user").Fileds("uid,name").Where("uid > ?", 1).Limit(0, 10).S
 // 支持多种Where条件参数类型
 // SELECT * FROM user WHERE uid=1
 r, err := db.Table("user").Where("u.uid=1",).One()
+r, err := db.Table("user").Where("u.uid", 1).One()
 r, err := db.Table("user").Where("u.uid=?", 1).One()
-// SELECT * FROM user WHERE uid=1 AND name='john'
-r, err := db.Table("user").Where("uid=？", 1).And("name=?", "john").One()
-// SELECT * FROM user WHERE uid=1 OR name='john'
-r, err := db.Table("user").Where("uid=？", 1).Or("name=?", "john").One()
+// SELECT * FROM user WHERE (uid=1) AND (name='john')
+r, err := db.Table("user").Where("uid", 1).Where("name", "john").One()
+r, err := db.Table("user").Where("uid=?", 1).And("name=?", "john").One()
+// SELECT * FROM user WHERE (uid=1) OR (name='john')
+r, err := db.Table("user").Where("uid=?", 1).Or("name=?", "john").One()
 ```
 `Where + map`，条件参数使用任意`map`类型传递。
 ```go
@@ -381,7 +386,7 @@ r, err := db.Table("user").Data(gdb.List{
 ```
 
 ### 7. 参数自动过滤
-`gform`可以自动同步**数据表结构**到程序缓存中(缓存不过期，直至程序重启/重新部署)，并且可以过滤提交参数中不符合表结构的数据项，该特性可以使用`Filter`方法实现，例如:
+`gdb`可以自动同步**数据表结构**到程序缓存中(缓存不过期，直至程序重启/重新部署)，并且可以过滤提交参数中不符合表结构的数据项，该特性可以使用`Filter`方法实现，例如:
 ```go
 r, err := db.Table("user").Filter().Data(g.Map{
     "id"          : 1,
@@ -395,4 +400,4 @@ r, err := db.Table("user").Filter().Data(g.Map{
 
 ### 8. 查询结果处理
 
-请参考【[ORM结果处理](database/orm/result.md)】章节。
+请参考【[ORM结果处理](database/gdb/result.md)】章节。

@@ -3,7 +3,7 @@
 
 # 调试模式
 
-为便于开发阶段调试，`gform`支持调试模式，可以使用以下方式开启调试模式：
+为便于开发阶段调试，`gdb`支持调试模式，可以使用以下方式开启调试模式：
 ```go
 // 是否开启调试服务
 func (db DB) SetDebug(debug bool)
@@ -63,12 +63,12 @@ Error: Error 1054: Unknown column 'no_such_field' in 'where clause'
 4.	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/database/gdb/gdb_model.go:301
 5.	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/database/gdb/gdb_model.go:306
 6.	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/database/gdb/gdb_model.go:311
-7.	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/database/orm/mysql/gdb_debug.go:30
+7.	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/database/gdb/mysql/gdb_debug.go:30
 ```
 
 # 查询缓存
 
-`gform`支持对查询结果的缓存处理，并支持手动的缓存清理，一切都由业务层调用端自主决定。需要注意的是，查询缓存仅支持链式操作，且在事务操作下不可用。
+`gdb`支持对查询结果的缓存处理，并支持手动的缓存清理，一切都由业务层调用端自主决定。需要注意的是，查询缓存仅支持链式操作，且在事务操作下不可用。
 相关方法：
 ```go
 // 查询缓存/清除缓存操作，需要注意的是，事务查询不支持缓存。
@@ -144,7 +144,7 @@ func main() {
 
 # 类型识别
 
-使用`gform`查询数据时，返回的数据类型将会被自动识别映射到`Go变量类型`。例如: 当字段类型为`int(xx)`时，查询到的字段值类型将会被识别会`int`类型；当字段类型为`varchar(xxx)`/`char(xxx)`/`text`等类型时将会被自动识别为`string`类型。以下以`mysql`类型为例，介绍数据库类型与Go变量类型的自动识别映射关系:
+使用`gdb`查询数据时，返回的数据类型将会被自动识别映射到`Go变量类型`。例如: 当字段类型为`int(xx)`时，查询到的字段值类型将会被识别会`int`类型；当字段类型为`varchar(xxx)`/`char(xxx)`/`text`等类型时将会被自动识别为`string`类型。以下以`mysql`类型为例，介绍数据库类型与Go变量类型的自动识别映射关系:
 
 |数据库类型 | Go变量类型
 |---|---
@@ -165,7 +165,7 @@ func main() {
 
 # 类型转换
 
-`gform`的数据记录结果（```Value```）支持非常灵活的类型转换，并内置支持常用的数十种数据类型的转换。```Result```/```Record```的类型转换请查看后续【[ORM高级特性](database/orm/senior.md)】章节。
+`gdb`的数据记录结果（```Value```）支持非常灵活的类型转换，并内置支持常用的数十种数据类型的转换。```Result```/```Record```的类型转换请查看后续【[ORM高级特性](database/gdb/senior.md)】章节。
 
 > `Value`类型是`*gvar.Var`类型的别名，因此可以使用`gvar.Var`数据类型的所有转换方法，具体请查看【[通用动态变量](container/gvar/index.md)】章节
 

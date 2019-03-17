@@ -45,7 +45,7 @@ func (o *Object) Show(r *ghttp.Request) {
 
 # 数据库ORM
 
-参考 【[数据库ORM-FAQ常见问题](database/orm/faq.md)】 章节。以下为问题索引。
+参考 【[数据库ORM-FAQ常见问题](database/gdb/faq.md)】 章节。以下为问题索引。
 
 ## 1. 数据库查询结果转`json`没有了数值
 ## 2. 表字段类型为`datetime`，参数为`time.Time`类型，写入后时区不对

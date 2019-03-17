@@ -104,7 +104,7 @@ func (c *Controller) CheckNickName(r *ghttp.Request) {
 
 # 逻辑封装实现
 
-我们这里没有使用到数据模型，仅使用了 逻辑封装层+`gform` 来操作数据库。
+我们这里没有使用到数据模型，仅使用了 逻辑封装层+`gdb` 来操作数据库。
 
 ## 用户逻辑
 

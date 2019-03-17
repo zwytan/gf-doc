@@ -4,7 +4,7 @@
 
 # 数据库操作
 
-`gform`事务操作比较简单，开启事务之后会返回一个事务操作对象，随后可以通过该对象进行如之前章节介绍的方法操作和链式操作进行数据库操作。
+`gdb`事务操作比较简单，开启事务之后会返回一个事务操作对象，随后可以通过该对象进行如之前章节介绍的方法操作和链式操作进行数据库操作。
 
 接口文档：
 https://godoc.org/github.com/gogf/gf/g/database/gdb#TX
@@ -54,5 +54,5 @@ if tx, err := db.Begin(); err == nil {
     fmt.Println(r, err)
 }
 ```
-其他链式操作请参考【[链式操作](database/orm/chaining.md)】章节。
+其他链式操作请参考【[链式操作](database/gdb/chaining.md)】章节。
 
