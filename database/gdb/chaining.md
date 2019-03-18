@@ -247,7 +247,7 @@ r, err := db.Table("user").Where(g.Map{"uid" : 1, "name" : "john"}).One()
 // SELECT * FROM user WHERE uid=1 AND age>18
 r, err := db.Table("user").Where(g.Map{"uid" : 1, "age>" : 18}).One()
 ```
-`Where + struct`，`struct`标签支持 `gconv/json`，映射属性到字段名称关系。
+`Where + struct/*struct`，`struct`标签支持 `gconv/json`，映射属性到字段名称关系。
 ```go
 type User struct {
     Id       int    `json:"uid"`
@@ -255,6 +255,8 @@ type User struct {
 }
 // SELECT * FROM user WHERE uid =1 AND name='john'
 r, err := db.Table("user").Where(User{ Id : 1, UserName : "john"}).One()
+// SELECT * FROM user WHERE uid =1
+r, err := db.Table("user").Where(&User{ Id : 1}).One()
 ```
 
 以上的查询条件相对比较简单，我们来看一个比较复杂的查询示例。
