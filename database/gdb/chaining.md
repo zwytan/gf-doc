@@ -269,7 +269,7 @@ conditions := g.Map{
     "category"             : g.Slice{100, 200},
 }
 result, err := db.Table("article").Where(conditions).All()
-// SELECT * FROM article WHERE title like '%九寨%' AND online=1 AND hits between 1 and 10 AND exp > 0 AND category IN(100,100)
+// SELECT * FROM article WHERE title like '%九寨%' AND online=1 AND hits between 1 and 10 AND exp > 0 AND category IN(100,200)
 ```
 
 #### 2). `join`查询
