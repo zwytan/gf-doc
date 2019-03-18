@@ -59,6 +59,18 @@ func (md *Model) ForPage(page, limit int) (*Model)
 5. **Save**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，更新原有数据，否则写入一条新数据；
 
+<hr>
+
+`Data`方法
+
+`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。
+
+<hr>
+
+`Where`方法
+
+`Where`（包括`And`/`Or`）方法用于传递查询条件参数，支持的参数为任意的`string/map/slice/struct/*struct`类型。
+
 ## 链式安全
 
 在默认情况下，`gdb`是`非链式安全`的，也就是说链式操作的每一个方法都将对操作的`Model`属性进行修改，因此该`Model`对象**不可以重复使用**。例如，当存在多个分开查询的条件时，我们可以这么来使用`Model`对象：
@@ -98,6 +110,7 @@ r, err := m.Select()
 ```
 可以看到，示例中得用户模型单例对象`user`可以重复使用，而不用担心被“污染”的问题。在这种链式安全的方式下，我们可以创建一个用户单例对象`user`，并且可以重复使用到后续的各种查询中。存在多个查询条件时，条件的叠加需要通过模型赋值操作（`m = m.xxx`）来实现。
 
+> 使用`Safe`方法标记之后，每一个链式操作都将会创建一个新的临时模型对象，从而实现链式安全。
 <hr>
 
 此外，我们也可以使用`Clone`方法克隆当前模型，创建一个新的模型来实现链式安全，由于是新的模型对象，因此并不担心会修改已有的模型对象的问题。多个查询条件的叠加无需模型赋值。例如：
@@ -118,13 +131,11 @@ if vip {
 r, err := m.Select()
 ```
 
-## Data方法
 
-`Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。
 
 ## Struct参数
 
-在`gdb`中，写入/更新的输入参数（例如`Data`方法）支持任意的`string/map/slice/struct/*struct`类型，该特性为`gdb`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的公开属性能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
+在`gdb`中，`Data`/`Where`/`And`/`Or`链式方法支持任意的`string/map/slice/struct/*struct`数据类型参数，该特性为`gdb`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的**公开属性**能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
 
 例如:
 ```go
@@ -140,7 +151,7 @@ type User struct {
     NickName string `json:"nick_name"`
 }
 ```
-其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐是使用`gconv`标签来实现映射关系。具体转换规则请查看【[gconv.Map转换](util/gconv/map.md)】章节。
+其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐使用`gconv`标签来实现映射关系。具体转换规则请查看【[gconv.Map转换](util/gconv/map.md)】章节。
 
 ## Struct转换
 
@@ -178,23 +189,23 @@ type User struct {
 
 
 
-## 操作示例
+## 链式操作示例
 
 ### 1. 获取ORM对象
 ```go
 // 获取默认配置的数据库对象(配置名称为"default")
-db, err := gdb.New()
-// 或者
 db := g.Database()
 // 或者(别名方式, 推荐)
 db := g.DB()
 
 // 获取配置分组名称为"user-center"的数据库对象
-db, err := gdb.New("user-center")
-// 或者 
 db := g.Database("user-center")
-// 或者 (别名方式)
+// 或者 (别名方式, 推荐)
 db := g.DB("user-center")
+
+// 使用原生New方法创建数据库对象
+db, err := gdb.New()
+db, err := gdb.New("user-center")
 
 // 注意不用的时候不需要使用Close方法关闭数据库连接(并且gdb也没有提供Close方法)，
 // 数据库引擎底层采用了链接池设计，当链接不再使用时会自动关闭
