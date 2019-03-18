@@ -27,7 +27,7 @@ require github.com/gogf/gf latest
 
 # 限制
 ```html
-golang版本 >= 1.9.2
+golang版本 >= 1.10.0
 ```
 
 # 架构
@@ -72,6 +72,7 @@ golang版本 >= 1.9.2
 # 贡献者(TOP 10)
 
 - [johng](https://gitee.com/johng)
+- [zhaopengme](https://github.com/zhaopengme)
 - [wenzi1](https://gitee.com/wenzi1)
 - [zseeker](https://gitee.com/zseeker)
 - [ymrjqyy](https://gitee.com/ymrjqyy)
