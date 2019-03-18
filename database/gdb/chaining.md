@@ -292,7 +292,7 @@ r, err := db.Table("user u,user_detail ud").Where("u.uid=ud.uid").Fields("u.*,ud
 ```
 
 #### 3). `select in`查询
-使用字符串参数类型。
+使用字符串、`slice`参数类型。当使用`slice`参数类型时，预处理占位符只需要一个`?`即可。
 ```go
 // SELECT * FROM user WHERE uid IN(100,10000,90000)
 r, err := db.Table("user").Where("uid IN(?,?,?)", 100, 10000, 90000).All()
