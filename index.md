@@ -69,7 +69,7 @@ golang版本 >= 1.10.0
 
 
 
-# 贡献者(TOP 10)
+# 贡献者
 
 - [johng](https://gitee.com/johng)
 - [zhaopengme](https://github.com/zhaopengme)
