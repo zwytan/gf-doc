@@ -150,13 +150,13 @@ database:
 
 不同数据类型对应的`linkinfo`如下:
 
-|数据库类型|Linkinfo
-|---|---
-|mysql|`账号:密码@tcp(地址:端口)/数据库名称`
-|pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`
-|mssql|`sqlserver://用户:密码@地址:端口?database=数据库名称`
-|sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)
-|oracle|`账号/密码@地址:端口/数据库名称`
+|数据库类型|Linkinfo|更多参数说明
+|---|---|---
+|mysql|`账号:密码@tcp(地址:端口)/数据库名称`|https://github.com/go-sql-driver/mysql
+|pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`|https://github.com/lib/pq
+|mssql|`sqlserver://用户:密码@地址:端口?database=数据库名称`|https://github.com/denisenkom/go-mssqldb
+|sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)|https://github.com/mattn/go-sqlite3
+|oracle|`账号/密码@地址:端口/数据库名称`|https://github.com/mattn/go-oci8
 
 各数据库类型更详细的`linkinfo`参数信息请查看对应引擎官网，参考【[ORM数据库类型](database/gdb/database.md)】章节
 

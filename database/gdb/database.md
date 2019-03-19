@@ -6,6 +6,7 @@
 ## MySQL
 
 内置支持，无需额外扩展或第三方包接入，直接可用。
+依赖的第三方包：https://github.com/go-sql-driver/mysql
 
 ## SQLite
 
