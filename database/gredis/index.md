@@ -31,6 +31,7 @@ https://godoc.org/github.com/gogf/gf/g/database/gredis
 其中，Redis的配置格式为：`host:port[,db,pass?maxIdle=x&maxActive=x&idleTimeout=x&maxConnLifetime=x]`
 
 各配置项说明如下：
+
 |配置项名称|是否必须|默认值|说明
 |---|---|---|---
 | host            | 是 | -  | 地址
