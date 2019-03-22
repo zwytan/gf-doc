@@ -107,7 +107,7 @@
 * 接收到websocket的返回信息后回显在界面上；
 
 
-# WebSocket服务端 (ws)
+# WebSocket服务端
 
 ```go
 package main
@@ -148,7 +148,7 @@ func main() {
 1. **ReadMessage & WriteMessage**
 	读取消息以及写入消息对应的是websocket的数据读取以及写入操作(```ReadMessage & WriteMessage```)，需要注意的是这两个方法都有一个```msgType```的变量，表示请求读取及写入数据的类型，常见的两种数据类型为：字符串数据或者二进制数据。在使用过程中，由于接口双方都会约定统一的数据格式，因此读取和写入的```msgType```几乎都是一致的，所以在本示例中的返回消息时，数据类型参数直接使用的是读取到的```msgType```。
 
-# 基于HTTPS的WebSocket (wss)
+# 基于HTTPS的WebSocket
 
 如果需要支持HTTPS的WebSocket服务，只需要依赖的WebServer支持HTTPS即可，访问的WebSocket地址需要使用 `wss://` 协议访问。以上客户端HTML5页面中的WebSocket访问地址需要修改为：`wss://127.0.0.1:8199/wss`。服务端示例代码：
 
