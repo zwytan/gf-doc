@@ -84,7 +84,7 @@
         * [基本使用](net/gudp/index.md)
         * [连接对象](net/gudp/conn.md)
         * [工具方法](net/gudp/funcs.md)
-    * [WebSocket](net/websocket/index.md)
+    * [WebSocket](net/websocket.md)
 * [功能模块设计](#)
     * [数据结构容器](#)
         * [garray (并发安全数组)](container/garray/index.md)
