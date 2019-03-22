@@ -1,6 +1,6 @@
 [TOC]
 
-使用`gf`框架进行`websocket`开发相当简单！我们以下通过实现一个简单的`echo服务器`来演示`gf`框架的`websocket`的使用（客户端使用HTML5实现）。示例代码：[geg/net/ghttp/websocket/echo](https://github.com/gogf/gf/tree/master/geg/net/ghttp/websocket/echo)
+使用`gf`框架进行`websocket`开发相当简单。我们以下通过实现一个简单的`echo服务器`来演示`gf`框架的`websocket`的使用（客户端使用HTML5实现）。示例代码：https://github.com/gogf/gf/tree/master/geg/net/ghttp/websocket
 
 # HTML5客户端
 先上H5客户端的代码
@@ -115,6 +115,8 @@ package main
 import (
     "github.com/gogf/gf/g"
     "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/os/gfile"
+    "github.com/gogf/gf/g/os/glog"
 )
 
 func main() {
@@ -135,6 +137,7 @@ func main() {
             }
         }
     })
+    s.SetServerRoot(gfile.MainPkgPath())
     s.SetPort(8199)
     s.Run()
 }
@@ -150,6 +153,47 @@ func main() {
 我们首先执行示例代码```main.go```，随后访问页面 [http://127.0.0.1:8199/](http://127.0.0.1:8199/)，随意输入请求内容并提交，随后在服务端关闭程序。可以看到，页面会回显提交的内容信息，并且即时展示websocket的连接状态的改变，当服务端关闭时，客户端也会即时地打印出关闭信息。
 
 ![](/images/QQ截图20180603000556.png)
+
+# 基于HTTPS的WebSocket
+
+如果需要支持HTTPS的WebSocket服务，只需要依赖的WebServer支持HTTPS即可，访问的WebSocket地址需要使用 `wss://` 协议访问。
+
+服务端示例代码：
+```go
+package main
+
+import (
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/os/gfile"
+    "github.com/gogf/gf/g/os/glog"
+)
+
+func main() {
+    s := g.Server()
+    s.BindHandler("/wss", func(r *ghttp.Request) {
+        ws, err := r.WebSocket()
+        if err != nil {
+            glog.Error(err)
+            r.Exit()
+        }
+        for {
+            msgType, msg, err := ws.ReadMessage()
+            if err != nil {
+                return
+            }
+            if err = ws.WriteMessage(msgType, msg); err != nil {
+                return
+            }
+        }
+    })
+    s.SetServerRoot(gfile.MainPkgPath())
+    s.EnableHTTPS("../../https/server.crt", "../../https/server.key")
+    s.SetPort(8199)
+    s.Run()
+}
+```
+客户端HTML5页面中的WebSocket访问地址需要修改为：`wss://127.0.0.1:8199/wss`。
 
 
 # 关于Websocket的安全校验
