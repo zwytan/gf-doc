@@ -202,7 +202,9 @@ func main() {
 1. `origin`的校验: 业务层在执行`r.WebSocket()`之前需要进行`origin`同源请求的校验；或者按照自定义的处理对请求进行校验(如果请求提交参数)；如果未通过校验，那么调用`r.Exit()`终止请求。
 1. `websocket`通信数据校验: 数据通信往往都有一些自定义的数据结构，在这些通信数据中加上鉴权处理逻辑；
 
+# WebSocket聊天室案例
 
+`gf`框架示例项目中提供了基于WebSocket的聊天室案例，具体请查看：https://github.com/gogf/gf-demos
 
 
 
