@@ -10,24 +10,28 @@ https://godoc.org/github.com/gogf/gf/g/net/ghttp#Client
 ```go
 type Client
     func NewClient() *Client
-    func (c *Client) Connect(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) ConnectContent(url string, data ...string) string
-    func (c *Client) Delete(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) DeleteContent(url string, data ...string) string
-    func (c *Client) DoRequest(method, url string, data ...string) (*ClientResponse, error)
-    func (c *Client) DoRequestContent(method string, url string, data ...string) string
     func (c *Client) Get(url string) (*ClientResponse, error)
-    func (c *Client) GetContent(url string, data ...string) string
-    func (c *Client) Head(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) HeadContent(url string, data ...string) string
-    func (c *Client) Options(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) OptionsContent(url string, data ...string) string
-    func (c *Client) Patch(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) PatchContent(url string, data ...string) string
-    func (c *Client) Post(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) PostContent(url string, data ...string) string
     func (c *Client) Put(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Post(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Delete(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Connect(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Head(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Options(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Patch(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Trace(url string, data ...string) (*ClientResponse, error)
+    func (c *Client) DoRequest(method, url string, data ...string) (*ClientResponse, error)
+
+    func (c *Client) GetContent(url string, data ...string) string
     func (c *Client) PutContent(url string, data ...string) string
+    func (c *Client) PostContent(url string, data ...string) string
+    func (c *Client) DeleteContent(url string, data ...string) string
+    func (c *Client) ConnectContent(url string, data ...string) string
+    func (c *Client) HeadContent(url string, data ...string) string
+    func (c *Client) OptionsContent(url string, data ...string) string
+    func (c *Client) PatchContent(url string, data ...string) string
+    func (c *Client) TraceContent(url string, data ...string) string
+    func (c *Client) DoRequestContent(method string, url string, data ...string) string
+
     func (c *Client) SetBasicAuth(user, pass string)
     func (c *Client) SetBrowserMode(enabled bool)
     func (c *Client) SetCookie(key, value string)
@@ -36,8 +40,6 @@ type Client
     func (c *Client) SetHeaderRaw(header string)
     func (c *Client) SetPrefix(prefix string)
     func (c *Client) SetTimeOut(t time.Duration)
-    func (c *Client) Trace(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) TraceContent(url string, data ...string) string
 ```
 我们可以使用```ghttp.NewClient```创建一个HTTP客户端对象，随后可以使用该对象执行请求。`ghttp.Clien`t对象中封装了一系列基于`HTTP Method`来命名的方法，调用这些方法将会发起对应的`HTTP Method`请求。常用的方法当然是`Get`和`Post`方法，此外`DoRequest`是核心的请求方法，用户可以调用该方法实现自定义的`HTTP Method`发送请求。
 
@@ -89,7 +91,7 @@ func (r *ClientResponse) Close()
 
 1. **发送GET请求，并打印出返回值**
     ```go
-    if r, e := ghttp.Get("http://johng.cn"); e != nil {
+    if r, e := ghttp.Get("https://johng.cn"); e != nil {
         fmt.Println(e)
     } else {
         fmt.Println(string(r.ReadAll()))
@@ -108,7 +110,7 @@ func (r *ClientResponse) Close()
 
 1. **发送POST请求，编码请求参数，并打印出返回值**
     ```go
-    params := ghttp.BuildParams(map[string]string{
+    params := ghttp.BuildParams(g.Map{
         "submit"   : "1",
         "callback" : "http://127.0.0.1/callback?url=http://baidu.com",
     })
