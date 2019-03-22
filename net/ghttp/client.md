@@ -83,7 +83,9 @@ func (r *ClientResponse) Close()
 
 ## 数组及复杂类型参数
 
-数组参数可以通过例如`array=1&array=2&array3`这样的方式传递，但是推荐复杂数据类型使用`JSON`数据格式传递。
+数组参数可以通过例如`array=1&array=2&array=3`这样的方式传递，但是推荐复杂数据类型使用`JSON`数据格式传递。
+
+> 由于`gf`框架的`WebServer`基于`net/http`标准库，因此遵循标准库的参数设计，`array=1&array=2&array=3`这样的提交参数将会被解析为数组变量`array`，不支持`array[]=1&array[]=2&array[]=3`这样的数组提交方式，也不支持`map[a]=1&map[b]=2&map[c]=3`这样的`map`提交方式。
 
 ## 基本示例
 
