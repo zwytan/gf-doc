@@ -157,4 +157,4 @@
     * [gkvdb嵌入式数据库](cases/gkvdb.md)
     * [容器日志搜集工具套件](cases/k8s-log.md)
 * [FAQ常见问题](faq.md)
-* [1.x升级到1.5.0](upgradeto150.md)
+* [升级到1.5.x](upgradeto150.md)
