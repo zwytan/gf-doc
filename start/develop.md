@@ -5,11 +5,11 @@
 
 根据官方[《Effective Go》](https://golang.google.cn/doc/effective_go.html#package-names)建议，包名尽量采用言简意赅的名称(`short, concise, evocative`)。
 
-我们建议，对于项目结构中的 控制器层`/app/controller`下的包名统一使用`ctl_`前缀；逻辑封装层`/app/library`下的包名统一使用`lib_`前缀；数据模型`/app/model`下的包名统一使用`mod_`前缀。
+我们建议，对于项目结构中的 控制器层`/app/api`下的包名统一使用`api_`前缀；逻辑封装层`/app/service`下的包名统一使用`svr_`前缀；数据模型`/app/model`下的包名统一使用`mod_`前缀。
 
 例如，控制器层以及逻辑封装层中都有`user`这个包，虽然通过`import`不同的路径可以做区分，但是在代码中很难以识别，阅读质量不高，并且对于开发中的IDE代码提示来说也十分不友好。
 
-> 使用约定前缀的包命名方式, 好处之一：在IDE中输入前缀(如:`lib_`)后会自动代码提示过滤，迅速定位到所需的包。
+> 使用约定前缀的包命名方式, 好处之一：在IDE中输入前缀(如:`svr_`)后会自动代码提示过滤，迅速定位到所需的包。
 
 
 # 控制器实现
@@ -18,13 +18,13 @@
 
 我们这里使用执行对象注册方式。
 
-`/app/controller/user/user.go`
+`/app/api/user/user.go`
 ```go
-package ctl_user
+package api_user
 
 import (
-    "github.com/gogf/gf-demos/app/library/response"
-    "github.com/gogf/gf-demos/app/library/user"
+    "github.com/gogf/gf-demos/app/service/user"
+    "github.com/gogf/gf-demos/library/response"
     "github.com/gogf/gf/g/net/ghttp"
     "github.com/gogf/gf/g/util/gvalid"
 )
@@ -34,10 +34,10 @@ type Controller struct { }
 
 // 用户注册接口
 func (c *Controller) SignUp(r *ghttp.Request) {
-    if err := lib_user.SignUp(r.GetPostMap()); err != nil {
-        lib_response.Json(r, 1, err.Error())
+    if err := svr_user.SignUp(r.GetPostMap()); err != nil {
+        response.Json(r, 1, err.Error())
     } else {
-        lib_response.Json(r, 0, "ok")
+        response.Json(r, 0, "ok")
     }
 }
 
@@ -53,52 +53,52 @@ func (c *Controller) SignIn(r *ghttp.Request) {
         "password" : "密码不能为空",
     }
     if e := gvalid.CheckMap(data, rules, msgs); e != nil {
-        lib_response.Json(r, 1, e.String())
+        response.Json(r, 1, e.String())
     }
-    if err := lib_user.SignIn(data["passport"], data["password"], r.Session); err != nil {
-        lib_response.Json(r, 1, err.Error())
+    if err := svr_user.SignIn(data["passport"], data["password"], r.Session); err != nil {
+        response.Json(r, 1, err.Error())
     } else {
-        lib_response.Json(r, 0, "ok")
+        response.Json(r, 0, "ok")
     }
 }
 
 // 判断用户是否已经登录
 func (c *Controller) IsSignedIn(r *ghttp.Request) {
-    if lib_user.IsSignedIn(r.Session) {
-        lib_response.Json(r, 0, "ok")
+    if svr_user.IsSignedIn(r.Session) {
+        response.Json(r, 0, "ok")
     } else {
-        lib_response.Json(r, 1, "")
+        response.Json(r, 1, "")
     }
 }
 
 // 用户注销/退出接口
 func (c *Controller) SignOut(r *ghttp.Request) {
-    lib_user.SignOut(r.Session)
-    lib_response.Json(r, 0, "ok")
+    svr_user.SignOut(r.Session)
+    response.Json(r, 0, "ok")
 }
 
 // 检测用户账号接口(唯一性校验)
 func (c *Controller) CheckPassport(r *ghttp.Request) {
     passport := r.Get("passport")
     if e := gvalid.Check(passport, "required", "请输入账号"); e != nil {
-        lib_response.Json(r, 1, e.String())
+        response.Json(r, 1, e.String())
     }
-    if lib_user.CheckPassport(passport) {
-        lib_response.Json(r, 0, "ok")
+    if svr_user.CheckPassport(passport) {
+        response.Json(r, 0, "ok")
     }
-    lib_response.Json(r, 1, "账号已经存在")
+    response.Json(r, 1, "账号已经存在")
 }
 
 // 检测用户昵称接口(唯一性校验)
 func (c *Controller) CheckNickName(r *ghttp.Request) {
     nickname := r.Get("nickname")
     if e := gvalid.Check(nickname, "required", "请输入昵称"); e != nil {
-        lib_response.Json(r, 1, e.String())
+        response.Json(r, 1, e.String())
     }
-    if lib_user.CheckNickName(r.Get("nickname")) {
-        lib_response.Json(r, 0, "ok")
+    if svr_user.CheckNickName(r.Get("nickname")) {
+        response.Json(r, 0, "ok")
     }
-    lib_response.Json(r, 1, "昵称已经存在")
+    response.Json(r, 1, "昵称已经存在")
 }
 ```
 
@@ -110,9 +110,9 @@ func (c *Controller) CheckNickName(r *ghttp.Request) {
 
 主要用于用户接口的业务逻辑封装。
 
-`/app/library/user/user.go`
+`/app/service/user/user.go`
 ```go
-package lib_user
+package svr_user
 
 import (
     "errors"
@@ -129,7 +129,7 @@ const (
 
 var (
     // 表对象
-    table = g.DB().Table("user")
+    table = g.DB().Table("user").Safe()
 )
 
 // 用户注册
@@ -209,9 +209,9 @@ func CheckNickName(nickname string) bool {
 
 主要用于返回JSON数据格式的统一。
 
-`/app/library/response/response.go`
+`/library/response/response.go`
 ```go
-package lib_response
+package response
 
 import (
     "github.com/gogf/gf/g"
