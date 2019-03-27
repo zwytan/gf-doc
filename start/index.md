@@ -12,12 +12,13 @@
 ```
 /
 ├── app
-│   ├── controller
-│   ├── library
-│   └── model
+│   ├── api
+│   ├── model
+│   └── service
 ├── boot
 ├── config
 ├── docfile
+├── library
 ├── public
 ├── router
 ├── template
