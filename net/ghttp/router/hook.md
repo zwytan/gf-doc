@@ -20,7 +20,7 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 支持的Hook事件列表：
 1. `BeforeServe/ghttp.HOOK_BEFORE_SERVE`
 
-	在进入/初始化服务对象之前。
+	在进入/初始化服务对象之前，该事件是最常用的事件，特别是针对于权限控制、跨域请求等处理。
 
 1. `AfterServe/ghttp.HOOK_AFTER_SERVE`
 
@@ -36,13 +36,15 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 
 1. `BeforeClose/ghttp.HOOK_BEFORE_CLOSE`
 
-	在http请求关闭之前。
+	（已废弃）在http请求关闭之前。
 
 1. `AfterClose/ghttp.HOOK_AFTER_CLOSE`
 
-	在http请求关闭之后。
+	（已废弃）在http请求关闭之后。
 
 具体调用时机请参考图例所示。
+
+> `HOOK_BEFORE_CLOSE`及`HOOK_AFTER_CLOSE`事件在`gf`框架`v1.6.0`版本后被废弃。
 
 ## 事件优先级
 
