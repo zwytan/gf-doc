@@ -65,13 +65,21 @@ func main() {
 ```
 我们通过以下几个步骤来测试平滑重启：
 1. 访问 http://127.0.0.1:8199/pid 查看当前进程的pid
+
 	![](/images/Selection_999144.png)
+
 3. 访问 http://127.0.0.1:8199/sleep ，这个页面将会执行10秒，用于测试重启时该页面请求执行是否会断掉
+
 	![](/images/Selection_999145.png)
+
 5. 访问 http://127.0.0.1:8199/debug/admin ，这是```s.EnableAdmin```后默认注册的一个Web Server管理页面
+
 	![](/images/QQ截图20180601192828.png)
+
 7. 随后我们点击```restart```管理链接，Web Server将会立即平滑重启(```*nix```系统下)
+
 	![](/images/QQ截图20180601192916.png)
+
     同时在终端也会输出以下信息:
     ```shell
     2018-05-18 11:02:04.812 11511: http server started listening on [:8199]
@@ -80,7 +88,9 @@ func main() {
     2018-05-18 11:02:09.176 16358: http server restarted listening on [:8199]
     ```
 6. 我们可以发现在整个操作中，```sleep```页面的执行并没有被中断，继续等待几秒，当```sleep```执行完成后，页面输出内容为：
+
 	![](/images/Selection_999148.png)
+    
 8. 可以发现，```sleep```页面输出的进程pid和之前的不一样了，代表请求的执行被新的进程平滑接管，旧的服务进程也随之销毁；
 
 ### 示例2：HTTPS支持
