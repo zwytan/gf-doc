@@ -207,6 +207,10 @@ db := g.DB("user-center")
 db, err := gdb.New()
 db, err := gdb.New("user-center")
 
+// 使用原生单例管理方法获取数据库对象单例
+db, err := gdb.Instance()
+db, err := gdb.Instance("user-center")
+
 // 注意不用的时候不需要使用Close方法关闭数据库连接(并且gdb也没有提供Close方法)，
 // 数据库引擎底层采用了链接池设计，当链接不再使用时会自动关闭
 ```
