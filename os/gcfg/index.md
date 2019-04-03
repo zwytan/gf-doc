@@ -16,7 +16,7 @@ https://godoc.org/github.com/gogf/gf/g/os/gcfg
 
 `toml`类型文件也是默认的、推荐的配置文件格式，如果想要自定义文件格式，可以通过`SetFileName`方法修改默认读取的配置文件名称（如：`config.json`, `cfg.yaml`, `cfg.xml`等等），也可以在读取参数的时候指定第二个参数(配置文件名称)。
 
-例如，我们可以通过以下三种方式读取`config.json`配置文件内容。
+例如，我们可以通过以下两种方式读取`config.json`配置文件内容。
 
 ```go
 // 设置默认配置文件，默认的 config.toml 将会被覆盖
@@ -30,10 +30,6 @@ g.Config().Get("database")
 g.Config().Get("database", "config.json")
 ```
 
-```go
-// 获取单例配置管理对象时指定默认配置文件名称
-g.Config("config.json").Get("database")
-```
 
 # 单例管理
 
