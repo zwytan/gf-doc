@@ -15,42 +15,6 @@ https://godoc.org/github.com/gogf/gf/g/os/gcfg
 
 # 配置管理
 
-## 配置目录
-
-`gcfg`配置管理器支持非常灵活的多目录自动搜索功能，通过`SetPath`可以修改目录管理目录为**唯一**的一个目录地址，同时，我们推荐通过`AddPath`方法添加多个搜索目录，配置管理器底层将会按照添加目录的顺序作为优先级进行自动检索。直到检索到一个匹配的文件路径为止，如果在所有搜索目录下查找不到配置文件，那么会返回失败。
-
-
-`gcfg`配置管理对象初始化时，默认会自动添加以下配置文件搜索目录：
-1. 当前工作目录及其下的`config`目录：例如当前的工作目录为`/home/www`时，将会添加`/home/www`及`/home/www/config`；
-1. 当前可执行文件所在目录及其下的`config`目录：例如二进制文件所在目录为`/tmp`时，将会添加`/tmp`及`/tmp/config`；
-1. 当前`main`源代码包所在目录及其下的`config`目录(仅对源码开发环境有效)：例如`main`包所在目录为`/home/john/workspace/gf-app`时，将会添加`/home/john/workspace/gf-app`及`/home/john/workspace/gf-app/config`；
-
-
-
-我们可以通过以下方式修改配置管理器的配置文件搜索目录，配置管理对象将会只在该指定目录执行配置文件检索：
-1. 通过配置管理器的`SetPath`方法手动修改；
-2. 修改命令行启动参数 - `gf.gcfg.path`；
-3. 修改指定的环境变量 - `GF_GCFG_PATH`；
-
-假如我们的执行程序文件为`main`，那么可以通过以下方式修改配置管理器的配置文件目录(Linux下)：
-
-1. **(推荐)通过单例模式**
-	```go
-    g.Config().SetPath("/opt/config")
-    ```
-3. **通过命令行启动参数**
-    ```shell
-    ./main --gf.gcfg.path=/opt/config/
-    ```
-1. **通过环境变量（常用在容器中）**
-    * 启动时修改环境变量：
-        ```shell
-        GF_GCFG_PATH=/opt/config/; ./main
-        ```
-    * 使用`genv`模块来修改环境变量：
-        ```go
-        genv.Set("GF_GCFG_PATH", "/opt/config")
-        ```
 
 
 ## 配置文件
@@ -132,6 +96,44 @@ g.Config().Get("redis.cache")
 // test2
 g.Config().Get("database.default.1.name")
 ```
+
+## 配置目录
+
+### 目录配置方法
+`gcfg`配置管理器支持非常灵活的多目录自动搜索功能，通过`SetPath`可以修改目录管理目录为**唯一**的一个目录地址，同时，我们推荐通过`AddPath`方法添加多个搜索目录，配置管理器底层将会按照添加目录的顺序作为优先级进行自动检索。直到检索到一个匹配的文件路径为止，如果在所有搜索目录下查找不到配置文件，那么会返回失败。
+
+### 默认目录配置
+`gcfg`配置管理对象初始化时，默认会自动添加以下配置文件搜索目录：
+1. 当前工作目录及其下的`config`目录：例如当前的工作目录为`/home/www`时，将会添加`/home/www`及`/home/www/config`；
+1. 当前可执行文件所在目录及其下的`config`目录：例如二进制文件所在目录为`/tmp`时，将会添加`/tmp`及`/tmp/config`；
+1. 当前`main`源代码包所在目录及其下的`config`目录(仅对源码开发环境有效)：例如`main`包所在目录为`/home/john/workspace/gf-app`时，将会添加`/home/john/workspace/gf-app`及`/home/john/workspace/gf-app/config`；
+
+### 默认目录修改
+
+我们可以通过以下方式修改配置管理器的配置文件搜索目录，配置管理对象将会只在该指定目录执行配置文件检索：
+1. 通过配置管理器的`SetPath`方法手动修改；
+2. 修改命令行启动参数 - `gf.gcfg.path`；
+3. 修改指定的环境变量 - `GF_GCFG_PATH`；
+
+假如我们的执行程序文件为`main`，那么可以通过以下方式修改配置管理器的配置文件目录(Linux下)：
+
+1. **(推荐)通过单例模式**
+	```go
+    g.Config().SetPath("/opt/config")
+    ```
+3. **通过命令行启动参数**
+    ```shell
+    ./main --gf.gcfg.path=/opt/config/
+    ```
+1. **通过环境变量（常用在容器中）**
+    * 启动时修改环境变量：
+        ```shell
+        GF_GCFG_PATH=/opt/config/; ./main
+        ```
+    * 使用`genv`模块来修改环境变量：
+        ```go
+        genv.Set("GF_GCFG_PATH", "/opt/config")
+        ```
 
 
 # 单例管理
