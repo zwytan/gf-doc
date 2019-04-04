@@ -21,7 +21,7 @@ https://godoc.org/github.com/gogf/gf/g/os/gcfg
 
 默认读取的配置文件为`config.toml`，`toml`类型文件也是默认的、推荐的配置文件格式，如果想要自定义文件格式，可以通过`SetFileName`方法修改默认读取的配置文件名称（如：`config.json`, `cfg.yaml`, `cfg.xml`等等），也可以在读取参数的时候指定第二个参数(配置文件名称)。
 
-例如，我们可以通过以下两种方式读取`config.json`配置文件内容。
+例如，我们可以通过以下两种方式读取`config.json`配置文件中的数据库配置`database`。
 
 ```go
 // 设置默认配置文件，默认的 config.toml 将会被覆盖
@@ -76,9 +76,11 @@ viewpath = "/home/www/templates/"
 ```go
 func SetContent(content string, file ...string)
 func GetContent(file ...string) string
+func RemoveConfig(file ...string)
 func ClearContent()
 ```
-需要注意的是该配置是全局生效的，并且优先级会高于读取配置文件，因此，假如我们通过`gcfg.SetContent("v = 1", "config.toml")`配置了`config.toml`的配置内容，并且也同时存在`config.toml`配置文件，那么只会使用到`SetContent`的配置内容，而配置文件内容将会被忽略。
+需要注意的是该配置是全局生效的，并且优先级会高于读取配置文件。
+因此，假如我们通过`gcfg.SetContent("v = 1", "config.toml")`配置了`config.toml`的配置内容，并且也同时存在`config.toml`配置文件，那么只会使用到`SetContent`的配置内容，而配置文件内容将会被忽略。
 
 
 ## 配置读取
@@ -104,9 +106,9 @@ g.Config().Get("database.default.1.name")
 
 ### 默认目录配置
 `gcfg`配置管理对象初始化时，默认会自动添加以下配置文件搜索目录：
-1. 当前工作目录及其下的`config`目录：例如当前的工作目录为`/home/www`时，将会添加`/home/www`及`/home/www/config`；
-1. 当前可执行文件所在目录及其下的`config`目录：例如二进制文件所在目录为`/tmp`时，将会添加`/tmp`及`/tmp/config`；
-1. 当前`main`源代码包所在目录及其下的`config`目录(仅对源码开发环境有效)：例如`main`包所在目录为`/home/john/workspace/gf-app`时，将会添加`/home/john/workspace/gf-app`及`/home/john/workspace/gf-app/config`；
+1. **当前工作目录及其下的`config`目录**：例如当前的工作目录为`/home/www`时，将会添加`/home/www`及`/home/www/config`；
+1. **当前可执行文件所在目录及其下的`config`目录**：例如二进制文件所在目录为`/tmp`时，将会添加`/tmp`及`/tmp/config`；
+1. **当前`main`源代码包所在目录及其下的`config`目录(仅对源码开发环境有效)**：例如`main`包所在目录为`/home/john/workspace/gf-app`时，将会添加`/home/john/workspace/gf-app`及`/home/john/workspace/gf-app/config`；
 
 ### 默认目录修改
 
