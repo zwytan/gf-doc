@@ -1,6 +1,8 @@
 # gredis
 
-Redis客户端由```gredis```模块实现，底层采用了链接池设计。
+Redis客户端由`gredis`模块实现，底层采用了链接池设计。
+
+> 目前`gredis`暂不支持`redis`集群功能。
 
 **使用方式**：
 ```go
@@ -21,6 +23,8 @@ https://godoc.org/github.com/gogf/gf/g/database/gredis
 > `gredis.Redis`客户端对象提供了一个`Close`方法，该方法是关闭Redis客户端（同时关闭客户端的连接池），而不是连接对象，开发者基本不会用到，非高级玩家请不要使用。
 
 ## Redis配置
+
+### 配置文件
 绝大部分情况下推荐使用`g.Redis`单例方式来操作redis。因此同样推荐使用配置文件来管理Redis配置，在```config.toml```中的配置示例如下：
 ```toml
 # Redis数据库配置
@@ -43,7 +47,6 @@ https://godoc.org/github.com/gogf/gf/g/database/gredis
 | idleTimeout     | 否 | 60 | 连接最大空闲时间(单位秒,不允许设置为0)
 | maxConnLifetime | 否 | 60 | 连接最长存活时间(单位秒,不允许设置为0)
 
-
 使用示例：
 ```go
 package main
@@ -65,6 +68,59 @@ func main() {
 ```html
 v
 ```
+
+### 配置方法
+
+`gredis`提供了全局的分组配置功能，相关配置管理方法如下：
+```go
+func SetConfig(config Config, name ...string)
+func GetConfig(name ...string) (config Config, ok bool)
+func RemoveConfig(name ...string)
+func ClearConfig()
+```
+其中`name`参数为分组名称，即为通过分组来对配置对象进行管理，我们可以为不同的配置对象设置不同的分组名称，随后我们可以通过`Instance`单例方法获取`redis`客户端操作对象单例。
+```go
+func Instance(name ...string) *Redis
+```
+
+使用示例：
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/gogf/gf/g/database/gredis"
+	"github.com/gogf/gf/g/util/gconv"
+)
+
+var (
+	config = gredis.Config{
+		Host : "127.0.0.1",
+		Port : 6379,
+		Db   : 1,
+	}
+)
+
+func main() {
+	group := "test"
+	gredis.SetConfig(config, group)
+
+	redis := gredis.Instance(group)
+	defer redis.Close()
+
+	_, err := redis.Do("SET", "k", "v")
+	if err != nil {
+		panic(err)
+	}
+
+	r, err := redis.Do("GET", "k")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(gconv.String(r))
+}
+```
+
 
 ## 使用Conn
 
