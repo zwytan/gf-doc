@@ -108,7 +108,7 @@ g.Config().Get("database.default.1.name")
 `gcfg`配置管理对象初始化时，默认会自动添加以下配置文件搜索目录：
 1. **当前工作目录及其下的`config`目录**：例如当前的工作目录为`/home/www`时，将会添加`/home/www`及`/home/www/config`；
 1. **当前可执行文件所在目录及其下的`config`目录**：例如二进制文件所在目录为`/tmp`时，将会添加`/tmp`及`/tmp/config`；
-1. **当前`main`源代码包所在目录及其下的`config`目录(仅对源码开发环境有效)**：例如`main`包所在目录为`/home/john/workspace/gf-app`时，将会添加`/home/john/workspace/gf-app`及`/home/john/workspace/gf-app/config`；
+1. **当前`main`源代码包所在目录及其下的`config`目录**(仅对源码开发环境有效)：例如`main`包所在目录为`/home/john/workspace/gf-app`时，将会添加`/home/john/workspace/gf-app`及`/home/john/workspace/gf-app/config`；
 
 ### 默认目录修改
 
