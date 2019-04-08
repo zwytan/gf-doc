@@ -1,7 +1,5 @@
 [TOC]
 
-# gcron
-
 `gcron`模块提供了对定时任务的实现，支持类似`crontab`的配置管理方式，并支持最小粒度到`秒`的定时任务管理。
 
 **使用方式**：
@@ -11,7 +9,7 @@ import "github.com/gogf/gf/g/os/gcron"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/os/gcron](https://godoc.org/github.com/gogf/gf/g/os/gcron)
+https://godoc.org/github.com/gogf/gf/g/os/gcron
 
 
 简要说明：
@@ -32,7 +30,7 @@ import "github.com/gogf/gf/g/os/gcron"
 
 
 
-## CRON表达格式
+# CRON表达格式
 
 `cron表达式`表示一组时间，使用`6`个空格分隔的字段。
 
@@ -50,29 +48,29 @@ Week          | 0-6 or SUN-SAT  | * / , - ?
 注意：月份和星期几字段值不区分大小写。 “SUN”，“Sun”，
 和“sun”同样被接受。
 
-### 特殊字符
+## 特殊字符
 
-#### 星号（`*`）
+### 星号（`*`）
 
 星号表示cron表达式将匹配所有的值。例如，在第五个字段(`Month`)中使用星号表示每个月。
 
-#### 斜线（`/`）
+### 斜线（`/`）
 
 斜杠用于描述范围的增量。例如：第二个字段使用`3-59/15`表示每小时的第3分钟开始到第59分钟，每隔15分钟执行。
 
-#### 逗号（`,`）
+### 逗号（`,`）
 
 逗号用于分隔列表的项目。例如，第五个字段使用`MON,WED,FRI`将指每周一，周三和周五执行。
 
-#### 连字符（`-`）
+### 连字符（`-`）
 
 连字符用于定义范围。例如，第三个字段使用`9-17`表示每天上午9点至下午5点（含）。
 
-#### 问号（`?`）
+### 问号（`?`）
 
 可以使用`问号`而不是`*`来让`Day`或`Week`字段为空。
 
-#### 预定义的时间表
+### 预定义的时间表
 
 您可以使用几个预定义的时间来代替cron表达式。
 
@@ -86,7 +84,7 @@ Entry                  | Description                                | Equivalent
 @hourly                | Run once an hour, beginning of hour        | 0 0 * * * *
 ```
 
-#### 间隔
+### 间隔
 
 您还可以定义任务以固定的时间间隔执行，从添加时开始运行。这可以通过格式化`cron`规范来支持，如下所示：
 ```
@@ -98,6 +96,7 @@ Entry                  | Description                                | Equivalent
 例如，`@every 1h30m10s`将表示添加任务之后每隔`1小时30分10秒`执行。
 
 > 注意：间隔不会考虑任务的执行时间。例如，如果一项工作需要3分钟才能执行完成，并且计划每隔5分钟运行一次，那么每次任务之间只有2分钟的空闲时间。
+
 
 
 ## 使用示例1, 基本使用 
@@ -198,4 +197,43 @@ func main() {
 2019-01-16 22:49:30.696 doing
 2019-01-16 22:49:33.699 doing
 ...
+```
+
+## 日志记录
+
+`gcron`支持日志记录功能，并可设置日志输出的文件以及级别，默认情况下仅会输出`LEVEL_WARN | LEVEL_ERRO | LEVEL_CRIT`错误级别的日志，运行日志以`LEVEL_DEBUG`的级别进行记录，默认不会记录。
+相关方法：
+```go
+func SetLogPath(path string)
+func SetLogLevel(level int)
+func GetLogPath() string
+func GetLogLevel() int
+```
+
+使用示例：
+```go
+package main
+
+import (
+	"github.com/gogf/gf/g/os/gcron"
+	"github.com/gogf/gf/g/os/glog"
+	"time"
+)
+
+func main() {
+	gcron.SetLogLevel(glog.LEVEL_ALL)
+	gcron.Add("* * * * * ?", func() {
+		glog.Println("test")
+	})
+	time.Sleep(3 * time.Second)
+}
+```
+执行后，终端输出结果为：
+```html
+2019-04-08 23:29:10.119 [DEBU] [gcron] gcron-1(* * * * * ?) main.main.func1 start
+2019-04-08 23:29:10.119 test
+2019-04-08 23:29:10.120 [DEBU] [gcron] gcron-1(* * * * * ?) main.main.func1 end
+2019-04-08 23:29:11.119 [DEBU] [gcron] gcron-1(* * * * * ?) main.main.func1 start
+2019-04-08 23:29:11.119 test
+2019-04-08 23:29:11.119 [DEBU] [gcron] gcron-1(* * * * * ?) main.main.func1 end
 ```
