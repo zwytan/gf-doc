@@ -55,7 +55,7 @@ golang版本 >= 1.10.0
 `GF` 使用非常友好的 `MIT` 开源协议进行发布，永久`100%`开源免费。
 
 # 帮助
-- QQ交流群： `116707870`
+- QQ交流群： [116707870](//shang.qq.com/wpa/qunwpa?idkey=195f91eceeb5d7fa76009b7cd5a4641f70bf4897b7f5a520635eb26ff17adfe7)
 - 主库ISSUE：https://github.com/gogf/gf/issues
 - 国内ISSUE：https://gitee.com/johng/gf/issues
 
