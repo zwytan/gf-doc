@@ -201,7 +201,7 @@ func main() {
 
 ## 使用示例3, 日志记录功能
 
-`gcron`支持日志记录功能，并可设置日志输出的文件以及级别，默认情况下仅会输出`LEVEL_WARN | LEVEL_ERRO | LEVEL_CRIT`错误级别的日志，运行日志以`LEVEL_DEBUG`的级别进行记录，默认不会记录。
+`gcron`支持日志记录功能，并可设置日志输出的文件以及级别。默认情况下仅会输出`LEVEL_WARN | LEVEL_ERRO | LEVEL_CRIT`错误级别的日志（包括定时任务运行异常日志），运行日志以`LEVEL_DEBUG`的级别进行记录，因此默认不会记录。
 相关方法：
 ```go
 func SetLogPath(path string)
