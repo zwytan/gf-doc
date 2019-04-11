@@ -43,7 +43,7 @@ ADD template $WORKDIR/template
 #                                   START
 ###############################################################################
 WORKDIR $WORKDIR
-CMD main
+CMD ./main
 ```
 其中，我们的基础镜像使用了`loads/alpine:3.8`，中国国内的用户推荐使用该基础镜像，基础镜像的`Dockerfile`地址：https://github.com/johngcn/dockerfiles ，仓库地址：https://hub.docker.com/u/loads
 
