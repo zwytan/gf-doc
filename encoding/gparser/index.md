@@ -171,7 +171,7 @@ import "github.com/gogf/gf/g/encoding/gparser"
 
 	我们来动态生成一个XML，先来一个简单一点的。
     ```go
-    p := gparser.New()
+    p := gparser.New(nil)
     p.Set("name",   "john")
     p.Set("age",    18)
     p.Set("scores", map[string]int{
@@ -205,7 +205,7 @@ import "github.com/gogf/gf/g/encoding/gparser"
         Id    int      `json:"id"`
         Price float32  `json:"price"`
     }
-    p := gparser.New()
+    p := gparser.New(nil)
     p.Set("orders.list.0", Order{1, 100})
     p.Set("orders.list.1", Order{2, 666})
     p.Set("orders.list.2", Order{3, 999.99})
