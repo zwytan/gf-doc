@@ -80,11 +80,26 @@
 {{range pipeline}} {{.}} {{end}}
 ```
 
-`pipeline`支持的类型为`array`, `slice`, `map`, `channel`。
+`pipeline`支持的类型为`slice`, `map`, `channel`。
 
 注意：在`range`循环内部，`.` 被覆盖为以上类型的子元素。
 
 此外，对应的值长度为`0`时，`range`不会执行，`.` 不会改变。
+
+例如，遍历`map`:
+```go
+{{range $key, $value := .MapContent}}
+    {{$key}}:{{$value}}
+{{end}}
+```
+例如，遍历`slice`:
+```go
+{{range $index, $elem := .SliceContent}}
+    {{range $key, $value := $elem}}
+        {{$key}}:{{$value}}
+    {{end}}
+{{end}}
+```
 
 ## with ... end
 
