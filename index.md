@@ -92,6 +92,7 @@ golang版本 >= 1.10.0
 
 - [flyke-xu](https://gitee.com/flyke-xu)
 - [hailaz](https://gitee.com/hailaz)
+- [ireadx](https://github.com/ireadx)
 - [mg91](https://gitee.com/mg91)
 - [pibigstar](https://github.com/pibigstar)
 - [tiangenglan](https://gitee.com/tiangenglan)
