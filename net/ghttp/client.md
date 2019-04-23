@@ -43,7 +43,7 @@ type Client
 ```
 我们可以使用```ghttp.NewClient```创建一个HTTP客户端对象，随后可以使用该对象执行请求。`ghttp.Clien`t对象中封装了一系列基于`HTTP Method`来命名的方法，调用这些方法将会发起对应的`HTTP Method`请求。常用的方法当然是`Get`和`Post`方法，此外`DoRequest`是核心的请求方法，用户可以调用该方法实现自定义的`HTTP Method`发送请求。
 
-可以看到，`ghttp`客户端的请求参数的数据参数类型为`interface{}`类型，也就是说可以传递任意的数据类型，常见的参数数据类型为`string`/`map`，如果参数为map类型，参数值将会进行`urlencode`编码。
+可以看到，`ghttp`客户端的请求参数的数据参数类型为`interface{}`类型，也就是说可以传递任意的数据类型，常见的参数数据类型为`string`/`map`，如果参数为`map`类型，参数值将会进行`urlencode`编码。
 
 `ghttp`模块也提供了独立的包函数来实现HTTP请求，函数列表如下：
 
