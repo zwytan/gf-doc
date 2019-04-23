@@ -11,26 +11,26 @@ https://godoc.org/github.com/gogf/gf/g/net/ghttp#Client
 type Client
     func NewClient() *Client
     func (c *Client) Get(url string) (*ClientResponse, error)
-    func (c *Client) Put(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Post(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Delete(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Connect(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Head(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Options(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Patch(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) Trace(url string, data ...string) (*ClientResponse, error)
-    func (c *Client) DoRequest(method, url string, data ...string) (*ClientResponse, error)
+    func (c *Client) Put(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Post(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Delete(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Connect(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Head(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Options(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Patch(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) Trace(url string, data ...interface{}) (*ClientResponse, error)
+    func (c *Client) DoRequest(method, url string, data ...interface{}) (*ClientResponse, error)
 
-    func (c *Client) GetContent(url string, data ...string) string
-    func (c *Client) PutContent(url string, data ...string) string
-    func (c *Client) PostContent(url string, data ...string) string
-    func (c *Client) DeleteContent(url string, data ...string) string
-    func (c *Client) ConnectContent(url string, data ...string) string
-    func (c *Client) HeadContent(url string, data ...string) string
-    func (c *Client) OptionsContent(url string, data ...string) string
-    func (c *Client) PatchContent(url string, data ...string) string
-    func (c *Client) TraceContent(url string, data ...string) string
-    func (c *Client) DoRequestContent(method string, url string, data ...string) string
+    func (c *Client) GetContent(url string, data ...interface{}) string
+    func (c *Client) PutContent(url string, data ...interface{}) string
+    func (c *Client) PostContent(url string, data ...interface{}) string
+    func (c *Client) DeleteContent(url string, data ...interface{}) string
+    func (c *Client) ConnectContent(url string, data ...interface{}) string
+    func (c *Client) HeadContent(url string, data ...interface{}) string
+    func (c *Client) OptionsContent(url string, data ...interface{}) string
+    func (c *Client) PatchContent(url string, data ...interface{}) string
+    func (c *Client) TraceContent(url string, data ...interface{}) string
+    func (c *Client) DoRequestContent(method string, url string, data ...interface{}) string
 
     func (c *Client) SetBasicAuth(user, pass string)
     func (c *Client) SetBrowserMode(enabled bool)
@@ -43,32 +43,36 @@ type Client
 ```
 我们可以使用```ghttp.NewClient```创建一个HTTP客户端对象，随后可以使用该对象执行请求。`ghttp.Clien`t对象中封装了一系列基于`HTTP Method`来命名的方法，调用这些方法将会发起对应的`HTTP Method`请求。常用的方法当然是`Get`和`Post`方法，此外`DoRequest`是核心的请求方法，用户可以调用该方法实现自定义的`HTTP Method`发送请求。
 
+可以看到，`ghttp`客户端的请求参数的数据参数类型为`interface{}`类型，也就是说可以传递任意的数据类型，常见的参数数据类型为`string`/`map`，如果参数为map类型，参数值将会进行`urlencode`编码。
+
 `ghttp`模块也提供了独立的包函数来实现HTTP请求，函数列表如下：
 
 ```go
 func Get(url string) (*ClientResponse, error)
-func Put(url string, data...string) (*ClientResponse, error)
-func Post(url string, data...string) (*ClientResponse, error)
-func Delete(url string, data...string) (*ClientResponse, error)
-func Head(url string, data...string) (*ClientResponse, error)
-func Patch(url string, data...string) (*ClientResponse, error)
-func Connect(url string, data...string) (*ClientResponse, error)
-func Options(url string, data...string) (*ClientResponse, error)
-func Trace(url string, data...string) (*ClientResponse, error)
-func DoRequest(method, url string, data...string) (*ClientResponse, error)
+func Put(url string, data ...interface{}) (*ClientResponse, error)
+func Post(url string, data ...interface{}) (*ClientResponse, error)
+func Delete(url string, data ...interface{}) (*ClientResponse, error)
+func Head(url string, data ...interface{}) (*ClientResponse, error)
+func Patch(url string, data ...interface{}) (*ClientResponse, error)
+func Connect(url string, data ...interface{}) (*ClientResponse, error)
+func Options(url string, data ...interface{}) (*ClientResponse, error)
+func Trace(url string, data ...interface{}) (*ClientResponse, error)
+func DoRequest(method, url string, data ...interface{}) (*ClientResponse, error)
 
-func GetContent(url string, data...string) string
-func PutContent(url string, data...string) string
-func PostContent(url string, data...string) string
-func DeleteContent(url string, data...string) string
-func HeadContent(url string, data...string) string
-func PatchContent(url string, data...string) string
-func ConnectContent(url string, data...string) string 
-func OptionsContent(url string, data...string) string
-func TraceContent(url string, data...string) string 
-func RequestContent(method string, url string, data...string) string 
+func GetContent(url string, data ...interface{}) string
+func PutContent(url string, data ...interface{}) string
+func PostContent(url string, data ...interface{}) string
+func DeleteContent(url string, data ...interface{}) string
+func HeadContent(url string, data ...interface{}) string
+func PatchContent(url string, data ...interface{}) string
+func ConnectContent(url string, data ...interface{}) string 
+func OptionsContent(url string, data ...interface{}) string
+func TraceContent(url string, data ...interface{}) string 
+func RequestContent(method string, url string, data ...interface{}) string 
 ```
 函数说明与`Client`对象的方法说明一致，因此比较常见的情况是直接使用`ghttp`对应的HTTP包方法来实现HTTP客户端请求，而不用创建一个`Client`对象来处理。不过，当需要自定义请求的一些细节(例如超时时间、Cookie、Header等)时，就得依靠自定义的Client对象来处理了(需要`New`一个`ghttp.Client`对象来控制)。
+
+
 
 ## ghttp.ClientResponse
 

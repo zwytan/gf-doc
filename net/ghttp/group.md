@@ -26,7 +26,7 @@ func (g *RouterGroup) TRACE(pattern string, object interface{}, params...interfa
 func (g *RouterGroup) REST(pattern string, object interface{})
 
 // 执行分组路由批量绑定
-func (g *RouterGroup) Bind(group string, items []GroupItem)
+func (g *RouterGroup) Bind(items []GroupItem)
 ```
 
 其中：
@@ -166,7 +166,7 @@ func main() {
     s   := g.Server()
     obj := new(Object)
     ctl := new(Controller)
-    s.Group("/api").Bind("/api", []ghttp.GroupItem{
+    s.Group("/api").Bind([]ghttp.GroupItem{
         {"ALL",  "*",            HookHandler, ghttp.HOOK_BEFORE_SERVE},
         {"ALL",  "/handler",     Handler},
         {"ALL",  "/ctl",         ctl},

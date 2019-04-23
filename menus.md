@@ -53,6 +53,7 @@
         * [模板标签](os/gview/tags.md)
         * [模板函数](os/gview/funcs.md)
         * [模板变量](os/gview/vars.md)
+        * [模板布局](os/gview/layout.md)
         * [其他使用](os/gview/other.md)
     * [数据库ORM](#)
         * [ORM基本介绍](database/gdb/index.md)
