@@ -18,6 +18,7 @@ https://godoc.org/github.com/gogf/gf/g/container/gset
 ```go
 func New(unsafe ...bool) *Set
 func NewSet(unsafe ...bool) *Set
+func NewFrom(items interface{}, unsafe...bool) *Set
 func (set *Set) Add(item ...interface{}) *Set
 func (set *Set) Clear() *Set
 func (set *Set) Contains(item interface{}) bool
