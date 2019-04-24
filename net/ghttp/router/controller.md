@@ -210,7 +210,7 @@ func (c *Rest) Hello() {
     方法定义：
     ```go
     // "析构函数"控制器方法
-    func (c *Controller) Shut(r *ghttp.Request) {
+    func (c *Controller) Shut() {
 
     }
     ```
