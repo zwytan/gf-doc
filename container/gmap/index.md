@@ -2,11 +2,11 @@
 
 # gmap
 
-并发安全`map`，最常用的并发安全数据结构。
+支持并发安全特性的`map`容器，最常用的并发安全数据结构。
 
 **使用场景**：
 
-需要并发安全支持的`map`数据类型场景，解决资源竞争。例如，map对象会被多个goroutine读写时。
+`map`/哈希表/关联数组使用场景。
 
 **使用方式**：
 ```go
@@ -17,6 +17,36 @@ import "github.com/gogf/gf/g/container/gmap"
 
 https://godoc.org/github.com/gogf/gf/g/container/gmap
 
+```go
+func New(unsafe ...bool) *Map
+func NewFrom(m map[interface{}]interface{}, unsafe ...bool) *Map
+func NewFromArray(keys []interface{}, values []interface{}, unsafe ...bool) *Map
+func NewMap(unsafe ...bool) *Map
+func (gm *Map) BatchRemove(keys []interface{})
+func (gm *Map) BatchSet(m map[interface{}]interface{})
+func (gm *Map) Clear()
+func (gm *Map) Clone(unsafe ...bool) *Map
+func (gm *Map) Contains(key interface{}) bool
+func (gm *Map) Flip()
+func (gm *Map) Get(key interface{}) interface{}
+func (gm *Map) GetOrSet(key interface{}, value interface{}) interface{}
+func (gm *Map) GetOrSetFunc(key interface{}, f func() interface{}) interface{}
+func (gm *Map) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{}
+func (gm *Map) IsEmpty() bool
+func (gm *Map) Iterator(f func(k interface{}, v interface{}) bool)
+func (gm *Map) Keys() []interface{}
+func (gm *Map) LockFunc(f func(m map[interface{}]interface{}))
+func (gm *Map) Map() map[interface{}]interface{}
+func (gm *Map) Merge(other *Map)
+func (gm *Map) RLockFunc(f func(m map[interface{}]interface{}))
+func (gm *Map) Remove(key interface{}) interface{}
+func (gm *Map) Set(key interface{}, val interface{})
+func (gm *Map) SetIfNotExist(key interface{}, value interface{}) bool
+func (gm *Map) SetIfNotExistFunc(key interface{}, f func() interface{}) bool
+func (gm *Map) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool
+func (gm *Map) Size() int
+func (gm *Map) Values() []interface{}
+```
 
 
 ## 使用示例
@@ -31,7 +61,7 @@ import (
 func main() {
     // 创建一个默认的gmap对象，
     // 默认情况下该gmap对象支持并发安全特性，
-    // 初始化时可以给定false参数关闭并发安全特性，当做一个普通的map使用。
+    // 初始化时可以给定true参数关闭并发安全特性，当做一个普通的map使用。
     m := gmap.New()
 
     // 设置键值对
@@ -115,15 +145,12 @@ true
 
 ## 并发安全
 
-`gmap`在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，又或者只是想使用`gmap`对象来便于操作`map`，那么用户可以选择主动关闭`gmap`的并发安全特性(传递初始化开关参数`unsafe`值为`true`, 必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升。关闭并发安全特性可以在创建`gmap`对象时传递`false`参数，如：
+`gmap`在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，又或者只是想使用`gmap`对象来便于操作`map`，那么用户可以选择主动关闭`gmap`的并发安全特性(传递初始化开关参数`unsafe`值为`true`, 必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升，如：
 ```go
 m := gmap.New(true)
 ```
 
-此外，即使在未开启并发安全特性的情况下，也可以使用`Lock`/`RLock`方法来并发安全地自定义操作`gmap`对象。
-
-
-不仅仅是`gmap`，`gf`框架的其他并发安全数据结构也支持并发安全特性开关，来提升性能或者简化原本复杂的数据结构操作。
+不仅仅是`gmap`模块，`gf`框架的其他并发安全数据结构也支持并发安全特性开关，来提升性能或者简化原本复杂的数据结构操作。
 
 
 ## 性能测试
@@ -202,4 +229,4 @@ BenchmarkGmapRemove-4                           10000000        126 ns/op       
 BenchmarkSyncmapRmove-4                         10000000        118 ns/op        0 B/op        0 allocs/op
 ```
 
-可以看到，在读取/删除这块`gmap`的性能与标准库的`sync.Map`对象没有差别，但在写入这块性能优势比较明显。
+可以看到，在读取/删除这块`gmap`的性能与标准库的`sync.Map`对象没有差别，但写入性能优势比较明显。
