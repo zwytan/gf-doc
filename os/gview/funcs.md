@@ -319,83 +319,11 @@ arg1==arg2 || arg1==arg3 || arg1==arg4 ...
 // Go<br />Frame
 ```
 
-## `ghttp`模板函数
+# 自定义模板函数
 
-以下内置模板函数仅在`WebServer`下，即通过`ghttp`模块使用`ghttp.Response`/`gmvc.View`对象渲染模板引擎时有效。
-
-### get
-
-```go
-{{get "参数名称"}}
-```
-用于获取GET方式传递的参数。
+开发者可以自定义模板函数，全局绑定模板函数到当前视图对象中。
 
 使用示例：
-```go
-{{if (get "name")}}
-    {{get "name"}}
-{{else}}
-    NoName
-{{end}}
-```
-
-### post
-
-```go
-{{post "参数名称"}}
-```
-用于获取POST方式传递的参数。
-
-### request
-
-```go
-{{request "参数名称"}}
-```
-用于获取路由参数，以及GET/POST方式传递的参数。
-
-
-## 自定义模板函数
-
-开发者可以自定义模板函数，可以临时绑定也可以全局绑定模板函数到当前视图对象中。
-
-### 使用示例1，临时绑定
-
-临时绑定模板函数是指在解析特定模板的时候传递自定义的模板函数，该模板函数仅在当前解析的模板中生效。
-
-```go
-package main
-
-import (
-	"fmt"
-	"github.com/gogf/gf/g"
-	"github.com/gogf/gf/g/os/gview"
-)
-
-// 用于测试的内置函数
-func funcTest() string {
-	return "test content"
-}
-
-func main() {
-	// 解析模板的时候传递模板函数映射Map，仅会在当前模板解析生效
-	parsed, err := g.View().ParseContent(`call build-in function test: {{test}}`, nil, gview.FuncMap {
-		"test": funcTest,
-	})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(parsed))
-}
-```
-执行后，输出结果为：
-```html
-call build-in function test: test content
-```
-
-### 使用示例2，全局绑定
-
-全局绑定模板函数是指在通过单例获取视图对象，并在视图对象中绑定自定义的模板函数，该模板函数在当前视图对象的所有模板解析中生效。
-
 ```go
 package main
 

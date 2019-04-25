@@ -2,13 +2,11 @@
 
 # gqueue
 
-**动态大小**的并发安全队列。同时，`gqueue`也支持限制队列大小，固定队列大小时效率和标准库的`channel`无异。
+**动态大小**的并发安全队列。同时，`gqueue`也支持固定队列大小，固定队列大小时队列效率和标准库的`channel`无异。
 
 **使用场景**：
 
 该队列是并发安全的，常用于多`goroutine`数据通信且支持动态队列大小的场景。
-
-`gqueue`安全队列与`glist`安全链表在使用上区别比较大：`gqueue`的读写操作是阻塞式的(当队列缓冲区满时，写操作会像`channel`那样阻塞等待)，`glist`没有阻塞效果；`gqueue`可以使用在`select`语法中，`glist`不能。
 
 **使用方式**：
 ```go
@@ -17,7 +15,7 @@ import "github.com/gogf/gf/g/container/gqueue"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/container/gqueue](https://godoc.org/github.com/gogf/gf/g/container/gqueue)
+https://godoc.org/github.com/gogf/gf/g/container/gqueue
 
 
 ## 使用示例1，基本使用
@@ -129,24 +127,7 @@ Benchmark_Gqueue_DynamicPush-4            20000000             164 ns/op
 Benchmark_Gqueue_DynamicPop-4             20000000             121 ns/op
 Benchmark_Channel_PushAndPop-4            20000000            70.0 ns/op
 PASS
-
 ```
-可以看到标准库的`channel`的读写性能是非常高的，但是创建的时候由于需要初始化内存，因此创建`channel`的时候效率非常非常低，并且受到队列大小的限制，写入的数据不能超过指定的队列大小。
+可以看到标准库的`channel`的读写性能是非常高的，但是创建的时候由于需要初始化内存，因此创建`channel`的时候效率非常非常低（初始化即分配内存），并且受到队列大小的限制，写入的数据不能超过指定的队列大小。
 
-`gqueue`使用起来比`channel`更加灵活，不仅创建效率高，不受队列大小限制(当然也可以指定大小)。从基准测试结果中也可以看得到，相比较`channel`，这些灵活性都是靠牺牲了一定的效率来实现的。
-
-## 性能基准测试
-
-```
-goos: darwin
-goarch: amd64
-pkg: github.com/gogf/gf/g/container/gqueue
-Benchmark_Gqueue_StaticPushAndPop-4   	20000000	        97.7 ns/op
-Benchmark_Gqueue_DynamicPush-4        	20000000	         183 ns/op
-Benchmark_Gqueue_DynamicPop-4         	20000000	        96.7 ns/op
-Benchmark_Channel_PushAndPop-4        	20000000	        75.8 ns/op
-PASS
-```
-
-
-
+`gqueue`使用起来比`channel`更加灵活，不仅创建效率高（动态分配内存），不受队列大小限制(也可限定大小)。
