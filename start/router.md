@@ -11,7 +11,7 @@ import (
 // 统一路由注册.
 func init() {
     // 用户模块 路由注册 - 使用执行对象注册方式
-    g.Server().BindObject("/user", new(api_user.Controller))
+    g.Server().BindObject("/user", new(a_user.Controller))
 }
 ```
 
