@@ -88,6 +88,8 @@ receive: [51]
 
 以下是一个简单的自定义数据结构的示例，用于客户端上报当前主机节点的内存及CPU使用情况，示例代码位于：https://github.com/gogf/gf/tree/master/geg/net/gtcp/pkg_operations/monitor
 
+在该示例中，`数据`字段使用了`JSON`数据格式进行自定义，便于数据的编码/解码。
+
 1. `types/type.go`
     ```go
     package types
