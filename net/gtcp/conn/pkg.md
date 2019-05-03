@@ -90,7 +90,9 @@ receive: [51]
 
 在该示例中，`数据`字段使用了`JSON`数据格式进行自定义，便于数据的编码/解码。
 
-1. `types/type.go`
+1. `types/types.go`
+
+    数据结构定义。
     ```go
     package types
 
@@ -106,6 +108,8 @@ receive: [51]
     }
     ```
 1. `gtcp_monitor_server.go`
+
+    服务端。
     ```go
     package main
 
@@ -140,6 +144,8 @@ receive: [51]
     }
     ```
 1. `gtcp_monitor_client.go`
+
+    客户端。
     ```go
     package main
 
