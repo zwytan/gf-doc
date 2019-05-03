@@ -6,7 +6,7 @@ import "github.com/gogf/gf/g/net/gudp"
 ```
 
 **接口文档**：
-[godoc.org/github.com/gogf/gf/g/net/gudp#Conn](https://godoc.org/github.com/gogf/gf/g/net/gudp)
+https://godoc.org/github.com/gogf/gf/g/net/gudp
 ```go
 type Conn
     func NewConn(raddr string, laddr ...string) (*Conn, error)
@@ -14,10 +14,16 @@ type Conn
     func (c *Conn) Close() error
     func (c *Conn) LocalAddr() net.Addr
     func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error)
+    func (c *Conn) RecvPkg(retry ...Retry) (result []byte, err error)
+    func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, retry ...Retry) ([]byte, error)
     func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) ([]byte, error)
     func (c *Conn) RemoteAddr() net.Addr
     func (c *Conn) Send(data []byte, retry ...Retry) error
+    func (c *Conn) SendPkg(data []byte, retry ...Retry) error
+    func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
     func (c *Conn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error)
+    func (c *Conn) SendRecvPkg(data []byte, retry ...Retry) ([]byte, error)
+    func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, retry ...Retry) ([]byte, error)
     func (c *Conn) SendRecvWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
     func (c *Conn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
     func (c *Conn) SetDeadline(t time.Time) error
