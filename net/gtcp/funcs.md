@@ -20,7 +20,7 @@ func SendRecvWithTimeout(addr string, data []byte, receive int, timeout time.Dur
 func SendWithTimeout(addr string, data []byte, timeout time.Duration, retry ...Retry) error
 ```
 
-1. `Checksum`常用于TCP通信时的数据校验和生成，便于通信两端进行校验和校验；
+1. `Checksum`常用于TCP通信时的数据`校验和`生成，便于通信两端进行校验和校验；
 2. `NewNetConn`用于简化标准库连接对象```net.Conn```的创建；
 3. `Send*`系列方法直接通过给定地址进行数据发送，用于短链接请求的情况；
 
