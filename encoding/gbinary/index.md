@@ -179,7 +179,7 @@ I'm string!
     
     看以下的例子，用以上报平台100个传感器已开启，上报的状态顺序便是传感器在网关下端口顺序(索引从0开始)：
 
-    [github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits1.go](https://github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits1.go)
+    https://github.com/gogf/gf/blob/master/geg/encoding/gbinary/bits1.go
 
     ```go
     package main
