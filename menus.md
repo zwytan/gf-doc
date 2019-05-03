@@ -80,6 +80,8 @@
     * [TCP组件](#)
         * [基本使用](net/gtcp/index.md)
         * [连接对象](net/gtcp/conn.md)
+            * [基本介绍](net/gtcp/conn/index.md)
+            * [消息包处理](net/gtcp/conn/pkg.md)
         * [工具方法](net/gtcp/funcs.md)
         * [连接池特性](net/gtcp/pool.md)
     * [UDP组件](#)
