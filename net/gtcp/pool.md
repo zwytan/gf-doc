@@ -6,13 +6,24 @@ import "github.com/gogf/gf/g/net/gtcp"
 ```
 
 **接口文档**：
-[godoc.org/github.com/gogf/gf/g/net/gtcp#PoolConn](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
+https://godoc.org/github.com/gogf/gf/g/net/gtcp
 ```go
 type PoolConn
     func NewPoolConn(addr string, timeout ...int) (*PoolConn, error)
     func (c *PoolConn) Close() error
     func (c *PoolConn) Recv(length int, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) RecvLine(retry ...Retry) ([]byte, error)
+    func (c *PoolConn) RecvPkg(retry ...Retry) ([]byte, error)
+    func (c *PoolConn) RecvPkgWithTimeout(timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) ([]byte, error)
     func (c *PoolConn) Send(data []byte, retry ...Retry) error
+    func (c *PoolConn) SendPkg(data []byte, retry ...Retry) (err error)
+    func (c *PoolConn) SendPkgWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
+    func (c *PoolConn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) SendRecvPkg(data []byte, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) SendRecvWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *PoolConn) SendWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
 ```
 由于```gtcp.PoolConn```继承于```gtcp.Conn```因此同时也可以使用```gtcp.Conn```的方法。
 

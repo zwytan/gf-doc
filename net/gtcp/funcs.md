@@ -6,19 +6,23 @@ import "github.com/gogf/gf/g/net/gtcp"
 ```
 
 **接口文档**：
-[godoc.org/github.com/gogf/gf/g/net/gtcp](https://godoc.org/github.com/gogf/gf/g/net/gtcp)
+https://godoc.org/github.com/gogf/gf/g/net/gtcp
 ```go
 func Checksum(buffer []byte) uint32
 func NewNetConn(addr string, timeout ...int) (net.Conn, error)
 func Send(addr string, data []byte, retry ...Retry) error
+func SendPkg(addr string, data []byte, retry ...Retry) error
+func SendPkgWithTimeout(addr string, data []byte, timeout time.Duration, retry ...Retry) error
 func SendRecv(addr string, data []byte, receive int, retry ...Retry) ([]byte, error)
+func SendRecvPkg(addr string, data []byte, retry ...Retry) ([]byte, error)
+func SendRecvPkgWithTimeout(addr string, data []byte, timeout time.Duration, retry ...Retry) ([]byte, error)
 func SendRecvWithTimeout(addr string, data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
 func SendWithTimeout(addr string, data []byte, timeout time.Duration, retry ...Retry) error
 ```
 
-1. ```Checksum```常用于TCP通信时的数据校验和生成，便于通信两端进行校验和校验；
-2. ```NewNetConn```用于简化标准库连接对象```net.Conn```的创建；
-3. ```Send*```系列方法直接通过给定地址进行数据发送，用于短链接请求的情况；
+1. `Checksum`常用于TCP通信时的数据校验和生成，便于通信两端进行校验和校验；
+2. `NewNetConn`用于简化标准库连接对象```net.Conn```的创建；
+3. `Send*`系列方法直接通过给定地址进行数据发送，用于短链接请求的情况；
 
 以下为一个简单的示例，我们使用工具方法来访问指定的Web站点：
 ```go

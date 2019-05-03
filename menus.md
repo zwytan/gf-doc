@@ -83,7 +83,6 @@
             * [基本介绍](net/gtcp/conn/index.md)
             * [消息包处理](net/gtcp/conn/pkg.md)
             * [通信开发进阶](net/gtcp/conn/senior.md)
-            * [高性能消息结构](net/gtcp/conn/hp.md)
         * [工具方法](net/gtcp/funcs.md)
         * [连接池特性](net/gtcp/pool.md)
     * [UDP组件](#)
