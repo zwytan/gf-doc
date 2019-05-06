@@ -34,9 +34,11 @@ module my-first-hello
 1. 设置Goland关闭`GOPATH`
 
     ![](/images/gomodule5.png)
+    
 1. 设置Goland启用`vgo`
 
     ![](/images/gomodule2.png)
+
     其中`Proxy`请选择`direct`直连下载依赖包。
 
 1. 手动修改`go.mod`文件如下：
@@ -46,6 +48,7 @@ module my-first-hello
     require github.com/gogf/gf latest
     ```
     增加`GoFrame`框架的依赖，其中`latest`表示使用最新版本，IDE将会立即去更新下载框架代码。成功后，IDE将会修改`go.mod`文件并生成`go.sum`依赖分析文件。
+
     ![](/images/gomodule3.png)
 
 1. 随后`go.mod`文件被自动更新为：
