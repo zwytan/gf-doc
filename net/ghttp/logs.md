@@ -1,7 +1,7 @@
 
 [TOC]
 
-`gf`框架提供了完善的Web Server日志管理功能，包括```access log```以及```error log```，并可自定义日志输出回调方法，开发者可灵活使用。
+`gf`框架提供了完善的Web Server日志管理功能，包括`access log`以及`error log`，并可自定义日志输出回调方法，开发者可灵活使用。
 
 # 相关配置
 在Web Server中的日志相关配置选项如下：
@@ -48,11 +48,12 @@ func (s *Server)IsErrorLogEnabled() bool
 package main
 
 import (
+    "github.com/gogf/gf/g"
     "github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
-    s := ghttp.GetServer()
+    s := g.GetServer()
     s.BindHandler("/log/access", func(r *ghttp.Request){
         r.Response.Writeln("请在运行终端查看日志输出")
     })
@@ -62,11 +63,13 @@ func main() {
 }
 ```
 
-我们在任何地方(包括运行时)可以调用`SetAccessLogEnabled(true)`开启access log的记录功能(并可通过`SetAccessLogEnabled(false)`随时动态关闭日志记录功能)，默认情况下，日志内容将会输出到终端界面。如以上示例程序执行后，访问`http://127.0.0.1:8199/log/access`，日志内容将会输出到终端上，如下：
+我们在任何地方(包括运行时)可以调用`SetAccessLogEnabled(true)`开启`access log`的记录功能(并可通过`SetAccessLogEnabled(false)`随时动态关闭日志记录功能)，默认情况下，日志内容将会输出到终端界面。如以上示例程序执行后，访问`http://127.0.0.1:8199/log/access`，日志内容将会输出到终端上，如下：
 ```shell
-2018-04-20 18:11:57.344 200 "GET 127.0.0.1:8199 /log/access HTTP/1.1" 0.120, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36"
+2018-04-20 18:11:57.344 200 "GET http 127.0.0.1:8199 /log/access HTTP/1.1" 0.120, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36"
 ```
-日志格式: `访问时间(精确到毫秒)` `HTTP状态码` "`请求方式` `请求地址` `请求协议`" `执行时间(毫秒)` `客户端IP` `来源URL` `UserAgent`。
+日志格式: `访问时间(精确到毫秒)` `HTTP状态码` "`请求方式` `请求前缀` `请求地址` `请求协议`" `执行时间(毫秒)` `客户端IP` `来源URL` `UserAgent`。
+
+> 其中，`请求前缀`为`http`/`https`，`请求协议`往往固定为`HTTP/1.1`。
 
 # 错误日志
 
@@ -92,7 +95,7 @@ func main() {
 
 运行并访问后，终端输出的错误日志信息如下：
 ```shell
-2018-04-20 18:31:03.484 [ERRO] "GET 127.0.0.1:8199 /log/error HTTP/1.1" 0.098, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36", 异常信息
+2018-04-20 18:31:03.484 [ERRO] "GET http 127.0.0.1:8199 /log/error HTTP/1.1" 0.098, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36", 异常信息
 Trace:
 1. /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/net/ghttp/log.go:10
 2. /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/net/ghttp/http_server_handler.go:83
