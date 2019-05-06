@@ -67,9 +67,7 @@ func main() {
 ```shell
 2018-04-20 18:11:57.344 200 "GET http 127.0.0.1:8199 /log/access HTTP/1.1" 0.120, 127.0.0.1, "", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/53.0.2785.143 Chrome/53.0.2785.143 Safari/537.36"
 ```
-日志格式: `访问时间(精确到毫秒)` `HTTP状态码` "`请求方式` `请求前缀` `请求地址` `请求协议`" `执行时间(毫秒)` `客户端IP` `来源URL` `UserAgent`。
-
-> 其中，`请求前缀`为`http`/`https`，`请求协议`往往固定为`HTTP/1.1`。
+日志格式: `访问时间(精确到毫秒)` `HTTP状态码` "`请求方式` `请求前缀` `请求地址` `请求协议`" `执行时间(毫秒)` `客户端IP` `来源URL` `UserAgent`。其中，`请求前缀`为`http`或者`https`，`请求协议`往往固定为`HTTP/1.1`。
 
 # 错误日志
 
