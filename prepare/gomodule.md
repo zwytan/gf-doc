@@ -4,7 +4,7 @@
 
 `Go Module`的官方介绍：[https://github.com/golang/go/wiki/Modules](https://github.com/golang/go/wiki/Modules)
 
-`Go Module`是从Go版本`1.11.1`开始官方提供的包管理工具，用于解决Go项目的包管理及依赖，类似于PHP的`composer`、Nodejs的`npm`。在`Go Module`还未出现的日子里，Go的版本管理工具比较多，如`go-vendor`/`go-dep`等，在未来的包管理中，将会慢慢被`Go Module`取代，成为互联网发展历史中的一粒粒烟尘。
+`Go Module`是从Go版本`1.11.1`开始官方提供的包管理工具，用于解决Go项目的包管理及依赖，类似于PHP的`composer`、Nodejs的`npm`。在`Go Module`还未出现的日子里，Go的版本管理工具比较多，如`go-vendor`/`go-dep`等，在未来的包管理中，将会慢慢被`Go Module`取代，成为互联网发展历史中的一粒粒烟尘。
 
 本章节只会对`Go Module`的一些常用的实用的命令/设置进行介绍，更详细的介绍请查看官方文档。
 

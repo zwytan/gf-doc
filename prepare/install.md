@@ -7,7 +7,7 @@
 
 ## Step1 - 下载Go开发包
 
-访问Go国内镜像站下载页面 [https://golang.google.cn/dl/](https://golang.google.cn/dl/)，并在页面最上方的版本中选择你当前的系统版本，会下载最新版本的Go开发包:
+访问Go国内镜像站下载页面 [https://golang.google.cn/dl/](https://golang.google.cn/dl/)，并在页面最上方的版本中选择你当前的系统版本，会下载最新版本的Go开发包:
 ![](/images/downloadgo.png)
 
 ## Step2 - 安装引导

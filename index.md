@@ -62,7 +62,7 @@ golang版本 >= 1.10.0
 # 捐赠
 
 捐赠支持`GF`框架的研发，
-请在捐赠时备注您的`github`/`gitee`账号名称。
+请在捐赠时备注您的`github`/`gitee`账号名称。
 
 <a href="/images/donate.png" target="_blank">
 <img src="images/donate.png" width="300"/>

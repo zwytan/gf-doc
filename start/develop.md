@@ -5,7 +5,7 @@
 
 根据官方[《Effective Go》](https://golang.google.cn/doc/effective_go.html#package-names)建议，包名尽量采用言简意赅的名称(`short, concise, evocative`)。
 
-我们建议，对于项目结构中的 控制器层`/app/api`下的包名统一使用`a_`前缀；逻辑封装层`/app/service`下的包名统一使用`s_`前缀；数据模型`/app/model`下的包名统一使用`m_`前缀。
+我们建议，对于项目结构中的 控制器层`/app/api`下的包名统一使用`a_`前缀；逻辑封装层`/app/service`下的包名统一使用`s_`前缀；数据模型`/app/model`下的包名统一使用`m_`前缀。
 
 例如，控制器层以及逻辑封装层中都有`user`这个包，虽然通过`import`不同的路径可以做区分，但是在代码中很难以识别，阅读质量不高，并且对于开发中的IDE代码提示来说也十分不友好。
 

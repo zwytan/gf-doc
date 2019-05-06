@@ -21,7 +21,7 @@ if r != nil {
 1. 以上代码中我们可以方便地通过`r.ToJson()`来进行数据格式转换，当然`gdb`的结果集支持多种数据格式转换，详细请参考【[ORM高级特性](database/gdb/senior)】章节；
 1. `gvar.VarRead`对象的详细介绍请参考【[gvar通用动态变量](container/gvar/index)】章节；
 
-# 2. 表字段类型为`datetime`，参数为`time.Time`类型，写入后时区不对
+# 2. 表字段类型为`datetime`，参数为`time.Time`类型，写入后时区不对
 
 以下程序：
 ```go

@@ -26,7 +26,7 @@ type Error
 1. `FirstItem` 在有多个键名/属性校验错误的时候，用以获取出错的第一个键名，以及其对应的出错规则和错误信息；其顺序性只有使用顺序校验规则时有效，否则返回的结果是随机的；
 1. `FirstRule` 会返回`FirstItem`中得第一条出错的规则及错误信息；
 1. `FirstString` 会返回`FirstRule`中得第一条规则错误信息；
-1. `Map` 会返回`FirstItem`中得出错自规则及对应错误信息`map`;
+1. `Map` 会返回`FirstItem`中得出错自规则及对应错误信息`map`;
 1. `Maps` 会返回所有的出错键名及对应的出错规则及对应的错误信息(`map[string]map[string]string`)；
 1. `String` 会返回所有的错误信息，构成一条字符串返回，多个规则错误信息之间以`;`符号连接；
 1. `Strings` 会返回所有的错误信息，构成`[]string`类型返回；

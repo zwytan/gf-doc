@@ -1,7 +1,7 @@
 * [框架介绍](index.md)
 * [准备工作](#)
     * [环境安装](prepare/install.md)
-    * [环境变量](prepare/goenv.md)
+    * [环境变量](prepare/goenv.md)
     * [Go Module](prepare/gomodule.md)
 * [快速开始](#)
     * [新建项目](start/index.md)
