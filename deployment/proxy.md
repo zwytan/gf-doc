@@ -76,4 +76,4 @@ server {
 ```
 其中，`8199`为本地的`golang`应用`WebServer`监听端口。
 
-例如，在该配置下，我们可以通过`http://goframe.org/piblic/my.png`访问静态文件。
+例如，在该配置下，我们可以通过`http://goframe.org/public/my.png`访问静态文件。
