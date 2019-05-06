@@ -64,6 +64,7 @@ func main() {
 
 ### Step4. 执行运行
 菜单栏 `Run` - `Run` - `go build hello.go`。
+
 ![](/images/goland4.png)
 
 ![](/images/goland5.png)

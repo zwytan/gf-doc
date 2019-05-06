@@ -32,8 +32,10 @@ module my-first-hello
 `vgo`是基于`Go Module`规范的包管理工具，同官方的`go mod`命令工具类似。
 
 1. 设置Goland关闭`GOPATH`
+
     ![](/images/gomodule5.png)
 1. 设置Goland启用`vgo`
+
     ![](/images/gomodule2.png)
     其中`Proxy`请选择`direct`直连下载依赖包。
 
@@ -55,12 +57,15 @@ module my-first-hello
     其中`v1.3.8`表示vgo检测到的最新框架版本。
 
 1. 如果下载最新代码框架后出现下图情况( [官方手册](https://www.jetbrains.com/help/go/create-a-project-with-vgo-integration.html) )
+
     ![](/images/gomodule6.png)
 
 1. 请按快捷键 `⌥(option)+↩(return)` , 选择 `Sync packages of my-first-hello`
+
     ![](/images/gomodule7.png)
 
 1. 随后等待几秒钟之后, 可以看到左侧的`Go Module`已经有内容，并且中终端自动输出了下载的框架版本
+
     ![](/images/gomodule8.png)
 
 ## 使用命令行
@@ -103,6 +108,7 @@ func main() {
 }
 ```
 运行结果如下：
+
 ![](/images/gomodule4.png)
 
 可以看到，`GoFrame`框架已被自动下载成功，并在编译中被正常引入。
