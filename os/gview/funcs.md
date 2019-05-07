@@ -279,8 +279,8 @@ ge "a" "a": true
 将`url`变量值进行url转义。
 示例：
 ```go
-{{"https://gfer.me"|url}}
-// 输出: https%3A%2F%2Fgfer.me
+{{"https://goframe.org"|url}}
+// 输出: https%3A%2F%2Fgoframe.org
 ```
 
 ## urldecode
@@ -290,8 +290,8 @@ ge "a" "a": true
 将`url`变量值进行url反转义。
 示例：
 ```go
-{{"https%3A%2F%2Fgfer.me"|urldecode}}
-// 输出: https://gfer.me
+{{"https%3A%2F%2Fgoframe.org"|urldecode}}
+// 输出: https://goframe.org
 ```
 
 

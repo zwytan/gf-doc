@@ -162,21 +162,21 @@ certbot certonly --standalone -d 申请域名 --staple-ocsp -m 邮箱地址 --ag
 ```
 例如：
 ```shell
-root@ip-172-31-41-204:~# certbot certonly --standalone -d gfer.me --staple-ocsp -m john@gfer.me --agree-tos
+root@ip-172-31-41-204:~# certbot certonly --standalone -d goframe.org --staple-ocsp -m john@goframe.org --agree-tos
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator standalone, Installer None
 Starting new HTTPS connection (1): acme-v02.api.letsencrypt.org
 Obtaining a new certificate
 Performing the following challenges:
-http-01 challenge for gfer.me
+http-01 challenge for goframe.org
 Waiting for verification...
 Cleaning up challenges
 
 IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at:
-   /etc/letsencrypt/live/gfer.me/fullchain.pem
+   /etc/letsencrypt/live/goframe.org/fullchain.pem
    Your key file has been saved at:
-   /etc/letsencrypt/live/gfer.me/privkey.pem
+   /etc/letsencrypt/live/goframe.org/privkey.pem
    Your cert will expire on 2019-01-25. To obtain a new or tweaked
    version of this certificate in the future, simply run certbot
    again. To non-interactively renew *all* of your certificates, run
@@ -189,8 +189,8 @@ IMPORTANT NOTES:
 
 默认情况下，证书会被安装到`/etc/letsencrypt/`，证书和私钥文件分别为：
 ```shell
-/etc/letsencrypt/live/gfer.me/fullchain.pem
-/etc/letsencrypt/live/gfer.me/privkey.pem
+/etc/letsencrypt/live/goframe.org/fullchain.pem
+/etc/letsencrypt/live/goframe.org/privkey.pem
 ```
 
 
@@ -210,7 +210,7 @@ func main() {
     s.BindHandler("/", func(r *ghttp.Request){
         r.Response.Writeln("来自于HTTPS的：哈喽世界！")
     })
-    s.EnableHTTPS("/etc/letsencrypt/live/gfer.me/fullchain.pem", "/etc/letsencrypt/live/gfer.me/privkey.pem")
+    s.EnableHTTPS("/etc/letsencrypt/live/goframe.org/fullchain.pem", "/etc/letsencrypt/live/goframe.org/privkey.pem")
     s.Run()
 }
 ```

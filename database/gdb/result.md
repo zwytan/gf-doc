@@ -59,7 +59,7 @@ CREATE TABLE `user` (
 其次，我们的表数据如下：
 ```html
 uid  name   site
-1    john   https://gfer.me
+1    john   https://goframe.org
 ```
 最后，我们的示例程序如下：
 

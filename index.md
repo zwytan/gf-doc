@@ -33,7 +33,7 @@ golang版本 >= 1.10.0
 
 # 架构
 <div align=center>
-<img src="https://gfer.me/images/arch.png"/>
+<img src="https://goframe.org/images/arch.png"/>
 </div>
 
 # 特点
