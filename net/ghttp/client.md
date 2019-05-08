@@ -161,7 +161,7 @@ func (r *ClientResponse) Close()
         fmt.Println(r.ReadAllString())
     }
     ```
-    传递多参数的时候用户可以使用`&`符号进行连接，也可以直接使用`map`（其实之前也提到，任意数据类型都支持，包括`struct`）。
+    可以看到，通过`ghttp`客户端发送`JSON`数据请求非常方便，直接通过`Post`方法提交即可，客户端会自动将请求的`Content-Type`设置为`application/json`。
 
 1. 发送DELETE请求，并打印出返回值
     ```go
