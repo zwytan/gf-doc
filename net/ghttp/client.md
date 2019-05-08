@@ -49,7 +49,7 @@ type Client
 1. 请求返回结果为`*ClientResponse`对象，可以通过该结果对象获取对应的返回结果，通过`ReadAll`方法可以获得返回的内容。以`*Content`命名的请求方法结果为字符串内容，如果请求失败时，得到的是空字符串。
 1. 可以看到，客户端的请求参数的数据参数`data`数据类型为`interface{}`类型，也就是说可以传递任意的数据类型，常见的参数数据类型为`string`/`map`，如果参数为`map`类型，参数值将会进行`urlencode`编码。
 
-## 工具方法
+### 工具方法
 `ghttp`模块也提供了独立的包函数来实现HTTP请求，函数列表如下：
 
 ```go
@@ -77,10 +77,16 @@ func RequestContent(method string, url string, data ...interface{}) string
 ```
 函数说明与`Client`对象的方法说明一致，一般情况下直接使用`ghttp`对应的HTTP包方法来实现HTTP请求即可，非常简便。当需要自定义HTTP请求的一些细节(例如超时时间、Cookie、Header等)时，就得依靠自定义的`Client`对象来处理了。
 
-## 一些重要说明
+### 一些重要说明
 
 1. `ghttp`客户端默认关闭了`KeepAlive`功能以及对服务端`TLS`证书的校验功能，如果需要启用可自定义客户端的`Transport`属性；
-1. `Post`/`PostContent`方法提交的请求(`Content-Type`)类型默认为`application/x-www-form-urlencoded`，当`data`参数为`JSON`类型时，将会被自动识别此时请求的类型为`application/json`；
+1. `Post`/`PostContent`方法提交的请求类型(`Content-Type`)默认为`application/x-www-form-urlencoded`，当`data`参数为`JSON`类型时，将会被自动识别此时请求的类型为`application/json`；
+
+### 数组及复杂类型参数
+
+数组参数可以通过例如`array=1&array=2&array=3`这样的方式传递，但是推荐复杂数据类型使用`JSON`数据格式传递。
+
+由于`gf`框架的`WebServer`基于`net/http`标准库，因此遵循标准库的参数设计方式，`array=1&array=2&array=3`这样的提交参数将会被解析为数组变量`array`，不支持`array[]=1&array[]=2&array[]=3`这样的数组提交方式，也不支持`map[a]=1&map[b]=2&map[c]=3`这样的`map`提交方式。
 
 ## ghttp.ClientResponse
 
@@ -93,11 +99,7 @@ func (r *ClientResponse) Close()
 ```
 这里也要提醒的是，**ClientResponse需要手动调用`Close`方法关闭**，也就是说，不管你使用不使用返回的`ClientResponse`对象，你都需要将该返回对象赋值给一个变量，并且手动调用其`Close`方法进行关闭（往往使用`defer r.Close()`）。需要手动关闭返回对象这一点，与标准库的HTTP客户端请求对象操作相同。
 
-## 数组及复杂类型参数
 
-数组参数可以通过例如`array=1&array=2&array=3`这样的方式传递，但是推荐复杂数据类型使用`JSON`数据格式传递。
-
-由于`gf`框架的`WebServer`基于`net/http`标准库，因此遵循标准库的参数设计方式，`array=1&array=2&array=3`这样的提交参数将会被解析为数组变量`array`，不支持`array[]=1&array[]=2&array[]=3`这样的数组提交方式，也不支持`map[a]=1&map[b]=2&map[c]=3`这样的`map`提交方式。
 
 ## 基本示例
 
