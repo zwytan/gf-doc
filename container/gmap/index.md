@@ -219,18 +219,31 @@ m := gmap.New(true)
 
 ## 性能测试
 
-### 测试环境
-
-```shell
-CPU: Intel(R) Core(TM) i5-4460  CPU @ 3.20GHz
-MEM: 8GB
-SYS: Ubuntu 16.04 amd64
-```
-
 ### 并发安全
 ```shell
-n@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
-goos: linux
+ijohn:gmap john$ go test *.go -bench=".*" -benchmem
+goos: darwin
+goarch: amd64
+Benchmark_IntIntMap_Set-4               10000000               262 ns/op              62 B/op          0 allocs/op
+Benchmark_IntAnyMap_Set-4                5000000               324 ns/op              82 B/op          1 allocs/op
+Benchmark_IntStrMap_Set-4                5000000               342 ns/op              82 B/op          1 allocs/op
+Benchmark_AnyAnyMap_Set-4                3000000               360 ns/op              73 B/op          2 allocs/op
+Benchmark_StrIntMap_Set-4                5000000               471 ns/op              82 B/op          1 allocs/op
+Benchmark_StrAnyMap_Set-4                3000000               346 ns/op              73 B/op          2 allocs/op
+Benchmark_StrStrMap_Set-4                3000000               394 ns/op              73 B/op          2 allocs/op
+Benchmark_IntIntMap_Get-4               20000000               179 ns/op               0 B/op          0 allocs/op
+Benchmark_IntAnyMap_Get-4               10000000               149 ns/op               0 B/op          0 allocs/op
+Benchmark_IntStrMap_Get-4               20000000               150 ns/op               0 B/op          0 allocs/op
+Benchmark_AnyAnyMap_Get-4               10000000               183 ns/op               0 B/op          0 allocs/op
+Benchmark_StrIntMap_Get-4               10000000               238 ns/op               7 B/op          0 allocs/op
+Benchmark_StrAnyMap_Get-4               10000000               246 ns/op               7 B/op          0 allocs/op
+Benchmark_StrStrMap_Get-4               10000000               255 ns/op               7 B/op          0 allocs/op
+```
+### 非并发安全
+
+```shell
+ijohn:gmap john$ go test *.go -bench=".*" -benchmem
+goos: darwin
 goarch: amd64
 Benchmark_Unsafe_IntIntMap_Set-4        10000000               318 ns/op              62 B/op          0 allocs/op
 Benchmark_Unsafe_IntAnyMap_Set-4         5000000               282 ns/op              57 B/op          1 allocs/op
@@ -247,34 +260,23 @@ Benchmark_Unsafe_StrIntMap_Get-4         5000000               246 ns/op        
 Benchmark_Unsafe_StrAnyMap_Get-4        10000000               238 ns/op               7 B/op          0 allocs/op
 Benchmark_Unsafe_StrStrMap_Get-4         5000000               229 ns/op               7 B/op          0 allocs/op
 ```
-### 非并发安全
+
+### 不同类型map性能
 
 ```shell
-john@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
-goos: linux
+ijohn:gmap john$ go test *_maps*.go -bench=".*" -benchmem
+goos: darwin
 goarch: amd64
-Benchmark_Unsafe_IntBoolMap_Set-4               10000000        211 ns/op       38 B/op        0 allocs/op
-Benchmark_Unsafe_IntIntMap_Set-4                10000000        236 ns/op       62 B/op        0 allocs/op
-Benchmark_Unsafe_IntInterfaceMap_Set-4           5000000        279 ns/op       82 B/op        1 allocs/op
-Benchmark_Unsafe_IntStringMap_Set-4              5000000        304 ns/op       82 B/op        1 allocs/op
-Benchmark_Unsafe_InterfaceInterfaceMap_Set-4    10000000        488 ns/op      112 B/op        2 allocs/op
-Benchmark_Unsafe_StringBoolMap_Set-4             5000000        366 ns/op       62 B/op        1 allocs/op
-Benchmark_Unsafe_StringIntMap_Set-4              5000000        378 ns/op       56 B/op        1 allocs/op
-Benchmark_Unsafe_StringInterfaceMap_Set-4        3000000        472 ns/op       73 B/op        2 allocs/op
-Benchmark_Unsafe_StringStringMap_Set-4           2000000        510 ns/op       96 B/op        2 allocs/op
-Benchmark_Unsafe_IntBoolMap_Get-4               20000000        110 ns/op        0 B/op        0 allocs/op
-Benchmark_Unsafe_IntIntMap_Get-4                20000000        111 ns/op        0 B/op        0 allocs/op
-Benchmark_Unsafe_IntInterfaceMap_Get-4          20000000        122 ns/op        0 B/op        0 allocs/op
-Benchmark_Unsafe_IntStringMap_Get-4             20000000        118 ns/op        0 B/op        0 allocs/op
-Benchmark_Unsafe_InterfaceInterfaceMap_Get-4    10000000        230 ns/op        0 B/op        0 allocs/op
-Benchmark_Unsafe_StringBoolMap_Get-4            10000000        200 ns/op        7 B/op        0 allocs/op
-Benchmark_Unsafe_StringIntMap_Get-4             10000000        202 ns/op        7 B/op        0 allocs/op
-Benchmark_Unsafe_StringInterfaceMap_Get-4       10000000        218 ns/op        7 B/op        0 allocs/op
-Benchmark_Unsafe_StringStringMap_Get-4          10000000        200 ns/op        7 B/op        0 allocs/op
+Benchmark_HashMap_Set-4          5000000               469 ns/op              79 B/op          2 allocs/op
+Benchmark_ListMap_Set-4          2000000               527 ns/op             133 B/op          3 allocs/op
+Benchmark_TreeMap_Set-4          3000000               515 ns/op              58 B/op          2 allocs/op
+Benchmark_HashMap_Get-4         10000000               201 ns/op               0 B/op          0 allocs/op
+Benchmark_ListMap_Get-4         10000000               179 ns/op               0 B/op          0 allocs/op
+Benchmark_TreeMap_Get-4          5000000               366 ns/op               8 B/op          0 allocs/op
 ```
 
 
-### gmap与sync.Map
+### gmap与sync.Map性能比较
 
 go语言从`1.9`版本开始引入了并发安全的`sync.Map`，但`gmap`比较于标准库的`sync.Map`性能更加优异，并且功能更加丰富。
 
