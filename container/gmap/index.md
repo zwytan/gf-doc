@@ -4,15 +4,17 @@
 
 支持可选并发安全特性的`map`容器，最常用的并发安全数据结构。
 
-该模块包含多个数据结构的`map`容器：`Map/HashMap`、`TreeMap`和`LinkMap`。
+该模块包含多个数据结构的`map`容器：`Map/HashMap`、`TreeMap`和`ListMap`。
 
-|类型|数据结构|时间复杂度|支持排序|有序遍历|说明
+|类型|数据结构|平均复杂度|支持排序|有序遍历|说明
 |---|---|---|---|---|---
 |`Map/HashMap`|哈希表|O(1)|否|否|高性能读写操作，内存占用较高，随机遍历
-|`LinkMap`|哈希表+双向链表|O(2)|否|是|支持按照写入顺序遍历，内存占用较高
-|`TreeMap`|红黑树|O(lg n)|是|是|内存占用紧凑，支持键名排序及有序遍历
+|`ListMap`|哈希表+双向链表|O(2)|否|是|支持按照写入顺序遍历，内存占用较高
+|`TreeMap`|红黑树|O(log N)|是|是|内存占用紧凑，支持键名排序及有序遍历
 
 > 其中`Map`为`HashMap`的别名，为方便开发调用，`gmap`模块支持多种以哈希表为基础数据结构的常见类型`map`定义：`IntIntMap`、`IntStrMap`、`IntAnyMap`、`StrIntMap`、`StrStrMap`、`StrAnyMap`。
+
+> 参考链接：https://en.wikipedia.org/wiki/Hash_table
 
 **使用场景**：
 
@@ -176,21 +178,21 @@ import (
 func main() {
 	array   := g.Slice{2, 3, 1, 5, 4, 6, 8, 7, 9}
 	hashMap := gmap.New(true)
-	linkMap := gmap.NewLinkMap(true)
+	listMap := gmap.NewListMap(true)
 	treeMap := gmap.NewTreeMap(gutil.ComparatorInt, true)
 	for _, v := range array {
 		hashMap.Set(v, v)
 	}
 	for _, v := range array {
-		linkMap.Set(v, v)
+		listMap.Set(v, v)
 	}
 	for _, v := range array {
 		treeMap.Set(v, v)
 	}
 	fmt.Println("HashMap   Keys:", hashMap.Keys())
 	fmt.Println("HashMap Values:", hashMap.Values())
-	fmt.Println("LinkMap   Keys:", linkMap.Keys())
-	fmt.Println("LinkMap Values:", linkMap.Values())
+	fmt.Println("ListMap   Keys:", listMap.Keys())
+	fmt.Println("ListMap Values:", listMap.Values())
 	fmt.Println("TreeMap   Keys:", treeMap.Keys())
 	fmt.Println("TreeMap Values:", treeMap.Values())
 }
@@ -199,8 +201,8 @@ func main() {
 ```html
 HashMap   Keys: [4 6 8 7 9 2 3 1 5]
 HashMap Values: [6 8 4 3 1 5 7 9 2]
-LinkMap   Keys: [2 3 1 5 4 6 8 7 9]
-LinkMap Values: [2 3 1 5 4 6 8 7 9]
+ListMap   Keys: [2 3 1 5 4 6 8 7 9]
+ListMap Values: [2 3 1 5 4 6 8 7 9]
 TreeMap   Keys: [1 2 3 4 5 6 7 8 9]
 TreeMap Values: [1 2 3 4 5 6 7 8 9]
 ```

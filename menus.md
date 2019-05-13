@@ -98,6 +98,7 @@
         * [gvar (通用动态变量)](container/gvar/index.md)
         * [gtype (并发安全类型)](container/gtype/index.md)
         * [glist (并发安全链表)](container/glist/index.md)
+        * [gtree (并发安全树形)](container/gtree/index.md)
         * [gqueue (并发安全队列)](container/gqueue/index.md)
         * [gpool (对象复用池)](container/gpool/index.md)
         * [gchan (优雅的chan操作)](container/gchan/index.md)
