@@ -4,13 +4,15 @@
 
 支持可选并发安全特性的`map`容器，最常用的并发安全数据结构。
 
-该模块包含多个数据结构的`map`容器：`Map/HashMap`、`TreeMap`和`LinkMap`。其中`Map`为`HashMap`的别名，为方便开发调用，`gmap`模块支持多种以哈希表为基础数据结构的常见类型`map`定义：`IntIntMap`、`IntStrMap`、`IntAnyMap`、`StrIntMap`、`StrStrMap`、`StrAnyMap`。
+该模块包含多个数据结构的`map`容器：`Map/HashMap`、`TreeMap`和`LinkMap`。
 
 |类型|数据结构|时间复杂度|支持排序|有序遍历|说明
 |---|---|---|---|---|---
-|`Map/HashMap`|哈希表|O(1)|否|否|高性能的读写操作，但内存占用比较高，只能随机遍历
+|`Map/HashMap`|哈希表|O(1)|否|否|高性能的读写操作，内存占用比较高，只能随机遍历
 |`LinkMap`|哈希表+双向链表|O(2)|否|是|支持按照写入顺序遍历，内存占用较高
-|`TreeMap`|红黑树|O(lg n)|是|是|读写性能相对一般，但内存占用比较紧凑，支持键名排序及有序遍历（前序/后续遍历）
+|`TreeMap`|红黑树|O(lg n)|是|是|读写性能一般，内存占用紧凑，支持键名排序及有序遍历
+
+> 其中`Map`为`HashMap`的别名，为方便开发调用，`gmap`模块支持多种以哈希表为基础数据结构的常见类型`map`定义：`IntIntMap`、`IntStrMap`、`IntAnyMap`、`StrIntMap`、`StrStrMap`、`StrAnyMap`。
 
 **使用场景**：
 
