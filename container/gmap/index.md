@@ -2,11 +2,19 @@
 
 # gmap
 
-支持并发安全特性的`map`容器，最常用的并发安全数据结构。
+支持可选并发安全特性的`map`容器，最常用的并发安全数据结构。
+
+该模块包含多个数据结构的`map`容器：`Map/HashMap`、`TreeMap`和`LinkMap`。其中`Map`为`HashMap`的别名，为方便开发调用，`gmap`模块支持多种以哈希表为基础数据结构的常见类型`map`定义：`IntIntMap`、`IntStrMap`、`IntAnyMap`、`StrIntMap`、`StrStrMap`、`StrAnyMap`。
+
+|类型|数据结构|时间复杂度|支持排序|有序遍历|说明
+|---|---|---|---|---|---
+|`Map/HashMap`|哈希表|O(1)|否|否|高性能的读写操作，但内存占用比较高，只能随机遍历
+|`LinkMap`|哈希表+双向链表|O(2)|否|是|支持按照写入顺序遍历，内存占用较高
+|`TreeMap`|红黑树|O(lg n)|是|是|读写性能相对一般，但内存占用比较紧凑，支持键名排序及有序遍历（前序/后续遍历）
 
 **使用场景**：
 
-`map`/哈希表/关联数组使用场景。
+任何`map`/哈希表/关联数组使用场景。
 
 **使用方式**：
 ```go
@@ -18,38 +26,44 @@ import "github.com/gogf/gf/g/container/gmap"
 https://godoc.org/github.com/gogf/gf/g/container/gmap
 
 ```go
-func New(unsafe ...bool) *Map
-func NewFrom(m map[interface{}]interface{}, unsafe ...bool) *Map
-func NewFromArray(keys []interface{}, values []interface{}, unsafe ...bool) *Map
 func NewMap(unsafe ...bool) *Map
-func (gm *Map) BatchRemove(keys []interface{})
-func (gm *Map) BatchSet(m map[interface{}]interface{})
-func (gm *Map) Clear()
-func (gm *Map) Clone(unsafe ...bool) *Map
-func (gm *Map) Contains(key interface{}) bool
-func (gm *Map) Flip()
-func (gm *Map) Get(key interface{}) interface{}
-func (gm *Map) GetOrSet(key interface{}, value interface{}) interface{}
-func (gm *Map) GetOrSetFunc(key interface{}, f func() interface{}) interface{}
-func (gm *Map) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{}
-func (gm *Map) IsEmpty() bool
-func (gm *Map) Iterator(f func(k interface{}, v interface{}) bool)
-func (gm *Map) Keys() []interface{}
-func (gm *Map) LockFunc(f func(m map[interface{}]interface{}))
-func (gm *Map) Map() map[interface{}]interface{}
-func (gm *Map) Merge(other *Map)
-func (gm *Map) RLockFunc(f func(m map[interface{}]interface{}))
-func (gm *Map) Remove(key interface{}) interface{}
-func (gm *Map) Set(key interface{}, val interface{})
-func (gm *Map) SetIfNotExist(key interface{}, value interface{}) bool
-func (gm *Map) SetIfNotExistFunc(key interface{}, f func() interface{}) bool
-func (gm *Map) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool
-func (gm *Map) Size() int
-func (gm *Map) Values() []interface{}
+func NewMapFrom(data map[interface{}]interface{}, unsafe ...bool) *Map
+func (m *Map) Clear()
+func (m *Map) Clone(unsafe ...bool) *Map
+func (m *Map) Contains(key interface{}) bool
+func (m *Map) Flip()
+func (m *Map) Get(key interface{}) interface{}
+func (m *Map) GetOrSet(key interface{}, value interface{}) interface{}
+func (m *Map) GetOrSetFunc(key interface{}, f func() interface{}) interface{}
+func (m *Map) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{}
+func (m *Map) GetVar(key interface{}) *gvar.Var
+func (m *Map) GetVarOrSet(key interface{}, value interface{}) *gvar.Var
+func (m *Map) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var
+func (m *Map) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var
+func (m *Map) IsEmpty() bool
+func (m *Map) Iterator(f func(k interface{}, v interface{}) bool)
+func (m *Map) Keys() []interface{}
+func (m *Map) LockFunc(f func(m map[interface{}]interface{}))
+func (m *Map) Map() map[interface{}]interface{}
+func (m *Map) Merge(other *Map)
+func (m *Map) RLockFunc(f func(m map[interface{}]interface{}))
+func (m *Map) Remove(key interface{}) interface{}
+func (m *Map) Removes(keys []interface{})
+func (m *Map) Search(key interface{}) (value interface{}, found bool)
+func (m *Map) Set(key interface{}, val interface{})
+func (m *Map) SetIfNotExist(key interface{}, value interface{}) bool
+func (m *Map) SetIfNotExistFunc(key interface{}, f func() interface{}) bool
+func (m *Map) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool
+func (m *Map) Sets(data map[interface{}]interface{})
+func (m *Map) Size() int
+func (m *Map) Values() []interface{}
 ```
 
 
 ## 使用示例
+
+### 示例1，基本使用
+
 ```go
 package main
 
@@ -143,9 +157,55 @@ true
 true
 ```
 
+### 示例2，有序遍历
+
+我们来看一下三种不同类型`map`的有序性遍历示例。
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/container/gmap"
+	"github.com/gogf/gf/g/util/gutil"
+)
+
+func main() {
+	array   := g.Slice{2, 3, 1, 5, 4, 6, 8, 7, 9}
+	hashMap := gmap.New(true)
+	linkMap := gmap.NewLinkMap(true)
+	treeMap := gmap.NewTreeMap(gutil.ComparatorInt, true)
+	for _, v := range array {
+		hashMap.Set(v, v)
+	}
+	for _, v := range array {
+		linkMap.Set(v, v)
+	}
+	for _, v := range array {
+		treeMap.Set(v, v)
+	}
+	fmt.Println("HashMap   Keys:", hashMap.Keys())
+	fmt.Println("HashMap Values:", hashMap.Values())
+	fmt.Println("LinkMap   Keys:", linkMap.Keys())
+	fmt.Println("LinkMap Values:", linkMap.Values())
+	fmt.Println("TreeMap   Keys:", treeMap.Keys())
+	fmt.Println("TreeMap Values:", treeMap.Values())
+}
+```
+执行后，输出结果为：
+```html
+HashMap   Keys: [4 6 8 7 9 2 3 1 5]
+HashMap Values: [6 8 4 3 1 5 7 9 2]
+LinkMap   Keys: [2 3 1 5 4 6 8 7 9]
+LinkMap Values: [2 3 1 5 4 6 8 7 9]
+TreeMap   Keys: [1 2 3 4 5 6 7 8 9]
+TreeMap Values: [1 2 3 4 5 6 7 8 9]
+```
+
 ## 并发安全
 
-`gmap`在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，又或者只是想使用`gmap`对象来便于操作`map`，那么用户可以选择主动关闭`gmap`的并发安全特性(传递初始化开关参数`unsafe`值为`true`, 必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升，如：
+`gmap`支持并发安全选项开关，在默认情况下是`并发安全`的，但是在某些对性能要求比较高的场景下，用户可以选择主动关闭`gmap`的并发安全特性(传递初始化开关参数`unsafe`值为`true`, 必须在初始化时设定，不能运行时动态设定)，性能会得到一定提升，如：
 ```go
 m := gmap.New(true)
 ```
@@ -168,24 +228,20 @@ SYS: Ubuntu 16.04 amd64
 n@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
 goos: linux
 goarch: amd64
-Benchmark_IntBoolMap_Set-4                      10000000        245 ns/op       38 B/op        0 allocs/op
-Benchmark_IntIntMap_Set-4                        5000000        283 ns/op       53 B/op        0 allocs/op
-Benchmark_IntInterfaceMap_Set-4                  5000000        320 ns/op       82 B/op        1 allocs/op
-Benchmark_IntStringMap_Set-4                     5000000        342 ns/op       82 B/op        1 allocs/op
-Benchmark_InterfaceInterfaceMap_Set-4            3000000        363 ns/op       73 B/op        2 allocs/op
-Benchmark_StringBoolMap_Set-4                    5000000        392 ns/op       62 B/op        1 allocs/op
-Benchmark_StringIntMap_Set-4                     5000000        356 ns/op       56 B/op        1 allocs/op
-Benchmark_StringInterfaceMap_Set-4               3000000        361 ns/op       73 B/op        2 allocs/op
-Benchmark_StringStringMap_Set-4                  3000000        385 ns/op       73 B/op        2 allocs/op
-Benchmark_IntBoolMap_Get-4                      20000000        133 ns/op        0 B/op        0 allocs/op
-Benchmark_IntIntMap_Get-4                       10000000        132 ns/op        0 B/op        0 allocs/op
-Benchmark_IntInterfaceMap_Get-4                 10000000        137 ns/op        0 B/op        0 allocs/op
-Benchmark_IntStringMap_Get-4                    10000000        147 ns/op        0 B/op        0 allocs/op
-Benchmark_InterfaceInterfaceMap_Get-4           10000000        155 ns/op        0 B/op        0 allocs/op
-Benchmark_StringBoolMap_Get-4                   10000000        209 ns/op        7 B/op        0 allocs/op
-Benchmark_StringIntMap_Get-4                    10000000        213 ns/op        7 B/op        0 allocs/op
-Benchmark_StringInterfaceMap_Get-4              10000000        242 ns/op        7 B/op        0 allocs/op
-Benchmark_StringStringMap_Get-4                 10000000        267 ns/op        7 B/op        0 allocs/op
+Benchmark_Unsafe_IntIntMap_Set-4        10000000               318 ns/op              62 B/op          0 allocs/op
+Benchmark_Unsafe_IntAnyMap_Set-4         5000000               282 ns/op              57 B/op          1 allocs/op
+Benchmark_Unsafe_IntStrMap_Set-4         5000000               332 ns/op              82 B/op          1 allocs/op
+Benchmark_Unsafe_AnyAnyMap_Set-4         3000000               471 ns/op              73 B/op          2 allocs/op
+Benchmark_Unsafe_StrIntMap_Set-4         5000000               429 ns/op              82 B/op          1 allocs/op
+Benchmark_Unsafe_StrAnyMap_Set-4         3000000               424 ns/op              73 B/op          2 allocs/op
+Benchmark_Unsafe_StrStrMap_Set-4         2000000               515 ns/op              96 B/op          2 allocs/op
+Benchmark_Unsafe_IntIntMap_Get-4        10000000               133 ns/op               0 B/op          0 allocs/op
+Benchmark_Unsafe_IntAnyMap_Get-4        20000000               134 ns/op               0 B/op          0 allocs/op
+Benchmark_Unsafe_IntStrMap_Get-4        10000000               126 ns/op               0 B/op          0 allocs/op
+Benchmark_Unsafe_AnyAnyMap_Get-4        10000000               166 ns/op               0 B/op          0 allocs/op
+Benchmark_Unsafe_StrIntMap_Get-4         5000000               246 ns/op               7 B/op          0 allocs/op
+Benchmark_Unsafe_StrAnyMap_Get-4        10000000               238 ns/op               7 B/op          0 allocs/op
+Benchmark_Unsafe_StrStrMap_Get-4         5000000               229 ns/op               7 B/op          0 allocs/op
 ```
 ### 非并发安全
 
@@ -216,17 +272,19 @@ Benchmark_Unsafe_StringStringMap_Get-4          10000000        200 ns/op       
 
 ### gmap与sync.Map
 
-go语言从`1.9`版本开始引入了并发安全的`sync.Map`，我们来看看基准测试结果：
+go语言从`1.9`版本开始引入了并发安全的`sync.Map`，但`gmap`比较于标准库的`sync.Map`性能更加优异，并且功能更加丰富。
+
+我们来看看基准测试对比结果：
 ```shell
 john@john-B85M:~/Workspace/Go/GOPATH/src/github.com/gogf/gf/g/container/gmap$ go test *.go -bench=".*" -benchmem
 goos: linux
 goarch: amd64
-BenchmarkGmapSet-4                              10000000        324 ns/op       62 B/op        0 allocs/op
-BenchmarkSyncmapSet-4                            2000000        697 ns/op      105 B/op        4 allocs/op
-BenchmarkGmapGet-4                              10000000        149 ns/op        0 B/op        0 allocs/op
-BenchmarkSyncmapGet-4                           10000000        154 ns/op        0 B/op        0 allocs/op
-BenchmarkGmapRemove-4                           10000000        126 ns/op        0 B/op        0 allocs/op
-BenchmarkSyncmapRmove-4                         10000000        118 ns/op        0 B/op        0 allocs/op
+BenchmarkGmapSet-4                       5000000               249 ns/op              53 B/op          0 allocs/op
+BenchmarkSyncmapSet-4                    3000000               364 ns/op              42 B/op          3 allocs/op
+BenchmarkGmapGet-4                      20000000               134 ns/op               0 B/op          0 allocs/op
+BenchmarkSyncmapGet-4                   10000000               153 ns/op               0 B/op          0 allocs/op
+BenchmarkGmapRemove-4                   10000000               108 ns/op               0 B/op          0 allocs/op
+BenchmarkSyncmapRmove-4                 10000000               148 ns/op               0 B/op          0 allocs/op
 ```
 
-可以看到，在读取/删除这块`gmap`的性能与标准库的`sync.Map`对象没有差别，但写入性能优势比较明显。
+可以看到，在读取/删除这块`gmap`的性能与标准库的`sync.Map`对象没有差别，但写入性能这块`gmap`的优势比较明显。
