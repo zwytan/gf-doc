@@ -228,7 +228,7 @@ $ redis-cli
 
 当然，`gredis`模块也提供了`DoVar/ReceiveVar`方法，用以获取可供方便转换的`gvar.Var`通用变量结果。
 
-通过`gvar.Var`的强大转换功能可以转换为任意的数据类型，如基本数据类型`Int`,`String`,`Strings`，或者结构体`Struct`。
+通过`gvar.Var`的强大转换功能可以转换为任意的数据类型，如基本数据类型`Int`,`String`,`Strings`，或者结构体`Struct`等等。
 
 ### 示例1，`DoVar`
 
