@@ -1,5 +1,5 @@
 <div align=center>
-<img src="cover.png" width="150"/>
+<img src="logo.png" width="100"/>
 
 [![Go Doc](https://godoc.org/github.com/gogf/gf?status.svg)](https://godoc.org/github.com/gogf/gf) 
 [![Build Status](https://travis-ci.org/gogf/gf.svg?branch=master)](https://travis-ci.org/gogf/gf) 
@@ -49,25 +49,24 @@ golang版本 >= 1.10.0
 - **主库**: https://github.com/gogf/gf 
 - **码云**: https://gitee.com/johng/gf 
 
-
+# 帮助
+- QQ交流群：[116707870](//shang.qq.com/wpa/qunwpa?idkey=195f91eceeb5d7fa76009b7cd5a4641f70bf4897b7f5a520635eb26ff17adfe7)
+- 主库ISSUE：https://github.com/gogf/gf/issues
+- 国内ISSUE：https://gitee.com/johng/gf/issues
 # 协议
 
 `GF` 使用非常友好的 `MIT` 开源协议进行发布，永久`100%`开源免费。
 
-# 帮助
-- QQ交流群： [116707870](//shang.qq.com/wpa/qunwpa?idkey=195f91eceeb5d7fa76009b7cd5a4641f70bf4897b7f5a520635eb26ff17adfe7)
-- 主库ISSUE：https://github.com/gogf/gf/issues
-- 国内ISSUE：https://gitee.com/johng/gf/issues
+
 
 # 捐赠
 
-捐赠支持`GF`框架的研发，
+如果您喜欢`GF`，要不[给开发者来杯咖啡吧](https://goframe.org/images/donate.png)！
 请在捐赠时备注您的`github`/`gitee`账号名称。
 
-<a href="/images/donate.png" target="_blank">
-<img src="images/donate.png" width="300"/>
-</a>
+# 赞助
 
+赞助支持`GF`框架的快速研发，如果您感兴趣，请联系 john@goframe.org 。
 
 
 # 贡献者
