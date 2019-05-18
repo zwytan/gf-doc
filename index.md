@@ -1,5 +1,5 @@
 <div align=center>
-<img src="logo.png" width="150"/>
+<img src="logo.png" width="100"/>
 
 [![Go Doc](https://godoc.org/github.com/gogf/gf?status.svg)](https://godoc.org/github.com/gogf/gf) 
 [![Build Status](https://travis-ci.org/gogf/gf.svg?branch=master)](https://travis-ci.org/gogf/gf) 
