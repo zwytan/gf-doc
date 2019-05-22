@@ -127,9 +127,9 @@
             * [日志目录](os/glog/path.md)
             * [日志文件](os/glog/file.md)
             * [链式操作](os/glog/chain.md)
+            * [Flags特性](os/glog/flags.md)
             * [Trace特性](os/glog/trace.md)
             * [Debug特性](os/glog/debug.md)
-            * [Flags特性](os/glog/flags.md)
             <!-- * [Writer接口](os/glog/writer.md) -->
         * [gfile (文件管理模块)](os/gfile/index.md)
         * [gcron (定时任务模块)](os/gcron/index.md)
