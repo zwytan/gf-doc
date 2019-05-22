@@ -18,7 +18,7 @@ func Backtrace(enabled bool) *Logger
 func Stdout(enabled...bool) *Logger
 // 是否输出日志头信息
 func Header(enabled...bool) *Logger
-// 输出日志调用文件信息
+// 输出日志调用行号信息
 func Line(long...bool) *Logger
 ```
 
@@ -51,7 +51,7 @@ null
 ]
 ```
 
-## 示例2, 打印调用文件
+## 示例2, 打印调用行号
 
 ```go
 package main
