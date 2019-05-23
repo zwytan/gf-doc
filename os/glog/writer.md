@@ -55,7 +55,44 @@ Backtrace:
 1. /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_writer_hook.go:27
 ```
 
+# 使用示例2，整合`graylog`
 
+假如我们需要输出日志到文件及标准输出，并且同时也需要输出日志到`Graylog`，很明显这个也是需要自定义`Writer`才能实现。当然同理，我们也可以自定义输出到其他的日志收集组件或者数据库中。
 
+> `Graylog` 是与 `ELK` 可以相提并论的一款集中式日志管理方案，支持数据收集、检索、可视化 `Dashboard`。
 
+示例代码：
+
+```go
+package main
+
+import (
+	"github.com/gogf/gf/g/os/glog"
+	"github.com/robertkowalski/graylog-golang"
+)
+
+type MyGrayLogWriter struct {
+	gelf    *gelf.Gelf
+	logger  *glog.Logger
+}
+
+func (w *MyGrayLogWriter) Write(p []byte) (n int, err error) {
+	w.gelf.Send(p)
+	return w.logger.Write(p)
+}
+
+func main() {
+	glog.SetWriter(&MyGrayLogWriter{
+		logger : glog.New(),
+		gelf   : gelf.New(gelf.Config{
+			GraylogPort     : 80,
+			GraylogHostname : "graylog-host.com",
+			Connection      : "wan",
+			MaxChunkSizeWan : 42,
+			MaxChunkSizeLan : 1337,
+		}),
+	})
+	glog.Println("test log")
+}
+```
 
