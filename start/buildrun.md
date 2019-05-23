@@ -75,8 +75,7 @@ $ curl -d 'passport=test001&password=123456' http://127.0.0.1:8199/user/signin
 {"data":null,"err":0,"msg":"ok"}
 ```
 
-# 源代码仓库
-该示例项目的源代码仓库位于: [https://github.com/gogf/gf-demos](https://github.com/gogf/gf-demos)，在`/docfile/postman`目录下有Postman测试的配置，方便使用Postman进行测试。
+
 
 
 
