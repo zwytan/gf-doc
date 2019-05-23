@@ -9,9 +9,9 @@ type Writer interface {
 }
 ```
 
-我们可以通过`SetWriter`方法或者链式方法`To`来实现自定义`Writer`，在该`Writer`中实现定义的操作，也可以整合其他的模块功能。
+我们可以通过`SetWriter`方法或者链式方法`To`来实现自定义`Writer`输出，开发者可以在该`Writer`中实现定义的操作，也可以在其中整合其他的模块功能。
 
-此外，`glog.Logger`对象已经实现了`io.Writer`接口，因此可以非常方便地将`glog`整合使用到其他的模块中。
+此外，`glog.Logger`对象已经实现了`io.Writer`接口，因此开发者可以非常方便地将`glog`整合使用到其他的模块中。
 
 # 使用示例1，实现日志`HOOK`
 
