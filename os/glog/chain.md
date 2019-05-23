@@ -61,12 +61,12 @@ import (
 )
 
 func main() {
-	glog.Line().Println("123")
-	glog.Line(true).Println("123")
+	glog.Line().Println("this is the short file name with its line number")
+	glog.Line(true).Println("lone file name with line number")
 }
 ```
 执行后，终端输出结果为：
 ```html
-2019-05-22 21:35:59.238 glog_line.go:8: 123
-2019-05-22 21:35:59.239 /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_line.go:9: 123
+2019-05-23 09:22:58.141 glog_line.go:8: this is the short file name with its line number
+2019-05-23 09:22:58.142 /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_line.go:9: lone file name with line number
 ```
