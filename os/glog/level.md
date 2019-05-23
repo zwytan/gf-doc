@@ -12,6 +12,9 @@ LEVEL_CRIT
 ```
 我们可以通过`位操作`组合使用这几种级别，例如其中`LEVEL_ALL`等价于`LEVEL_DEBU | LEVEL_INFO | LEVEL_NOTI | LEVEL_WARN | LEVEL_ERRO | LEVEL_CRIT`。例如我们可以通过`LEVEL_ALL & ^LEVEL_DEBU & ^LEVEL_INFO & ^LEVEL_NOTI`来过滤掉`LEVEL_DEBU/LEVEL_INFO/LEVEL_NOTI`日志内容。
 
+> 当然`glog`模块还有其他的一些级别，如`CRIT`和`FATA`，但是这两个级别是非常严重的错误，无法由开发者自定义屏蔽，产生严重错误的时候。将会产生一些额外的系统动作，如`panic`/`exit`。
+
+
 简单示例：
 
 ```go
