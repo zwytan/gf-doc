@@ -20,16 +20,16 @@ import (
 func main() {
 	l := glog.New()
 	l.SetFlags(glog.F_TIME_TIME|glog.F_FILE_SHORT)
-	l.Println("123")
+	l.Println("time and short line number")
 	l.SetFlags(glog.F_TIME_MILLI|glog.F_FILE_LONG)
-	l.Println("123")
+	l.Println("time with millisecond and long line number")
 	l.SetFlags(glog.F_TIME_STD|glog.F_FILE_LONG)
-	l.Println("123")
+	l.Println("standard time format and long line number")
 }
 ```
 执行后，终端输出结果为：
 ```html
-21:41:38 glog_flags.go:10: 123
-21:41:38.717 /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_flags.go:12: 123
-2019-05-22 21:41:38.717 /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_flags.go:14: 123
+09:25:49 glog_flags.go:10: time and short line number
+09:25:49.310 /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_flags.go:12: time with millisecond and long line number
+2019-05-23 09:25:49.310 /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_flags.go:14: standard time format and long line number
 ```
