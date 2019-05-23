@@ -15,7 +15,7 @@ import (
 func main() {
     path := "/tmp/glog"
     glog.SetPath(path)
-    glog.SetStdPrint(false)
+    glog.SetStdoutPrint(false)
     // 使用默认文件名称格式
     glog.Println("标准文件名称格式，使用当前时间时期")
     // 通过SetFile设置文件名称格式
