@@ -11,7 +11,7 @@
 
 该示例项目的源代码仓库位于: https://github.com/gogf/gf-demos 
 
-各位可以通过《[开始运行](/start/buildrun.md)》章节末尾示例的`curl`命令行方式进行测试，也可以通过`/docfile/postman`目录的`postman`配置进行测试。
+各位可以通过[《开始运行》](/start/buildrun.md)章节末尾示例的`curl`命令行方式进行测试，也可以通过`/docfile/postman`目录的`postman`配置进行测试。
 
 # 项目结构
 推荐的Go业务型项目目录结构如下：

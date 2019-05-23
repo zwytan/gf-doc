@@ -12,6 +12,8 @@ require github.com/gogf/gf latest
 ```
 其中注意`module`名称设置为`github.com/gogf/gf-demos`。
 
+> 在实际项目的包依赖管理中会遇到很多细节问题，因此我们为您准备了[《项目依赖管理》](/prepare/vendor.md)章节。
+
 
 ## 配置文件
 这里主要配置了数据库的连接信息。
@@ -44,7 +46,6 @@ import (
     "github.com/gogf/gf/g/net/ghttp"
 )
 
-// 用于应用初始化。
 func init() {
     v := g.View()
     c := g.Config()
@@ -68,5 +69,5 @@ func init() {
     s.SetPort(8199)
 }
 ```
-
+可以看到，我们的包初始化管理使用了包初始化方法`init`，这样做的好处是可以在`boot`目录中使用不同的`go`文件注册不同的`init`来分别实现不同的初始化配置管理，在业务比较复杂的项目中比较实用。如果仅仅是需要一个初始化方法即可完成配置，那么开发者可以自定义一个初始化方法，在`main`包中直接调用即可。
 
