@@ -18,5 +18,5 @@ import "github.com/gogf/gf/g/encoding/gcharset"
 ```
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/encoding/gcharset](https://godoc.org/github.com/gogf/gf/g/encoding/gcharset)
+https://godoc.org/github.com/gogf/gf/g/encoding/gcharset
 

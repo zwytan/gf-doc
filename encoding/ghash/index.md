@@ -8,5 +8,5 @@ import "github.com/gogf/gf/g/encoding/ghash"
 ```
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/encoding/ghash](https://godoc.org/github.com/gogf/gf/g/encoding/ghash)
+https://godoc.org/github.com/gogf/gf/g/encoding/ghash
 

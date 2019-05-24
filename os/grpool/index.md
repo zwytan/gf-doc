@@ -16,7 +16,7 @@ import "github.com/gogf/gf/g/os/grpool"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/os/grpool](https://godoc.org/github.com/gogf/gf/g/os/grpool)
+https://godoc.org/github.com/gogf/gf/g/os/grpool
 
 
 

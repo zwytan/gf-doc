@@ -9,7 +9,7 @@ import "github.com/gogf/gf/g/os/gproc"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/os/gproc](https://godoc.org/github.com/gogf/gf/g/os/gproc)
+https://godoc.org/github.com/gogf/gf/g/os/gproc
 
 
 简要说明：
@@ -124,7 +124,9 @@ func main () {
     ```
 
 
-# 进程通信
+# 进程通信 - Experimental feature!
+
+这个是实验性特性！
 
 > 不要通过共享内存来通信，而应该通过通信来共享内存。
 

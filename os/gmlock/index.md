@@ -18,7 +18,7 @@ import "github.com/gogf/gf/g/os/gmlock"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/os/gmlock](https://godoc.org/github.com/gogf/gf/g/os/gmlock)
+https://godoc.org/github.com/gogf/gf/g/os/gmlock
 
 
 
