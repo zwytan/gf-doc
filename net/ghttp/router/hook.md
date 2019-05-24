@@ -5,7 +5,9 @@
 
 ![](/images/QQ图片20180417140149.png)
 
-`ghttp.Server`提供了事件回调注册功能，类似于其他框架的`中间件`功能，相比较于`中间件`，事件回调的特性更加简单。`ghttp.Server`支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与路由注册一致)。**支持多个方法对同一事件进行监听**，```ghttp.Server```将会按照`路由优先级`及`回调注册顺序`进行回调方法调用。同一事件时先注册的HOOK回调函数优先级越高。
+`ghttp.Server`提供了事件回调注册功能，类似于其他框架的`中间件`功能，相比较于`中间件`，事件回调的特性更加简单。
+
+`ghttp.Server`支持用户对于某一事件进行自定义监听处理，按照```pattern```方式进行绑定注册(```pattern```格式与路由注册一致)。**支持多个方法对同一事件进行监听**，```ghttp.Server```将会按照`路由优先级`及`回调注册顺序`进行回调方法调用。同一事件时先注册的HOOK回调函数优先级越高。
 相关方法如下：
 ```go
 func (s *Server) BindHookHandler(pattern string, hook string, handler HandlerFunc) error
