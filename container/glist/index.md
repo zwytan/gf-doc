@@ -13,7 +13,7 @@ import "github.com/gogf/gf/g/container/glist"
 
 **接口文档**：
 
-[godoc.org/github.com/gogf/gf/g/container/glist](https://godoc.org/github.com/gogf/gf/g/container/glist)
+https://godoc.org/github.com/gogf/gf/g/container/glist
 
 ## 性能基准测试
 
