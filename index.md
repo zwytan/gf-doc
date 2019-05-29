@@ -63,11 +63,11 @@ golang版本 >= 1.10.0
 
 如果您喜欢`GF`，要不[给开发者来杯咖啡吧](https://goframe.org/images/donate.png)！
 请在捐赠时备注您的`github`/`gitee`账号名称。
-
+<!--
 # 赞助
 
 赞助支持`GF`框架的快速研发，如果您感兴趣，请联系 john@goframe.org 。
-
+-->
 
 # 贡献者
 
