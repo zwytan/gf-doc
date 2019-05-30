@@ -1,4 +1,5 @@
 * [框架介绍](index.md)
+* [加入我们](joinus.md)
 * [准备工作](#)
     * [环境安装](prepare/install.md)
     * [环境变量](prepare/goenv.md)
@@ -173,4 +174,3 @@
     * [gkvdb嵌入式数据库](cases/gkvdb.md)
     * [容器日志搜集工具套件](cases/k8s-log.md)
 * [FAQ常见问题](faq.md)
-<!-- * [升级到1.5.x](upgradeto150.md) -->
