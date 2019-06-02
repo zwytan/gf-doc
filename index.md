@@ -51,7 +51,7 @@ golang版本 >= 1.10.0
 
 # 帮助
 - QQ交流群：[116707870](//shang.qq.com/wpa/qunwpa?idkey=195f91eceeb5d7fa76009b7cd5a4641f70bf4897b7f5a520635eb26ff17adfe7)
-- WX交流群：[扫描添加好友请备注加微信群](images/wechat-john.png)
+- WX交流群：[扫描添加好友请备注加微信群](/images/wechat-john.png)
 - 主库ISSUE：https://github.com/gogf/gf/issues
 - 国内ISSUE：https://gitee.com/johng/gf/issues
 
