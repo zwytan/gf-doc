@@ -51,6 +51,7 @@ golang版本 >= 1.10.0
 
 # 帮助
 - QQ交流群：[116707870](//shang.qq.com/wpa/qunwpa?idkey=195f91eceeb5d7fa76009b7cd5a4641f70bf4897b7f5a520635eb26ff17adfe7)
+- WX交流群：[扫描添加好友请备注加群](images/wechat-john/png)
 - 主库ISSUE：https://github.com/gogf/gf/issues
 - 国内ISSUE：https://gitee.com/johng/gf/issues
 
@@ -62,7 +63,7 @@ golang版本 >= 1.10.0
 
 # 捐赠
 
-如果您喜欢`GF`，要不[给开发者来杯咖啡吧](https://goframe.org/images/donate.png)！
+如果您喜欢`GF`，要不[给开发者来杯咖啡吧](https://github.com/gogf/gf/blob/master/DONATOR.MD)！
 请在捐赠时备注您的`github`/`gitee`账号名称。
 <!--
 # 赞助
@@ -70,34 +71,8 @@ golang版本 >= 1.10.0
 赞助支持`GF`框架的快速研发，如果您感兴趣，请联系 john@goframe.org 。
 -->
 
-# 贡献者
+# 感谢
+<a href="https://www.jetbrains.com/?from=GoFrame"><img src="images/jetbrains.png" width="100" alt="JetBrains"/></a>
 
-- [chenyang351](https://github.com/chenyang351)
-- [garfieldkwong](https://gitee.com/garfieldkwong)
-- [hailaz](https://gitee.com/hailaz)
-- [johng](https://johng.cn)
-- [jroam](https://github.com/jroam)
-- [pibigstar](https://github.com/pibigstar)
-- [qq1054000800](https://gitee.com/qq1054000800)
-- [qq976739120](https://github.com/qq976739120)
-- [touzijiao](https://github.com/touzijiao)
-- [wenzi1](https://gitee.com/wenzi1)
-- [wxkj001](https://github.com/wxkj001)
-- [ymrjqyy](https://gitee.com/ymrjqyy)
-- [youyixiao](https://github.com/youyixiao)
-- [zhangjinfu](https://gitee.com/zhangjinfu)
-- [zhaopengme](https://github.com/zhaopengme)
-- [zseeker](https://gitee.com/zseeker)
 
-# 捐赠者
-
-- [flyke-xu](https://gitee.com/flyke-xu)
-- [hailaz](https://gitee.com/hailaz)
-- [ireadx](https://github.com/ireadx)
-- [mg91](https://gitee.com/mg91)
-- [pibigstar](https://github.com/pibigstar)
-- [tiangenglan](https://gitee.com/tiangenglan)
-- [wxkj](https://gitee.com/wxkj)
-- [zhuhuan12](https://gitee.com/zhuhuan12)
-- [zfan_codes](https://gitee.com/zfan_codes)
 
