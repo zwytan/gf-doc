@@ -11,7 +11,25 @@ import "github.com/gogf/gf/g/test/gtest"
 
 https://godoc.org/github.com/gogf/gf/g/test/gtest
 
+```go
+func Case(t *testing.T, f func())
+func Assert(value, expect interface{})
+func AssertEQ(value, expect interface{})
+func AssertGE(value, expect interface{})
+func AssertGT(value, expect interface{})
+func AssertIN(value, expect interface{})
+func AssertLE(value, expect interface{})
+func AssertLT(value, expect interface{})
+func AssertNE(value, expect interface{})
+func AssertNI(value, expect interface{})
+func Error(message ...interface{})
+func Fatal(message ...interface{})
+```
 
+简要说明如下：
+1. 断言方法支持任意类型的变量比较；
+1. 使用大小比较断言方法如`AssertGE`时，参数支持字符串及数字比较，其中字符串比较为大小写敏感；
+1. 包含断言方法`AssertIN`及`AssertNI`支持`slice`类型参数，暂不支持`map`类型参数；
 
 **使用示例**： 
 

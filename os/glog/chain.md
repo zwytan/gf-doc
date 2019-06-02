@@ -22,6 +22,8 @@ func Header(enabled...bool) *Logger
 func Line(long...bool) *Logger
 // 设置文件回溯值
 func Skip(skip int) *Logger
+// 异步输出日志
+func Async(enabled...bool) *Logger
 ```
 
 ## 示例1, 基本使用
