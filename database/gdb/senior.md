@@ -216,5 +216,20 @@ goods title: IPhoneX
 goods proce: 5999.99
 ```
 
+# 继承支持
 
+`gdb`模块针对于`struct`继承提供了良好的支持，包括参数传递、结果处理。例如：
+```go
+type Base struct {
+    Uid        int    `json:"uid"`
+    CreateTime string `json:"create_time"`
+}
+type User struct {
+    Base
+    Passport   string `json:"passport"`
+    Password   string `json:"password"`
+    Nickname   string `json:"nickname"`
+}
+```
+并且，无论多少层级的`struct`继承，`gdb`的参数传递和结果处理都支持。
 

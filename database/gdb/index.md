@@ -29,6 +29,7 @@ type Result      []Record               // 返回数据表记录列表
 2. ```Value/Record/Result```用于ORM操作的结果数据类型，具体说明请查看【[ORM结果处理](database/gdb/result.md)】章节；
 
 
+
 # 使用`g.DB`与`gdb.New`、`gdb.Instance`的区别
 
 获取数据库操作对象有三种方式，一种是使用`g.DB`方法，一种是使用原生`gdb.New`方法，还有一种是使用包原生单例方法`gdb.Instance`，而第一种是推荐的使用方式。这三种方式的区别如下：
