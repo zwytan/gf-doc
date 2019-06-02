@@ -20,13 +20,13 @@ https://godoc.org/github.com/gogf/gf/g/database/gdb
 type Map         map[string]interface{} // 数据记录
 type List        []Map                  // 数据记录列表
 
-type Value       []byte                 // 返回数据表记录值
+type Value       *gvar.Var                 // 返回数据表记录值
 type Record      map[string]Value       // 返回数据表记录键值对
 type Result      []Record               // 返回数据表记录列表
 ```
 
-1. ```Map```与```List```用于ORM操作过程中的输入参数类型（与全局类型```g.Map```和```g.List```一致，在项目开发中常用`g.Map`和`g.List`替换）；
-2. ```Value/Record/Result```用于ORM操作的结果数据类型，具体说明请查看【[ORM结果处理](database/gdb/result.md)】章节；
+1. `Map`与```List```用于ORM操作过程中的输入参数类型（与全局类型`g.Map`和`g.List`一致，在项目开发中常用`g.Map`和`g.List`替换）；
+2. `Value/Record/Result`用于ORM操作的结果数据类型，具体说明请查看【[ORM结果处理](database/gdb/result.md)】章节；
 
 
 
