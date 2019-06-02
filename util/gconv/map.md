@@ -1,3 +1,5 @@
+[TOC]
+
 # Map转换
 
 `gconv.Map`支持将任意的`map`或`struct`/`*struct`类型转换为常用的 `map[string]interface{}` 类型。当转换参数为`struct`/`*struct`类型时，支持自动识别`struct`的 `gconv`/`json` 标签，但是可以通过`Map`方法的第二个参数`noTagCheck`进行忽略。
@@ -10,10 +12,10 @@
 转换方法：
 ```go
 // Map转换, 支持的类型包括：任意map或struct/*struct
-func Map(i interface{}, noTagCheck...bool) map[string]interface{}
+func Map(i interface{}, tags...bool) map[string]interface{}
 ```
 
-### 使用示例1，基本示例
+### 示例1，基本示例
 ```go
 package main
 
@@ -51,7 +53,7 @@ map[uid:1 name:john]
 map[100:10000]
 ```
 
-### 使用示例2，属性标签
+### 示例2，属性标签
 
 ```go
 package main
@@ -82,4 +84,55 @@ func main() {
 执行后，输出结果为：
 ```
 map[Uid:100 password1:123 password2:456]
+```
+
+### 示例3，递归转换
+
+当参数为`map`/`struct`/`*struct`类型时，如果键值/属性为一个对象（或者对象指针）时，`Map`方法将会讲对象转换为结果的一个键值。我们可以使用`MapDeep`方法递归转换参数的子对象。
+
+使用示例：
+
+```go
+package main
+
+import (
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/util/gconv"
+)
+
+func main() {
+	type Ids struct {
+		Id         int    `json:"id"`
+		Uid        int    `json:"uid"`
+	}
+	type Base struct {
+		Ids
+		CreateTime string `json:"create_time"`
+	}
+	type User struct {
+		Base
+		Passport   string `json:"passport"`
+		Password   string `json:"password"`
+		Nickname   string `json:"nickname"`
+	}
+	user := new(User)
+	user.Id         = 1
+	user.Uid        = 100
+	user.Nickname   = "John"
+	user.Passport   = "johng"
+	user.Password   = "123456"
+	user.CreateTime = "2019"
+	g.Dump(gconv.MapDeep(user))
+}
+```
+执行后，终端输出结果为：
+```html
+{
+	"create_time": "2019",
+	"id": 1,
+	"nickname": "John",
+	"passport": "johng",
+	"password": "123456",
+	"uid": 100
+}
 ```

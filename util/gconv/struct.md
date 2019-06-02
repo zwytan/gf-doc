@@ -6,17 +6,17 @@
 
 `gconv`模块执行`struct`转换的方法仅有一个，定义如下：
 ```go
-func Struct(params interface{}, objPointer interface{}, attrMapping ...map[string]string) error
+func Struct(params interface{}, pointer interface{}, mapping ...map[string]string) error
 ```
 
 其中：
 1. `params`为需要转换到`struct`的变量参数，可以为任意数据类型，常见的数据类型为`map`；
-1. `objPointer`为需要执行转的目标`struct`对象，这个参数必须为该`struct`的对象指针，转换成功后该对象的属性将会更新；
-1. `attrMapping`为自定义的`map键名`到`strcut属性`之间的映射关系，此时`params`参数必须为map类型，否则该参数无意义；
+1. `pointer`为需要执行转的目标`struct`对象，这个参数必须为该`struct`的对象指针，转换成功后该对象的属性将会更新；
+1. `mapping`为自定义的`map键名`到`strcut属性`之间的映射关系，此时`params`参数必须为map类型，否则该参数无意义；
 
 
 ## 转换规则
-`gconv`模块的`struct`转换特性非常强大，支持任意数据类型到`struct`属性的映射转换。在没有提供自定义`attrMapping`转换规则的情况下，默认的转换规则如下：
+`gconv`模块的`struct`转换特性非常强大，支持任意数据类型到`struct`属性的映射转换。在没有提供自定义`mapping`转换规则的情况下，默认的转换规则如下：
 1. `struct`中需要匹配的属性必须为**`公开属性`**(首字母大写)；
 2. 根据`params`类型的不同，逻辑会有不同：
     - `params`参数为`map`: 键名会自动按照 **`不区分大小写`** 且 **忽略`-/_/空格`符号** 的形式与`struct`属性进行匹配；
@@ -113,7 +113,8 @@ func main() {
 }
 ```
 
-## 示例2，复杂类型转换
+## 示例2，复杂类型
+
 ### 1. `slice`类型属性
 
 ```go
@@ -402,10 +403,59 @@ func main() {
 }
 ```
 
+## 示例3，递归转换
 
+递归转换是指当`struct`对象包含子对象时，可以将`params`数据同时递归地映射到其子对象上，常用于带有继承对象的`struct`上。
 
+可以使用`StructDeep`方法实现递归转换。
 
+```go
+package main
 
+import (
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/util/gconv"
+)
 
+func main() {
+	type Ids struct {
+		Id         int    `json:"id"`
+		Uid        int    `json:"uid"`
+	}
+	type Base struct {
+		Ids
+		CreateTime string `json:"create_time"`
+	}
+	type User struct {
+		Base
+		Passport   string `json:"passport"`
+		Password   string `json:"password"`
+		Nickname   string `json:"nickname"`
+	}
+	data := g.Map{
+		"id"          : 1,
+		"uid"         : 100,
+		"passport"    : "john",
+		"password"    : "123456",
+		"nickname"    : "John",
+		"create_time" : "2019",
+	}
+	user := new(User)
+	gconv.StructDeep(data, user)
+	g.Dump(user)
+}
+```
 
-
+执行后，终端输出结果为：
+```html
+{
+	"Base": {
+		"id": 1,
+		"uid": 100,
+		"create_time": "2019"
+	},
+	"nickname": "John",
+	"passport": "john",
+	"password": "123456"
+}
+```
