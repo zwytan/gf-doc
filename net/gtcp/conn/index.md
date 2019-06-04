@@ -9,17 +9,21 @@ import "github.com/gogf/gf/g/net/gtcp"
 ```
 
 **接口文档**：
+
 https://godoc.org/github.com/gogf/gf/g/net/gtcp
+
 ```go
 type Conn
     func NewConn(addr string, timeout ...int) (*Conn, error)
     func NewConnByNetConn(conn net.Conn) *Conn
-    func (c *Conn) Close()
+    func NewConnKeyCrt(addr, crtFile, keyFile string) (*Conn, error)
+    func NewConnTLS(addr string, tlsConfig *tls.Config) (*Conn, error)
+    func (c *Conn) Close() error
     func (c *Conn) LocalAddr() net.Addr
-    func (c *Conn) RemoteAddr() net.Addr
     func (c *Conn) Recv(length int, retry ...Retry) ([]byte, error)
     func (c *Conn) RecvLine(retry ...Retry) ([]byte, error)
     func (c *Conn) RecvWithTimeout(length int, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *Conn) RemoteAddr() net.Addr
     func (c *Conn) Send(data []byte, retry ...Retry) error
     func (c *Conn) SendRecv(data []byte, receive int, retry ...Retry) ([]byte, error)
     func (c *Conn) SendRecvWithTimeout(data []byte, receive int, timeout time.Duration, retry ...Retry) ([]byte, error)
@@ -40,7 +44,7 @@ TCP通信写入操作由`Send`方法实现，并提供了错误重试的机制�
 
 
 ## 读取操作
-TCP通信读取操作由`Recv`方法实现，同时也提供了错误重试的机制，由第二个非必需参数`retry`提供。`Recv`方法提供了内置的读取缓冲控制，读取数据时可以指定读取的长度（由`length`参数指定），当读取到指定长度的数据后将会立即返回。如果`length <= 0`那么将会读取所有可读取的缓冲区数据并返回。
+TCP通信读取操作由`Recv`方法实现，同时也提供了错误重试的机制，由第二个非必需参数`retry`提供。`Recv`方法提供了内置的读取缓冲控制，读取数据时可以指定读取的长度（由`length`参数指定），当读取到指定长度的数据后将会立即返回。如果`length < 0`那么将会读取所有可读取的缓冲区数据并返回。当`length = 0`时表示获取一次缓冲区的数据后立即返回。
 
 如果使用`Recv(-1)`可以读取所有缓冲区可读数据(长度不定，如果发送的数据包太长有可能会被截断)，但需要注意包的解析问题，容易产生非完整包的情况。这个时候，业务层需要根据既定的数据包结构自己负责包的完整性处理。推荐使用后续介绍的`简单协议`通过`SendPkg`/`RecvPkg`来实现消息包的发送/接收，具体请查看后续章节。
 

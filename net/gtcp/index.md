@@ -10,13 +10,17 @@ https://godoc.org/github.com/gogf/gf/g/net/gtcp
 ```go
 type Server
     func GetServer(name ...interface{}) *Server
-    func NewServer(address string, handler func(*Conn), names ...string) *Server
-    func (s *Server) Run() error
+    func NewServer(address string, handler func(*Conn), name ...string) *Server
+    func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name ...string) *Server
+    func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), name ...string) *Server
+    func (s *Server) Run() (err error)
     func (s *Server) SetAddress(address string)
     func (s *Server) SetHandler(handler func(*Conn))
+    func (s *Server) SetTLSConfig(tlsConfig *tls.Config)
+    func (s *Server) SetTLSKeyCrt(crtFile, keyFile string) error
 ```
 
-其中，`GetServer`使用单例模式通过给定一个唯一的名称获取/创建一个`Server`，后续可通过`SetAddress`和`SetHandler`方法动态修改Server属性；`NewServer`则直接根据给定参数创建一个Server对象，并可指定名称。
+其中，`GetServer`使用单例模式通过给定一个唯一的名称获取/创建一个单例`Server`，后续可通过`SetAddress`和`SetHandler`方法动态修改Server属性；`NewServer`则直接根据给定参数创建一个Server对象，并可指定名称。
 
 我们通过实现一个简单的`echo服务器`来演示`TCPServer`的使用：
 ```go

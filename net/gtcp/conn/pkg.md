@@ -9,13 +9,14 @@
 
 `gtcp`模块提供了简单轻量级数据交互协议，效率非常高，协议格式如下：
 ```html
-总长度(24bit)|校验码(32bit)|数据(变长)
+数据长度(24bit)|数据字段(变长)
 ```
-1. 总长度：为24位(3字节)，用于标识该消息体的大小，单位为字节，包含自身的3字节；
-1. 校验码：为32位(4字节)，数据字段通过`gtcp.Checksum`校验方法生成的校验码值，用于校验数据完整性；
-1. 数据：变长，根据总长度可以知道，数据最大长度不能超过`0xFFFFFF - 7 = 16777208 bytes = 16383 KB = 15MB`，即最大数据字段不能超过`15MB`；
+1. 数据长度：为24位(3字节)，用于标识该消息体的数据长度，单位为字节，不包含自身的3字节；
+1. 数据字段：变长，根据数据长度可以知道，数据最大长度不能超过`0xFFFFFF - 7 = 16777208 bytes = 16383 KB = 15MB`，即最大数据字段不能超过`15MB`；
 
-简单协议由`gtcp`封装实现，如果开发者客户端和服务端如果都使用`gtcp`模块来通信则无需关心协议实现，专注`数据`字段封装/解析实现即可。如果涉及和其他开发语言对接，则需要按照该协议实现对接即可（注意`Checksum`校验和方法的实现），由于简单协议非常简单轻量级，因此对接成本很低。
+简单协议由`gtcp`封装实现，如果开发者客户端和服务端如果都使用`gtcp`模块来通信则无需关心协议实现，专注`数据`字段封装/解析实现即可。如果涉及和其他开发语言对接，则需要按照该协议实现对接即可，由于简单协议非常简单轻量级，因此对接成本很低。
+
+> 数据字段也可以为空，即没有任何长度。
 
 ## 操作方法
 
@@ -23,14 +24,23 @@ https://godoc.org/github.com/gogf/gf/g/net/gtcp
 
 ```go
 type Conn
-    func (c *Conn) RecvPkg(retry ...Retry) (result []byte, err error)
-    func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, retry ...Retry) ([]byte, error)
-    func (c *Conn) SendPkg(data []byte, retry ...Retry) error
-    func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, retry ...Retry) error
-    func (c *Conn) SendRecvPkg(data []byte, retry ...Retry) ([]byte, error)
-    func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, retry ...Retry) ([]byte, error)
+    func (c *Conn) SendPkg(data []byte, option ...PkgOption) error
+    func (c *Conn) SendPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) error
+    func (c *Conn) SendRecvPkg(data []byte, option ...PkgOption) ([]byte, error)
+    func (c *Conn) SendRecvPkgWithTimeout(data []byte, timeout time.Duration, option ...PkgOption) ([]byte, error)
+    func (c *Conn) RecvPkg(option ...PkgOption) (result []byte, err error)
+    func (c *Conn) RecvPkgWithTimeout(timeout time.Duration, option ...PkgOption) ([]byte, error)
 ```
 可以看到，消息包方法命名是在原有的基本连接操作方法中加上了`Pkg`关键词便于区分。
+
+其中，请求参数中的`PkgOption`数据结构如下，用于定义接收数据的最大长度及重试策略：
+```go
+// 数据读取选项
+type PkgOption struct {
+	MaxSize int    // (byte)数据读取的最大包大小，最大不能超过3字节(0xFFFFFF,15MB)，默认为65535byte
+	Retry   Retry  // 失败重试
+}
+```
 
 ## 使用示例1，基本使用
 
