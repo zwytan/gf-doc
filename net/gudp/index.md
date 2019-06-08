@@ -11,6 +11,7 @@ https://godoc.org/github.com/gogf/gf/g/net/gudp
 type Server
     func GetServer(name ...interface{}) *Server
     func NewServer(address string, handler func(*Conn), names ...string) *Server
+    func (s *Server) Close() error
     func (s *Server) Run() error
     func (s *Server) SetAddress(address string)
     func (s *Server) SetHandler(handler func(*Conn))

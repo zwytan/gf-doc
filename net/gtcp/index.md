@@ -13,6 +13,7 @@ type Server
     func NewServer(address string, handler func(*Conn), name ...string) *Server
     func NewServerKeyCrt(address, crtFile, keyFile string, handler func(*Conn), name ...string) *Server
     func NewServerTLS(address string, tlsConfig *tls.Config, handler func(*Conn), name ...string) *Server
+    func (s *Server) Close() error
     func (s *Server) Run() (err error)
     func (s *Server) SetAddress(address string)
     func (s *Server) SetHandler(handler func(*Conn))
