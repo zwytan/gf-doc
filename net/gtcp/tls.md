@@ -64,7 +64,7 @@ func main() {
 ```html
 panic: x509: certificate has expired or is not yet valid
 ```
-那是因为我们的证书是手动创建的，并且已经过期了，为了演示方便，我们去掉客户端对证书的校验。
+那是因为我们的证书是手动创建的，并且已经过期了，为了演示方便，我们在客户端代码中去掉客户端对证书的校验。
 ```go
 package main
 
