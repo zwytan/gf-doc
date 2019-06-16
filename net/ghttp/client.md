@@ -124,8 +124,7 @@ func (r *ClientResponse) Close()
         gfile.PutBinContents("/Users/john/Temp/cover.png", r.ReadAll())
     }
     ```
-    下载文件操作，小文件下载非常简单题。需要注意的是，如果远程文件比较大时，服务端会分批返回数据，因此会需要客户端发多个GET请求，每一次通过Header来请求分批的文件范围长度。
-    > 感兴趣的同学可自行研究相关细节。
+    下载文件操作，小文件下载非常简单。需要注意的是，如果远程文件比较大时，服务端会分批返回数据，因此会需要客户端发多个GET请求，每一次通过Header来请求分批的文件范围长度，感兴趣的同学可自行研究相关细节。
 
 1. 发送POST请求，并打印出返回值
     ```go
@@ -197,7 +196,7 @@ func (r *ClientResponse) Close()
         if e != nil {
             glog.Error(e)
         } else {
-            fmt.Println(string(r.ReadAll()))
+            fmt.Println(r.ReadAllString())
             r.Close()
         }
     }
