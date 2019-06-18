@@ -82,7 +82,7 @@ func (d *Domain) BindHookHandlerByMap(pattern string, hookmap map[string]Handler
 `Request.Router`是匹配到的路由对象，包含路由注册信息，一般来说开发者不会用到。
 `Request.URL`是底层请求的URL对象（继承自标准库`http.Request`），包含请求的URL地址信息，特别是`Request.URL.Path`表示请求的URI地址。
 
-因此，假如在服务回调函数中使用的话，`Request.Router`是有值的，因为只有匹配到了路由才会调用服务回调方法。但是在事件回调函数中，该对象可能为`nil`（表示没有匹配到服务回调函数路由）。特别是在使用时间回调对请求接口鉴权的时候，应当使用`Request.URL`对象获取请求的URL信息，而不是`Request.Router`。
+因此，假如在服务回调函数中使用的话，`Request.Router`是有值的，因为只有匹配到了路由才会调用服务回调方法。但是在事件回调函数中，该对象可能为`nil`（表示没有匹配到服务回调函数路由）。特别是在使用事件回调对请求接口鉴权的时候，应当使用`Request.URL`对象获取请求的URL信息，而不是`Request.Router`。
 
 
 ## 静态文件事件
