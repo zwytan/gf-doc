@@ -7,9 +7,9 @@
 常用的工具包括：
 
 1. `go fmt` : 统一的代码格式化工具（必须）。
-1. `goimports` : 自动`import`依赖包工具（可选）。
 1. `golangci-lint` : 静态代码质量检测工具，用于包的质量分析（推荐）。
-1. `golint` : 代码规范检测，并且也检测单文件的代码质量，由于[Go Report](https://goreportcard.com)站点在使用，因此也推荐安装（推荐）。
+1. `goimports` : 自动`import`依赖包工具（可选）。
+1. `golint` : 代码规范检测，并且也检测单文件的代码质量，比较出名的Go质量评估站点[Go Report](https://goreportcard.com)在使用（可选）。
 
 ## `go fmt`, `goimports`, `golangci-lint`的配置
 
