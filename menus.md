@@ -4,6 +4,7 @@
     * [环境安装](prepare/install.md)
     * [环境变量](prepare/goenv.md)
     * [Go Module](prepare/gomodule.md)
+    * [开发环境配置](prepare/ide.md)
     * [项目依赖管理](prepare/vendor.md)
 * [快速开始](#)
     * [新建项目](start/index.md)
