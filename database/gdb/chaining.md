@@ -283,11 +283,11 @@ result, err := db.Table("article").Where(conditions).All()
 r, err := db.Table("user u").LeftJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.site").Where("u.uid=?", 1).One()
 
 // 查询指定字段值
-// SELECT ud.site FROM user u LEFT JOIN user_detail ud ON u.uid=ud.uid WHERE u.uid=1 LIMIT 1
+// SELECT ud.site FROM user u RIGHT JOIN user_detail ud ON u.uid=ud.uid WHERE u.uid=1 LIMIT 1
 r, err := db.Table("user u").RightJoin("user_detail ud", "u.uid=ud.uid").Fields("ud.site").Where("u.uid=?", 1).Value()
 
 // 分组及排序
-// SELECT u.*,ud.site FROM user u LEFT JOIN user_detail ud ON u.uid=ud.uid GROUP BY city ORDER BY register_time asc
+// SELECT u.*,ud.site FROM user u INNER JOIN user_detail ud ON u.uid=ud.uid GROUP BY city ORDER BY register_time asc
 r, err := db.Table("user u").InnerJoin("user_detail ud", "u.uid=ud.uid").Fields("u.*,ud.city").GroupBy("city").OrderBy("register_time asc").Select()
 
 // 不使用join的联表查询
