@@ -3,13 +3,11 @@
 
 # 包名约定
 
-根据官方[《Effective Go》](https://golang.google.cn/doc/effective_go.html#package-names)建议，包名尽量采用言简意赅的名称(`short, concise, evocative`)。
+根据官方[《Effective Go》](https://golang.google.cn/doc/effective_go.html#package-names)建议，包名尽量采用言简意赅的名称(`short, concise, evocative`)。并且推荐通过不同的`import`路径来区分相同包名的包引入。
 
-我们建议，对于项目结构中的 控制器层`/app/api`下的包名统一使用`a_`前缀；逻辑封装层`/app/service`下的包名统一使用`s_`前缀；数据模型`/app/model`下的包名统一使用`m_`前缀。
+相同包名的常见问题，例如：`user`这个包名，既存在于控制器层`/app/api`中，同时还存在于逻辑封装层`/app/service`中（这种场景非常常见），按照《Effective Go》推荐是通过`import`不同的路径来区分，缺点是在代码程序中很难通过相同包名区分引用的包所负责的逻辑。
 
-例如，控制器层以及逻辑封装层中都有`user`这个包，虽然通过`import`不同的路径可以做区分，但是在代码中很难以识别，阅读质量不高，并且对于开发中的IDE代码提示来说也十分不友好。
-
-> 使用约定前缀的包命名方式, 好处之一：在IDE中输入前缀(如:`s_`)后会自动代码提示过滤，迅速定位到所需的包。
+> 建议性的约定前缀：这个属于阿发技巧建议。对于项目结构中的 控制器层`/app/api`下的包名统一使用`a_`前缀；逻辑封装层`/app/service`下的包名统一使用`s_`前缀；数据模型`/app/model`下的包名统一使用`m_`前缀。这样将更有助于相同包名在代码中的区分、阅读和维护，此外对于IDE也很友好，例如在IDE中输入前缀(如:`s_`)后会自动代码提示过滤，迅速定位到所需的包。
 
 
 # 控制器实现
