@@ -1,9 +1,9 @@
 [TOC]
 
 
-内存锁。该模块包含两个对象特性：
-1. `Locker` 内存锁，支持按照`给定键名生成内存锁`，并支持`Try*Lock`及`锁过期`特性；
-1. `Mutex` 对标准库底层`sync.Mutex`的封装，增加了`Try*Lock`特性；
+内存锁模块，也称之为`动态互斥锁`模块，支持按照`给定键名动态生成互斥锁`，并发安全并支持`Try*Lock`特性。
+
+> 当维护大量动态互斥锁的场景时，如果不再使用的互斥锁对象，请手动调用`Remove`方法删除掉。
 
 **使用方式**：
 ```go
@@ -12,14 +12,39 @@ import "github.com/gogf/gf/g/os/gmlock"
 
 
 **使用场景**：
-1. 任何需要并发安全的场景，可以替代`sync.Mutex`；
-1. 需要使用`Try*Lock`的场景(不需要阻塞等待锁释放)；
-1. 需要`动态创建互斥锁`，或者需要`维护大量动态锁`的场景；
+需要`动态创建互斥锁`，或者需要`维护大量动态锁`的场景；
 
 **接口文档**：
 
 https://godoc.org/github.com/gogf/gf/g/os/gmlock
 
+```go
+func Lock(key string)
+func LockFunc(key string, f func())
+func RLock(key string)
+func RLockFunc(key string, f func())
+func RUnlock(key string)
+func Remove(key string)
+func TryLock(key string) bool
+func TryLockFunc(key string, f func()) bool
+func TryRLock(key string) bool
+func TryRLockFunc(key string, f func()) bool
+func Unlock(key string)
+type Locker
+    func New() *Locker
+    func (l *Locker) Clear()
+    func (l *Locker) Lock(key string)
+    func (l *Locker) LockFunc(key string, f func())
+    func (l *Locker) RLock(key string)
+    func (l *Locker) RLockFunc(key string, f func())
+    func (l *Locker) RUnlock(key string)
+    func (l *Locker) Remove(key string)
+    func (l *Locker) TryLock(key string) bool
+    func (l *Locker) TryLockFunc(key string, f func()) bool
+    func (l *Locker) TryRLock(key string) bool
+    func (l *Locker) TryRLockFunc(key string, f func()) bool
+    func (l *Locker) Unlock(key string)
+```
 
 
 # 示例1，基本使用
@@ -65,50 +90,9 @@ func main() {
 2018-10-15 23:57:37.298 8
 ```
 
-# 示例2，过期控制
+# 示例2，TryLock非阻塞锁
 
-我们将以上的示例使用过期时间控制来实现。
-
-```go
-package main
-
-import (
-    "sync"
-    "github.com/gogf/gf/g/os/glog"
-    "github.com/gogf/gf/g/os/gmlock"
-)
-
-func main() {
-    key := "lock"
-    wg  := sync.WaitGroup{}
-    for i := 0; i < 10; i++ {
-        wg.Add(1)
-        go func(i int) {
-            gmlock.Lock(key, 1000)
-            glog.Println(i)
-            wg.Done()
-        }(i)
-    }
-    wg.Wait()
-}
-```
-执行后，输出结果为：
-```html
-2018-10-15 23:59:14.663 9
-2018-10-15 23:59:15.663 4
-2018-10-15 23:59:16.663 0
-2018-10-15 23:59:17.664 1
-2018-10-15 23:59:18.664 2
-2018-10-15 23:59:19.664 3
-2018-10-15 23:59:20.664 6
-2018-10-15 23:59:21.664 5
-2018-10-15 23:59:22.665 7
-2018-10-15 23:59:23.665 8
-```
-
-# 示例3，TryLock非阻塞锁
-
-`TryLock`方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回`true`；如果获取失败（即锁已被其他goroutine获取），则返回`false`。
+`TryLock`方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回`true`；如果获取失败（即互斥锁已被其他`goroutine`获取），则返回`false`。
 
 ```go
 package main
@@ -153,60 +137,4 @@ func main() {
 2018-10-16 00:01:59.172 false
 2018-10-16 00:01:59.172 false
 2018-10-16 00:01:59.176 false
-```
-
-# 示例4，多个锁机制冲突
-
-该示例用来演示在复杂逻辑下的锁机制处理情况。
-
-```go
-package main
-
-import (
-    "github.com/gogf/gf/g/os/gmlock"
-    "time"
-    "github.com/gogf/gf/g/os/glog"
-    "fmt"
-)
-
-// 内存锁 - 手动Unlock与计时Unlock冲突校验
-func main() {
-    key := "key"
-
-    // 第一次锁带时间
-    gmlock.Lock(key, 1000)
-    glog.Println("lock1")
-    // 这个时候上一次的计时解锁已失效
-    gmlock.Unlock(key)
-    glog.Println("unlock1")
-
-    fmt.Println()
-
-    // 第二次锁，不带时间，且在执行过程中前一个Lock的定时解锁生效
-    gmlock.Lock(key)
-    glog.Println("lock2")
-    go func() {
-        // 正常情况下3秒后才能执行这句
-        gmlock.Lock(key)
-        glog.Println("lock by goroutine")
-    }()
-    time.Sleep(3*time.Second)
-    // 这时再解锁
-    gmlock.Unlock(key)
-    // 注意3秒之后才会执行这一句
-    glog.Println("unlock2")
-
-    // 阻塞进程
-    select{}
-}
-```
-
-执行后，输出结果为：
-```html
-2018-10-16 00:03:40.277 lock1
-2018-10-16 00:03:40.279 unlock1
-
-2018-10-16 00:03:40.279 lock2
-2018-10-16 00:03:43.279 unlock2
-2018-10-16 00:03:43.279 lock by goroutine
 ```
