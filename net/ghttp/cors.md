@@ -54,24 +54,22 @@ func (r *Response) DefaultCORSOptions() CORSOptions {
 package main
 
 import (
-    "github.com/gogf/gf/g"
-    "github.com/gogf/gf/g/frame/gmvc"
-    "github.com/gogf/gf/g/net/ghttp"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/net/ghttp"
 )
 
 type Order struct {
-    gmvc.Controller
 }
 
-func (o *Order) Get() {
-    o.Response.Write("GET")
+func (order *Order) Get(r *ghttp.Request) {
+	r.Response.Write("GET")
 }
 
 func main() {
-    s := g.Server()
-    s.BindControllerRest("/api.v1/{.struct}", new(Order))
-    s.SetPort(8199)
-    s.Run()
+	s := g.Server()
+	s.BindObjectRest("/api.v1/{.struct}", new(Order))
+	s.SetPort(8199)
+	s.Run()
 }
 ```
 接口地址是`http://localhost/api.v1/order`，当然这个接口是不允许跨域的。我们打开一个不同的域名，例如：百度首页(正好用了jQuery，方便调试)，然后按`F12`打开开发者面板，在`console`下执行以下AJAX请求：
@@ -88,29 +86,26 @@ $.get("http://localhost:8199/api.v1/order", function(result){
 package main
 
 import (
-    "github.com/gogf/gf/g"
-    "github.com/gogf/gf/g/frame/gmvc"
-    "github.com/gogf/gf/g/net/ghttp"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/net/ghttp"
 )
 
-type Order struct {
-    gmvc.Controller
-}
+type Order struct{}
 
-func (o *Order) Get() {
-    o.Response.Write("GET")
+func (order *Order) Get(r *ghttp.Request) {
+	r.Response.Write("GET")
 }
 
 func main() {
-    s := g.Server()
-    s.BindHookHandlerByMap("/api.v1/*any", map[string]ghttp.HandlerFunc {
-       "BeforeServe"  : func(r *ghttp.Request) {
-           r.Response.CORSDefault()
-       },
-    })
-    s.BindControllerRest("/api.v1/{.struct}", new(Order))
-    s.SetPort(8199)
-    s.Run()
+	s := g.Server()
+	s.BindHookHandlerByMap("/api.v1/*any", map[string]ghttp.HandlerFunc{
+		"BeforeServe": func(r *ghttp.Request) {
+			r.Response.CORSDefault()
+		},
+	})
+	s.BindObjectRest("/api.v1/{.struct}", new(Order))
+	s.SetPort(8199)
+	s.Run()
 }
 ```
 我们增加了针对于路由`/api.v1/*any`的绑定事件`BeforeServe`，该事件将会在所有服务执行之前调用，该事件的回调方法中，我们通过调用`CORSDefault`方法使用默认的跨域设置允许跨域请求。该绑定的事件路由规则使用了模糊匹配规则，表示所有`/api.v1`开头的接口地址都允许跨域请求。
