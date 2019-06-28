@@ -35,7 +35,7 @@ module my-hello
 
     ![](/images/gomodule2.png)
 
-    其中`Proxy`请选择 `direct` 直连下载依赖包。
+    其中`Proxy`请选择 `direct` 直连下载依赖包。如果需要有翻墙下载的第三方包，这里请设置反向代理地址如：`https://goproxy.io`。
 
 1. 手动修改`go.mod`文件如下：
     ```
