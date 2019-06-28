@@ -1,6 +1,13 @@
 
+# 版本选择算法
 
-# 项目依赖管理
+当项目中存在同一个第三方包依赖，并且依赖版本不一致时，Go Modules使用的“最小版本选择算法”(`The minimal version selection algorithm`: https://github.com/golang/go/wiki/Modules#version-selection )。
+
+例如，如果您的模块依赖于具有`require D v1.0.0`的模块A，并且您的模块还依赖于具有`require D v1.1.1`的模块B，则最小版本选择将会选择D的`v1.1.1`版本用以构建（使用最高版本）。
+
+> 请不要问我为什么这个算法名字叫“最小版本选择算法”，然而内容却是“最高版本选择算法”，若有纠结于此的同学欢迎向官方提issue：https://github.com/golang/go/issues
+
+# 私有依赖管理
 
 如果你可以通过`go.mod`完美地管理当前的项目包依赖，那么可以忽略该章节。如果你在处理项目的包依赖管理中遇到了问题，那么建议你继续阅读该章节，可以找到解决问题的灵感。
 
