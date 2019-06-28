@@ -59,7 +59,7 @@ module my-hello
 
     ![](/images/gomodule6.png)
 
-1. 请按快捷键 `⌥(option)+↩(return)` , 选择 `Sync packages of my-hello`
+1. 请按快捷键 `⌥(option)+↩(return)` 或者 鼠标右键, 选择 `Sync packages of my-hello`
 
     ![](/images/gomodule7.png)
 
@@ -108,7 +108,7 @@ func main() {
 
 ![](/images/gomodule4.png)
 
-可以看到，`GoFrame`框架已被自动下载成功，并在编译中被正常引入。
+可以看到，`GoFrame`框架已被自动下载成功，并在编译中被正常引入了。
 
 恭喜，你已经学会了`Go Module`特性的基本使用了。
 
