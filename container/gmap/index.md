@@ -29,6 +29,7 @@ import "github.com/gogf/gf/g/container/gmap"
 
 https://godoc.org/github.com/gogf/gf/g/container/gmap
 
+以下是`gmap.Map/AnyAnyMap`为例：
 ```go
 func NewMap(unsafe ...bool) *Map
 func NewMapFrom(data map[interface{}]interface{}, unsafe ...bool) *Map

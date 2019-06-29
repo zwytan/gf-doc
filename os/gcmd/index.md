@@ -7,6 +7,10 @@
 import "github.com/gogf/gf/g/os/gcmd"
 ```
 
+**接口文档**：
+
+https://godoc.org/github.com/gogf/gf/g/os/gcmd
+
 ## 参数/选项读取
 
 **参数**是从索引`0`开始的字符串数组，**选项**是以"`--`"或者"`-`"开始的KV键值对数据。
