@@ -73,7 +73,8 @@ func (md *Model) ForPage(page, limit int) (*Model)
 
 ## 链式安全
 
-在默认情况下，`gdb`是`非链式安全`的，也就是说链式操作的每一个方法都将对操作的`Model`属性进行修改，因此该`Model`对象**不可以重复使用**。例如，当存在多个分开查询的条件时，我们可以这么来使用`Model`对象：
+### 默认情况
+在默认情况下，`gdb`是`非链式安全`的，也就是说链式操作的每一个方法都将对当前操作的`Model`属性进行修改，因此该`Model`对象**不可以重复使用**。例如，当存在多个分开查询的条件时，我们可以这么来使用`Model`对象：
 ```go
 user := g.DB().Table("user")
 user.Where("status IN(?)", g.Slice{1,2,3})
@@ -84,15 +85,17 @@ if vip {
     // 查询条件自动叠加，修改当前模型对象
     user.Where("money<?",  1000000)
 }
+//  vip: SELECT * FROM user WHERE status IN(1,2,3) AND money >= 1000000
+// !vip: ELECT * FROM user WHERE status IN(1,2,3) AND money < 1000000
 r, err := user.Select()
 ```
-可以看到，如果是分开执行链式操作，链式的每一个操作都会修改已有的`Model`对象，查询条件会自动叠加。这个时候，每次我们需要操作`user`用户表，都得使用`g.DB().Table("user")`来创建一个新的用户模型对象，相对来说会比较繁琐。
+可以看到，如果是分开执行链式操作，链式的每一个操作都会修改已有的`Model`对象，查询条件会自动叠加。这种使用方式中，每次我们需要操作`user`用户表，都得使用`g.DB().Table("user")`这样的语法创建一个新的用户模型对象，相对来说会比较繁琐。
 
-> 默认当前模型对象为`非链式安全`主要是基于性能考虑，防止产生过多的临时模型对象。
+> 默认情况下，基于性能以及GC优化考虑，模型对象为`非链式安全`，防止产生过多的临时模型对象。
 
-<hr>
+### Safe方法
 
-当然，我们可以通过`Safe`方法设置当前模型为`链式安全`的对象，后续的所有链式操作返回新的`Model`对象，该`Model`对象可重复使用。
+当然，我们可以通过`Safe`方法设置当前模型为`链式安全`的对象，后续的每一个链式操作都将返回一个新的`Model`对象，该`Model`对象可重复使用。
 ```go
 // 定义一个用户模型单例
 user := g.DB().Table("user").Safe()
@@ -110,8 +113,9 @@ r, err := m.Select()
 ```
 可以看到，示例中得用户模型单例对象`user`可以重复使用，而不用担心被“污染”的问题。在这种链式安全的方式下，我们可以创建一个用户单例对象`user`，并且可以重复使用到后续的各种查询中。存在多个查询条件时，条件的叠加需要通过模型赋值操作（`m = m.xxx`）来实现。
 
-> 使用`Safe`方法标记之后，每一个链式操作都将会创建一个新的临时模型对象，从而实现链式安全。
-<hr>
+> 使用`Safe`方法标记之后，每一个链式操作都将会创建一个新的临时模型对象，从而实现链式安全。这种使用方式在模型操作中比较常见。
+
+### Clone方法
 
 此外，我们也可以使用`Clone`方法克隆当前模型，创建一个新的模型来实现链式安全，由于是新的模型对象，因此并不担心会修改已有的模型对象的问题。多个查询条件的叠加无需模型赋值。例如：
 ```go
@@ -356,18 +360,23 @@ r, err := db.Table("user").Fields("DISTINCT uid,name").Select()
 
 ### 3. 链式更新/删除
 ```go
-// 更新
-r, err := db.Table("user").Data(gdb.Map{"name" : "john2"}).Where("name=?", "john").Update()
-r, err := db.Table("user").Data("name='john3'").Where("name=?", "john2").Update()
-// 删除
+// UPDATE user SET name='john guo' WHERE name='john'
+r, err := db.Table("user").Data(gdb.Map{"name" : "john guo"}).Where("name=?", "john").Update()
+r, err := db.Table("user").Data("name='john guo'").Where("name=?", "john").Update()
+// UPDATE user SET status=1 ORDER BY login_time asc LIMIT 10
+r, err := db.Table("user").Data("status", 1).OrderBy("login_time asc").Limit(10).Update
+
+// DELETE FROM user WHERE uid=10
 r, err := db.Table("user").Where("uid=?", 10).Delete()
+// DELETE FROM user ORDER BY login_time asc LIMIT 10
+r, err := db.Table("user").OrderBy("login_time asc").Limit(10).Delete()
 ```
 其中```Data```是数值方法，用于指定写入/更新/批量写入/批量更新的数值。
 支持多种形式的数值参数：
 ```go
-r, err := db.Table("user").Data(`name="john"`).Update()
-r, err := db.Table("user").Data("name", "john").Update()
-r, err := db.Table("user").Data(g.Map{"name" : "john"}).Update()
+r, err := db.Table("user").Data("status=1").Update()
+r, err := db.Table("user").Data("status", 1).Update()
+r, err := db.Table("user").Data(g.Map{"status" : 1}).Update()
 ```
 ### 4. 链式写入/保存
 ```go
