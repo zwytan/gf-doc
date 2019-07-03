@@ -15,7 +15,7 @@
 
 # 版本升级方式
 
-Golang项目开发不推荐直接使用`vendor`的方式，不推荐直接使用框架`master`分之的方式。推荐使用`go modules`的包管理方式，即使用`go.mod`来管理引用包的版本号。
+Golang项目开发不推荐直接使用`vendor`的方式，不推荐直接使用框架`master`分支的方式。推荐使用`go modules`的包管理方式，即使用`go.mod`来管理引用包的版本号。
 
 每一次计划版本升级之前，在仓库查看最新的版本号：https://github.com/gogf/gf/releases ，选择一个需要升级的版本号，修改`go.mod`保存后，Goland IDE将会自动下载对应版本号的框架。如果是升级到最新的框架版本，也可以在项目根目录下执行`go get -u https://github.com/gogf/gf`进行完整的升级。
 
