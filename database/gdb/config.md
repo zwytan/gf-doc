@@ -1,48 +1,13 @@
 
 [TOC]
 
-
-# 数据结构
-
-```go
-type Config      map[string]ConfigGroup // 数据库配置对象
-type ConfigGroup []ConfigNode           // 数据库分组配置
-// 数据库配置项(一个分组配置对应多个配置项)
-type ConfigNode  struct {
-    Host             string   // 地址
-    Port             string   // 端口
-    User             string   // 账号
-    Pass             string   // 密码
-    Name             string   // 数据库名称
-    Type             string   // 数据库类型：mysql, sqlite, mssql, pgsql, oracle(目前仅支持mysql)
-    Role             string   // (可选，默认为master)数据库的角色，用于主从操作分离，至少需要有一个master，参数值：master, slave
-    Charset          string   // (可选，默认为 utf8)编码，默认为 utf8
-    Priority         int      // (可选)用于负载均衡的权重计算，当集群中只有一个节点时，权重没有任何意义
-    Linkinfo         string   // (可选)自定义链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效(该字段是一个扩展功能)
-    MaxIdleConnCount int      // (可选)连接池最大闲置的连接数
-    MaxOpenConnCount int      // (可选)连接池最大打开的连接数
-    MaxConnLifetime  int      // (可选，单位秒)连接对象可重复使用的时间长度
-}
-```
-
-`ConfigNode`用于存储一个数据库节点信息；```ConfigGroup```用于管理多个数据库节点组成的配置分组(一般一个分组对应一个业务数据库集群)；```Config```用于管理多个ConfigGroup配置分组。
-
-**配置管理特点：**
-
-1. 支持多节点数据库集群管理，采用单例模式管理数据库实例化对象；
-1. 支持对数据库集群分组管理，按照分组名称获取实例化的数据库操作对象；
-2. 支持多种关系型数据库管理，可通过`ConfigNode.Type`属性进行配置；
-3. 支持`Master-Slave`读写分离，可通过`ConfigNode.Role`属性进行配置；
-4. 支持客户端的负载均衡管理，可通过`ConfigNode.Priority`属性进行配置，值越大，优先级越高；
-
-特别说明，`gdb`的配置管理最大的**特点**是，(同一进程中)所有的数据库集群信息都使用同一个配置管理模块进行统一维护，**不同业务的数据库集群配置使用不同的分组名称**进行配置和获取。
-
-
 # 配置文件
 
 > 推荐使用配置文件及单例对象来管理和使用数据库操作。
 
-如果我们使用对象管理包中的```g.Database()/g.DB()```方法获取数据库操作对象(`g.DB()`为`g.Database()`的别名方法)，那么数据库配置可以在全局配置文件`config.toml`中进行配置，配置项的数据格式形如：
+如果我们使用`g`对象管理模块中的`g.DB("数据库分组名称")`方法获取数据库操作对象，数据库对象将会自动读取`config.toml`配置文件中的相应配置项（通过配置管理模块），并自动初始化该数据库操作的单例对象。
+
+`config.toml`中的数据库配置项的数据格式形如下：
 ```toml
 [database]
     [[database.分组名称]]
@@ -136,8 +101,6 @@ database:
 </config>
 ```
 
-随后，我们可以通过```g.Database("数据库分组名称")/g.DB("数据库分组名称")```来获取一个数据库操作对象，对象管理器会自动读取并解析配置文件中的数据库配置信息，并生成对应的数据库对象，非常简便。
-
 # 简化配置(推荐)
 
 为兼容不同的数据库类型，`gdb`将数据库的各个字段拆分出来单独配置，这样对于各种数据库的对接来说兼容性会很好。但是对于开发者来说看起来配置比较多。针对于项目中使用的已确定的数据库类型的配置，我们可以使用`type`+`linkinfo`属性进行配置。如：
@@ -159,6 +122,43 @@ database:
 |oracle|`账号/密码@地址:端口/数据库名称`| [go-oci8](https://github.com/mattn/go-oci8)
 
 各数据库类型更详细的`linkinfo`参数信息请查看对应引擎官网，参考【[ORM数据库类型](database/gdb/database.md)】章节
+
+# 数据结构
+
+`gdb`数据库管理模块的内部配置管理数据结构如下：
+
+```go
+type Config      map[string]ConfigGroup // 数据库配置对象
+type ConfigGroup []ConfigNode           // 数据库分组配置
+// 数据库配置项(一个分组配置对应多个配置项)
+type ConfigNode  struct {
+    Host             string   // 地址
+    Port             string   // 端口
+    User             string   // 账号
+    Pass             string   // 密码
+    Name             string   // 数据库名称
+    Type             string   // 数据库类型：mysql, sqlite, mssql, pgsql, oracle(目前仅支持mysql)
+    Role             string   // (可选，默认为master)数据库的角色，用于主从操作分离，至少需要有一个master，参数值：master, slave
+    Charset          string   // (可选，默认为 utf8)编码，默认为 utf8
+    Priority         int      // (可选)用于负载均衡的权重计算，当集群中只有一个节点时，权重没有任何意义
+    Linkinfo         string   // (可选)自定义链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效(该字段是一个扩展功能)
+    MaxIdleConnCount int      // (可选)连接池最大闲置的连接数
+    MaxOpenConnCount int      // (可选)连接池最大打开的连接数
+    MaxConnLifetime  int      // (可选，单位秒)连接对象可重复使用的时间长度
+}
+```
+
+`ConfigNode`用于存储一个数据库节点信息；```ConfigGroup```用于管理多个数据库节点组成的配置分组(一般一个分组对应一个业务数据库集群)；```Config```用于管理多个ConfigGroup配置分组。
+
+**配置管理特点：**
+
+1. 支持多节点数据库集群管理，采用单例模式管理数据库实例化对象；
+1. 支持对数据库集群分组管理，按照分组名称获取实例化的数据库操作对象；
+2. 支持多种关系型数据库管理，可通过`ConfigNode.Type`属性进行配置；
+3. 支持`Master-Slave`读写分离，可通过`ConfigNode.Role`属性进行配置；
+4. 支持客户端的负载均衡管理，可通过`ConfigNode.Priority`属性进行配置，值越大，优先级越高；
+
+特别说明，`gdb`的配置管理最大的**特点**是，(同一进程中)所有的数据库集群信息都使用同一个配置管理模块进行统一维护，**不同业务的数据库集群配置使用不同的分组名称**进行配置和获取。
 
 ## 配置文件示例
 ### TOML
