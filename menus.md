@@ -1,4 +1,5 @@
 * [框架介绍](index.md)
+* [版本说明](version.md)
 * [加入我们](joinus.md)
 * [准备工作](#)
     * [环境安装](prepare/install.md)
