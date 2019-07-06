@@ -59,7 +59,7 @@ type User struct {
 
 func main() {
     user := (*User)(nil)
-    err  := g.DB().Table("user").Where("uid=?", 1).Struct(&user)
+    err  := g.DB().Table("user").Where("uid=?", 1).Scan(&user)
 	if err != nil && err != sql.ErrNoRows {
         fmt.Println(err)
     }
@@ -139,7 +139,7 @@ type User struct {
 
 func main() {
     users := ([]*User)(nil)
-    err   := g.DB().Table("user").Structs(&users)
+    err   := g.DB().Table("user").Scan(&users)
 	if err != nil && err != sql.ErrNoRows {
         fmt.Println(err)
     }

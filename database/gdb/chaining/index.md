@@ -154,6 +154,7 @@ type User struct {
 # Struct结果输出
 
 链式操作提供了3个方法对查询结果执行`struct`对象转换/输出。
+
 1. `Struct`: 将查询结果转换为一个`struct`对象，查询结果应当是特定的一条记录，并且`pointer`参数应当为`struct`对象的指针地址（`*struct`或者`**struct`），使用方式例如：
     ```go
     type User struct {
@@ -189,5 +190,5 @@ type User struct {
     // 或者 var user []*User
     err := db.Table("user").Structs(&users)
     ```
-1. `Scan`: 该方法会根据输入参数`pointer`的类型选择调用`Struct`还是`Structs`方法。如果结果是特定的一条记录，那么调用`Struct`方法；如果结果是`slice`类型则调用`Structs`方法；
+1. `Scan`: 该方法会根据输入参数`pointer`的类型选择调用`Struct`还是`Structs`方法。如果结果是特定的一条记录，那么调用`Struct`方法；如果结果是`slice`类型则调用`Structs`方法。
 
