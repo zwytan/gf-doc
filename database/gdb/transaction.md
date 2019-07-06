@@ -11,7 +11,7 @@ https://godoc.org/github.com/gogf/gf/g/database/gdb#TX
 
 ## 事务操作
 
-开启事务操作可以通过执行```db.Begin```方法，该方法返回事务的操作对象，类型为```*gdb.Tx```，通过该对象执行后续的数据库操作，并可通过```tx.Commit```提交修改，或者通过```tx.Rollback```回滚修改。
+开启事务操作可以通过执行`db.Begin`方法，该方法返回事务的操作对象，类型为`*gdb.Tx`，通过该对象执行后续的数据库操作，并可通过`tx.Commit`提交修改，或者通过`tx.Rollback`回滚修改。
 
 ### 1. 开启事务操作
 ```go
@@ -54,5 +54,5 @@ if tx, err := db.Begin(); err == nil {
     fmt.Println(r, err)
 }
 ```
-其他链式操作请参考【[链式操作](database/gdb/chaining.md)】章节。
+其他链式操作请参考【[链式操作](database/gdb/chaining/index.md)】章节。
 

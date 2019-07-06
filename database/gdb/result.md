@@ -22,7 +22,7 @@ type Record      map[string]Value       // 返回数据表记录键值对
 type Result
     func (r Result) ToList() List
 	func (r Result) ToJson() string
-    func (r Result) ToXml() string
+    func (r Result) ToXml(rootTag ...string) string
     func (r Result) ToStringMap(key string) map[string]Map
     func (r Result) ToIntMap(key string) map[int]Map
 	func (r Result) ToUintMap(key string) map[uint]Map
@@ -41,7 +41,7 @@ type Result
 type Record
     func (r Record) ToMap() Map
     func (r Record) ToJson() string
-    func (r Record) ToXml() string
+    func (r Record) ToXml(rootTag ...string) string
     func (r Record) ToStruct(objPointer interface{}) error
 ```
 
@@ -67,26 +67,28 @@ uid  name   site
 package main
 
 import (
-    "fmt"
+	"fmt"
+
+	"github.com/gogf/gf/g"
 )
 
 type User struct {
-    Uid  int
-    Name string
+	Uid  int
+	Name string
 }
 
 func main() {
-    if r, err := db.Table("user").Where("uid=?", 1).One(); err == nil {
-        u := User{}
-        if err := r.ToStruct(&u); err == nil {
-            fmt.Println(" uid:", u.Uid)
-            fmt.Println("name:", u.Name)
-        } else {
-            fmt.Println(err)
-        }
-    } else {
-        fmt.Println(err)
-    }
+	if r, err := g.DB().Table("user").Where("uid=?", 1).One(); r != nil {
+		u := new(User)
+		if err := r.ToStruct(u); err == nil {
+			fmt.Println(" uid:", u.Uid)
+			fmt.Println("name:", u.Name)
+		} else {
+			fmt.Println(err)
+		}
+	} else if err != nil {
+		fmt.Println(err)
+	}
 }
 ```
 执行后，输出结果为：
@@ -94,9 +96,9 @@ func main() {
  uid: 1
 name: john
 ```
-这里，我们自定义了一个`struct`，里面只包含了```Uid```和```Name```属性，可以看到它的属性并不和数据表的字段一致，这也是ORM灵活的特性之一：支持指定属性获取。
+这里，我们自定义了一个`struct`，里面只包含了`Uid`和`Name`属性，可以看到它的属性并不和数据表的字段一致，这也是ORM灵活的特性之一：支持指定属性获取。
 
-通过```gdb.Model.One```方法获取的返回数据表记录是一个```gdb.Map```数据类型，我们可以直接通过它的```ToStruct(obj interface{}) error```方法转换为指定的struct对象。
+通过`gdb.Model.One`方法获取的返回数据表记录是一个`gdb.Map`数据类型，我们可以直接通过它的`ToStruct(obj interface{}) error`方法转换为指定的struct对象。
 
 **属性字段映射规则：**
 
