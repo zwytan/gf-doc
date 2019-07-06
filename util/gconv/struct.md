@@ -4,16 +4,17 @@
 
 项目中我们经常会遇到大量`struct`的使用，以及各种数据类型到`struct`的转换/赋值（特别是`json`/`xml`/各种协议编码转换的时候）。为提高编码及项目维护效率，`gconv`模块为各位开发者带来了极大的福利，为数据解析提供了更高的灵活度。
 
-`gconv`模块执行`struct`转换的方法仅有一个，定义如下：
+`gconv`模块执行`struct`转换的方法仅有两个，定义如下：
 ```go
 func Struct(params interface{}, pointer interface{}, mapping ...map[string]string) error
+func StructDeep(params interface{}, pointer interface{}, mapping ...map[string]string) error
 ```
 
 其中：
 1. `params`为需要转换到`struct`的变量参数，可以为任意数据类型，常见的数据类型为`map`；
 1. `pointer`为需要执行转的目标`struct`对象，这个参数必须为该`struct`的对象指针，转换成功后该对象的属性将会更新；
 1. `mapping`为自定义的`map键名`到`strcut属性`之间的映射关系，此时`params`参数必须为map类型，否则该参数无意义；
-
+1. `StructDeep`相比较于`Struct`方法，区别是支持递归转换，即会同时递归转换其属性中的结构体对象，特别用于转换带有继承结构的自定义`struct`，详见后续示例；
 
 ## 转换规则
 `gconv`模块的`struct`转换特性非常强大，支持任意数据类型到`struct`属性的映射转换。在没有提供自定义`mapping`转换规则的情况下，默认的转换规则如下：
@@ -22,7 +23,7 @@ func Struct(params interface{}, pointer interface{}, mapping ...map[string]strin
     - `params`参数为`map`: 键名会自动按照 **`不区分大小写`** 且 **忽略`-/_/空格`符号** 的形式与`struct`属性进行匹配；
     - `params`参数为其他类型: 将会把该变量值与`struct`的第一个属性进行匹配；
     - 此外，如果`struct`的属性为复杂数据类型如`slice`,`map`,`strcut`那么会进行递归匹配赋值； 
-3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略；
+3. 如果匹配成功，那么将键值赋值给属性，如果无法匹配，那么忽略该键值；
 
 以下是几个匹配的示例：
 ```html

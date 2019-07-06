@@ -5,7 +5,7 @@
 
 # 链式操作
 
-链式操作可以通过数据库对象的```db.Table```/```db.From```方法或者事务对象的```tx.Table```/```tx.From```方法，基于指定的数据表返回一个链式操作对象```*Model```，该对象可以执行以下方法。
+链式操作可以通过数据库对象的`db.Table`/`db.From`方法或者事务对象的`tx.Table`/`tx.From`方法，基于指定的数据表返回一个链式操作对象`*Model`，该对象可以执行以下方法。
 
 接口文档：
 https://godoc.org/github.com/gogf/gf/g/database/gdb#Model
@@ -49,7 +49,7 @@ func (md *Model) Chunk(limit int, callback func(result Result, err error) bool)
 func (md *Model) ForPage(page, limit int) (*Model)
 ```
 
-`Insert/Replace/Save`三个方法的区别：
+## `Insert/Replace/Save`
 1. **Insert**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，返回失败，否则写入一条新数据；
 3. **Replace**
@@ -57,15 +57,11 @@ func (md *Model) ForPage(page, limit int) (*Model)
 5. **Save**
 	使用```insert into```语句进行数据库写入，如果写入的数据中存在`Primary Key`或者`Unique Key`的情况，更新原有数据，否则写入一条新数据；
 
-<hr>
-
-`Data`方法
+## `Data`方法
 
 `Data`方法用于传递数据参数，用于数据写入/更新等写操作，支持的参数为`string/map/slice/struct/*struct`。例如，在进行`Insert`操作时，开发者可以传递任意的`map`类型，如: `map[string]string`/`map[string]interface{}`/`map[interface{}]interface{}`等等，也可以传递任意的`struct`对象或者其指针`*struct`。
 
-<hr>
-
-`Where`方法
+## `Where`方法
 
 `Where`（包括`And`/`Or`）方法用于传递查询条件参数，支持的参数为任意的`string/map/slice/struct/*struct`类型。
 
@@ -135,7 +131,7 @@ r, err := m.Select()
 
 
 
-# Struct参数
+# Struct参数传递
 
 在`gdb`中，`Data`/`Where`/`And`/`Or`链式方法支持任意的`string/map/slice/struct/*struct`数据类型参数，该特性为`gdb`提供了很高的灵活性。当使用`struct`/`*struct`对象作为输入参数时，将会被自动解析为`map`类型，只有`struct`的**公开属性**能够被转换，并且支持 `gconv`/`json` 标签，用于定义转换后的键名，即与表字段的映射关系。
 
@@ -155,10 +151,10 @@ type User struct {
 ```
 其中，`struct`的属性应该是公开属性（首字母大写），`gconv`标签对应的是数据表的字段名称。表字段的对应关系标签既可以使用`gconv`，也可以使用传统的`json`标签，但是当两种标签都存在时，`gconv`标签的优先级更高。为避免将`struct`对象转换为`JSON`数据格式返回时与`JSON`编码标签冲突，推荐使用`gconv`标签来实现映射关系。具体转换规则请查看【[gconv.Map转换](util/gconv/map.md)】章节。
 
-# Struct转换
+# Struct结果输出
 
-链式操作提供了3个方法对查询结果执行`struct`对象转换。
-1. `Struct`: 将查询结果转换为一个`struct`对象，查询结果应当是特定的一条记录，并且`objPointer`参数应当为`struct`对象的指针地址，使用方式例如：
+链式操作提供了3个方法对查询结果执行`struct`对象转换/输出。
+1. `Struct`: 将查询结果转换为一个`struct`对象，查询结果应当是特定的一条记录，并且`pointer`参数应当为`struct`对象的指针地址（`*struct`或者`**struct`），使用方式例如：
     ```go
     type User struct {
         Id         int
@@ -172,20 +168,26 @@ type User struct {
     ```
     或者
     ```go
-    var user User
+    user ：= &User{}
+    err  := db.Table("user").Where("id", 1).Struct(user)
+    ```
+    前两种方式都是预先初始化对象（提前分配内存），推荐的方式：
+    ```go
+    user := (*User)(nil)
     err  := db.Table("user").Where("id", 1).Struct(&user)
     ```
-1. `Structs`: 将多条查询结果集转换为一个`[]struct/[]*struct`数组，查询结果应当是多条记录组成的结果集，并且`objPointerSlice`应当为数组的指针地址，使用方式例如：
+    这种方式只有在查询到数据的时候才会执行初始化及内存分配。注意在用法上的区别，特别是传递参数类型的差别（前两种方式传递的参数类型是`*User`，这里传递的参数类型其实是`**User`）。
+1. `Structs`: 将多条查询结果集转换为一个`[]struct/[]*struct`数组，查询结果应当是多条记录组成的结果集，并且`pointer`应当为数组的指针地址，使用方式例如：
     ```go
-    var users []User
-    // 或者 users := ([]User)(nil)
+    users := ([]User)(nil)
+    // 或者 var users []User
     err := db.Table("user").Structs(&users)
     ```
     或者
     ```go
-    var user []*User
-    // 或者 users := ([]*User)(nil)
+    users := ([]*User)(nil)
+    // 或者 var user []*User
     err := db.Table("user").Structs(&users)
     ```
-1. `Scan`: 该方法会根据输入参数`objPointer`的类型选择调用`Struct`还是`Structs`方法，如果结果是特定的一条记录，那么调用`Struct`方法，否则调用`Structs`方法；
+1. `Scan`: 该方法会根据输入参数`pointer`的类型选择调用`Struct`还是`Structs`方法。如果结果是特定的一条记录，那么调用`Struct`方法；如果结果是`slice`类型则调用`Structs`方法；
 
