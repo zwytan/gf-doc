@@ -56,32 +56,31 @@ type ArrayInt = []int
 
 1. **(单例) 配置管理对象**
 	```go
-    // 参数file未非必需参数，表示指定获取的配置文件管理对象
-    func Config(file...string) *gcfg.Config
+    func Config(name...string) *gcfg.Config
     ```
 3. **(单例) 模板引擎对象**
 	```go
-    func View() *gview.View
+    func View(name ...string) *gview.View
     ```
 5. **(单例) WEB Server**
 	```go
-    func Server(name...interface{}) *ghttp.Server
+    func Server(name ...interface{}) *ghttp.Server
     ```
 7. **(单例) TCP Server**
 	```go
-    func TcpServer(name...interface{}) *gtcp.Server
+    func TcpServer(name ...interface{}) *gtcp.Server
     ```
 9. **(单例) UDP Server**
 	```go
-    func UdpServer(name...interface{}) *gudp.Server
+    func UdpServer(name ...interface{}) *gudp.Server
     ```
 11. **(单例) 数据库ORM对象**
 	```go
-    func DB(name...string) *gdb.Db
+    func DB(name ...string) *gdb.Db
     ```
 13. **(单例) Redis客户端对象**
 	```go
-    func Redis(name...string) *gredis.Redis
+    func Redis(name ...string) *gredis.Redis
     ```
 
 
