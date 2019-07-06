@@ -41,6 +41,100 @@ nick_name  Nick_Name      match
 nick name  Nick_Name      match
 ```
 
+## 自动初始化
+
+当给定的`pointer`参数类型为`**struct`时，`Struct`方法内部将会自动进行初始化创建对象，并修改传递变量指向的指针地址。
+
+```go
+package main
+
+import (
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/util/gconv"
+)
+
+func main() {
+	type User struct {
+		Uid  int
+		Name string
+	}
+	user := (*User)(nil)
+	params := g.Map{
+		"uid":  1,
+		"name": "john",
+	}
+	err := gconv.Struct(params, &user)
+	if err != nil {
+		panic(err)
+	}
+	g.Dump(user)
+}
+```
+执行后，输出结果为：
+```json
+{
+	"Name": "john",
+	"Uid": 1
+}
+```
+
+## `Struct`递归转换
+
+递归转换是指当`struct`对象包含子对象时，可以将`params`数据同时递归地映射到其子对象上，常用于带有继承对象的`struct`上。
+
+可以使用`StructDeep`方法实现递归转换。
+
+```go
+package main
+
+import (
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/util/gconv"
+)
+
+func main() {
+	type Ids struct {
+		Id         int    `json:"id"`
+		Uid        int    `json:"uid"`
+	}
+	type Base struct {
+		Ids
+		CreateTime string `json:"create_time"`
+	}
+	type User struct {
+		Base
+		Passport   string `json:"passport"`
+		Password   string `json:"password"`
+		Nickname   string `json:"nickname"`
+	}
+	data := g.Map{
+		"id"          : 1,
+		"uid"         : 100,
+		"passport"    : "john",
+		"password"    : "123456",
+		"nickname"    : "John",
+		"create_time" : "2019",
+	}
+	user := new(User)
+	gconv.StructDeep(data, user)
+	g.Dump(user)
+}
+```
+
+执行后，终端输出结果为：
+```html
+{
+	"Base": {
+		"id": 1,
+		"uid": 100,
+		"create_time": "2019"
+	},
+	"nickname": "John",
+	"passport": "john",
+	"password": "123456"
+}
+```
+
 
 ## 示例1，基本使用
 ```go
@@ -404,59 +498,3 @@ func main() {
 }
 ```
 
-## 示例3，递归转换
-
-递归转换是指当`struct`对象包含子对象时，可以将`params`数据同时递归地映射到其子对象上，常用于带有继承对象的`struct`上。
-
-可以使用`StructDeep`方法实现递归转换。
-
-```go
-package main
-
-import (
-	"github.com/gogf/gf/g"
-	"github.com/gogf/gf/g/util/gconv"
-)
-
-func main() {
-	type Ids struct {
-		Id         int    `json:"id"`
-		Uid        int    `json:"uid"`
-	}
-	type Base struct {
-		Ids
-		CreateTime string `json:"create_time"`
-	}
-	type User struct {
-		Base
-		Passport   string `json:"passport"`
-		Password   string `json:"password"`
-		Nickname   string `json:"nickname"`
-	}
-	data := g.Map{
-		"id"          : 1,
-		"uid"         : 100,
-		"passport"    : "john",
-		"password"    : "123456",
-		"nickname"    : "John",
-		"create_time" : "2019",
-	}
-	user := new(User)
-	gconv.StructDeep(data, user)
-	g.Dump(user)
-}
-```
-
-执行后，终端输出结果为：
-```html
-{
-	"Base": {
-		"id": 1,
-		"uid": 100,
-		"create_time": "2019"
-	},
-	"nickname": "John",
-	"passport": "john",
-	"password": "123456"
-}
-```
