@@ -9,7 +9,7 @@ import "github.com/gogf/gf/g/util/gconv"
 
 **接口文档**： 
 
-[godoc.org/github.com/gogf/gf/g/util/gconv](https://godoc.org/github.com/gogf/gf/g/util/gconv)
+https://godoc.org/github.com/gogf/gf/g/util/gconv
 ```go
 // 基本类型
 func Bool(i interface{}) bool
@@ -33,16 +33,20 @@ func Ints(i interface{}) []int
 func Floats(i interface{}) []float64
 func Strings(i interface{}) []string
 func Interfaces(i interface{}) []interface{}
+func Structs(params interface{}, pointer interface{}, mapping ...map[string]string) (err error)
+func StructsDeep(params interface{}, pointer interface{}, mapping ...map[string]string) (err error)
 
 // 时间类型
 func Time(i interface{}, format ...string) time.Time
 func TimeDuration(i interface{}) time.Duration
 
 // Map转换, 支持的类型包括：任意map或struct
-func Map(i interface{}, noTagCheck...bool) map[string]interface{}
+func Map(value interface{}, tags ...string) map[string]interface{}
+func MapDeep(value interface{}, tags ...string) map[string]interface{}
 
 // 对象转换
-func Struct(params interface{}, objPointer interface{}, attrMapping ...map[string]string) error
+func Struct(params interface{}, pointer interface{}, mapping ...map[string]string) error
+func StructDeep(params interface{}, pointer interface{}, mapping ...map[string]string) error
 
 // 根据类型名称执行基本类型转换(非struct转换)
 func Convert(i interface{}, t string, extraParams ...interface{}) interface{}
