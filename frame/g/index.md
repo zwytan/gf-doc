@@ -4,7 +4,7 @@
 
 # 全局对象
 
-`gf`框架封装了一些常用的数据类型以及对象，可以直接通过```g.*```方便获取。
+`GF`框架封装了一些常用的数据类型以及对象，可以直接通过`g.*`方便获取。
 
 **使用方式**：
 ```go
@@ -13,43 +13,73 @@ import "github.com/gogf/gf/g"
 
 ## 数据类型
 ```go
-// 常用map数据结构
-type Map map[string]interface{}
+// 泛型
+type Var = gvar.Var
 
-// 常用list数据结构
-type List []Map
+// 常用Map类型
+type Map = map[string]interface{}
+type MapAnyAny = map[interface{}]interface{}
+type MapAnyStr = map[interface{}]string
+type MapAnyInt = map[interface{}]int
+type MapStrAny = map[string]interface{}
+type MapStrStr = map[string]string
+type MapStrInt = map[string]int
+type MapIntAny = map[int]interface{}
+type MapIntStr = map[int]string
+type MapIntInt = map[int]int
+
+// 常用Slice Map类型
+type List = []Map
+type ListAnyStr = []map[interface{}]string
+type ListAnyInt = []map[interface{}]int
+type ListStrAny = []map[string]interface{}
+type ListStrStr = []map[string]string
+type ListStrInt = []map[string]int
+type ListIntAny = []map[int]interface{}
+type ListIntStr = []map[int]string
+type ListIntInt = []map[int]int
+
+// 常用Slice类型
+type Slice = []interface{}
+type SliceAny = []interface{}
+type SliceStr = []string
+type SliceInt = []int
+
+// 常用Slice类型(别名)
+type Array = []interface{}
+type ArrayAny = []interface{}
+type ArrayStr = []string
+type ArrayInt = []int
 ```
 
 ## 常用对象
 
-1. **(单例)配置管理对象**
+1. **(单例) 配置管理对象**
 	```go
     // 参数file未非必需参数，表示指定获取的配置文件管理对象
     func Config(file...string) *gcfg.Config
     ```
-3. **(单例)模板引擎对象**
+3. **(单例) 模板引擎对象**
 	```go
     func View() *gview.View
     ```
-5. **(单例)WEB Server**
+5. **(单例) WEB Server**
 	```go
     func Server(name...interface{}) *ghttp.Server
     ```
-7. **(单例)TCP Server**
+7. **(单例) TCP Server**
 	```go
     func TcpServer(name...interface{}) *gtcp.Server
     ```
-9. **(单例)UDP Server**
+9. **(单例) UDP Server**
 	```go
     func UdpServer(name...interface{}) *gudp.Server
     ```
-11. **(单例)数据库ORM对象**
+11. **(单例) 数据库ORM对象**
 	```go
-    func Database(name...string) *gdb.Db
-    // 别名
     func DB(name...string) *gdb.Db
     ```
-13. **(单例)Redis客户端对象**
+13. **(单例) Redis客户端对象**
 	```go
     func Redis(name...string) *gredis.Redis
     ```
