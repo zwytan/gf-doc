@@ -1,3 +1,5 @@
+[TOC]
+
 # 多数据校验 - CheckStruct
 
 `CheckStruct`的使用方式同`CheckMap`，除了第一个参数为`struct类型`的结构体对象（也可以是对象指针）。**但是需要注意的一个细节是，struct的属性会有`默认值`，因此某些情况下会引起`required`规则的失效，因此根据实际情况配合多种规则一起校验会是一个比较严谨的做法。**
@@ -57,10 +59,12 @@ func main() {
 
 在以上示例中，```Age```属性由于默认值`0`的存在，因此会引起```required```规则的失效，因此这里没有使用```required```规则而是使用```between```规则来进行校验。
 
-### 示例2，使用gvallid tag绑定规则及提示信息
+### 示例2，使用`gvalid tag`绑定规则及提示信息
 
 
 使用`gvalid tag`设置的规则，其校验结果是顺序性的。
+
+> 从`v1.8.0`版本开始，也可以使用`valid`标签别名，优先级比`gvalid`高。
 
 ```go
 package main
@@ -144,3 +148,57 @@ func main() {
 	}
 }
 ```
+
+### 示例3，属性递归校验
+
+`gvalid.CheckStruct`支持递归校验，即如果属性也是结构体，并且结构体的属性带有`gvalid`标签，无论多深的递归层级，这些属性都将被根据设定的规则进行校验。
+
+使用示例：
+```go
+package main
+
+import (
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/util/gvalid"
+)
+
+func main() {
+	type Pass struct {
+		Pass1 string `valid:"password1@required|same:password2#请输入您的密码|您两次输入的密码不一致"`
+		Pass2 string `valid:"password2@required|same:password1#请再次输入您的密码|您两次输入的密码不一致"`
+	}
+	type User struct {
+		Id   int
+		Name string `valid:"name@required#请输入您的姓名"`
+		Pass Pass
+	}
+	user := &User{
+		Name: "john",
+		Pass: Pass{
+			Pass1: "1",
+			Pass2: "2",
+		},
+	}
+	err := gvalid.CheckStruct(user, nil)
+	g.Dump(err.Maps())
+}
+```
+执行后，终端输出：
+```json
+{
+	"password1": {
+		"same": "您两次输入的密码不一致"
+	},
+	"password2": {
+		"same": "您两次输入的密码不一致"
+	}
+}
+```
+
+
+
+
+
+
+
+
