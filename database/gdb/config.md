@@ -7,7 +7,9 @@
 
 如果我们使用`g`对象管理模块中的`g.DB("数据库分组名称")`方法获取数据库操作对象，数据库对象将会自动读取`config.toml`配置文件中的相应配置项（通过配置管理模块），并自动初始化该数据库操作的单例对象。
 
-`config.toml`中完整的数据库配置项的数据格式形如下：
+数据库配置管理功能使用的是配置管理模块实现，因此同样支持多种数据格式如：`toml`, `yaml`, `json`, `xml`。默认并且推荐的配置文件数据格式为`toml`。
+
+完整的`config.toml`数据库配置项的数据格式形如下：
 ```toml
 [database]
     [[database.分组名称]]
@@ -26,7 +28,7 @@
         max-open     = "(可选)连接池最大打开的连接数"
         max-lifetime = "(可选，单位秒)连接对象可重复使用的时间长度"
 ```
-完整数据库配置项示例(TOML)：
+完整的数据库配置项示例(TOML)：
 ```toml
 [database]
     [[database.default]]
@@ -44,63 +46,6 @@
         max-idle     = "10"
         max-open     = "100"
         max-lifetime = "30"
-```
-## 配置文件示例
-### TOML
-```toml
-[database]
-    [[database.default]]
-        host     = "127.0.0.1"
-        port     = "3306"
-        user     = "root"
-        pass     = "12345678"
-        name     = "test"
-        type     = "mysql"
-```
-### YAML
-```yaml
-database:
-    default:
-        - host: 127.0.0.1
-            port: 3306
-            user: root
-            pass: "12345678"
-            name: test
-            type: mysql
-```
-### JSON
-```json
-{
-    "database"   : {
-        "default" : [
-            {
-                "host"     : "127.0.0.1",
-                "port"     : "3306",
-                "user"     : "root",
-                "pass"     : "12345678",
-                "name"     : "test",
-                "type"     : "mysql",
-            }
-        ]
-    },
-}
-```
-### XML
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-    <database>
-        <default>
-            <host>127.0.0.1</host>
-            <port>3306</port>
-            <user>root</user>
-            <pass>12345678</pass>
-            <name>test</name>
-            <type>mysql</type>
-        </default>
-        <default></default>
-    </database>
-</config>
 ```
 
 # 简化配置(推荐)
@@ -139,10 +84,10 @@ database:
 |oracle|`oracle:账号/密码@地址:端口/数据库名称`| [go-oci8](https://github.com/mattn/go-oci8)
 
 各数据库类型更详细的`linkinfo`参数信息请查看对应引擎官网，参考【[ORM数据库类型](database/gdb/database.md)】章节
-<hr>
-以下为数据库底层管理配置介绍，如果您对数据库的底层配置管理比较感兴趣，可继续阅读后续章节。
-<hr>
+
 # 数据结构
+
+> 以下为数据库底层管理配置介绍，如果您对数据库的底层配置管理比较感兴趣，可继续阅读后续章节。
 
 `gdb`数据库管理模块的内部配置管理数据结构如下：
 
@@ -181,47 +126,7 @@ type ConfigNode  struct {
 
 特别说明，`gdb`的配置管理最大的**特点**是，(同一进程中)所有的数据库集群信息都使用同一个配置管理模块进行统一维护，**不同业务的数据库集群配置使用不同的分组名称**进行配置和获取。
 
-## 配置文件示例
-### TOML
-```toml
-[database]
-    [[database.default]]
-        type     = "mysql"
-        linkinfo = "root:12345678@tcp(127.0.0.1:3306)/test"
-```
-### YAML
-```yaml
-database:
-    default:
-        - type    : mysql
-            linkinfo: "root:12345678@tcp(127.0.0.1:3306)/test"
-```
-### JSON
-```json
-{
-    "database"   : {
-        "default" : [
-            {
-                "type"     : "mysql",
-                "linkinfo" : "root:12345678@tcp(127.0.0.1:3306)/test",
-            }
-        ]
-    },
-}
-```
-### XML
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<config>
-    <database>
-        <default>
-            <type>mysql</type>
-            <linkinfo>root:12345678@tcp(127.0.0.1:3306)/test</linkinfo>
-        </default>
-        <default></default>
-    </database>
-</config>
-```
+
 
 # 配置方法
 
