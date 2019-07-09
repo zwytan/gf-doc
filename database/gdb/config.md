@@ -7,7 +7,7 @@
 
 如果我们使用`g`对象管理模块中的`g.DB("数据库分组名称")`方法获取数据库操作对象，数据库对象将会自动读取`config.toml`配置文件中的相应配置项（通过配置管理模块），并自动初始化该数据库操作的单例对象。
 
-`config.toml`中的数据库配置项的数据格式形如下：
+`config.toml`中完整的数据库配置项的数据格式形如下：
 ```toml
 [database]
     [[database.分组名称]]
@@ -18,8 +18,9 @@
         name         = "数据库名称"
         type         = "数据库类型(目前支持mysql/pgsql/sqlite)"
         role         = "(可选)数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master"
+        debug        = "(可选)开启调试模式"
         charset      = "(可选)数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8"
-        priority     = "(可选)优先级，用于负载均衡控制，不使用应用层的负载均衡机制请均设置为1"
+        weight       = "(可选)负载均衡权重，用于负载均衡控制，不使用应用层的负载均衡机制请置空"
         linkinfo     = "(可选)自定义数据库链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效，但是type必须有值"
         max-idle     = "(可选)连接池最大闲置的连接数"
         max-open     = "(可选)连接池最大打开的连接数"
@@ -36,8 +37,9 @@
         name         = "test"
         type         = "mysql"
         role         = "master"
+        debug        = "true"
+        weight       = "100"
         charset      = "utf8"
-        priority     = "100"
         linkinfo     = ""
         max-idle     = "10"
         max-open     = "100"
@@ -103,26 +105,43 @@ database:
 
 # 简化配置(推荐)
 
-为兼容不同的数据库类型，`gdb`将数据库的各个字段拆分出来单独配置，这样对于各种数据库的对接来说兼容性会很好。但是对于开发者来说看起来配置比较多。针对于项目中使用的已确定的数据库类型的配置，我们可以使用`type`+`linkinfo`属性进行配置。如：
+为兼容不同的数据库类型，`gdb`将数据库的各个字段拆分出来单独配置，这样对于各种数据库的对接来说兼容性会很好。但是对于开发者来说看起来配置比较多。针对于项目中使用的已确定的数据库类型的配置，我们可以使用`linkinfo`属性（也可以简化为`link`）进行配置。如：
+
 ```toml
 [database]
     [[database.default]]
-        type     = "mysql"
-        linkinfo = "root:12345678@tcp(127.0.0.1:3306)/test"
+        link = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
+    [[database.user]]
+        link = "mysql:root:12345678@tcp(127.0.0.1:3306)/user"
+```
+注意以上每一项分组配置均可以是多个节点，支持负载均衡权重策略。如果不使用多节点负载均衡特性，仅使用配置分组特性，也可以简化为如下格式：
+```toml
+[database]
+    [database.default]
+        link = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
+    [database.user]
+        link = "mysql:root:12345678@tcp(127.0.0.1:3306)/user"
+```
+如果仅仅是单数据库节点，不使用配置分组特性，那么也可以简化为如下格式：
+```toml
+[database]
+    link = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
 ```
 
 不同数据类型对应的`linkinfo`如下:
 
 |数据库类型|Linkinfo|更多参数
 |---|---|---
-|mysql|`账号:密码@tcp(地址:端口)/数据库名称`| [mysql](https://github.com/go-sql-driver/mysql)
-|pgsql|`user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`| [pq](https://github.com/lib/pq)
-|mssql|`sqlserver://用户:密码@地址:端口?database=数据库名称`| [go-mssqldb](https://github.com/denisenkom/go-mssqldb)
-|sqlite|`文件绝对路径` (如: `/var/lib/db.sqlite3`)| [go-sqlite3](https://github.com/mattn/go-sqlite3)
-|oracle|`账号/密码@地址:端口/数据库名称`| [go-oci8](https://github.com/mattn/go-oci8)
+|mysql|`mysql:账号:密码@tcp(地址:端口)/数据库名称`| [mysql](https://github.com/go-sql-driver/mysql)
+|pgsql|`pgsql:user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`| [pq](https://github.com/lib/pq)
+|mssql|`mssql:sqlserver://用户:密码@地址:端口?database=数据库名称`| [go-mssqldb](https://github.com/denisenkom/go-mssqldb)
+|sqlite|`sqlite:文件绝对路径` (如: `/var/lib/db.sqlite3`)| [go-sqlite3](https://github.com/mattn/go-sqlite3)
+|oracle|`oracle:账号/密码@地址:端口/数据库名称`| [go-oci8](https://github.com/mattn/go-oci8)
 
 各数据库类型更详细的`linkinfo`参数信息请查看对应引擎官网，参考【[ORM数据库类型](database/gdb/database.md)】章节
-
+<hr>
+以下为数据库底层管理配置介绍，如果您对数据库的底层配置管理比较感兴趣，可继续阅读后续章节。
+<hr>
 # 数据结构
 
 `gdb`数据库管理模块的内部配置管理数据结构如下：
