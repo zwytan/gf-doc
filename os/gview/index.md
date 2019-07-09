@@ -42,51 +42,45 @@ https://godoc.org/github.com/gogf/gf/g/os/gview
 package main
 
 import (
-    "github.com/gogf/gf/g/net/ghttp"
-    "github.com/gogf/gf/g/frame/gins"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
-    s := ghttp.GetServer()
-    s.BindHandler("/template2", func(r *ghttp.Request){
-        content, _ := gins.View().Parse("index.tpl", map[string]interface{}{
-            "id"   : 123,
-            "name" : "john",
-        })
-        r.Response.Write(content)
-    })
-    s.SetPort(8199)
-    s.Run()
+	s := g.Server()
+	s.BindHandler("/template", func(r *ghttp.Request) {
+		r.Response.WriteTpl("index.tpl", g.Map{
+			"id":   123,
+			"name": "john",
+		})
+	})
+	s.SetPort(8199)
+	s.Run()
 }
 ```
-在这个示例中我们使用单例管理器获取一个默认的视图对象，随后通过该视图渲染对应模板目录下的```index.tpl```模板文件并给定模板变量参数。
-
-我们也可以通过```SetPath/Addpath```方法中心指定视图对象的模板目录，该方法是并发安全的，但是需要注意一旦改变了该视图对象的模板目录，将会在整个进程中生效。当然，也可以直接解析模板内容。
-
 ### 示例2，解析模板内容
 ```go
 package main
 
 import (
-    "github.com/gogf/gf/g/net/ghttp"
-    "github.com/gogf/gf/g/frame/gins"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/net/ghttp"
 )
 
 func main() {
-    s := ghttp.GetServer()
-    s.BindHandler("/template2", func(r *ghttp.Request){
-        tplcontent := `id:{{.id}}, name:{{.name}}`
-        content, _ := gins.View().ParseContent(tplcontent, map[string]interface{}{
-            "id"   : 123,
-            "name" : "john",
-        })
-        r.Response.Write(content)
-    })
-    s.SetPort(8199)
-    s.Run()
+	s := g.Server()
+	s.BindHandler("/template", func(r *ghttp.Request){
+		tplContent := `id:{{.id}}, name:{{.name}}`
+		r.Response.WriteTplContent(tplContent, g.Map{
+			"id"   : 123,
+			"name" : "john",
+		})
+	})
+	s.SetPort(8199)
+	s.Run()
 }
 ```
-执行后，访问```http://127.0.0.1:8199/template2```可以看到解析后的内容为：```id:123, name:john```
+执行后，访问`http://127.0.0.1:8199/template`可以看到解析后的内容为：`id:123, name:john`
 
 ### 示例3，自定义模板变量分隔符
 
@@ -142,7 +136,7 @@ test.tpl content, vars: map[k:v]
 
 1. (推荐)通过单例模式
 	```go
-    gins.View().SetPath("/opt/template")
+    g.View().SetPath("/opt/template")
     ```
 3. 通过命令行参数
     ```shell

@@ -80,7 +80,7 @@ if vip {
     user.Where("money<?",  1000000)
 }
 //  vip: SELECT * FROM user WHERE status IN(1,2,3) AND money >= 1000000
-// !vip: ELECT * FROM user WHERE status IN(1,2,3) AND money < 1000000
+// !vip: SELECT * FROM user WHERE status IN(1,2,3) AND money < 1000000
 r, err := user.Select()
 ```
 可以看到，如果是分开执行链式操作，链式的每一个操作都会修改已有的`Model`对象，查询条件会自动叠加。这种使用方式中，每次我们需要操作`user`用户表，都得使用`g.DB().Table("user")`这样的语法创建一个新的用户模型对象，相对来说会比较繁琐。

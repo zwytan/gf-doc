@@ -41,56 +41,39 @@ func (g *RouterGroup) Bind(items []GroupItem)
 package main
 
 import (
-    "github.com/gogf/gf/g"
-    "github.com/gogf/gf/g/frame/gmvc"
-    "github.com/gogf/gf/g/net/ghttp"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/net/ghttp"
 )
 
 type Object struct {}
 
 func (o *Object) Show(r *ghttp.Request) {
-    r.Response.Writeln("Object Show")
+	r.Response.Writeln("Object Show")
 }
 
 func (o *Object) Delete(r *ghttp.Request) {
-    r.Response.Writeln("Object REST Delete")
-}
-
-type Controller struct {
-    gmvc.Controller
-}
-
-func (c *Controller) Show() {
-    c.Response.Writeln("Controller Show")
-}
-
-func (c *Controller) Post() {
-    c.Response.Writeln("Controller REST Post")
+	r.Response.Writeln("Object REST Delete")
 }
 
 func Handler(r *ghttp.Request) {
-    r.Response.Writeln("Handler")
+	r.Response.Writeln("Handler")
 }
 
 func HookHandler(r *ghttp.Request) {
-    r.Response.Writeln("Hook Handler")
+	r.Response.Writeln("Hook Handler")
 }
 
 func main() {
-    s   := g.Server()
-    g   := s.Group("/api")
-    obj := new(Object)
-    ctl := new(Controller)
-    g.ALL ("*",            HookHandler, ghttp.HOOK_BEFORE_SERVE)
-    g.ALL ("/handler",     Handler)
-    g.ALL ("/ctl",         ctl)
-    g.GET ("/ctl/my-show", ctl, "Show")
-    g.REST("/ctl/rest",    ctl)
-    g.ALL ("/obj",         obj)
-    g.GET ("/obj/my-show", obj, "Show")
-    g.REST("/obj/rest",    obj)
-    s.SetPort(8199)
-    s.Run()
+	s     := g.Server()
+	obj   := new(Object)
+	group := s.Group("/api")
+	group.ALL ("*",            HookHandler, ghttp.HOOK_BEFORE_SERVE)
+	group.ALL ("/handler",     Handler)
+	group.ALL ("/obj",         obj)
+	group.GET ("/obj/showit",  obj, "Show")
+	group.REST("/obj/rest",    obj)
+	s.SetPort(8199)
+	s.Run()
 }
 ```
 执行后，注册的路由表如下：
@@ -99,15 +82,7 @@ func main() {
 |---------|---------|---------|--------|---|------------------|-------------------------|-------------|
   default | :8199   | default | ALL    | 2 | /api/*           | main.HookHandler        | BeforeServe  
 |---------|---------|---------|--------|---|------------------|-------------------------|-------------|
-  default | :8199   | default | GET    | 3 | /api/ctl/my-show | main.(*Controller).Show |              
-|---------|---------|---------|--------|---|------------------|-------------------------|-------------|
-  default | :8199   | default | ALL    | 3 | /api/ctl/post    | main.(*Controller).Post |              
-|---------|---------|---------|--------|---|------------------|-------------------------|-------------|
-  default | :8199   | default | ALL    | 3 | /api/ctl/show    | main.(*Controller).Show |              
-|---------|---------|---------|--------|---|------------------|-------------------------|-------------|
-  default | :8199   | default | POST   | 3 | /api/ctl/rest    | main.(*Controller).Post |              
-|---------|---------|---------|--------|---|------------------|-------------------------|-------------|
-  default | :8199   | default | GET    | 3 | /api/obj/my-show | main.(*Object).Show     |              
+  default | :8199   | default | GET    | 3 | /api/obj/showit  | main.(*Object).Show     |              
 |---------|---------|---------|--------|---|------------------|-------------------------|-------------|
   default | :8199   | default | ALL    | 3 | /api/obj/delete  | main.(*Object).Delete   |              
 |---------|---------|---------|--------|---|------------------|-------------------------|-------------|
@@ -127,57 +102,40 @@ func main() {
 package main
 
 import (
-    "github.com/gogf/gf/g"
-    "github.com/gogf/gf/g/frame/gmvc"
-    "github.com/gogf/gf/g/net/ghttp"
+	"github.com/gogf/gf/g"
+	"github.com/gogf/gf/g/net/ghttp"
 )
 
 type Object struct {}
 
 func (o *Object) Show(r *ghttp.Request) {
-    r.Response.Writeln("Object Show")
+	r.Response.Writeln("Object Show")
 }
 
 func (o *Object) Delete(r *ghttp.Request) {
-    r.Response.Writeln("Object REST Delete")
-}
-
-type Controller struct {
-    gmvc.Controller
-}
-
-func (c *Controller) Show() {
-    c.Response.Writeln("Controller Show")
-}
-
-func (c *Controller) Post() {
-    c.Response.Writeln("Controller REST Post")
+	r.Response.Writeln("Object REST Delete")
 }
 
 func Handler(r *ghttp.Request) {
-    r.Response.Writeln("Handler")
+	r.Response.Writeln("Handler")
 }
 
 func HookHandler(r *ghttp.Request) {
-    r.Response.Writeln("Hook Handler")
+	r.Response.Writeln("Hook Handler")
 }
 
 func main() {
-    s   := g.Server()
-    obj := new(Object)
-    ctl := new(Controller)
-    s.Group("/api").Bind([]ghttp.GroupItem{
-        {"ALL",  "*",            HookHandler, ghttp.HOOK_BEFORE_SERVE},
-        {"ALL",  "/handler",     Handler},
-        {"ALL",  "/ctl",         ctl},
-        {"GET",  "/ctl/my-show", ctl, "Show"},
-        {"REST", "/ctl/rest",    ctl},
-        {"ALL",  "/obj",         obj},
-        {"GET",  "/obj/my-show", obj, "Show"},
-        {"REST", "/obj/rest",    obj},
-    })
-    s.SetPort(8199)
-    s.Run()
+	s   := g.Server()
+	obj := new(Object)
+	s.Group("/api").Bind([]ghttp.GroupItem{
+		{"ALL",  "*",            HookHandler, ghttp.HOOK_BEFORE_SERVE},
+		{"ALL",  "/handler",     Handler},
+		{"ALL",  "/obj",         obj},
+		{"GET",  "/obj/showit",  obj, "Show"},
+		{"REST", "/obj/rest",    obj},
+	})
+	s.SetPort(8199)
+	s.Run()
 }
 ```
 执行后，注册的路由表和前一个示例一致。
