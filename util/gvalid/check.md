@@ -37,10 +37,10 @@ if e := gvalid.Check(5.66, rule, msgs); e != nil {
 ```go
 rule := "url|min-length:11"
 msgs := map[string]string{
-    "url"       : "请输入正确的URL地址",
-    "minlength" : "地址长度至少为:min位"
+    "url"        : "请输入正确的URL地址",
+    "min-length" : "地址长度至少为:min位"
 }
-if e := gvalid.Check("http://johngcn", rule, msgs); e != nil {
+if e := gvalid.Check("https://goframeorg", rule, msgs); e != nil {
     fmt.Println(e.Map())
 }
 
