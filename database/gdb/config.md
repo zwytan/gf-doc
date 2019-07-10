@@ -103,8 +103,9 @@ type ConfigNode  struct {
     Name             string   // 数据库名称
     Type             string   // 数据库类型：mysql, sqlite, mssql, pgsql, oracle(目前仅支持mysql)
     Role             string   // (可选，默认为master)数据库的角色，用于主从操作分离，至少需要有一个master，参数值：master, slave
+    Debug            bool     // (可选)开启调试模式
     Charset          string   // (可选，默认为 utf8)编码，默认为 utf8
-    Priority         int      // (可选)用于负载均衡的权重计算，当集群中只有一个节点时，权重没有任何意义
+    Weight           int      // (可选)用于负载均衡的权重计算，当集群中只有一个节点时，权重没有任何意义
     Linkinfo         string   // (可选)自定义链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效(该字段是一个扩展功能)
     MaxIdleConnCount int      // (可选)连接池最大闲置的连接数
     MaxOpenConnCount int      // (可选)连接池最大打开的连接数
@@ -167,7 +168,7 @@ gdb.SetConfig(gdb.Config {
             Name     : "test",
             Type     : "mysql",
             Role     : "master",
-            Priority : 100,
+            Weight   : 100,
         },
         gdb.ConfigNode {
             Host     : "192.168.1.101",
@@ -177,7 +178,7 @@ gdb.SetConfig(gdb.Config {
             Name     : "test",
             Type     : "mysql",
             Role     : "slave",
-            Priority : 100,
+            Weight   : 100,
         },
     },
     "user-center" : gdb.ConfigGroup {
@@ -189,7 +190,7 @@ gdb.SetConfig(gdb.Config {
             Name     : "test",
             Type     : "mysql",
             Role     : "master",
-            Priority : 100,
+            Weight   : 100,
         },
     },
 })
