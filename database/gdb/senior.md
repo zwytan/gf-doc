@@ -153,7 +153,7 @@ func main() {
 |`*binary` | `bytes`
 |`*blob`   | `bytes`
 |`*int`    | `int`
-|`bit`     | `bool`
+|`bit`     | `int`
 |`big_int` | `int64`
 |`float`   | `float64`
 |`double`  | `float64`
