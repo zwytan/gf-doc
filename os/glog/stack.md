@@ -20,10 +20,10 @@ func main() {
 ```html
 2019-07-12 22:19:23.421 [ERRO] This is error! 
 Stack:
-1.	main.Test
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_error.go:6
-2.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_error.go:10
+1. main.Test
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_error.go:6
+2. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_error.go:10
 ```
 
 ## 示例2，通过Stack方法打印
@@ -49,18 +49,18 @@ func main() {
 执行后，输出结果为：
 ```html
 2019-07-12 22:20:28.070 Stack:
-1.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:11
+1. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:11
 
 2019-07-12 22:20:28.070 Stack:
-1.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:12
+1. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:12
 
-1.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:14
+1. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:14
 
-1.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:15
+1. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_stack.go:15
 ```
 
 ## 示例3，打印gerror.Error
@@ -99,24 +99,24 @@ func main() {
 ```html
 2019-07-12 22:23:11.467 [ERRO] connection closed with normal error 
 Stack:
-1.	main.TestGError
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:20
-2.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:25
+1. main.TestGError
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:20
+2. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:25
 
 2019-07-12 22:23:11.467 [ERRO] connection closed with gerror
-1.	connection closed with gerror
-	1).	main.MakeGError
-		/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:14
-	2).	main.TestGError
-		/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:19
-	3).	main.main
-		/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:25
+1. connection closed with gerror
+    1). main.MakeGError
+        /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:14
+    2). main.TestGError
+        /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:19
+    3). main.main
+        /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:25
 Stack:
-1.	main.TestGError
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:21
-2.	main.main
-	/home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:25
+1. main.TestGError
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:21
+2. main.main
+   /home/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_gerror.go:25
 ```
 
 
