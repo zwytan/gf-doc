@@ -50,8 +50,18 @@
 
 # 简化配置(推荐)
 
-为兼容不同的数据库类型，`gdb`将数据库的各个字段拆分出来单独配置，这样对于各种数据库的对接来说兼容性会很好。但是对于开发者来说看起来配置比较多。针对于项目中使用的已确定的数据库类型的配置，我们可以使用`linkinfo`属性（也可以简化为`link`）进行配置。如：
+为兼容不同的数据库类型，`gdb`将数据库的各个字段拆分出来单独配置，这样对于各种数据库的对接来说兼容性会很好。但是对于开发者来说看起来配置比较多。针对于项目中使用的已确定的数据库类型的配置，我们可以使用`linkinfo`属性（名称也可以简化为`link`）进行配置。如：
 
+```toml
+[database]
+    [[database.default]]
+        type = "mysql"
+        link = "root:12345678@tcp(127.0.0.1:3306)/test"
+    [[database.user]]
+        type = "mysql"
+        link = "mysql:root:12345678@tcp(127.0.0.1:3306)/user"
+```
+也可以简化为：
 ```toml
 [database]
     [[database.default]]
@@ -75,13 +85,13 @@
 
 不同数据类型对应的`linkinfo`如下:
 
-|数据库类型|Linkinfo|更多参数
+|数据库类型|Linkinfo配置|更多参数
 |---|---|---
-|mysql|`mysql:账号:密码@tcp(地址:端口)/数据库名称`| [mysql](https://github.com/go-sql-driver/mysql)
-|pgsql|`pgsql:user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`| [pq](https://github.com/lib/pq)
-|mssql|`mssql:sqlserver://用户:密码@地址:端口?database=数据库名称`| [go-mssqldb](https://github.com/denisenkom/go-mssqldb)
-|sqlite|`sqlite:文件绝对路径` (如: `/var/lib/db.sqlite3`)| [go-sqlite3](https://github.com/mattn/go-sqlite3)
-|oracle|`oracle:账号/密码@地址:端口/数据库名称`| [go-oci8](https://github.com/mattn/go-oci8)
+|mysql|`[mysql:]账号:密码@tcp(地址:端口)/数据库名称`| [mysql](https://github.com/go-sql-driver/mysql)
+|pgsql|`[pgsql:]user=账号 password=密码 host=地址 port=端口 dbname=数据库名称`| [pq](https://github.com/lib/pq)
+|mssql|`[mssql:]sqlserver://用户:密码@地址:端口?database=数据库名称`| [go-mssqldb](https://github.com/denisenkom/go-mssqldb)
+|sqlite|`[sqlite:]文件绝对路径` (如: `/var/lib/db.sqlite3`)| [go-sqlite3](https://github.com/mattn/go-sqlite3)
+|oracle|`[oracle:]账号/密码@地址:端口/数据库名称`| [go-oci8](https://github.com/mattn/go-oci8)
 
 各数据库类型更详细的`linkinfo`参数信息请查看对应引擎官网，参考【[ORM数据库类型](database/gdb/database.md)】章节
 
