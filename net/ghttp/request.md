@@ -2,34 +2,10 @@
 
 # 请求输入
 
-请求输入依靠 `ghttp.Request` 对象实现：
-```go
-// 请求对象
-type Request struct {
-    http.Request
-    parsedGet     bool                    // GET参数是否已经解析
-    parsedPost    bool                    // POST参数是否已经解析
-    queryVars     map[string][]string     // GET参数
-    routerVars    map[string][]string     // 路由解析参数
-    exit          bool                    // 是否退出当前请求流程执行
-    Id            int                     // 请求id(唯一)
-    Server        *Server                 // 请求关联的服务器对象
-    Cookie        *Cookie                 // 与当前请求绑定的Cookie对象(并发安全)
-    Session       *Session                // 与当前请求绑定的Session对象(并发安全)
-    Response      *Response               // 对应请求的返回数据操作对象
-    Router        *Router                 // 匹配到的路由对象(只有匹配到才会有，仅在服务回调中有效)
-    EnterTime     int64                   // 请求进入时间(微秒)
-    LeaveTime     int64                   // 请求完成时间(微秒)
-    params        map[string]gvar.VarRead // 开发者自定义参数(请求流程中有效)
-    parsedHost    string                  // 解析过后不带端口号的服务器域名名称
-    clientIp      string                  // 解析过后的客户端IP地址
-    isFileRequest bool                    // 是否为静态文件请求(非服务请求，当静态文件存在时，优先级会被服务请求高，被识别为文件请求)
-    isFileServe   bool                    // 是否为文件处理(调用Server.serveFile时设置为true), isFileRequest为true时isFileServe也为true
-}
-```
-`ghttp.Request`继承了底层的`http.Request`对象，并且包含了会话相关的`Cookie`和`Session`对象(每个请求都会有两个**独立**的`Cookie`和`Session对象`)。此外，每个请求有一个`唯一的Id`（请求Id，全局唯一），用以标识每一个请求。此外，成员对象包含一个与当前请求对应的返回输出对象指针Response，用于数据的返回。
+请求输入依靠 `ghttp.Request` 对象实现，`ghttp.Request`继承了底层的`http.Request`对象，并且包含了会话相关的`Cookie`和`Session`对象(每个请求都会有两个**独立**的`Cookie`和`Session对象`)。此外，每个请求有一个`唯一的Id`（请求Id，全局唯一），用以标识每一个请求。此外，成员对象包含一个与当前请求对应的返回输出对象指针Response，用于数据的返回。
 
-相关方法（API详见： [godoc.org/github.com/gogf/gf/g/net/ghttp#Request](https://godoc.org/github.com/gogf/gf/g/net/ghttp)）：
+相关方法：
+https://godoc.org/github.com/gogf/gf/g/net/ghttp
 ```go
 type Request
     func (r *Request) AddPost(key string, value string)
@@ -149,7 +125,65 @@ type Request
 
 # 使用示例
 
-## 示例1，流程共享变量
+## 示例1，请求数据校验
+
+### 请求参数绑定+数据校验示例
+https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go
+```go
+package main
+
+import (
+    "github.com/gogf/gf/g"
+    "github.com/gogf/gf/g/net/ghttp"
+    "github.com/gogf/gf/g/util/gvalid"
+)
+
+func main() {
+    type User struct {
+        Uid   int    `gvalid:"uid@min:1"`
+        Name  string `params:"username"  gvalid:"username @required|length:6,30"`
+        Pass1 string `params:"password1" gvalid:"password1@required|password3"`
+        Pass2 string `params:"password2" gvalid:"password2@required|password3|same:password1#||两次密码不一致，请重新输入"`
+    }
+
+    s := g.Server()
+    s.BindHandler("/user", func(r *ghttp.Request){
+        user := new(User)
+        r.GetToStruct(user)
+        if err := gvalid.CheckStruct(user, nil); err != nil {
+            r.Response.WriteJson(err.Maps())
+        } else {
+            r.Response.Write("ok")
+        }
+    })
+    s.SetPort(8199)
+    s.Run()
+}
+```
+
+> 从`v1.8.0`开始，参数标签支持`params/param/p`三种标签。
+
+其中，
+1. 这里使用了`r.GetToStruct(user)`方法将请求参数绑定到指定的`user`对象上，注意这里的`user`是`User`的结构体实例化指针；在`struct tag`中，使用`params`标签来指定参数名称与结构体属性名称对应关系；
+1. `GetToStruct`方法支持自动对结构体对象初始化，注意此时参数类型为`**User`，如下：
+    ```go
+    user := (*User)(nil)
+    r.GetToStruct(&user)
+    ```
+1. 通过`gvalid`标签为`gavlid`数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节；其中，密码字段的校验规则为`password3`，表示: `密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符`；
+1. 当校验染回结果非`nil`时，表示校验不通过，这里使用`r.Response.WriteJson`方法返回json结果；
+
+执行后，试着访问URL: [http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456](http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456)，输出结果为：
+```json
+{"password1":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"},"password2":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符","same":"两次密码不一致，请重新输入"},"username":{"length":"字段长度为6到30个字符"}}
+```
+
+假如我们访问访问URL: [http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123](http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123)，输出结果为：
+```
+ok
+```
+
+## 示例2，流程共享变量
 ```go
 package main
 
@@ -193,53 +227,3 @@ https://goframe.org
 ```
 
 
-## 示例2，请求数据校验
-
-### 请求参数绑定+数据校验示例
-[github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go](https://github.com/gogf/gf/blob/master/geg/net/ghttp/server/request/request_validation.go)
-```go
-package main
-
-import (
-    "github.com/gogf/gf/g"
-    "github.com/gogf/gf/g/net/ghttp"
-    "github.com/gogf/gf/g/util/gvalid"
-)
-
-func main() {
-    type User struct {
-        Uid   int    `gvalid:"uid@min:1"`
-        Name  string `params:"username"  gvalid:"username @required|length:6,30"`
-        Pass1 string `params:"password1" gvalid:"password1@required|password3"`
-        Pass2 string `params:"password2" gvalid:"password2@required|password3|same:password1#||两次密码不一致，请重新输入"`
-    }
-
-    s := g.Server()
-    s.BindHandler("/user", func(r *ghttp.Request){
-        user := new(User)
-        r.GetToStruct(user)
-        if err := gvalid.CheckStruct(user, nil); err != nil {
-            r.Response.WriteJson(err.Maps())
-        } else {
-            r.Response.Write("ok")
-        }
-    })
-    s.SetPort(8199)
-    s.Run()
-}
-```
-其中，
-1. 这里使用了`r.GetToStruct(user)`方法将请求参数绑定到指定的`user`对象上，注意这里的`user`是`User`的结构体实例化指针；在struct tag中，使用`params`标签来指定参数名称与结构体属性名称对应关系；
-1. 通过`gvalid`标签为`gavlid`数据校验包特定的校验规则标签，具体请参考【[数据校验](util/gvalid/index.md)】章节；其中，密码字段的校验规则为`password3`，表示: `密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符`；
-1. 当校验染回结果非`nil`时，表示校验不通过，这里使用`r.Response.WriteJson`方法返回json结果；
-
-执行后，试着访问URL: [http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456](http://127.0.0.1:8199/user?uid=1&name=john&password1=123&password2=456)，输出结果为：
-```json
-{"password1":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符"},"password2":{"password3":"密码格式不合法，密码格式为任意6-18位的可见字符，必须包含大小写字母、数字和特殊字符","same":"两次密码不一致，请重新输入"},"username":{"length":"字段长度为6到30个字符"}}
-```
-
-
-假如我们访问访问URL: [http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123](http://127.0.0.1:8199/user?uid=1&name=johng-cn&password1=John$123&password2=John$123)，输出结果为：
-```
-ok
-```

@@ -134,7 +134,7 @@ func main() {
 4
 5
 2019-06-05 00:13:12.488 [ERRO] EOF 
-Backtrace:
+Stack:
 1. /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/net/gtcp/tls/gtcp_server_client.go:25
 ```
 其中客户端在`5`秒后关闭了连接，因此服务端在接收数据时获取到了一个`EOF`错误，这种错误在正式使用中我们直接忽略，报错时服务端直接关闭客户端连接即可。

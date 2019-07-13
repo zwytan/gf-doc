@@ -51,7 +51,7 @@ func main() {
 ```html
 SERIOUS ISSUE OCCURRED!! I'd better tell monitor in first time!
 2019-05-23 20:14:49.374 [FATA] FATAL ERROR
-Backtrace:
+Stack:
 1. /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/os/glog/glog_writer_hook.go:27
 ```
 

@@ -98,13 +98,15 @@ r, err := db.Insert("user", gdb.Map {
 ### 3. 数据查询(列表)
 ```go
 list, err := db.GetAll("select * from user limit 2")
+list, err := db.GetAll("select * from user where age > ? and name like ?", g.Slice{18, "%john%"})
+list, err := db.GetAll("select * from user where status=?", g.Slice{1})
 ```
-
 ### 4. 数据查询(单条)
 ```go
 one, err := db.GetOne("select * from user limit 2")
-// 或者
 one, err := db.GetOne("select * from user where uid=1000")
+one, err := db.GetOne("select * from user where uid=?", 1000)
+one, err := db.GetOne("select * from user where uid=?", g.Slice{1000})
 ```
 
 ### 5. 数据保存

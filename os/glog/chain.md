@@ -13,7 +13,7 @@ func File(file string) *Logger
 // 设置日志打印级别
 func Level(level int) *Logger
 // 是否开启trace打印
-func Backtrace(enabled bool) *Logger
+func Stack(enabled bool) *Logger
 // 是否开启终端输出
 func Stdout(enabled...bool) *Logger
 // 是否输出日志头信息
@@ -77,9 +77,9 @@ func main() {
 
 ## 示例3, 文件回溯`Skip`
 
-有时我们通过一些模块封装了`glog`模块来打印日志，例如封装了一个`common`包通过`common.PrintLog`来打印日志，这个时候打印出来的调用文件行号总是同一个位置，因为对于`glog`来讲，它的调用方即总是`common.PrintLog`方法。这个时候，我们可以通过设置回溯值来跳过回溯的文件数，使用`SetBacktraceSkip`或者链式方法`Skip`实现。
+有时我们通过一些模块封装了`glog`模块来打印日志，例如封装了一个`common`包通过`common.PrintLog`来打印日志，这个时候打印出来的调用文件行号总是同一个位置，因为对于`glog`来讲，它的调用方即总是`common.PrintLog`方法。这个时候，我们可以通过设置回溯值来跳过回溯的文件数，使用`SetStackSkip`或者链式方法`Skip`实现。
 
-> 文件回溯值的设置同样也会影响`Backtrace`调用回溯打印结果。
+> 文件回溯值的设置同样也会影响`Stack`调用回溯打印结果。
 
 ```go
 package main

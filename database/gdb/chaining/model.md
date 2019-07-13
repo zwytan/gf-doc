@@ -55,6 +55,13 @@ r, err := db.Table("user").Where("uid=?", 1).And("name=?", "john").One()
 // SELECT * FROM user WHERE (uid=1) OR (name='john')
 r, err := db.Table("user").Where("uid=?", 1).Or("name=?", "john").One()
 ```
+`Where + slice`，预处理参数可直接通过`slice`参数给定。
+```go
+// SELECT * FROM user WHERE age>18 AND name like '%john%'
+r, err := db.Table("user").Where("age>? AND name like ?", g.Slice{18, "%john%"}).All()
+// SELECT * FROM user WHERE status=1
+r, err := db.Table("user").Where("status=?", g.Slice{1}).All()
+```
 `Where + map`，条件参数使用任意`map`类型传递。
 ```go
 // SELECT * FROM user WHERE uid=1 AND name='john'
