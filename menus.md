@@ -193,6 +193,7 @@
     * [gkvdb嵌入式数据库](cases/gkvdb.md)
     * [容器日志搜集工具套件](cases/k8s-log.md)
 * [版本发布记录](#)
+    * [v1.8 2019-07-15](release/v1.8.md)
     * [v1.7 2019-06-10](release/v1.7.md)
     * [v1.6 2019-04-09](release/v1.6.md)
     * [v1.5 2019-02-28](release/v1.5.md)
