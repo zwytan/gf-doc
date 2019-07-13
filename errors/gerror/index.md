@@ -84,7 +84,7 @@ reading configuration failed: configuration file opening failed: permission deni
 ```
 可以看到，调用端可以通过`Wrap`方法将底层的错误信息进行层级叠加，并且包含完整的错误堆栈信息。
 
-## `fmt`格式化打印
+## `fmt`格式化
 
 通过以上示例我们可以看到，通过`%+v`的打印格式可以打印出完整的堆栈信息，当然`gerror.Error`对象支持多种fmt格式：
 
@@ -141,7 +141,7 @@ test2, test2, test2
         /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/errors/gerror/gerror1.go:20
 ```
 
-## `Stack`堆栈信息
+## `Stack`方法
 
 ```go
 func Stack(err error) string
@@ -188,7 +188,7 @@ err2:
         /Users/john/Workspace/Go/GOPATH/src/github.com/gogf/gf/geg/errors/gerror/gerror3.go:20
 ```
 
-## `Cause`根错误
+## `Cause`方法
 
 ```go
 func Cause(err error) error
@@ -229,7 +229,7 @@ permission denied
 ```
 
 
-## `glog`日志打印支持
+## `glog`日志输出
 
 `glog`日志管理模块天然支持对`gerror`错误堆栈打印支持，这种支持不是强耦合性的，而是通过`fmt`格式化打印接口支持的。
 
