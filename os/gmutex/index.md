@@ -2,7 +2,7 @@
 
 # gmutex
 
-`gmutex`模块是基于`channel`实现的高级互斥锁模块，支持更丰富的互斥锁特性。
+`gmutex`模块是基于`atmoc` + `channel`实现的高级互斥锁模块，支持更丰富的互斥锁特性。
 
 `gmutex.Mutex`互斥锁对象支持读写控制，互斥锁逻辑与标准库的`sync.RWMutex`一样，可以并发读但不能并发写。
 
