@@ -20,7 +20,7 @@ https://godoc.org/github.com/gogf/gf/g/database/gdb
 type Map         map[string]interface{} // 数据记录
 type List        []Map                  // 数据记录列表
 
-type Value       *gvar.Var                 // 返回数据表记录值
+type Value       *gvar.Var              // 返回数据表记录值
 type Record      map[string]Value       // 返回数据表记录键值对
 type Result      []Record               // 返回数据表记录列表
 ```
@@ -33,7 +33,7 @@ type Result      []Record               // 返回数据表记录列表
 # 使用`g.DB`与`gdb.New`、`gdb.Instance`的区别
 
 获取数据库操作对象有三种方式，一种是使用`g.DB`方法，一种是使用原生`gdb.New`方法，还有一种是使用包原生单例方法`gdb.Instance`，而第一种是推荐的使用方式。这三种方式的区别如下：
-1. `g.DB`对象管理方式获取的是单例对象，整合了配置文件的管理对功能支持配置文件热更新)；
+1. `g.DB`对象管理方式获取的是单例对象，整合了配置文件的管理功能，支持配置文件热更新；
 1. `gdb.New`是创建一个新的数据库对象(非单例)，无法使用配置文件，需要使用包配置管理方法进行配置；
 1. `gdb.Instance`是包原生单例管理方法，需要结合配置方法一起使用，通过分组名称(非必需)获取对应配置的数据库单例对象；
 1. 其他使用无差别；
