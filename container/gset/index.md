@@ -15,33 +15,9 @@ import "github.com/gogf/gf/g/container/gset"
 
 **接口文档**：
 https://godoc.org/github.com/gogf/gf/g/container/gset
-```go
-func New(unsafe ...bool) *Set
-func NewSet(unsafe ...bool) *Set
-func NewFrom(items interface{}, unsafe...bool) *Set
-func (set *Set) Add(item ...interface{}) *Set
-func (set *Set) Clear() *Set
-func (set *Set) Contains(item interface{}) bool
-func (set *Set) Equal(other *Set) bool
 
-func (set *Set) IsSubsetOf(other *Set) bool
-func (set *Set) Iterator(f func(v interface{}) bool) *Set
-func (set *Set) Join(glue string) string
-func (set *Set) Remove(item interface{}) *Set
-func (set *Set) Size() int
-func (set *Set) Slice() []interface{}
-func (set *Set) String() string
-func (set *Set) Sum() (sum int)
-func (set *Set) Merge(others ...*Set) *Set
 
-func (set *Set) Intersect(others ...*Set) (newSet *Set)
-func (set *Set) Diff(others ...*Set) (newSet *Set)
-func (set *Set) Union(others ...*Set) (newSet *Set)
-func (set *Set) Complement(full *Set) (newSet *Set)
 
-func (set *Set) LockFunc(f func(m map[interface{}]struct{})) *Set
-func (set *Set) RLockFunc(f func(m map[interface{}]struct{})) *Set
-```
 
 ## 使用示例1，基本使用
 ```go

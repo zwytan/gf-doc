@@ -29,40 +29,6 @@ import "github.com/gogf/gf/g/container/gmap"
 
 https://godoc.org/github.com/gogf/gf/g/container/gmap
 
-以下是`gmap.Map/AnyAnyMap`为例：
-```go
-func NewMap(unsafe ...bool) *Map
-func NewMapFrom(data map[interface{}]interface{}, unsafe ...bool) *Map
-func (m *Map) Clear()
-func (m *Map) Clone(unsafe ...bool) *Map
-func (m *Map) Contains(key interface{}) bool
-func (m *Map) Flip()
-func (m *Map) Get(key interface{}) interface{}
-func (m *Map) GetOrSet(key interface{}, value interface{}) interface{}
-func (m *Map) GetOrSetFunc(key interface{}, f func() interface{}) interface{}
-func (m *Map) GetOrSetFuncLock(key interface{}, f func() interface{}) interface{}
-func (m *Map) GetVar(key interface{}) *gvar.Var
-func (m *Map) GetVarOrSet(key interface{}, value interface{}) *gvar.Var
-func (m *Map) GetVarOrSetFunc(key interface{}, f func() interface{}) *gvar.Var
-func (m *Map) GetVarOrSetFuncLock(key interface{}, f func() interface{}) *gvar.Var
-func (m *Map) IsEmpty() bool
-func (m *Map) Iterator(f func(k interface{}, v interface{}) bool)
-func (m *Map) Keys() []interface{}
-func (m *Map) LockFunc(f func(m map[interface{}]interface{}))
-func (m *Map) Map() map[interface{}]interface{}
-func (m *Map) Merge(other *Map)
-func (m *Map) RLockFunc(f func(m map[interface{}]interface{}))
-func (m *Map) Remove(key interface{}) interface{}
-func (m *Map) Removes(keys []interface{})
-func (m *Map) Search(key interface{}) (value interface{}, found bool)
-func (m *Map) Set(key interface{}, val interface{})
-func (m *Map) SetIfNotExist(key interface{}, value interface{}) bool
-func (m *Map) SetIfNotExistFunc(key interface{}, f func() interface{}) bool
-func (m *Map) SetIfNotExistFuncLock(key interface{}, f func() interface{}) bool
-func (m *Map) Sets(data map[interface{}]interface{})
-func (m *Map) Size() int
-func (m *Map) Values() []interface{}
-```
 
 
 ## 使用示例
