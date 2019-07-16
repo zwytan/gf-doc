@@ -136,7 +136,7 @@ func main() {
 [7 4 5 6]
 ```
 
-## 性能基准测试
+## 性能测试
 
 https://github.com/gogf/gf/blob/master/g/container/gset/gset_z_bench_test.go
 
