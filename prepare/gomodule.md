@@ -37,7 +37,7 @@ module my-hello
 
     ![](/images/gomodule2.png)
 
-    其中`Proxy`请选择 `direct` 直连下载依赖包。如果需要有翻墙下载的第三方包，这里请设置反向代理地址如：`https://goproxy.io`。
+    其中`Proxy`请选择 `direct` 直连下载依赖包。如果需要有翻墙下载的第三方包，这里请设置反向代理地址如：`https://goproxy.io`或者`https://mirrors.aliyun.com/goproxy/`。
 
 1. 手动修改`go.mod`文件如下：
     ```
@@ -77,7 +77,7 @@ module my-hello
     ```
     该命令将会立即下载最新的`GoFrame`框架。其中 `export GO111MODULE=on;` 表示开启`Go Module`特性（Go `1.11.x`版本默认关闭，需要手动开启）。
 
-    > `GF`框架为开发者解决了所有框架内部的第三方包依赖，因此框架的下载安装非常方便。但是如果您有额外依赖的第三方包被墙下载不了，可以设置环境变量: `export GOPROXY=https://goproxy.io`
+    > `GF`框架为开发者解决了所有框架内部的第三方包依赖，因此框架的下载安装非常方便。但是如果您有额外依赖的第三方包被墙下载不了，可以设置环境变量: `export GOPROXY=https://goproxy.io` 或者 `export GOPROXY=https://mirrors.aliyun.com/goproxy/`
 
     ![](/images/gomodule1.png)
 
