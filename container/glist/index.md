@@ -1,3 +1,5 @@
+[TOC]
+
 # glist
 
 并发安全双向列表。
@@ -17,14 +19,16 @@ https://godoc.org/github.com/gogf/gf/g/container/glist
 
 ## 性能基准测试
 
+https://github.com/gogf/gf/blob/master/g/container/glist/glist_z_bench_test.go
+
 ```
 goos: darwin
 goarch: amd64
 pkg: github.com/gogf/gf/g/container/glist
-Benchmark_PushBack-4    	20000000	       194 ns/op
-Benchmark_PushFront-4   	20000000	       243 ns/op
-Benchmark_Len-4         	20000000	        20.3 ns/op
-Benchmark_PopFront-4    	20000000	        65.6 ns/op
-Benchmark_PopBack-4     	20000000	        51.8 ns/op
+Benchmark_PushBack-4             5000000               268 ns/op              56 B/op          2 allocs/op
+Benchmark_PushFront-4           10000000               435 ns/op              56 B/op          2 allocs/op
+Benchmark_Len-4                 30000000              44.5 ns/op               0 B/op          0 allocs/op
+Benchmark_PopFront-4            20000000              71.1 ns/op               0 B/op          0 allocs/op
+Benchmark_PopBack-4             30000000              70.1 ns/op               0 B/op          0 allocs/op
 PASS
 ```
