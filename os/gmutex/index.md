@@ -4,7 +4,7 @@
 
 `gmutex`模块是基于`atomic` + `channel`实现的高级互斥锁模块，支持更丰富的互斥锁特性。
 
-`gmutex.Mutex`互斥锁对象支持读写控制，互斥锁逻辑与标准库的`sync.RWMutex`一样，可以并发读但不能并发写。
+`gmutex.Mutex`互斥锁对象支持读写控制，互斥锁功能逻辑与标准库`sync.RWMutex`类似，可并发读但不可并发写。
 
 > 互斥锁的设计细节，推荐阅读轻量级高清版的实现源码：https://github.com/gogf/gf/blob/master/g/os/gmutex/gmutex.go
 
