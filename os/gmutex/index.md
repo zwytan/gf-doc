@@ -41,18 +41,18 @@ type Mutex
 ## 基准测试
 
 `gmutex.Mutex`与标准库的`sync.Mutex`及`sync.RWMutex`的基准测试对比结果：
+[gmutex_bench_test.go](https://github.com/gogf/gf/blob/master/g/os/gmutex/gmutex_bench_test.go)
 ```html
 goos: darwin
 goarch: amd64
 pkg: github.com/gogf/gf/g/os/gmutex
-Benchmark_Mutex_LockUnlock-4           100000000            15.2 ns/op
-Benchmark_RWMutex_LockUnlock-4         50000000             31.8 ns/op
-Benchmark_RWMutex_RLockRUnlock-4       100000000            15.0 ns/op
-Benchmark_GMutex_LockUnlock-4          100000000            16.4 ns/op
-Benchmark_GMutex_TryLock-4             200000000            7.52 ns/op
-Benchmark_GMutex_RLockRUnlock-4        100000000            19.8 ns/op
-Benchmark_GMutex_TryRLock-4            100000000            10.2 ns/op
-PASS
+Benchmark_Mutex_LockUnlock-4           50000000            31.5 ns/op
+Benchmark_RWMutex_LockUnlock-4         30000000            54.1 ns/op
+Benchmark_RWMutex_RLockRUnlock-4       50000000            27.9 ns/op
+Benchmark_GMutex_LockUnlock-4          50000000            27.2 ns/op
+Benchmark_GMutex_TryLock-4             100000000           16.7 ns/op
+Benchmark_GMutex_RLockRUnlock-4        50000000            38.0 ns/op
+Benchmark_GMutex_TryRLock-4            100000000           16.8 ns/op
 ```
 
 ## 示例1，基本使用
@@ -61,31 +61,31 @@ PASS
 package main
 
 import (
-	"time"
+    "time"
 
-	"github.com/gogf/gf/g/os/glog"
-	"github.com/gogf/gf/g/os/gmutex"
+    "github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/gmutex"
 )
 
 func main() {
-	mu := gmutex.New()
-	for i := 0; i < 10; i++ {
-		go func(n int) {
-			mu.Lock()
-			defer mu.Unlock()
-			glog.Println("Lock:", n)
-			time.Sleep(time.Second)
-		}(i)
-	}
-	for i := 0; i < 10; i++ {
-		go func(n int) {
-			mu.RLock()
-			defer mu.RUnlock()
-			glog.Println("RLock:", n)
-			time.Sleep(time.Second)
-		}(i)
-	}
-	time.Sleep(11 * time.Second)
+    mu := gmutex.New()
+    for i := 0; i < 10; i++ {
+        go func(n int) {
+            mu.Lock()
+            defer mu.Unlock()
+            glog.Println("Lock:", n)
+            time.Sleep(time.Second)
+        }(i)
+    }
+    for i := 0; i < 10; i++ {
+        go func(n int) {
+            mu.RLock()
+            defer mu.RUnlock()
+            glog.Println("RLock:", n)
+            time.Sleep(time.Second)
+        }(i)
+    }
+    time.Sleep(11 * time.Second)
 }
 ```
 执行后，终端输出：
@@ -119,24 +119,24 @@ func main() {
 package main
 
 import (
-	"time"
+    "time"
 
-	"github.com/gogf/gf/g/os/glog"
+    "github.com/gogf/gf/g/os/glog"
 
-	"github.com/gogf/gf/g/os/gmutex"
+    "github.com/gogf/gf/g/os/gmutex"
 )
 
 func main() {
-	mu := gmutex.New()
-	go mu.LockFunc(func() {
-		glog.Println("lock func1")
-		time.Sleep(1 * time.Second)
-	})
-	time.Sleep(time.Millisecond)
-	go mu.LockFunc(func() {
-		glog.Println("lock func2")
-	})
-	time.Sleep(2 * time.Second)
+    mu := gmutex.New()
+    go mu.LockFunc(func() {
+        glog.Println("lock func1")
+        time.Sleep(1 * time.Second)
+    })
+    time.Sleep(time.Millisecond)
+    go mu.LockFunc(func() {
+        glog.Println("lock func2")
+    })
+    time.Sleep(2 * time.Second)
 }
 ```
 执行后，终端输出：
