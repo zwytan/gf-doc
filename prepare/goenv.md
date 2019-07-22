@@ -27,7 +27,7 @@ CGO_ENABLED=0 GOOS=windows GOARCH=386 go build hello.go
 
 
 ## `*nix`下设置环境变量
-在`*nix`系统下(`Linux/Unix/MacOS/*BSD`等等)，需要在`/etc/profile`中增加以下环境变量设置，重新登录的时候便会自动添加到用户的环境变量中:
+在`*nix`系统下(`Linux/Unix/MacOS/*BSD`等等)，需要在`/etc/profile`中增加以下环境变量设置后，执行命令`#source /etc/profile`重新加载profile配置文件（或重新登录），将以下变量添加到用户的环境变量中:
 ```shell
 export GOROOT=/usr/local/go
 export GOPATH=/Users/john/Workspace/Go/GOPATH
