@@ -170,7 +170,7 @@
     * [数据管理模块](#)
         * [gdb (数据库ORM)](database/gdb/index2.md)
         * [gredis (Redis客户端)](database/gredis/index.md)
-        * [gkafka (Kafka客户端)](database/gkafka/index.md)
+        <!-- * [gkafka (Kafka客户端)](database/gkafka/index.md) -->
     * [加密解密模块](#)
         * [gmd5 (MD5算法)](crypto/gmd5/index.md)
         * [gaes (AES算法)](crypto/gaes/index.md)
