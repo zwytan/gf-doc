@@ -26,13 +26,7 @@ require github.com/gogf/gf latest
 
 # 数据库连接
 [database]
-    [[database.default]]
-        host = "127.0.0.1"
-        port = "3306"
-        user = "root"
-        pass = "12345678"
-        name = "test"
-        type = "mysql"
+    link = "mysql:root:12345678@tcp(127.0.0.1:3306)/test"
 ```
 
 ## 启动设置
