@@ -42,7 +42,7 @@ r, err := db.Table("user").Where("uid > ?", 1).Limit(0, 10).Select()
 // 使用Fields方法查询指定字段
 // 未使用Fields方法指定查询字段时，默认查询为*
 // SELECT uid,name FROM user WHERE uid>1 LIMIT 0,10
-r, err := db.Table("user").Fileds("uid,name").Where("uid > ?", 1).Limit(0, 10).Select()
+r, err := db.Table("user").Fields("uid,name").Where("uid > ?", 1).Limit(0, 10).Select()
 
 // 支持多种Where条件参数类型
 // SELECT * FROM user WHERE uid=1
